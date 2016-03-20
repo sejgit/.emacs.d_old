@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ dired
  help
  cd
  5x5
  arp
  dbx
  dig
- erc
 )
 
 ;; ----- smex-data -----
@@ -16,4 +16,5 @@
  (cd . 1)
  (help . 1)
  (help-mode-menu . 1)
+ (dired . 2)
 )

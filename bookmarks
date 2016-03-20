@@ -2,7 +2,27 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("init.el"
+(("org-capture-last-stored"
+ (filename . "~/journal.org")
+ (front-context-string . "**** test\nEntere")
+ (rear-context-string . "16-02-28 Sunday\n")
+ (position . 51))
+("notes"
+ (filename . "~/.emacs.d/notes")
+ (front-context-string . "\n** Fri Feb 26 0")
+ (rear-context-string)
+ (position . 1))
+(".profile"
+ (filename . "~/.bash_profile")
+ (front-context-string . "# ~/.bash_profile: ex")
+ (rear-context-string)
+ (position . 1))
+(".bashrc"
+ (filename . "~/.bashrc")
+ (front-context-string . "# ~/.bashrc: exe")
+ (rear-context-string)
+ (position . 1))
+("init.el"
  (filename . "~/.emacs.d/init.el")
  (front-context-string . ";; Stephen's ema")
  (rear-context-string)
