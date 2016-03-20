@@ -99,11 +99,8 @@
 ;; some beginning settings
 
 (scroll-bar-mode -1)
-<<<<<<< HEAD
-(tool-bar-mode -1)
-;(menu-bar-mode -1)
-=======
->>>>>>> c12397d5d1c92a4f37dbff25718455c391fd5341
+;;(tool-bar-mode -1)
+;;(menu-bar-mode -1)
 (setq column-number-mode t)
 
 ;; marking text and clipboard settings
