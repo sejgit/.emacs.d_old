@@ -8,6 +8,11 @@ __pycache__/
 
 # emacs
 *~
+session.*
+.smex-items
+accomphist.dat
+.#*
+\#*
 
 # Distribution / packaging
 .Python

@@ -16,5 +16,5 @@
  (cd . 1)
  (help . 1)
  (help-mode-menu . 1)
- (dired . 2)
+ (dired . 1)
 )
