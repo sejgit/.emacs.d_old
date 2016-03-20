@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- help-mode-menu
  help
  cd
- arduino-menu
  5x5
  arp
  dbx
+ dig
+ erc
 )
 
 ;; ----- smex-data -----
