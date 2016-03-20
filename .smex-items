@@ -1,0 +1,19 @@
+
+;; ----- smex-history -----
+(
+ help-mode-menu
+ help
+ cd
+ arduino-menu
+ 5x5
+ arp
+ dbx
+)
+
+;; ----- smex-data -----
+(
+ (arduino-menu . 1)
+ (cd . 1)
+ (help . 1)
+ (help-mode-menu . 1)
+)
