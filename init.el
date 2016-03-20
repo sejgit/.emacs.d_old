@@ -8,7 +8,7 @@
 
 ;; paths
 (setq load-path (append (list (expand-file-name "~/.emacs.d/lisp")) load-path))
-(setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:/home/pi/bin" (getenv "PATH")))
+(setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:~/bin" (getenv "PATH")))
 
 ;; require common lisp
 (require 'cl)
@@ -99,8 +99,11 @@
 ;; some beginning settings
 
 (scroll-bar-mode -1)
+<<<<<<< HEAD
 (tool-bar-mode -1)
 ;(menu-bar-mode -1)
+=======
+>>>>>>> c12397d5d1c92a4f37dbff25718455c391fd5341
 (setq column-number-mode t)
 
 ;; marking text and clipboard settings
