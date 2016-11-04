@@ -64,7 +64,10 @@
                           solarized-theme
                           web-mode
                           writegood-mode
-                          yaml-mode)
+                          yaml-mode
+			  goto-chg
+			  fic-ext-mode
+			  saveplace)
   "Default packages")
 
 ;; make sure all above packages are installed if not have ELPA take cate of it
@@ -188,6 +191,39 @@
 
 ;; autopair-mode
 (require 'autopair)
+
+;; Add proper word wrapping
+(global-visual-line-mode t)
+
+;; go to the last change
+(require 'goto-chg)
+(global-set-key [(control .)] 'goto-last-change)
+;; M-. can conflict with etags tag search. But C-. can get overwritten
+;; by flyspell-auto-correct-word. And goto-last-change needs a really fast key.
+(global-set-key [(meta .)] 'goto-last-change)
+;; ensure that even in worst case some goto-last-change is available
+(global-set-key [(control meta .)] 'goto-last-change)
+
+;; Highlight TODO and FIXME in comments
+(require 'fic-ext-mode)
+(defun add-something-to-mode-hooks (mode-list something)
+  "helper function to add a callback to multiple hooks"
+  (dolist (mode mode-list)
+    (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
+
+(add-something-to-mode-hooks '( c++ tcl emacs-lisp python text markdown latex) 'fic-ext-mode)
+
+(setq backup-by-copying t      ; don't clobber symlinks
+      backup-directory-alist
+      '(("." . "~/.local/share/emacs-saves"))    ; don't litter my fs tree
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)       ; use versioned backups
+
+;; save the place in files
+(require 'saveplace)
+(setq-default save-place t)
 
 ;; macro saving
 (defun save-macro (name)

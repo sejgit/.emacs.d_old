@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ package-list-packages
+ package-install
  dired
  help
  cd
  5x5
  arp
- dbx
- dig
 )
 
 ;; ----- smex-data -----
@@ -17,4 +17,6 @@
  (help . 1)
  (help-mode-menu . 1)
  (dired . 1)
+ (package-install . 1)
+ (package-list-packages . 1)
 )
