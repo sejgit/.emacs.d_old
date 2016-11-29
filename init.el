@@ -101,10 +101,11 @@
 (global-set-key (kbd "<f1>") 'org-mode)
 
 ;; some beginning settings
-
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-;;(menu-bar-mode -1)
+(if (display-graphic-p)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  ;;(menu-bar-mode -1)
+  )
 (setq column-number-mode t)
 
 ;; marking text and clipboard settings
