@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ load-theme
  calc
  package-list-packages
  package-install
  dired
  help
  cd
- 5x5
 )
 
 ;; ----- smex-data -----
@@ -21,4 +21,5 @@
  (package-list-packages . 1)
  (calc . 1)
  (View-scroll-line-backward . 1)
+ (load-theme . 2)
 )

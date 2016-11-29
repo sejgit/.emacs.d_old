@@ -112,7 +112,7 @@
 (setq x-select-enable-clipboard t)
 
 ;; empty line settings
-(setq-default not indicate-empty-lines t)
+(setq-default indicate-empty-lines nil)
 (when (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
 
