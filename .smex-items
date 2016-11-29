@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ describe-variable
  load-theme
  calc
  package-list-packages
  package-install
  dired
  help
- cd
 )
 
 ;; ----- smex-data -----
@@ -22,4 +22,5 @@
  (calc . 1)
  (View-scroll-line-backward . 1)
  (load-theme . 2)
+ (describe-variable . 1)
 )

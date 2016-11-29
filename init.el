@@ -125,10 +125,6 @@
 ;; yes and no settings
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; temporary fie management
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-
 ;; echo keystrokes ; no dialog boxes ; visable bell ; highlight parens
 (setq echo-keystrokes 0.1
       use-dialog-box nil
@@ -228,7 +224,7 @@
 
 (setq backup-by-copying t      ; don't clobber symlinks
       backup-directory-alist
-      '(("." . "~/.local/share/emacs-saves"))    ; don't litter my fs tree
+      '(("." . ".saves"))    ; don't litter my fs tree
       delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2
