@@ -22,7 +22,7 @@
 
            "C:/Users/NZ891R/Google Drive/emacs/bin/"
            "C:/Users/NZ891R/Google Drive/emacs/Aspell/bin/"
-           "C:/Users/NZ891R/Google Drive/emacs-24.3-bin-i386/"
+           "C:/Users/NZ891R/Google Drive/emacs/"
            "C:/Users/NZ891R/Google Drive/"
            ) )
         )
@@ -32,13 +32,14 @@
     (setq exec-path (append mypaths (list "." exec-directory)) )
     (setq ispell-personal-dictionary "C:/Users/NZ891R/Google Drive/emacs/sej.ispell")
     (setq url-proxy-services (quote (("http" . "naproxy.gm.com:80"))))
+    (setq url-proxy-services (quote (("https" . "naproxy.gm.com:80"))))
     ) )
 
 ;; set up package manager
 (load "package")
 (package-initialize)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
@@ -370,20 +371,20 @@
     ;; and smaller 80 column windows for smaller displays
     ;; pick whatever numbers make sense for you
     (if (> (x-display-pixel-width) 1280)
-           (add-to-list 'default-frame-alist (cons 'width 100))
-;;           (add-to-list 'default-frame-alist (cons 'width 80))
+	(add-to-list 'default-frame-alist (cons 'width 100))
+      ;;(add-to-list 'default-frame-alist (cons 'width 80))
 	)
     ;; for the height, subtract a couple hundred pixels
     ;; from the screen height (for panels, menubars and
     ;; whatnot), then divide by the height of a char to
     ;; get the height we want
-    (add-to-list 'default-frame-alist 
-         (cons 'height (/ (- (x-display-pixel-height) 200)
+    (add-to-list 'default-frame-alist
+         (cons 'height (/ (- (x-display-pixel-height) 100)
 			  (frame-char-height))))
     (modify-frame-parameters
-  nil '((user-position . t) (left . (- +140))))
+  nil '((user-position . t) (left . (- +160))))
     (modify-frame-parameters
-  nil '((user-position . t) (top . (+ +50))))
+  nil '((user-position . t) (top . (+ +30))))
 
     )))
 (set-frame-size-according-to-resolution)
