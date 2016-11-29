@@ -1,2 +1,11 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/pi/.breadcrumb" . 198))
+(("/home/sej/.breadcrumb" . 199)
+ ("/home/sej/dotfiles/shell/.shell/aliases/general.aliases.sh" . 895)
+ ("/home/sej/dotfiles/shell/bin/sshvnc.sh" . 129)
+ ("/home/sej/sensors/lcd/lcd.ino" . 340)
+ ("/home/sej/sensors/lcd/Makefile" . 2653)
+ ("/home/sej/autowater/SoilSensor.ino" . 4489)
+ ("/home/sej/fishtank/fishtank_v2.py" . 796)
+ ("/home/sej/dotfiles/dependancies.org" . 179)
+ ("/home/sej/autowater/SoilMonitor.py" . 149)
+ ("/usr/share/emacs/24.4/etc/NEWS" . 17189))

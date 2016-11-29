@@ -1,0 +1,28 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/pi@home:/home/pi/" . "dotfiles/")
+ ("/pi@home:/home/" . "pi/")
+ ("/pi@home:/" . "home/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/pi@home:/home/pi/dotfiles/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "dependancies.org"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/" (22256 16861 636000 0) "../" "sej/" "./")
+
+ ("/home/sej/" (22569 61055 146038 3000) ".xsession-errors" "dead.letter" "../" ".gimp-2.8/" "apt-clone-2016-11-09.apt-clone.tar.gz" "fishtank/" ".xsession-errors.old" "arduino-1.6.8/" ".python_history" ".vboxclient-display.pid" "bin/" ".thumbnails/" ".shell/" "skydrive/" ".tmux/" ".ICEauthority" ".inputrc" ".gi_list" ".java/" "gdrive/" ".aptitude/" ".dbus/" "plot.png" ".selected_editor" ".config/" "sensors/" ".z" ".xscreensaver" ".vnc/" ".gstreamer-0.10/" ".mrconfig" ".gnome/" ".ssh/" ".crawl/" ".bash_history" ".paul" ".git-hub/" "sketchbook/" ".lesshst" "downloads/" ".dirs" ".bashrc" ".wireshark/" ".pki/" ".Xauthority" ".breadcrumb" "sej/" ".emacs.d/" ".oracle_jre_usage/" "dotfiles/" "./" "mbox" ".vboxclient-draganddrop.pid" ".mozilla/" "cam_rsa" ".vboxclient-seamless.pid" ".arduino/" "Desktop/" ".arduino15/" ".gconf/" ".vboxclient-clipboard.pid" "Arduino-Makefile/" ".cache/" ".gnupg/" ".bash_logout" ".bash_profile" ".pip/" ".w3m/" ".dmrc" ".local/" ".xinitrc" "ISY-Finder.state" "cam_rsa.pub" ".jssc/" "autowater/" ".remmina/")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

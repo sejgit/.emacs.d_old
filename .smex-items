@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ calc
  package-list-packages
  package-install
  dired
  help
  cd
  5x5
- arp
 )
 
 ;; ----- smex-data -----
@@ -19,4 +19,6 @@
  (dired . 1)
  (package-install . 1)
  (package-list-packages . 1)
+ (calc . 1)
+ (View-scroll-line-backward . 1)
 )

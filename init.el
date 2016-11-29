@@ -1,6 +1,7 @@
 ;; Stephen's emacs init file
 ;; 2016-02-24 init
 ;; 2016 03 17 good ideas from aaron bedra's emacs configuration
+;; 2016 11 29 integrate win-nt version & virtualbox
 
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
@@ -13,17 +14,14 @@
 ;; require common lisp
 (require 'cl)
 
-;; proxy
-;;(setq url-proxy-services (quote (("http" . "naproxy.gm.com:80"))))
-
 ;; nt paths
 (when (string-equal system-type "windows-nt")
   (let (
         (mypaths
          '(
 
-           "C:/Users/NZ891R/Google Drive/emacs-24.3-bin-i386/emacs-24.3/bin/"
-           "C:/Users/NZ891R/Google Drive/emacs-24.3-bin-i386/emacs-24.3/"
+           "C:/Users/NZ891R/Google Drive/emacs/bin/"
+           "C:/Users/NZ891R/Google Drive/emacs/Aspell/bin/"
            "C:/Users/NZ891R/Google Drive/emacs-24.3-bin-i386/"
            "C:/Users/NZ891R/Google Drive/"
            ) )
@@ -32,6 +30,8 @@
     (setenv "PATH" (mapconcat 'identity mypaths ";") )
 
     (setq exec-path (append mypaths (list "." exec-directory)) )
+    (setq ispell-personal-dictionary "C:/Users/NZ891R/Google Drive/emacs/sej.ispell")
+    (setq url-proxy-services (quote (("http" . "naproxy.gm.com:80"))))
     ) )
 
 ;; set up package manager
@@ -101,8 +101,8 @@
 
 ;; some beginning settings
 
-;;(scroll-bar-mode -1)
-;;(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 ;;(menu-bar-mode -1)
 (setq column-number-mode t)
 
@@ -112,7 +112,7 @@
 (setq x-select-enable-clipboard t)
 
 ;; empty line settings
-(setq-default indicate-empty-lines t)
+(setq-default not indicate-empty-lines t)
 (when (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
 
@@ -133,6 +133,16 @@
       visible-bell t)
 (show-paren-mode t)
 
+
+;;load files in vendor area which are independent packages
+(defvar sej/vendor-dir (expand-file-name "vendor" user-emacs-directory))
+(add-to-list 'load-path sej/vendor-dir)
+
+(dolist (project (directory-files sej/vendor-dir t "\\w+"))
+  (when (file-directory-p project)
+    (add-to-list 'load-path project)))
+
+
 ;; org-mode settings
 (global-set-key (kbd "<f1>") 'org-mode)
 (setq org-log-done t
@@ -146,7 +156,7 @@
             (writegood-mode)))
 
 ;;deft
-(setq deft-directory "~/sf_gdrive/todo")
+(setq deft-directory "~/gdrive/todo")
 (setq deft-use-filename-as-title t)
 (setq deft-extension "org")
 (setq deft-text-mode 'org-mode)
@@ -175,6 +185,7 @@
 (setq ispell-program-name "aspell")
 (setq ispell-extra-args '("--sug-mode=ultra" "lang=en"))
 (global-set-key (kbd "<f8>") 'ispell-word)
+(global-set-key (kbd "C-<f8>") 'flyspell-mode)
 (defun flyspell-check-next-highlighed-word ()
   "Custom function to spell check next highlighted word"
   (interactive)
@@ -314,6 +325,9 @@
 
 (setq-default show-trailing-whitespace t)
 
+;; arduino-mode
+(add-to-list 'auto-mode-alist ' ("\\.ino$" . arduino-mode))
+
 ;; conf-mode
 (add-to-list 'auto-mode-alist '("\\.gitconfig$" . conf-mode))
 
@@ -340,9 +354,40 @@
 (setq markdown-command "pandoc --smart -f markdown -t html")
 
 ;; themes
-(if window-system
-    (load-theme 'solarized-light t)
-  (load-theme 'wombat t))
+(if (display-graphic-p)
+    ;;(load-theme 'solarized-light t)
+    ;;(load-theme 'wombat t)
+    ;;(load-theme 'atom-dark t)
+    (load-theme 'tango-dark t)
+  )
+
+;; set frame size and position
+(defun set-frame-size-according-to-resolution ()
+  (interactive)
+  (if window-system
+  (progn
+    ;; use 120 char wide window for largeish displays
+    ;; and smaller 80 column windows for smaller displays
+    ;; pick whatever numbers make sense for you
+    (if (> (x-display-pixel-width) 1280)
+           (add-to-list 'default-frame-alist (cons 'width 100))
+;;           (add-to-list 'default-frame-alist (cons 'width 80))
+	)
+    ;; for the height, subtract a couple hundred pixels
+    ;; from the screen height (for panels, menubars and
+    ;; whatnot), then divide by the height of a char to
+    ;; get the height we want
+    (add-to-list 'default-frame-alist 
+         (cons 'height (/ (- (x-display-pixel-height) 200)
+			  (frame-char-height))))
+    (modify-frame-parameters
+  nil '((user-position . t) (left . (- +140))))
+    (modify-frame-parameters
+  nil '((user-position . t) (top . (+ +50))))
+
+    )))
+(set-frame-size-according-to-resolution)
+
 
 ;; color codes
 (require 'ansi-color)
@@ -355,6 +400,17 @@
 
 
 
-
-
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
