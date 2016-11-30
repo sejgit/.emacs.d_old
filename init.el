@@ -2,6 +2,7 @@
 ;; 2016-02-24 init
 ;; 2016 03 17 good ideas from aaron bedra's emacs configuration
 ;; 2016 11 29 integrate win-nt version & virtualbox
+;; 2016 11 30 cleanup(deft) & concat with linux versions
 
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
@@ -31,8 +32,8 @@
 
     (setq exec-path (append mypaths (list "." exec-directory)) )
     (setq ispell-personal-dictionary "C:/Users/NZ891R/Google Drive/emacs/sej.ispell")
-    (setq url-proxy-services (quote (("http" . "naproxy.gm.com:80"))))
-    (setq url-proxy-services (quote (("https" . "naproxy.gm.com:80"))))
+    (setq url-proxy-services (quote (("http" . "naproxy.xx.com:80"))))
+    (setq url-proxy-services (quote (("https" . "naproxy.xx.com:80"))))
     ) )
 
 ;; set up package manager
@@ -154,10 +155,16 @@
             (writegood-mode)))
 
 ;;deft
-(setq deft-directory "~/gdrive/todo")
+(if (string-equal system-type "windows-nt")
+   (setq deft-directory "C:/Users/NZ891R/Google Drive/todo")
+   (setq deft-directory "~/gdrive/todo")
+  )
 (setq deft-use-filename-as-title t)
-(setq deft-extension "org")
+;;(setq deft-extension "org")
 (setq deft-text-mode 'org-mode)
+(setq deft-org-mode-title-prefix t)
+(setq deft-recursive t)
+(global-set-key [f7] 'deft)
 
 ;; smex
 (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
@@ -376,12 +383,12 @@
     ;; whatnot), then divide by the height of a char to
     ;; get the height we want
     (add-to-list 'default-frame-alist
-         (cons 'height (/ (- (x-display-pixel-height) 100)
+         (cons 'height (/ (- (x-display-pixel-height) 110)
 			  (frame-char-height))))
     (modify-frame-parameters
   nil '((user-position . t) (left . (- +160))))
     (modify-frame-parameters
-  nil '((user-position . t) (top . (+ +30))))
+  nil '((user-position . t) (top . (+ +20))))
 
     )))
 (set-frame-size-according-to-resolution)
