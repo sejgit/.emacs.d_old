@@ -2,7 +2,7 @@
 ;; 2016-02-24 init
 ;; 2016 03 17 good ideas from aaron bedra's emacs configuration
 ;; 2016 11 29 integrate win-nt version & virtualbox
-;; 2016 11 30 cleanup(deft) & concat with linux versions
+;; 2016 11 30 cleanup & concat with linux versions
 
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
@@ -154,6 +154,15 @@
           (lambda ()
             (writegood-mode)))
 
+;; org capture
+(setq org-default-notes-file (concat deft-directory "/notes.org"))
+     (define-key global-map "\C-cc" 'org-capture)
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline (concat deft-directory "/gtd.org") "Tasks")
+             "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+datetree (concat deft-directory "/journal.org"))
+	 "* %?\nEntered on %U\n  %i\n  %a")))
+
 ;;deft
 (if (string-equal system-type "windows-nt")
    (setq deft-directory "C:/Users/NZ891R/Google Drive/todo")
@@ -201,12 +210,14 @@
 (setq-default ispell-list-command "list")
 
 ;; remember
-(require 'remember)
-(define-key global-map (kbd "<f9> r") 'remember)
-(define-key global-map (kbd "<f9> R") 'remember-region)
+;;(require 'remember)
+;;(define-key global-map (kbd "<f9> r") 'remember)
+;;(define-key global-map (kbd "<f9> R") 'remember-region)
 
 ;; autopair-mode
-(require 'autopair)
+;;(require 'autopair)
+;; below is supposedly superior
+(electric-pair-mode t)
 
 ;; Add proper word wrapping
 (global-visual-line-mode t)
@@ -219,6 +230,8 @@
 (global-set-key [(meta .)] 'goto-last-change)
 ;; ensure that even in worst case some goto-last-change is available
 (global-set-key [(control meta .)] 'goto-last-change)
+;; added reverse below
+(global-set-key [(control ?,)] 'goto-last-change-reverse)
 
 ;; Highlight TODO and FIXME in comments
 (require 'fic-ext-mode)
@@ -266,7 +279,7 @@
 
 ;;  Examples below assign a set of keys to the breadcrumb bookmark functions.
 
-(global-set-key (kbd "<f2>") 'bc-set)           ;; f2 for set bookmark
+(global-set-key (kbd "S-SPC") 'bc-set)           ;; shift space for set bookmark
 (global-set-key (kbd "M-j") 'bc-previous)       ;; M-j for jump to previous
 (global-set-key (kbd "M-J") 'bc-next)           ;; Shift-M-j for jump to next
 (global-set-key (kbd "C-j") 'bc-local-previous) ;; M-up-arrow for local previous

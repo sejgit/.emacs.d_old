@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ flyspell-mode
  describe-variable
  load-theme
  calc
  package-list-packages
  package-install
  dired
- help
 )
 
 ;; ----- smex-data -----
@@ -23,4 +23,5 @@
  (View-scroll-line-backward . 1)
  (load-theme . 2)
  (describe-variable . 1)
+ (flyspell-mode . 2)
 )
