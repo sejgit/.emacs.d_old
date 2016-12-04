@@ -233,14 +233,13 @@
 ;; added reverse below
 (global-set-key [(control ?,)] 'goto-last-change-reverse)
 
-;; Highlight TODO and FIXME in comments
+;; Highlight TODO and FIXME and BUG in comments
 (require 'fic-ext-mode)
 (defun add-something-to-mode-hooks (mode-list something)
   "helper function to add a callback to multiple hooks"
   (dolist (mode mode-list)
     (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
-
-(add-something-to-mode-hooks '( c++ tcl emacs-lisp python text markdown latex) 'fic-ext-mode)
+(add-something-to-mode-hooks '( c++ tcl emacs-lisp arduino python text markdown latex) 'fic-ext-mode)
 
 (setq backup-by-copying t      ; don't clobber symlinks
       backup-directory-alist
