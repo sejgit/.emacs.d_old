@@ -1,4 +1,6 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/pi/.emacs.d/recentf" . 240)
- ("/home/pi/.breadcrumb" . 197)
- ("/home/pi/.emacs.d/el-get/.loaddefs.el" . 6267))
+(("/home/sej/.breadcrumb" . 198)
+ ("/home/sej/.emacs.d/recentf" . 241)
+ ("/home/sej/.emacs.d/el-get/.loaddefs.el" . 6267)
+ ("/home/sej/.emacs.d/init.el" . 15423)
+ ("/usr/share/emacs/24.4/etc/NEWS" . 17189))

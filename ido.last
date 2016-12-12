@@ -20,8 +20,6 @@
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/home/pi/.emacs.d/" (22606 51626 740245 456000) "projectile-bookmarks.eld" "vendor/" "elpa/" "./" "lisp/" "bookmarks" "README.md" "init.el" "tutorial/" "recentf" "../" ".git/" "ac-comphist.dat" "places" ".gitignore" "LICENSE" "el-get/" ".smex-items" "auto-save-list/" "session.10c5d36269000145841672400000039130024" "ido.last")
-
  ("/home/sej/" (22589 45935 433706 193000) ".xsession-errors" "dead.letter" "../" ".gimp-2.8/" "apt-clone-2016-11-09.apt-clone.tar.gz" "fishtank/" ".xsession-errors.old" "arduino-1.6.8/" ".python_history" ".vboxclient-display.pid" "bin/" ".thumbnails/" ".shell/" "skydrive/" ".tmux/" ".ICEauthority" ".inputrc" ".gi_list" ".java/" "gdrive/" ".aptitude/" ".dbus/" "plot.png" ".selected_editor" ".config/" "sensors/" ".z" ".xscreensaver" ".vnc/" ".gstreamer-0.10/" ".mrconfig" ".gnome/" ".ssh/" ".crawl/" ".bash_history" ".paul" ".git-hub/" "sketchbook/" ".lesshst" "downloads/" ".dirs" ".bashrc" ".wireshark/" ".pki/" ".Xauthority" ".breadcrumb" "sej/" ".emacs.d/" ".oracle_jre_usage/" "dotfiles/" "./" "mbox" ".vboxclient-draganddrop.pid" ".mozilla/" "cam_rsa" ".vboxclient-seamless.pid" ".arduino/" "Desktop/" ".arduino15/" ".gconf/" ".vboxclient-clipboard.pid" "Arduino-Makefile/" ".cache/" ".gnupg/" ".bash_logout" ".bash_profile" ".pip/" ".w3m/" ".dmrc" ".local/" ".xinitrc" "ISY-Finder.state" "cam_rsa.pub" ".jssc/" "autowater/" ".remmina/")
 
  ("/home/sej/.emacs.d/" (22589 49665 910012 205000) "../" "lisp/" ".git/" "var/" ".#recentf" "places" "ac-comphist.dat" "LICENSE" "recentf" "auto-save-list/" "ido.last" "tramp" "./" "bookmarks" ".smex-items" "init.el" "session.10c5d36269000145841672400000039130024" ".gitignore" "elpa/" "README.md" "tutorial/")
