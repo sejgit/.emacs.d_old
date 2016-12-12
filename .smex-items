@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ eval-region
+ eval-buffer
+ set-variable
  flyspell-mode
  describe-variable
  load-theme
- calc
- package-list-packages
- package-install
- dired
+ cd
 )
 
 ;; ----- smex-data -----
@@ -24,4 +24,10 @@
  (load-theme . 2)
  (describe-variable . 1)
  (flyspell-mode . 2)
+ (el-get-emacswiki-build-local-recipes . 1)
+ (set-variable . 1)
+ (eval-buffer . 1)
+ (eval-region . 1)
+ (el-get-update . 1)
+ (el-get-list-packages . 1)
 )

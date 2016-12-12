@@ -3,46 +3,73 @@
 ;; 2016 03 17 good ideas from aaron bedra's emacs configuration
 ;; 2016 11 29 integrate win-nt version & virtualbox
 ;; 2016 11 30 cleanup & concat with linux versions
+;; 2016 12 12 transfer updates from test-version
 
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
 (setq user-mail-address "stephenearljenkins@gmail.com")
 
-;; paths
-(setq load-path (append (list (expand-file-name "~/.emacs.d/lisp")) load-path))
-(setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:~/bin" (getenv "PATH")))
-
 ;; require common lisp
 (require 'cl)
 
-;; nt paths
-(when (string-equal system-type "windows-nt")
-  (let (
-        (mypaths
-         '(
+;; paths (generic, nt, then others
 
+;; generic pathes
+(setq load-path (append (list (expand-file-name "~/.emacs.d/lisp")) load-path))
+
+(if (equal system-type 'windows-nt)
+    (;; nt paths
+     progn
+      (setq mypaths
+        ( list
+	   "C:Program Files/Git/usr/bin"
+	   "C:/Program Files/Git/bin/"
+	   "C:/Program Files/Git/cmd/"
            "C:/Users/NZ891R/Google Drive/emacs/bin/"
            "C:/Users/NZ891R/Google Drive/emacs/Aspell/bin/"
            "C:/Users/NZ891R/Google Drive/emacs/"
            "C:/Users/NZ891R/Google Drive/"
            ) )
-        )
 
-    (setenv "PATH" (mapconcat 'identity mypaths ";") )
+    (setenv "PATH" (concat (mapconcat 'identity mypaths ";") (getenv "PATH")))
 
     (setq exec-path (append mypaths (list "." exec-directory)) )
     (setq ispell-personal-dictionary "C:/Users/NZ891R/Google Drive/emacs/sej.ispell")
-    (setq url-proxy-services (quote (("http" . "naproxy.xx.com:80"))))
-    (setq url-proxy-services (quote (("https" . "naproxy.xx.com:80"))))
-    ) )
+
+      ;; below has been commented out due to using shell level vars keeping 'just in case'
+      ;;
+      ;; (setq url-proxy-services
+      ;; 	    '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+      ;; 	      ("http" . "naproxy.gm.com:80")
+      ;; 	      ("https" . "naproxy.gm.com:80")))
+
+      ;; (setq url-http-proxy-basic-auth-storage
+      ;; 	    (list (list "naproxy.gm.com:80"
+      ;; 			(cons "Input your LDAP UID !"
+      ;; 			      (base64-encode-string "LOGIN:PASSWORD")))))
+
+      ;; shell
+      ;; (setq explicit-shell-file-name
+      ;; 	    "C:/Program Files/Git/bin/bash.exe")
+      ;; (setq shell-file-name "bash")
+      ;; (setq explicit-bash-args '("--login" "-i"))
+      )
+
+  (;; non-nt path
+   progn
+   (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:~/bin:" (getenv "PATH")))
+   )
+  )
+
 
 ;; set up package manager
+(require 'package)
 (load "package")
-(package-initialize)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
 
 (setq package-archive-enable-alist '(("melpa" deft magit)))
 
@@ -63,13 +90,21 @@
                           paredit
                           restclient
                           smex
-                          solarized-theme
                           web-mode
                           writegood-mode
                           yaml-mode
 			  goto-chg
 			  fic-ext-mode
-			  saveplace)
+			  saveplace
+		       ido-ubiquitous
+		       projectile
+		       page-break-lines
+		       dashboard
+		       dired-avfs
+		       rainbow-delimiters
+		       dired-toggle-sudo
+		       aggressive-indent
+		       )
   "Default packages")
 
 ;; make sure all above packages are installed if not have ELPA take cate of it
@@ -132,7 +167,6 @@
       visible-bell t)
 (show-paren-mode t)
 
-
 ;;load files in vendor area which are independent packages
 (defvar sej/vendor-dir (expand-file-name "vendor" user-emacs-directory))
 (add-to-list 'load-path sej/vendor-dir)
@@ -140,7 +174,6 @@
 (dolist (project (directory-files sej/vendor-dir t "\\w+"))
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
-
 
 ;; org-mode settings
 (global-set-key (kbd "<f1>") 'org-mode)
@@ -154,15 +187,6 @@
           (lambda ()
             (writegood-mode)))
 
-;; org capture
-(setq org-default-notes-file (concat deft-directory "/notes.org"))
-     (define-key global-map "\C-cc" 'org-capture)
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline (concat deft-directory "/gtd.org") "Tasks")
-             "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree (concat deft-directory "/journal.org"))
-	 "* %?\nEntered on %U\n  %i\n  %a")))
-
 ;;deft
 (if (string-equal system-type "windows-nt")
    (setq deft-directory "C:/Users/NZ891R/Google Drive/todo")
@@ -175,6 +199,15 @@
 (setq deft-recursive t)
 (global-set-key [f7] 'deft)
 
+;; org capture
+(setq org-default-notes-file (concat deft-directory "/notes.org"))
+     (define-key global-map "\C-cc" 'org-capture)
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline (concat deft-directory "/gtd.org") "Tasks")
+             "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+datetree (concat deft-directory "/journal.org"))
+	 "* %?\nEntered on %U\n  %i\n  %a")))
+
 ;; smex
 (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
 (smex-initialize)
@@ -183,9 +216,11 @@
 
 ;; Ido
 (ido-mode t)
+(ido-everywhere t)
 (setq ido-enable-flex-matching t
       ido-use-virtual-buffers t)
-
+(require 'ido-ubiquitous)
+(ido-ubiquitous-mode t)
 (defalias 'list-buffers 'ibuffer)
 
 ;; bookmarks
@@ -208,11 +243,6 @@
 (global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
 (setq flyspell-issue-welcome-flag nil)
 (setq-default ispell-list-command "list")
-
-;; remember
-;;(require 'remember)
-;;(define-key global-map (kbd "<f9> r") 'remember)
-;;(define-key global-map (kbd "<f9> R") 'remember-region)
 
 ;; autopair-mode
 ;;(require 'autopair)
@@ -290,8 +320,8 @@
 (setq lisp-modes '(lisp-mode
                    emacs-lisp-mode
                    common-lisp-mode
-                   scheme-mode
-                   clojure-mode))
+                   scheme-mode)
+      )
 
 (defvar lisp-power-map (make-keymap))
 (define-minor-mode lisp-power-mode "Fix keybindings; add power."
@@ -372,7 +402,6 @@
 
 ;; themes
 (if (display-graphic-p)
-    ;;(load-theme 'solarized-light t)
     ;;(load-theme 'wombat t)
     ;;(load-theme 'atom-dark t)
     (load-theme 'tango-dark t)
@@ -405,7 +434,6 @@
     )))
 (set-frame-size-according-to-resolution)
 
-
 ;; color codes
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
@@ -413,6 +441,60 @@
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+;; project mode
+(require 'projectile)
+(projectile-mode t)
+
+;; dashboard
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+(setq dashboard-items '((recents . 5)
+			(bookmarks . 5)
+			(projects . 5)))
+
+;; wind move built in package
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+;; above not always wonking ; trying below
+(global-set-key (kbd "C-c <left>")  'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>")    'windmove-up)
+(global-set-key (kbd "C-c <down>")  'windmove-down)
+
+;; rainbow-delimiters-mode
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;; dired-avfs
+;; dependant on dired-hacks-utils dash
+
+;; dired-toggle-sudo
+(require 'dired-toggle-sudo)
+(define-key dired-mode-map (kbd "C-c C-s") 'dired-toggle-sudo)
+(eval-after-load 'tramp
+  '(progn
+     ;; Allow to use: /sudo:user@host:/path/to/file
+     (add-to-list 'tramp-default-proxies-alist
+		  '(".*" "\\`.+\\'" "/ssh:%h:"))))
+;; aggressive-indent-mode
+(require 'aggressive-indent)
+(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+(add-hook 'css-mode-hook #'aggressive-indent-mode)
+(global-aggressive-indent-mode 1)
+(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+
+;; el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
 
 
 
