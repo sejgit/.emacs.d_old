@@ -1,3 +1,12 @@
+# emacs stuff
+ac-comphist.dat
+el-get/.loaddefs.el
+el-get/.loaddefs.elc
+ido.last
+places
+recentf
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
