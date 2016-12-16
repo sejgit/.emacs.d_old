@@ -345,14 +345,6 @@
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
-;; coffee script mode
-(defun coffee-custom ()
-  "coffee-mode-hook"
-  (make-local-variable 'tab-width)
-  (set 'tab-width 2))
-
-(add-hook 'coffee-mode-hook 'coffee-custom)
-
 ;; markdown mode
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
@@ -365,8 +357,6 @@
 
 ;; themes
 (if (display-graphic-p)
-    ;;(load-theme 'wombat t)
-    ;;(load-theme 'atom-dark t)
     (load-theme 'tango-dark t)
   )
 
@@ -428,9 +418,6 @@
 ;; rainbow-delimiters-mode
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-;; dired-avfs
-;; dependant on dired-hacks-utils dash
-
 ;; dired-toggle-sudo
 (require 'dired-toggle-sudo)
 (define-key dired-mode-map (kbd "C-c C-s") 'dired-toggle-sudo)
@@ -457,9 +444,7 @@
  '(custom-safe-themes
    (quote
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- '(package-selected-packages
-   (quote
-    (org solarized-theme fic-ext-mode dired-toggle-sudo))))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -35,7 +35,7 @@
  (describe-mode . 3)
  (smex-update . 1)
  (help-mode . 1)
- (package-delete . 91)
+ (package-delete . 94)
  (el-get-reinstall . 3)
  (el-get-reload . 2)
  (el-get-find-recipe-file . 1)
