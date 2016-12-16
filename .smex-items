@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- eval-region
- eval-buffer
- set-variable
- flyspell-mode
- describe-variable
- load-theme
- cd
+ package-delete
+ el-get-list-packages
+ el-get-reinstall
+ el-get-find-recipe-file
+ el-get-reload
+ help-mode
+ describe-mode
 )
 
 ;; ----- smex-data -----
@@ -28,6 +28,15 @@
  (set-variable . 1)
  (eval-buffer . 1)
  (eval-region . 1)
- (el-get-update . 1)
- (el-get-list-packages . 1)
+ (el-get-update . 2)
+ (el-get-list-packages . 17)
+ (comment-region . 2)
+ (uncomment-region . 2)
+ (describe-mode . 3)
+ (smex-update . 1)
+ (help-mode . 1)
+ (package-delete . 91)
+ (el-get-reinstall . 3)
+ (el-get-reload . 2)
+ (el-get-find-recipe-file . 1)
 )

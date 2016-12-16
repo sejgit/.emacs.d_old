@@ -1,10 +1,10 @@
 ;;; dired-toggle-sudo-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
 ;;;### (autoloads nil "dired-toggle-sudo" "dired-toggle-sudo.el"
-;;;;;;  (22606 49332 225666 270000))
+;;;;;;  (22610 39946 0 0))
 ;;; Generated autoloads from dired-toggle-sudo.el
 
 (autoload 'dired-toggle-sudo "dired-toggle-sudo" "\

@@ -4,6 +4,7 @@
 ;; 2016 11 29 integrate win-nt version & virtualbox
 ;; 2016 11 30 cleanup & concat with linux versions
 ;; 2016 12 12 transfer updates from test-version
+;; 2016 12 15 updates due to win move to wsys2/ming64
 
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
@@ -20,22 +21,7 @@
 (if (equal system-type 'windows-nt)
     (;; nt paths
      progn
-      (setq mypaths
-        ( list
-	   "C:Program Files/Git/usr/bin"
-	   "C:/Program Files/Git/bin/"
-	   "C:/Program Files/Git/cmd/"
-           "C:/Users/NZ891R/Google Drive/emacs/bin/"
-           "C:/Users/NZ891R/Google Drive/emacs/Aspell/bin/"
-           "C:/Users/NZ891R/Google Drive/emacs/"
-           "C:/Users/NZ891R/Google Drive/"
-           ) )
-
-    (setenv "PATH" (concat (mapconcat 'identity mypaths ";") (getenv "PATH")))
-
-    (setq exec-path (append mypaths (list "." exec-directory)) )
-    (setq ispell-personal-dictionary "C:/Users/NZ891R/Google Drive/emacs/sej.ispell")
-
+      (setq ispell-personal-dictionary "C:/Users/NZ891R/gdrive/ehome/sej.ispell")
       ;; below has been commented out due to using shell level vars keeping 'just in case'
       ;;
       ;; (setq url-proxy-services
@@ -47,63 +33,42 @@
       ;; 	    (list (list "naproxy.gm.com:80"
       ;; 			(cons "Input your LDAP UID !"
       ;; 			      (base64-encode-string "LOGIN:PASSWORD")))))
-
-      ;; shell
-      ;; (setq explicit-shell-file-name
-      ;; 	    "C:/Program Files/Git/bin/bash.exe")
-      ;; (setq shell-file-name "bash")
-      ;; (setq explicit-bash-args '("--login" "-i"))
       )
-
   (;; non-nt path
    progn
-   (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:~/bin:" (getenv "PATH")))
-   )
+    (setenv "PATH" (concat "/usr/local/bin:/opt/local/bin:/usr/bin:/bin:~/bin:" (getenv "PATH")))
+    )
   )
 
+;; el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
 
 ;; set up package manager
 (require 'package)
 (load "package")
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
 (setq package-archive-enable-alist '(("melpa" deft magit)))
 
-(defvar sej/packages '(ac-slime
-		          arduino-mode
-                          auto-complete
-                          autopair
-                          clojure-mode
-                          coffee-mode
-                          csharp-mode
-                          deft
-                          flycheck
-                          gist
-                          magit
-                          markdown-mode
-                          marmalade
-                          org
-                          paredit
-                          restclient
-                          smex
-                          web-mode
-                          writegood-mode
-                          yaml-mode
-			  goto-chg
-			  fic-ext-mode
-			  saveplace
-		       ido-ubiquitous
-		       projectile
-		       page-break-lines
-		       dashboard
-		       dired-avfs
-		       rainbow-delimiters
+(defvar sej/packages '(dashboard
+		       org
+		       fic-ext-mode
+		       saveplace
 		       dired-toggle-sudo
-		       aggressive-indent
 		       )
   "Default packages")
 
@@ -189,8 +154,8 @@
 
 ;;deft
 (if (string-equal system-type "windows-nt")
-   (setq deft-directory "C:/Users/NZ891R/Google Drive/todo")
-   (setq deft-directory "~/gdrive/todo")
+    (setq deft-directory "C:/Users/NZ891R/gdrive/todo")
+  (setq deft-directory "~/gdrive/todo")
   )
 (setq deft-use-filename-as-title t)
 ;;(setq deft-extension "org")
@@ -244,9 +209,7 @@
 (setq flyspell-issue-welcome-flag nil)
 (setq-default ispell-list-command "list")
 
-;; autopair-mode
-;;(require 'autopair)
-;; below is supposedly superior
+;; electric-pair-mode
 (electric-pair-mode t)
 
 ;; Add proper word wrapping
@@ -483,19 +446,6 @@
 (global-aggressive-indent-mode 1)
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
-;; el-get
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
-
 
 
 
@@ -506,7 +456,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(package-selected-packages
+   (quote
+    (org solarized-theme fic-ext-mode dired-toggle-sudo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
