@@ -503,6 +503,40 @@ Do dired actions asynchronously.
 
 ;;;***
 
+;;;### (autoloads nil "flycheck-pos-tip/flycheck-pos-tip" "flycheck-pos-tip/flycheck-pos-tip.el"
+;;;;;;  (22612 47511 0 0))
+;;; Generated autoloads from flycheck-pos-tip/flycheck-pos-tip.el
+
+(defvar flycheck-pos-tip-mode nil "\
+Non-nil if Flycheck-Pos-Tip mode is enabled.
+See the `flycheck-pos-tip-mode' command
+for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `flycheck-pos-tip-mode'.")
+
+(custom-autoload 'flycheck-pos-tip-mode "flycheck-pos-tip/flycheck-pos-tip" nil)
+
+(autoload 'flycheck-pos-tip-mode "flycheck-pos-tip/flycheck-pos-tip" "\
+A minor mode to show Flycheck error messages in a popup.
+
+When called interactively, toggle `flycheck-pos-tip-mode'.  With
+prefix ARG, enable `flycheck-pos-tip-mode' if ARG is positive,
+otherwise disable it.
+
+When called from Lisp, enable `flycheck-pos-tip-mode' if ARG is
+omitted, nil or positive.  If ARG is `toggle', toggle
+`flycheck-pos-tip-mode'.  Otherwise behave as if called
+interactively.
+
+In `flycheck-pos-tip-mode' show Flycheck's error messages in a
+GUI tooltip.  Falls back to `flycheck-display-error-messages' on
+TTY frames.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads nil "flycheck/flycheck" "flycheck/flycheck.el"
 ;;;;;;  (22610 59003 0 0))
 ;;; Generated autoloads from flycheck/flycheck.el
@@ -724,6 +758,80 @@ Use this together with the `option', `option-list' and
 (function-put 'flycheck-def-option-var 'lisp-indent-function '3)
 
 (function-put 'flycheck-def-option-var 'doc-string-elt '4)
+
+;;;***
+
+;;;### (autoloads nil "flyspell/flyspell-1.7q" "flyspell/flyspell-1.7q.el"
+;;;;;;  (22612 55130 0 0))
+;;; Generated autoloads from flyspell/flyspell-1.7q.el
+
+(defvar flyspell-mode-line-string " Fly" "\
+*String displayed on the modeline when flyspell is active.
+Set this to nil if you don't want a modeline indicator.")
+
+(custom-autoload 'flyspell-mode-line-string "flyspell/flyspell-1.7q" t)
+
+(autoload 'flyspell-prog-mode "flyspell/flyspell-1.7q" "\
+Turn on `flyspell-mode' for comments and strings.
+
+\(fn)" t nil)
+
+(defvar flyspell-mode nil)
+
+(defvar flyspell-mode-map (make-sparse-keymap))
+
+(autoload 'flyspell-mode "flyspell/flyspell-1.7q" "\
+Minor mode performing on-the-fly spelling checking.
+Ispell is automatically spawned on background for each entered words.
+The default flyspell behavior is to highlight incorrect words.
+With no argument, this command toggles Flyspell mode.
+With a prefix argument ARG, turn Flyspell minor mode on iff ARG is positive.
+  
+Bindings:
+\\[ispell-word]: correct words (using Ispell).
+\\[flyspell-auto-correct-word]: automatically correct word.
+\\[flyspell-auto-correct-previous-word]: automatically correct the last misspelled word.
+\\[flyspell-correct-word] (or down-mouse-2): popup correct words.
+
+Hooks:
+This runs `flyspell-mode-hook' after flyspell is entered.
+
+Remark:
+`flyspell-mode' uses `ispell-mode'.  Thus all Ispell options are
+valid.  For instance, a personal dictionary can be used by
+invoking `ispell-change-dictionary'.
+
+Consider using the `ispell-parser' to check your text.  For instance
+consider adding:
+\(add-hook 'tex-mode-hook (function (lambda () (setq ispell-parser 'tex))))
+in your .emacs file.
+
+\\[flyspell-region] checks all words inside a region.
+\\[flyspell-buffer] checks the whole buffer.
+
+\(fn &optional ARG)" t nil)
+
+(if (fboundp 'add-minor-mode) (add-minor-mode 'flyspell-mode 'flyspell-mode-line-string flyspell-mode-map nil 'flyspell-mode) (or (assoc 'flyspell-mode minor-mode-alist) (setq minor-mode-alist (cons '(flyspell-mode flyspell-mode-line-string) minor-mode-alist))) (or (assoc 'flyspell-mode minor-mode-map-alist) (setq minor-mode-map-alist (cons (cons 'flyspell-mode flyspell-mode-map) minor-mode-map-alist))))
+
+(autoload 'flyspell-version "flyspell/flyspell-1.7q" "\
+The flyspell version
+
+\(fn)" t nil)
+
+(autoload 'flyspell-mode-off "flyspell/flyspell-1.7q" "\
+Turn Flyspell mode off.
+
+\(fn)" nil nil)
+
+(autoload 'flyspell-region "flyspell/flyspell-1.7q" "\
+Flyspell text between BEG and END.
+
+\(fn BEG END)" t nil)
+
+(autoload 'flyspell-buffer "flyspell/flyspell-1.7q" "\
+Flyspell whole buffer.
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -2862,51 +2970,6 @@ Use the `names--inside-make-autoload' variable to indicate to
 
 ;;;***
 
-;;;### (autoloads nil "page-break-lines/page-break-lines" "page-break-lines/page-break-lines.el"
-;;;;;;  (22611 16304 0 0))
-;;; Generated autoloads from page-break-lines/page-break-lines.el
-
-(autoload 'page-break-lines-mode "page-break-lines/page-break-lines" "\
-Toggle Page Break Lines mode.
-
-In Page Break mode, page breaks (^L characters) are displayed as a
-horizontal line of `page-break-string-char' characters.
-
-\(fn &optional ARG)" t nil)
-
-(define-obsolete-function-alias 'turn-on-page-break-lines-mode 'page-break-lines-mode)
-
-(autoload 'page-break-lines-mode-maybe "page-break-lines/page-break-lines" "\
-Enable `page-break-lines-mode' in the current buffer if desired.
-When `major-mode' is listed in `page-break-lines-modes', then
-`page-break-lines-mode' will be enabled.
-
-\(fn)" nil nil)
-
-(defvar global-page-break-lines-mode nil "\
-Non-nil if Global Page-Break-Lines mode is enabled.
-See the `global-page-break-lines-mode' command
-for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `global-page-break-lines-mode'.")
-
-(custom-autoload 'global-page-break-lines-mode "page-break-lines/page-break-lines" nil)
-
-(autoload 'global-page-break-lines-mode "page-break-lines/page-break-lines" "\
-Toggle Page-Break-Lines mode in all buffers.
-With prefix ARG, enable Global Page-Break-Lines mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
-
-Page-Break-Lines mode is enabled in all buffers where
-`page-break-lines-mode-maybe' would do it.
-See `page-break-lines-mode' for more information on Page-Break-Lines mode.
-
-\(fn &optional ARG)" t nil)
-
-;;;***
-
 ;;;### (autoloads nil "paredit/paredit" "paredit/paredit.el" (22611
 ;;;;;;  2800 0 0))
 ;;; Generated autoloads from paredit/paredit.el
@@ -3040,440 +3103,6 @@ version.
 
 ;;;***
 
-;;;### (autoloads nil "projectile/projectile" "projectile/projectile.el"
-;;;;;;  (22610 60731 0 0))
-;;; Generated autoloads from projectile/projectile.el
-
-(autoload 'projectile-version "projectile/projectile" "\
-Get the Projectile version as string.
-
-If called interactively or if SHOW-VERSION is non-nil, show the
-version in the echo area and the messages buffer.
-
-The returned string includes both, the version from package.el
-and the library version, if both a present and different.
-
-If the version number could not be determined, signal an error,
-if called interactively, or if SHOW-VERSION is non-nil, otherwise
-just return nil.
-
-\(fn &optional SHOW-VERSION)" t nil)
-
-(autoload 'projectile-invalidate-cache "projectile/projectile" "\
-Remove the current project's files from `projectile-projects-cache'.
-
-With a prefix argument ARG prompts for the name of the project whose cache
-to invalidate.
-
-\(fn ARG)" t nil)
-
-(autoload 'projectile-purge-file-from-cache "projectile/projectile" "\
-Purge FILE from the cache of the current project.
-
-\(fn FILE)" t nil)
-
-(autoload 'projectile-purge-dir-from-cache "projectile/projectile" "\
-Purge DIR from the cache of the current project.
-
-\(fn DIR)" t nil)
-
-(autoload 'projectile-cache-current-file "projectile/projectile" "\
-Add the currently visited file to the cache.
-
-\(fn)" t nil)
-
-(autoload 'projectile-discover-projects-in-directory "projectile/projectile" "\
-Discover any projects in DIRECTORY and add them to the projectile cache.
-This function is not recursive and only adds projects with roots
-at the top level of DIRECTORY.
-
-\(fn DIRECTORY)" t nil)
-
-(autoload 'projectile-switch-to-buffer "projectile/projectile" "\
-Switch to a project buffer.
-
-\(fn)" t nil)
-
-(autoload 'projectile-switch-to-buffer-other-window "projectile/projectile" "\
-Switch to a project buffer and show it in another window.
-
-\(fn)" t nil)
-
-(autoload 'projectile-display-buffer "projectile/projectile" "\
-Display a project buffer in another window without selecting it.
-
-\(fn)" t nil)
-
-(autoload 'projectile-project-buffers-other-buffer "projectile/projectile" "\
-Switch to the most recently selected buffer project buffer.
-Only buffers not visible in windows are returned.
-
-\(fn)" t nil)
-
-(autoload 'projectile-multi-occur "projectile/projectile" "\
-Do a `multi-occur' in the project's buffers.
-
-\(fn)" t nil)
-
-(autoload 'projectile-find-other-file "projectile/projectile" "\
-Switch between files with the same name but different extensions.
-With FLEX-MATCHING, match any file that contains the base name of current file.
-Other file extensions can be customized with the variable `projectile-other-file-alist'.
-
-\(fn &optional FLEX-MATCHING)" t nil)
-
-(autoload 'projectile-find-other-file-other-window "projectile/projectile" "\
-Switch between files with the same name but different extensions in other window.
-With FLEX-MATCHING, match any file that contains the base name of current file.
-Other file extensions can be customized with the variable `projectile-other-file-alist'.
-
-\(fn &optional FLEX-MATCHING)" t nil)
-
-(autoload 'projectile-find-file-dwim "projectile/projectile" "\
-Jump to a project's files using completion based on context.
-
-With a prefix ARG invalidates the cache first.
-
-If point is on a filename, Projectile first tries to search for that
-file in project:
-
-- If it finds just a file, it switches to that file instantly.  This works even
-if the filename is incomplete, but there's only a single file in the current project
-that matches the filename at point.  For example, if there's only a single file named
-\"projectile/projectile.el\" but the current filename is \"projectile/proj\" (incomplete),
-`projectile-find-file' still switches to \"projectile/projectile.el\" immediately
- because this is the only filename that matches.
-
-- If it finds a list of files, the list is displayed for selecting.  A list of
-files is displayed when a filename appears more than one in the project or the
-filename at point is a prefix of more than two files in a project.  For example,
-if `projectile-find-file' is executed on a filepath like \"projectile/\", it lists
-the content of that directory.  If it is executed on a partial filename like
- \"projectile/a\", a list of files with character 'a' in that directory is presented.
-
-- If it finds nothing, display a list of all files in project for selecting.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-find-file-dwim-other-window "projectile/projectile" "\
-Jump to a project's files using completion based on context in other window.
-
-With a prefix ARG invalidates the cache first.
-
-If point is on a filename, Projectile first tries to search for that
-file in project:
-
-- If it finds just a file, it switches to that file instantly.  This works even
-if the filename is incomplete, but there's only a single file in the current project
-that matches the filename at point.  For example, if there's only a single file named
-\"projectile/projectile.el\" but the current filename is \"projectile/proj\" (incomplete),
-`projectile-find-file' still switches to \"projectile/projectile.el\"
-immediately because this is the only filename that matches.
-
-- If it finds a list of files, the list is displayed for selecting.  A list of
-files is displayed when a filename appears more than one in the project or the
-filename at point is a prefix of more than two files in a project.  For example,
-if `projectile-find-file' is executed on a filepath like \"projectile/\", it lists
-the content of that directory.  If it is executed on a partial filename
-like \"projectile/a\", a list of files with character 'a' in that directory
-is presented.
-
-- If it finds nothing, display a list of all files in project for selecting.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-find-file "projectile/projectile" "\
-Jump to a project's file using completion.
-With a prefix ARG invalidates the cache first.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-find-file-other-window "projectile/projectile" "\
-Jump to a project's file using completion and show it in another window.
-
-With a prefix ARG invalidates the cache first.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-find-dir "projectile/projectile" "\
-Jump to a project's directory using completion.
-
-With a prefix ARG invalidates the cache first.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-find-dir-other-window "projectile/projectile" "\
-Jump to a project's directory in other window using completion.
-
-With a prefix ARG invalidates the cache first.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-find-test-file "projectile/projectile" "\
-Jump to a project's test file using completion.
-
-With a prefix ARG invalidates the cache first.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-project-info "projectile/projectile" "\
-Display info for current project.
-
-\(fn)" t nil)
-
-(autoload 'projectile-find-implementation-or-test-other-window "projectile/projectile" "\
-Open matching implementation or test file in other window.
-
-\(fn)" t nil)
-
-(autoload 'projectile-toggle-between-implementation-and-test "projectile/projectile" "\
-Toggle between an implementation file and its test file.
-
-\(fn)" t nil)
-
-(autoload 'projectile-grep "projectile/projectile" "\
-Perform rgrep in the project.
-
-With a prefix ARG asks for files (globbing-aware) which to grep in.
-With prefix ARG of `-' (such as `M--'), default the files (without prompt),
-to `projectile-grep-default-files'.
-
-With REGEXP given, don't query the user for a regexp.
-
-\(fn &optional REGEXP ARG)" t nil)
-
-(autoload 'projectile-ag "projectile/projectile" "\
-Run an ag search with SEARCH-TERM in the project.
-
-With an optional prefix argument ARG SEARCH-TERM is interpreted as a
-regular expression.
-
-\(fn SEARCH-TERM &optional ARG)" t nil)
-
-(autoload 'projectile-regenerate-tags "projectile/projectile" "\
-Regenerate the project's [e|g]tags.
-
-\(fn)" t nil)
-
-(autoload 'projectile-find-tag "projectile/projectile" "\
-Find tag in project.
-
-\(fn)" t nil)
-
-(autoload 'projectile-run-command-in-root "projectile/projectile" "\
-Invoke `execute-extended-command' in the project's root.
-
-\(fn)" t nil)
-
-(autoload 'projectile-run-shell-command-in-root "projectile/projectile" "\
-Invoke `shell-command' in the project's root.
-
-\(fn)" t nil)
-
-(autoload 'projectile-run-async-shell-command-in-root "projectile/projectile" "\
-Invoke `async-shell-command' in the project's root.
-
-\(fn)" t nil)
-
-(autoload 'projectile-run-shell "projectile/projectile" "\
-Invoke `shell' in the project's root.
-
-\(fn)" t nil)
-
-(autoload 'projectile-run-eshell "projectile/projectile" "\
-Invoke `eshell' in the project's root.
-
-\(fn)" t nil)
-
-(autoload 'projectile-run-term "projectile/projectile" "\
-Invoke `term' in the project's root.
-
-\(fn PROGRAM)" t nil)
-
-(autoload 'projectile-replace "projectile/projectile" "\
-Replace literal string in project using non-regexp `tags-query-replace'.
-
-With a prefix argument ARG prompts you for a directory on which
-to run the replacement.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-replace-regexp "projectile/projectile" "\
-Replace a regexp in the project using `tags-query-replace'.
-
-With a prefix argument ARG prompts you for a directory on which
-to run the replacement.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-kill-buffers "projectile/projectile" "\
-Kill all project buffers.
-
-\(fn)" t nil)
-
-(autoload 'projectile-save-project-buffers "projectile/projectile" "\
-Save all project buffers.
-
-\(fn)" t nil)
-
-(autoload 'projectile-dired "projectile/projectile" "\
-Open `dired' at the root of the project.
-
-\(fn)" t nil)
-
-(autoload 'projectile-vc "projectile/projectile" "\
-Open `vc-dir' at the root of the project.
-
-For git projects `magit-status-internal' is used if available.
-For hg projects `monky-status' is used if available.
-
-\(fn &optional PROJECT-ROOT)" t nil)
-
-(autoload 'projectile-recentf "projectile/projectile" "\
-Show a list of recently visited files in a project.
-
-\(fn)" t nil)
-
-(autoload 'projectile-compile-project "projectile/projectile" "\
-Run project compilation command.
-
-Normally you'll be prompted for a compilation command, unless
-variable `compilation-read-command'.  You can force the prompt
-with a prefix ARG.
-
-\(fn ARG &optional DIR)" t nil)
-
-(autoload 'projectile-test-project "projectile/projectile" "\
-Run project test command.
-
-Normally you'll be prompted for a compilation command, unless
-variable `compilation-read-command'.  You can force the prompt
-with a prefix ARG.
-
-\(fn ARG)" t nil)
-
-(autoload 'projectile-run-project "projectile/projectile" "\
-Run project run command.
-
-Normally you'll be prompted for a compilation command, unless
-variable `compilation-read-command'.  You can force the prompt
-with a prefix ARG.
-
-\(fn ARG)" t nil)
-
-(autoload 'projectile-switch-project "projectile/projectile" "\
-Switch to a project we have visited before.
-Invokes the command referenced by `projectile-switch-project-action' on switch.
-With a prefix ARG invokes `projectile-commander' instead of
-`projectile-switch-project-action.'
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-switch-open-project "projectile/projectile" "\
-Switch to a project we have currently opened.
-Invokes the command referenced by `projectile-switch-project-action' on switch.
-With a prefix ARG invokes `projectile-commander' instead of
-`projectile-switch-project-action.'
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'projectile-find-file-in-directory "projectile/projectile" "\
-Jump to a file in a (maybe regular) DIRECTORY.
-
-This command will first prompt for the directory the file is in.
-
-\(fn &optional DIRECTORY)" t nil)
-
-(autoload 'projectile-find-file-in-known-projects "projectile/projectile" "\
-Jump to a file in any of the known projects.
-
-\(fn)" t nil)
-
-(autoload 'projectile-cleanup-known-projects "projectile/projectile" "\
-Remove known projects that don't exist anymore.
-
-\(fn)" t nil)
-
-(autoload 'projectile-clear-known-projects "projectile/projectile" "\
-Clear both `projectile-known-projects' and `projectile-known-projects-file'.
-
-\(fn)" t nil)
-
-(autoload 'projectile-remove-known-project "projectile/projectile" "\
-Remove PROJECT from the list of known projects.
-
-\(fn &optional PROJECT)" t nil)
-
-(autoload 'projectile-remove-current-project-from-known-projects "projectile/projectile" "\
-Remove the current project from the list of known projects.
-
-\(fn)" t nil)
-
-(autoload 'projectile-ibuffer "projectile/projectile" "\
-Open an IBuffer window showing all buffers in the current project.
-
-Let user choose another project when PREFIX is supplied.
-
-\(fn PREFIX)" t nil)
-
-(autoload 'projectile-commander "projectile/projectile" "\
-Execute a Projectile command with a single letter.
-The user is prompted for a single character indicating the action to invoke.
-The `?' character describes then
-available actions.
-
-See `def-projectile-commander-method' for defining new methods.
-
-\(fn)" t nil)
-
-(autoload 'projectile-edit-dir-locals "projectile/projectile" "\
-Edit or create a .dir-locals.el file of the project.
-
-\(fn)" t nil)
-
-(defvar projectile-mode-line '(:eval (if (file-remote-p default-directory) " Projectile" (format " Projectile[%s]" (projectile-project-name)))) "\
-Mode line lighter for Projectile.
-
-The value of this variable is a mode line template as in
-`mode-line-format'.  See Info Node `(elisp)Mode Line Format' for
-details about mode line templates.
-
-Customize this variable to change how Projectile displays its
-status in the mode line.  The default value displays the project
-name.  Set this variable to nil to disable the mode line
-entirely.")
-
-(custom-autoload 'projectile-mode-line "projectile/projectile" t)
-
-(defvar projectile-mode nil "\
-Non-nil if Projectile mode is enabled.
-See the `projectile-mode' command
-for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `projectile-mode'.")
-
-(custom-autoload 'projectile-mode "projectile/projectile" nil)
-
-(autoload 'projectile-mode "projectile/projectile" "\
-Minor mode to assist project management and navigation.
-
-When called interactively, toggle `projectile-mode'.  With prefix
-ARG, enable `projectile-mode' if ARG is positive, otherwise disable
-it.
-
-When called from Lisp, enable `projectile-mode' if ARG is omitted,
-nil or positive.  If ARG is `toggle', toggle `projectile-mode'.
-Otherwise behave as if called interactively.
-
-\\{projectile-mode-map}
-
-\(fn &optional ARG)" t nil)
-
-(define-obsolete-function-alias 'projectile-global-mode 'projectile-mode)
-
-;;;***
-
 ;;;### (autoloads nil "rainbow-delimiters/rainbow-delimiters" "rainbow-delimiters/rainbow-delimiters.el"
 ;;;;;;  (22611 16340 0 0))
 ;;; Generated autoloads from rainbow-delimiters/rainbow-delimiters.el
@@ -3597,6 +3226,128 @@ as the ewoc pretty-printer.
 
 ;;;***
 
+;;;### (autoloads nil "use-package/bind-key" "use-package/bind-key.el"
+;;;;;;  (22611 23867 0 0))
+;;; Generated autoloads from use-package/bind-key.el
+
+(autoload 'bind-key "use-package/bind-key" "\
+Bind KEY-NAME to COMMAND in KEYMAP (`global-map' if not passed).
+
+KEY-NAME may be a vector, in which case it is passed straight to
+`define-key'. Or it may be a string to be interpreted as
+spelled-out keystrokes, e.g., \"C-c C-z\". See documentation of
+`edmacro-mode' for details.
+
+If PREDICATE is non-nil, it is a form evaluated to determine when
+a key should be bound. It must return non-nil in such cases.
+Emacs can evaluate this form at any time that it does redisplay
+or operates on menu data structures, so you should write it so it
+can safely be called at any time.
+
+\(fn KEY-NAME COMMAND &optional KEYMAP PREDICATE)" nil t)
+
+(autoload 'unbind-key "use-package/bind-key" "\
+Unbind the given KEY-NAME, within the KEYMAP (if specified).
+See `bind-key' for more details.
+
+\(fn KEY-NAME &optional KEYMAP)" nil t)
+
+(autoload 'bind-key* "use-package/bind-key" "\
+Similar to `bind-key', but overrides any mode-specific bindings.
+
+\(fn KEY-NAME COMMAND &optional PREDICATE)" nil t)
+
+(autoload 'bind-keys "use-package/bind-key" "\
+Bind multiple keys at once.
+
+Accepts keyword arguments:
+:map MAP               - a keymap into which the keybindings should be
+                         added
+:prefix KEY            - prefix key for these bindings
+:prefix-map MAP        - name of the prefix map that should be created
+                         for these bindings
+:prefix-docstring STR  - docstring for the prefix-map variable
+:menu-name NAME        - optional menu string for prefix map
+:filter FORM           - optional form to determine when bindings apply
+
+The rest of the arguments are conses of keybinding string and a
+function symbol (unquoted).
+
+\(fn &rest ARGS)" nil t)
+
+(autoload 'bind-keys* "use-package/bind-key" "\
+
+
+\(fn &rest ARGS)" nil t)
+
+(autoload 'describe-personal-keybindings "use-package/bind-key" "\
+Display all the personal keybindings defined by `bind-key'.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "use-package/use-package" "use-package/use-package.el"
+;;;;;;  (22611 23867 0 0))
+;;; Generated autoloads from use-package/use-package.el
+
+(autoload 'use-package "use-package/use-package" "\
+Declare an Emacs package by specifying a group of configuration options.
+
+For full documentation, please see the README file that came with
+this file.  Usage:
+
+  (use-package package-name
+     [:keyword [option]]...)
+
+:init          Code to run before PACKAGE-NAME has been loaded.
+:config        Code to run after PACKAGE-NAME has been loaded.  Note that if
+               loading is deferred for any reason, this code does not execute
+               until the lazy load has occurred.
+:preface       Code to be run before everything except `:disabled'; this can
+               be used to define functions for use in `:if', or that should be
+               seen by the byte-compiler.
+
+:mode          Form to be added to `auto-mode-alist'.
+:interpreter   Form to be added to `interpreter-mode-alist'.
+
+:commands      Define autoloads for commands that will be defined by the
+               package.  This is useful if the package is being lazily loaded,
+               and you wish to conditionally call functions in your `:init'
+               block that are defined in the package.
+
+:bind          Bind keys, and define autoloads for the bound commands.
+:bind*         Bind keys, and define autoloads for the bound commands,
+               *overriding all minor mode bindings*.
+:bind-keymap   Bind a key prefix to an auto-loaded keymap defined in the
+               package.  This is like `:bind', but for keymaps.
+:bind-keymap*  Like `:bind-keymap', but overrides all minor mode bindings
+
+:defer         Defer loading of a package -- this is implied when using
+               `:commands', `:bind', `:bind*', `:mode' or `:interpreter'.
+               This can be an integer, to force loading after N seconds of
+               idle time, if the package has not already been loaded.
+
+:after         Defer loading of a package until after any of the named
+               features are loaded.
+
+:demand        Prevent deferred loading in all cases.
+
+:if EXPR       Initialize and load only if EXPR evaluates to a non-nil value.
+:disabled      The package is ignored completely if this keyword is present.
+:defines       Declare certain variables to silence the byte-compiler.
+:functions     Declare certain functions to silence the byte-compiler.
+:load-path     Add to the `load-path' before attempting to load the package.
+:diminish      Support for diminish.el (if installed).
+:ensure        Loads the package using package.el if necessary.
+:pin           Pin the package to an archive.
+
+\(fn NAME &rest ARGS)" nil t)
+
+(function-put 'use-package 'lisp-indent-function '1)
+
+;;;***
+
 ;;;### (autoloads nil "web-mode/web-mode" "web-mode/web-mode.el"
 ;;;;;;  (22611 2957 0 0))
 ;;; Generated autoloads from web-mode/web-mode.el
@@ -3646,22 +3397,26 @@ Simple mode to edit YAML.
 
 ;;;***
 
-;;;### (autoloads nil nil ("auto-complete/auto-complete-pkg.el" "csharp-mode/csharp-mode-tests.el"
-;;;;;;  "dash/dash-functional.el" "dash/dash.el" "deferred/concurrent.el"
-;;;;;;  "deferred/deferred.el" "el-get/el-get-autoloading.el" "el-get/el-get-build.el"
-;;;;;;  "el-get/el-get-byte-compile.el" "el-get/el-get-core.el" "el-get/el-get-custom.el"
-;;;;;;  "el-get/el-get-dependencies.el" "el-get/el-get-install.el"
-;;;;;;  "el-get/el-get-methods.el" "el-get/el-get-notify.el" "el-get/el-get-recipes.el"
-;;;;;;  "el-get/el-get-status.el" "emacs-async/async-pkg.el" "emacs-async/async-test.el"
-;;;;;;  "emacs-async/smtpmail-async.el" "epl/epl.el" "flycheck/flycheck-buttercup.el"
-;;;;;;  "flycheck/flycheck-ert.el" "fuzzy/fuzzy.el" "ht/ht.el" "logito/logito.el"
+;;;### (autoloads nil nil ("auto-complete/auto-complete-pkg.el" "breadcrumb/breadcrumb.el"
+;;;;;;  "csharp-mode/csharp-mode-tests.el" "dash/dash-functional.el"
+;;;;;;  "dash/dash.el" "deferred/concurrent.el" "deferred/deferred.el"
+;;;;;;  "el-get/el-get-autoloading.el" "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
+;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
+;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el" "emacs-async/async-pkg.el"
+;;;;;;  "emacs-async/async-test.el" "emacs-async/smtpmail-async.el"
+;;;;;;  "epl/epl.el" "flycheck/flycheck-buttercup.el" "flycheck/flycheck-ert.el"
+;;;;;;  "fuzzy/fuzzy.el" "ht/ht.el" "log4e/log4e.el" "logito/logito.el"
 ;;;;;;  "magit/lisp/magit-autoloads.el" "magit/lisp/magit-core.el"
 ;;;;;;  "magit/lisp/magit-git.el" "magit/lisp/magit-margin.el" "magit/lisp/magit-mode.el"
 ;;;;;;  "magit/lisp/magit-popup.el" "magit/lisp/magit-process.el"
 ;;;;;;  "magit/lisp/magit-section.el" "names/names-dev.el" "paredit/test.el"
-;;;;;;  "pcache/pcache.el" "popup/popup.el" "rainbow-delimiters/rainbow-delimiters-test.el"
+;;;;;;  "pcache/pcache.el" "popup/popup.el" "pos-tip/pos-tip.el"
+;;;;;;  "rainbow-delimiters/rainbow-delimiters-test.el" "req-package/req-package-args.el"
+;;;;;;  "req-package/req-package-cycles.el" "req-package/req-package-hooks.el"
+;;;;;;  "req-package/req-package-providers.el" "req-package/req-package.el"
 ;;;;;;  "request/request-deferred.el" "request/request.el" "s/s.el"
-;;;;;;  "with-editor/with-editor.el") (22611 16469 0 0))
+;;;;;;  "with-editor/with-editor.el") (22612 47507 0 0))
 
 ;;;***
 

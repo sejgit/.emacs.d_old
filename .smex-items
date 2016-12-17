@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- package-delete
+ flycheck-info
+ req-package--log-open-log
+ comment-region
  el-get-list-packages
+ aggressive-indent-mode
+ package-delete
  el-get-reinstall
- el-get-find-recipe-file
- el-get-reload
- help-mode
- describe-mode
 )
 
 ;; ----- smex-data -----
@@ -29,14 +29,19 @@
  (eval-buffer . 1)
  (eval-region . 1)
  (el-get-update . 2)
- (el-get-list-packages . 17)
- (comment-region . 2)
+ (el-get-list-packages . 20)
+ (comment-region . 3)
  (uncomment-region . 2)
  (describe-mode . 3)
  (smex-update . 1)
  (help-mode . 1)
- (package-delete . 94)
+ (package-delete . 96)
  (el-get-reinstall . 3)
  (el-get-reload . 2)
  (el-get-find-recipe-file . 1)
+ (aggressive-indent-mode . 1)
+ (dashboard-mode . 1)
+ (dashboard-insert-startupify-lists . 1)
+ (req-package--log-open-log . 3)
+ (flycheck-info . 1)
 )

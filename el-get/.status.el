@@ -12,6 +12,8 @@
 			 (add-to-list 'ac-dictionary-directories
 				      (expand-file-name "dict" default-directory))
 			 (ac-config-default))))
+ (breadcrumb status "installed" recipe
+	     (:name breadcrumb :website "http://breadcrumbemacs.sourceforge.net/" :description "Breadcrumb is an add-on module for Emacs that allows you to set a series of quick bookmarks in the file buffers, and jump back to them quickly." :type http-zip :url "http://downloads.sourceforge.net/project/breadcrumbemacs/Breadcrumb%20for%20Emacs/1.1.3/breadcrumb-1.1.3.zip"))
  (cl-lib status "installed" recipe
 	 (:name cl-lib :builtin "24.3" :type elpa :description "Properly prefixed CL functions and macros" :url "http://elpa.gnu.org/packages/cl-lib.html"))
  (csharp-mode status "installed" recipe
@@ -51,6 +53,13 @@
  (flycheck status "installed" recipe
 	   (:name flycheck :type github :pkgname "flycheck/flycheck" :minimum-emacs-version "24.3" :description "On-the-fly syntax checking extension" :depends
 		  (dash pkg-info let-alist seq)))
+ (flycheck-pos-tip status "installed" recipe
+		   (:name flycheck-pos-tip :type github :pkgname "flycheck/flycheck-pos-tip" :description "Flycheck errors display in tooltip" :depends
+			  (pos-tip flycheck)
+			  :post-init
+			  (setq-default flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))
+ (flyspell status "installed" recipe
+	   (:name flyspell :website "http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html" :description "On-the-fly spell checker." :type http :url "http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell-1.7q.el"))
  (fuzzy status "installed" recipe
 	(:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
  (gh status "installed" recipe
@@ -71,6 +80,8 @@
 			:pkgname "DarwinAwardWinner/ido-ubiquitous"))
  (let-alist status "installed" recipe
 	    (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
+ (log4e status "installed" recipe
+	(:name log4e :website "https://github.com/aki2o/log4e" :description "provide logging framework for elisp." :type github :pkgname "aki2o/log4e"))
  (logito status "installed" recipe
 	 (:name logito :type github :pkgname "sigma/logito" :description "logging library for Emacs" :website "http://github.com/sigma/logito"))
  (magit status "installed" recipe
@@ -95,8 +106,6 @@
 		 (ht)))
  (names status "installed" recipe
 	(:name names :description "A Namespace implementation for Emacs-Lisp" :website "https://github.com/Bruce-Connor/names" :type github :depends cl-lib :pkgname "Bruce-Connor/names"))
- (page-break-lines status "installed" recipe
-		   (:name page-break-lines :website "https://github.com/purcell/page-break-lines" :description "A global mode which displays ugly form feed characters as tidy horizontal rules" :type github :pkgname "purcell/page-break-lines"))
  (paredit status "installed" recipe
 	  (:name paredit :description "Minor mode for editing parentheses" :type github :prepare
 		 (progn
@@ -110,10 +119,16 @@
 		  (dash epl)))
  (popup status "installed" recipe
 	(:name popup :website "https://github.com/auto-complete/popup-el" :description "Visual Popup Interface Library for Emacs" :type github :submodule nil :depends cl-lib :pkgname "auto-complete/popup-el"))
- (projectile status "installed" recipe
-	     (:name projectile :description "Project navigation and management library for Emacs." :type github :pkgname "bbatsov/projectile" :depends pkg-info))
+ (pos-tip status "installed" recipe
+	  (:name pos-tip :description "Show tooltip at point" :type emacswiki))
  (rainbow-delimiters status "installed" recipe
 		     (:name rainbow-delimiters :website "https://github.com/Fanael/rainbow-delimiters#readme" :description "Color nested parentheses, brackets, and braces according to their depth." :type github :pkgname "Fanael/rainbow-delimiters"))
+ (req-package status "installed" recipe
+	      (:name req-package :description "req-package is a macro wrapper on top of use-package. It's goal is to simplify package dependencies management, when using use-package for your .emacs." :type github :features
+		     (req-package)
+		     :depends
+		     (use-package dash log4e)
+		     :pkgname "edvorg/req-package"))
  (request status "installed" recipe
 	  (:name request :description "Easy HTTP request for Emacs Lisp" :type github :submodule nil :pkgname "abingham/emacs-request" :depends
 		 (deferred)
@@ -142,6 +157,8 @@
 	      (smex-initialize)))
  (tabulated-list status "installed" recipe
 		 (:name tabulated-list :type github :pkgname "sigma/tabulated-list.el" :description "generic major mode for tabulated lists." :website "http://github.com/sigma/tabulated-list.el"))
+ (use-package status "installed" recipe
+	      (:name use-package :type github :description "A use-package declaration for simplifying your .emacs" :pkgname "jwiegley/use-package"))
  (web-mode status "installed" recipe
 	   (:name web-mode :description "emacs major mode for editing PHP/JSP/ASP HTML templates (with embedded CSS and JS blocks)" :type github :pkgname "fxbois/web-mode"))
  (with-editor status "installed" recipe
