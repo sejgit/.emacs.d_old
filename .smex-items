@@ -2,12 +2,12 @@
 ;; ----- smex-history -----
 (
  el-get-list-packages
+ customize-variable
+ company-mode
  flycheck-info
  req-package--log-open-log
  comment-region
  aggressive-indent-mode
- package-delete
- el-get-reinstall
 )
 
 ;; ----- smex-data -----
@@ -29,7 +29,7 @@
  (eval-buffer . 1)
  (eval-region . 1)
  (el-get-update . 2)
- (el-get-list-packages . 28)
+ (el-get-list-packages . 30)
  (comment-region . 3)
  (uncomment-region . 2)
  (describe-mode . 3)
@@ -44,4 +44,6 @@
  (dashboard-insert-startupify-lists . 1)
  (req-package--log-open-log . 3)
  (flycheck-info . 1)
+ (company-mode . 2)
+ (customize-variable . 1)
 )

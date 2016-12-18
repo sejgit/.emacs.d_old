@@ -130,11 +130,6 @@
   :init
   (setq-default save-place t))
 
-;; autocomplete
-(req-package auto-complete-config
-  :init
-  (ac-config-default))
-
 ;; conf-mode
 (req-package conf-mode :mode "\\.gitconfig$")
 
