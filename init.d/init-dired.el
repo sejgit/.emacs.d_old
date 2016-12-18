@@ -33,16 +33,5 @@
   :require dired
   :init (dired-launch-enable))
 
-;; dired-toggle-sudo
-(req-package dired-toggle-sudo
-  :config
-  (define-key dired-mode-map (kbd "C-c C-s") 'dired-toggle-sudo)
-  (eval-after-load 'tramp
-    '(progn
-       ;; Allow to use: /sudo:user@host:/path/to/file
-       (add-to-list 'tramp-default-proxies-alist
-		    '(".*" "\\`.+\\'" "/ssh:%h:")))))
-
-
 (provide 'init-dired)
 ;;; init-dired.el ends here
