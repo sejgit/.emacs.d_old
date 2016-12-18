@@ -10,9 +10,7 @@
 (req-package yaml-mode
   :mode
   "\\.yml$"
-  "\\.yaml$"
-  :locader el-get)
+  "\\.yaml$")
 
-(provide 'init-yaml)\n;;; init-yaml.el ends here
-
-
+(provide 'init-yaml)
+;;; init-yaml.el ends here

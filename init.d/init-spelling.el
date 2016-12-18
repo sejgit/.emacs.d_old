@@ -22,8 +22,8 @@
     (flyspell-goto-next-error)
     (ispell-word))
   (setq flyspell-issue-welcome-flag nil)
-  (setq-default ispell-list-command "list"))
+  (setq-default ispell-list-command "list")
+  :loader :build-in)
 
-(provide 'init-spelling)\n;;; init-spelling.el ends here
-
-
+(provide 'init-spelling)
+;;; init-spelling.el ends here

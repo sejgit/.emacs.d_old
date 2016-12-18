@@ -1,11 +1,14 @@
-;; Stephen's emacs init-real.el file
-;; 2016-02-24 init
-;; 2016 03 17 good ideas from aaron bedra's emacs configuration
-;; 2016 11 29 integrate win-nt version & virtualbox
-;; 2016 11 30 cleanup & concat with linux versions
-;; 2016 12 12 transfer updates from test-version
-;; 2016 12 15 updates due to win move to wsys2/ming64
-;; 2016 12 15 split init.el & init-real.el adding init.d
+;;; init-real.el --- Stephen's Emacs init-real.el file
+;;; Commentary:
+					; 2016-02-24 init
+					; 2016 03 17 good ideas from aaron bedra's Emacs configuration
+					; 2016 11 29 integrate win-nt version & virtualbox
+					; 2016 11 30 cleanup & concat with linux versions
+					; 2016 12 12 transfer updates from test-version
+					; 2016 12 15 updates due to win move to wsys2/ming64
+					; 2016 12 15 split init.el & init-real.el adding init.d
+
+;;; Code:
 
 ;; el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -16,6 +19,7 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(require 'el-get)
 (el-get 'sync)
 
 ;; recompile configs
@@ -34,7 +38,7 @@
 (eval-when-compile (package-initialize))
 
 (defun require-package (package)
-  "refresh package archives, check package presence and install if it's not installed"
+  "Refresh package archives, check package presence and install if it's not installed."
   (if (null (require package nil t))
       (progn (let* ((ARCHIVES (if (null package-archive-contents)
                                   (progn (package-refresh-contents)
@@ -69,3 +73,6 @@
 
 (switch-to-buffer "*dashboard*")
 (dashboard-insert-startupify-lists)
+
+(provide 'init-real)
+;;; init-real.el ends here

@@ -1,8 +1,10 @@
-;; Stephen's emacs init.org.el file
-;; 2016 12 16
+;;; init.org --- Stephen's emacs init.org.el file
+;;; Commentary:
+					; org-mode settings
+					; 2016 12 16
 
+;;; Code:
 
-;; org-mode settings
 (require 'req-package)
 
 (req-package org
@@ -48,4 +50,4 @@
   :commands org-dashboard-display)
 
 (provide 'init-org)
-
+;;; init-org.el ends here

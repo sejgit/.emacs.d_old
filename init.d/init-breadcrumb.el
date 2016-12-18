@@ -15,9 +15,7 @@
 	 ("M-<DOWN>" . bc-local-next)   ; M-down-arrow for local next
 	 ("C-c j" . bc-goto-current)    ; C-c j for jump to current bookmark
 	 ("C-x M-j" . bc-list)          ; C-x M-j for the bookmark menu list
-	 )
-  :loader :el-get)
+	 ))
 
-(provide 'init-breadcrumb)\n;;; init-breadcrumb.el ends here
-
-
+(provide 'init-breadcrumb)
+;;; init-breadcrumb.el ends here

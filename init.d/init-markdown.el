@@ -11,15 +11,15 @@
   :mode
   "\\.md$"
   "\\.mdown$"
-  :config 
+  :config
   (add-hook 'markdown-mode-hook
 	    (lambda ()
 	      (visual-line-mode t)
 	      (writegood-mode t)
 	      (flyspell-mode t)))
-  (setq markdown-command "pandoc --smart -f markdown -t html")
-  :loader :el-get)
+  (setq markdown-command "pandoc --smart -f markdown -t html"))
 
-(provide 'init-markdown)\n;;; init-markdown.el ends here
+(provide 'init-markdown)
+;;; init-markdown.el ends here
 
 

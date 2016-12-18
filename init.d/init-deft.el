@@ -16,10 +16,7 @@
 		 ;;(setq deft-extension "org")
 		 (setq deft-text-mode 'org-mode)
 		 (setq deft-org-mode-title-prefix t)
-		 (setq deft-recursive t))
+		 (setq deft-recursive t)))
 
-  :loader :el-get)
-
-(provide 'init-deft)\n;;; init-deft.el ends here
-
-
+(provide 'init-deft)
+;;; init-deft.el ends here

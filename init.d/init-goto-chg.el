@@ -16,8 +16,7 @@
 	 ;; ensure that even in worst case some goto-last-change is available
 	 ("C-M-." . goto-last-change)
 	 ;; added reverse below
-	 ("C-," . goto-last-change-reverse))
-  :loader :el-get)
+	 ("C-," . goto-last-change-reverse)))
 
-(provide 'init-goto-chg)\n;;; init-goto-chg.el ends here
-
+(provide 'init-goto-chg)
+;;; init-goto-chg.el ends here

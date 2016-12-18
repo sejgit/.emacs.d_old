@@ -41,12 +41,14 @@
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 
 ;; rainbow-delimiters-mode
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+(req-package rainbow-delimiters
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; marking text and clipboard settings
 (delete-selection-mode t)
 (transient-mark-mode t)
-(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 
 ;; empty line settings
 (setq-default indicate-empty-lines nil)
@@ -136,6 +138,5 @@
 ;; conf-mode
 (req-package conf-mode :mode "\\.gitconfig$")
 
-(provide 'init-look-and-feel)\n;;; init-look-and-feel ends here
-
-
+(provide 'init-look-and-feel)
+;;; init-look-and-feel ends here

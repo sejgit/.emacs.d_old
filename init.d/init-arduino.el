@@ -9,10 +9,8 @@
 
 ;; arduino-mode
 (req-package arduino-mode
-  :mode "\\.ino$"
-  :loader el-get)
+  :mode "\\.ino$")
 
 
-(provide 'init-arduino)\n;;; init-arduino.el ends here
-
-
+(provide 'init-arduino)
+;;; init-arduino.el ends here

@@ -1,10 +1,10 @@
 
 ;; ----- smex-history -----
 (
+ el-get-list-packages
  flycheck-info
  req-package--log-open-log
  comment-region
- el-get-list-packages
  aggressive-indent-mode
  package-delete
  el-get-reinstall
@@ -29,7 +29,7 @@
  (eval-buffer . 1)
  (eval-region . 1)
  (el-get-update . 2)
- (el-get-list-packages . 20)
+ (el-get-list-packages . 28)
  (comment-region . 3)
  (uncomment-region . 2)
  (describe-mode . 3)

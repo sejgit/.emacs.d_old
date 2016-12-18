@@ -1,18 +1,17 @@
-;; Stephen's emacs init file
-;; 2016-02-24 init
-;; 2016 03 17 good ideas from aaron bedra's emacs configuration
-;; 2016 11 29 integrate win-nt version & virtualbox
-;; 2016 11 30 cleanup & concat with linux versions
-;; 2016 12 12 transfer updates from test-version
-;; 2016 12 15 updates due to win move to wsys2/ming64
+;;; init.el ---  Stephen's emacs init file
+;;; Commentary:
+					; 2016-02-24 init
+					; 2016 03 17 good ideas from aaron bedra's Emacs configuration
+					; 2016 11 29 integrate win-nt version & virtualbox
+					; 2016 11 30 cleanup & concat with linux versions
+					; 2016 12 12 transfer updates from test-version
+					; 2016 12 15 updates due to win move to wsys2/ming64
+
+;;; Code:
 
 ;; set frame size and position
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
+;(package-initialize)
 
 (defun set-frame-size-according-to-resolution ()
   (interactive)
@@ -55,6 +54,8 @@
 ;; load extensions
 (add-hook 'after-init-hook (lambda () (load "~/.emacs.d/init-real.el")))
 
+(provide 'init)
+;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -62,7 +63,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode use-package org-dashboard org-cliplink org-bullets org macrostep load-dir ido-completing-read+ ido-at-point furl flx-ido fic-ext-mode dired-toggle-sudo dashboard async))))
+    (rainbow-delimiters yaml-mode sunrise-x-loop smex shell-pop req-package org-dashboard org-cliplink org-bullets org markdown-mode macrostep load-dir ido-ubiquitous ido-at-point goto-chg gist furl flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav dummy-h-mode dired-toggle-sudo dired-rainbow dired-open dired-launch diff-hl deft dashboard company-shell company-irony batch-mode bash-completion auto-complete async arduino-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,13 +1,17 @@
-;; Stephen's emacs init-dashboard.el
-;; 2016 12 16
+;;; init-dashboard.el ---  Stephen's emacs init-dashboard.el
+;;; Commentary:
+					; 2016 12 16
+
+;;; Code:
 
 (require 'req-package)
 
 (req-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-items '((recents  . 10)
+  (setq dashboard-items '((recents  . 15)
 			  (bookmarks . 5)))
   :require page-break-lines)
 
 (provide 'init-dashboard)
+;;; init-dashboard ends here

@@ -1,1 +1,0 @@
-("~/" "~/.emacs.d/" "~/.emacs.d/el-get/el-get/" "~/.emacs.d/el-get/magit/" "~/dotfiles/" "~/dotfiles/todo.txt-cli/")

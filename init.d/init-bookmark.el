@@ -1,6 +1,8 @@
-;; Stephen's emacs init-bookmark.el
-;; 2016 12 16
+;;; init-bookmark.el -- Stephen's emacs init-bookmark.el
+;;; Commentary:
+					; 2016 12 16
 
+;;; Code:
 
 (require 'req-package)
 
@@ -8,3 +10,5 @@
   :config (setq bookmark-default-file  (concat user-emacs-directory "bookmarks")))
 
 (provide 'init-bookmark)
+;;; init-bookmark.el ends here
+

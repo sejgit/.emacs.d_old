@@ -1,6 +1,9 @@
-;; Stephen's emacs init-flycheck.el
-;; 2016 12 16
+;;; init-flycheck.el ---  Stephen's emacs init-flycheck.el
+;;; Commentary:
+					; 2016 12 16
 
+
+;;; Code:
 
 (require 'req-package)
 
@@ -11,13 +14,12 @@
                                      :underline nil)
                  (set-face-attribute 'flycheck-error nil
                                      :inherit 'error
-                                     :underline nil))
-  :loader :el-get)
+                                     :underline nil)))
 
 (req-package flycheck-pos-tip
   :commands flycheck-pos-tip-error-messages
   :require flycheck
-  :init (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
-  :loader :el-get)
+  :init (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 
 (provide 'init-flycheck)
+;;; init-flycheck.el ends here

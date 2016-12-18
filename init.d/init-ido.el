@@ -14,8 +14,7 @@
 	ido-use-virtual-buffers t))
 
 (req-package ido-ubiquitous
-  :config (ido-ubiquitous-mode t)
-  :loader :el-get)
+  :config (ido-ubiquitous-mode t))
 
 (req-package flx-ido
   :require flx ido
@@ -29,5 +28,7 @@
   :config (ido-at-point-mode 1))
 
 (provide 'init-ido)
+;;; init-ido.el ends here
+
 
 

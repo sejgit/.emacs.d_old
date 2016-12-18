@@ -16,4 +16,5 @@
       (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
   (add-something-to-mode-hooks '( c++ tcl emacs-lisp arduino python text markdown latex) 'fic-ext-mode))
 
-(provide 'init-fic-ext)\n;;; init-fic-ext.el ends here
+(provide 'init-fic-ext)
+;;; init-fic-ext.el ends here
