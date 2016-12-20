@@ -2,6 +2,8 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("c:/msys64/opt/share/" . "conemu/")
+ ("c:/msys64/opt/" . "share/")
  ("C:/Users/NZ891R/gdrive/ehome/.emacs.d/" . "init.d/")
  ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/" . ".saves/")
  ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/" . "init.d/")
@@ -21,18 +23,19 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "c:/Users/NZ891R/gdrive/ehome/"
  "c:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/"
  "c:/Users/NZ891R/gdrive/ehome/.emacs.d/"
+ "c:/msys64/"
+ "c:/Users/NZ891R/gdrive/ehome/.shell/aliases/"
+ "c:/msys64/opt/share/conemu/"
+ "c:/Users/NZ891R/gdrive/ehome/"
  "C:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/"
  "C:/Users/NZ891R/gdrive/ehome/.emacs.d/"
  "c:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/.saves/"
  "c:/Users/NZ891R/gdrive/ehome/.shell/"
- "c:/msys64/"
  "c:/msys64/usr/bin/"
  "c:/Users/NZ891R/gdrive/ehome/dotfiles/todo.txt-cli/"
  "c:/Users/NZ891R/gdrive/ehome/.shell/completions/"
- "c:/Users/NZ891R/gdrive/ehome/.shell/aliases/"
  "c:/Users/NZ891R/Google Drive/ehome/.shell/aliases/"
  "c:/Users/NZ891R/Google Drive/ehome/dotfiles/shell/"
  "c:/Users/NZ891R/Google Drive/ehome/"
@@ -42,6 +45,8 @@
 
 ;; ----- ido-work-file-list -----
 (
+ "init-browse-kill-ring.el"
+ "init-discover-my-major.el"
  "init-company-mode.el"
  "init-gist.el"
  "init-elisp.el"
@@ -50,17 +55,27 @@
  "init-batch.el"
  "init-deft.el"
  "init-bash.el"
- "init-arduino.el"
- "init-dired-toggle-sudo.el"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("c:/Users/NZ891R/gdrive/ehome/" (22614 2186 0 0) "sej/" "dotfiles/" "bin/" ".z" ".ssh/" ".shell/" ".saves/" ".python_history" ".inputrc" ".gnupg/" ".gitconfig" ".git/" ".emacs.d/" ".dirs" ".cpanm/" ".cpan/" ".config/" ".breadcrumb" ".bash_profile" ".bash_logout" ".bash_history" ".bashrc" "../" "./")
+ ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/" (22617 40479 0 0) "init-yaml.elc" "init-yaml.el" "init-which-key.elc" "init-which-key.el" "init-spelling.elc" "init-spelling.el" "init-smex.elc" "init-smex.el" "init-org.elc" "init-org.el" "init-markdown.elc" "init-markdown.el" "init-look-and-feel.elc" "init-look-and-feel.el" "init-ido.elc" "init-ido.el" "init-goto-chg.elc" "init-goto-chg.el" "init-gist.elc" "init-gist.el" "init-flycheck.elc" "init-flycheck.el" "init-fic-ext.elc" "init-fic-ext.el" "init-elisp.elc" "init-elisp.el" "init-discover-my-major.elc" "init-discover-my-major.el" "init-dired.elc" "init-dired.el" "init-deft.elc" "init-deft.el" "init-dashboard.elc" "init-dashboard.el" "init-company-mode.elc" "init-company-mode.el" "init-breadcrumb.elc" "init-breadcrumb.el" "init-bookmark.elc" "init-bookmark.el" "init-batch.elc" "init-batch.el" "init-bash.elc" "init-bash.el" "init-arduino.elc" "init-arduino.el" "init-aggressive-indent.elc" "init-aggressive-indent.el" "flycheck_init-which-key.elc" "flycheck_init-which-key.el" ".saves/" "../" "./")
 
- ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/" (22614 550 0 0) "init-yaml.elc" "init-yaml.el" "init-spelling.elc" "init-spelling.el" "init-smex.elc" "init-smex.el" "init-org.elc" "init-org.el" "init-markdown.elc" "init-markdown.el" "init-look-and-feel.elc" "init-look-and-feel.el" "init-ido.elc" "init-ido.el" "init-goto-chg.elc" "init-goto-chg.el" "init-gist.elc" "init-gist.el" "init-flycheck.elc" "init-flycheck.el" "init-fic-ext.elc" "init-fic-ext.el" "init-elisp.elc" "init-elisp.el" "init-dired.elc" "init-dired.el" "init-deft.elc" "init-deft.el" "init-dashboard.elc" "init-dashboard.el" "init-company-mode.elc" "init-company-mode.el" "init-breadcrumb.elc" "init-breadcrumb.el" "init-bookmark.elc" "init-bookmark.el" "init-batch.elc" "init-batch.el" "init-bash.elc" "init-bash.el" "init-arduino.elc" "init-arduino.el" "init-aggressive-indent.elc" "init-aggressive-indent.el" ".saves/" ".#init-company-mode.el" "../" "./")
+ ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/" (22617 36209 0 0) "var/" "tutorial/" "smex-items" "session.10c5d36269000145841672400000039130024" "server/" "recentf" "README.md" "places" "LICENSE" "init_old.el" "init.el" "init.d/" "init-real.el" "ido.last~" "ido.last" "elpa/" "el-get/" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".smex-items" ".saves/" ".gitignore" ".git/" "../" "./")
 
- ("c:/Users/NZ891R/gdrive/ehome/.shell/aliases/" (22609 61261 0 0) "todo.txt-cli.aliases.sh" "git.aliases.sh" "general.aliases.sh" "emacs.aliases.sh" ".saves/" "../" "./")
+ ("c:/Users/NZ891R/gdrive/ehome/" (22616 2977 0 0) "sej/" "nohup.out" "dotfiles/" "bin/" ".z" ".ssh/" ".shell/" ".saves/" ".python_history" ".minttyrc" ".inputrc" ".gnupg/" ".gitconfig" ".git/" ".emacs.d/" ".dirs" ".cpanm/" ".cpan/" ".config/" ".breadcrumb" ".bash_profile" ".bash_logout" ".bash_history" ".bashrc" "../" "./")
+
+ ("c:/msys64/" (22616 935 0 0) "wget-log" "var/" "usr/" "tmp/" "opt/" "network.xml" "msys2_shell.cmd" "msys2.ini" "msys2.ico" "msys2.exe" "mingw64.ini" "mingw64.exe" "mingw64/" "mingw32.ini" "mingw32.exe" "mingw32/" "maintenancetool.ini" "maintenancetool.exe" "maintenancetool.dat" "InstallationLog.txt" "home/" "etc/" "dev/" "components.xml" "autorebase.bat" ".saves/" "../" "./")
+
+ ("c:/Users/NZ891R/gdrive/ehome/.shell/aliases/" (22614 63341 0 0) "todo.txt-cli.aliases.sh" "git.aliases.sh" "general.aliases.sh" "emacs.aliases.sh" ".saves/" "../" "./")
+
+ ("c:/msys64/opt/share/conemu/" (21891 46064 0 0) "ConEmu.xml" "../" "./")
+
+ ("c:/msys64/opt/share/" (21891 46064 0 0) "conemu/" "../" "./")
+
+ ("c:/msys64/opt/" (21891 46064 0 0) "share/" "bin/" "../" "./")
+
+ ("c:/Users/NZ891R/gdrive/" (22615 52608 0 0) "todo/" "sshkeys - 2016-12-10/" "sshkeys - 2016-11-29/" "sshkeys - 2016-04-01/" "sshkeys/" "sql/" "Seadoo/" "Saratoga Wine Exchange_2016-11-09.pdf" "RPi-magpi/" "rpi/" "reference/" "Personal/" "McCullough/" "Kids/" "ISY/" "Imported from Google Notebook - Scratch.gdoc" "Imported from Google Notebook - My Notebook_.gdoc" "Imported from Google Notebook - Mobile notes.gdoc" "humour/" "Ginn" "Financial/" "emacs/" "electronics/" "ehome/" "desktop.ini" "Debian xfce BaseBackup/" "Career/" "CanadaPassportPPTC054.pdf" "CanadaPassporChildren.pdf" "Arduino/" "Apps/" ".tmp.drivedownload/" "../" "./")
 
  ("c:/Users/NZ891R/gdrive/ehome/.shell/completions/" (22609 62395 0 0) "todo_completion.sh" "system.completion.sh" "ssh.completion.sh" "pip.completion.sh" "git.completion.sh" "git-prompt.sh" "dirs.completion.sh" "defaults.completion.sh" "bash-it.completion.sh" ".saves/" "../" "./")
 
@@ -71,8 +86,6 @@
  ("C:/Users/NZ891R/gdrive/ehome/.emacs.d/" (22613 63962 0 0) "var/" "tutorial/" "smex-items" "session.10c5d36269000145841672400000039130024" "server/" "recentf" "README.md" "places" "LICENSE" "init_old.el" "init_backup.el" "init.el" "init.d/" "init-real.el" "ido.last~" "ido.last" "elpa/" "el-get/" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".smex-items" ".saves/" ".gitignore" ".git/" "../" "./")
 
  ("C:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/" (22613 64965 0 0) "init-yaml.elc" "init-yaml.el" "init-spelling.elc" "init-spelling.el" "init-smex.elc" "init-smex.el" "init-org.elc" "init-org.el" "init-markdown.elc" "init-markdown.el" "init-look-and-feel.elc" "init-look-and-feel.el" "init-ido.elc" "init-ido.el" "init-goto-chg.elc" "init-goto-chg.el" "init-gist.elc" "init-gist.el" "init-flycheck.elc" "init-flycheck.el" "init-fic-ext.elc" "init-fic-ext.el" "init-elisp.elc" "init-elisp.el" "init-dired.elc" "init-dired.el" "init-deft.elc" "init-deft.el" "init-dashboard.elc" "init-dashboard.el" "init-breadcrumb.elc" "init-breadcrumb.el" "init-bookmark.elc" "init-bookmark.el" "init-batch.elc" "init-batch.el" "init-bash.elc" "init-bash.el" "init-arduino.elc" "init-arduino.el" "init-aggressive-indent.elc" "init-aggressive-indent.el" ".saves/" "../" "./")
-
- ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/" (22613 63962 0 0) "var/" "tutorial/" "smex-items" "session.10c5d36269000145841672400000039130024" "server/" "recentf" "README.md" "places" "LICENSE" "init_old.el" "init_backup.el" "init.el" "init.d/" "init-real.el" "ido.last~" "ido.last" "elpa/" "el-get/" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".smex-items" ".saves/" ".gitignore" ".git/" "../" "./")
 
  ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/el-get/" (22613 60352 0 0) "names/" "el-get/" "cl-lib/" "breadcrumb/" "aggressive-indent-mode/" ".status.el" ".loaddefs.elc" ".loaddefs.el" "../" "./")
 
@@ -85,10 +98,6 @@
  ("C:/msys64/mingw64/bin/" (22610 64658 0 0) "zlib1.dll" "zipdetails" "xzmore" "xzless" "xzgrep" "xzfgrep" "xzegrep" "xzdiff" "xzdec.exe" "xzcmp" "xzcat.exe" "xz.exe" "xsubpp" "xmlwf.exe" "xgettext.exe" "x86_64-w64-mingw32-tset.exe" "x86_64-w64-mingw32-tput.exe" "x86_64-w64-mingw32-toe.exe" "x86_64-w64-mingw32-tic.exe" "x86_64-w64-mingw32-tabs.exe" "x86_64-w64-mingw32-reset.exe" "x86_64-w64-mingw32-pkg-config.exe" "x86_64-w64-mingw32-infotocap.exe" "x86_64-w64-mingw32-infocmp.exe" "x86_64-w64-mingw32-inflatehd.exe" "x86_64-w64-mingw32-gcc.exe" "x86_64-w64-mingw32-gcc-ranlib.exe" "x86_64-w64-mingw32-gcc-nm.exe" "x86_64-w64-mingw32-gcc-ar.exe" "x86_64-w64-mingw32-gcc-6.2.0.exe" "x86_64-w64-mingw32-g++.exe" "x86_64-w64-mingw32-deflatehd.exe" "x86_64-w64-mingw32-clear.exe" "x86_64-w64-mingw32-captoinfo.exe" "x86_64-w64-mingw32-c++.exe" "x86_64-w64-mingw32-agrep.exe" "wrjpgcom.exe" "wperl.exe" "word-list-compress.exe" "wish86.exe" "wish.exe" "windres.exe" "windmc.exe" "webpmux.exe" "update-ca-trust" "unxz.exe" "unlz4.exe" "trust.exe" "transicc.exe" "tmrdemo.exe" "tk86.dll" "tjbench.exe" "tificc.exe" "tiffsplit.exe" "tiffset.exe" "tiffmedian.exe" "tiffinfo.exe" "tiffdump.exe" "tiffdither.exe" "tiffcrop.exe" "tiffcp.exe" "tiffcmp.exe" "tiff2rgba.exe" "tiff2ps.exe" "tiff2pdf.exe" "tiff2bw.exe" "thumbnail.exe" "test-yaml.bat" "test-yaml" "tclsh86.exe" "tclsh.exe" "tcl86.dll" "strip.exe" "strings.exe" "stream.exe" "stow.bat" "stow" "ssleay32.dll" "srptool.exe" "sqlite3_analyzer.sh" "splain" "size.exe" "shasum" "sexp-conv.exe" "search" "runperl" "runemacs.exe" "run-with-aspell" "rtmpsuck.exe" "rtmpsrv.exe" "rtmpgw.exe" "rtmpdump.exe" "rgb2ycbcr.exe" "recode-sr-latin.exe" "readelf.exe" "rdjpgcom.exe" "raw2tiff.exe" "ras2tiff.exe" "ranlib.exe" "python2w.exe" "python2.exe" "python2.7.exe" "python2.7-config" "python2-config" "python2" "python.exe" "python-config.sh" "python-config-u.sh" "python-config" "pydoc" "ptargrep" "ptardiff" "ptar" "pstruct" "pspell-config" "psktool.exe" "psicc.exe" "prove" "prezip-bin.exe" "prezip" "preunzip" "precat" "ppm2tiff.exe" "podselect" "podchecker" "pod2usage" "pod2text" "pod2man" "pod2html" "pngfix.exe" "png-fix-itxt.exe" "pl2pm" "pl2bat.bat" "pl2bat" "pkg-config.exe" "pkcs1-conv.exe" "piconv" "perlthanks" "perlivp" "perlglob.exe" "perlglob" "perldoc" "perlbug" "perl522.dll" "perl5.22.0.exe" "perl.exe" "pcretest.exe" "pcregrep.exe" "pcre-config" "pbmtojbg85.exe" "pbmtojbg.exe" "pal2rgb.exe" "p11tool.exe" "p11-kit.exe" "opj_mj2_wrap.exe" "opj_mj2_extract.exe" "opj_mj2_decompress.exe" "opj_mj2_compress.exe" "opj_jpwl_decompress.exe" "opj_jpwl_compress.exe" "opj_jpip_transcode.exe" "opj_jpip_test.exe" "opj_jpip_addxml.exe" "opj_jp3d_decompress.exe" "opj_jp3d_compress.exe" "opj_dump.exe" "opj_dec_server.exe" "opj_decompress.exe" "opj_compress.exe" "openssl.exe" "ocsptool.exe" "objdump.exe" "objcopy.exe" "nm.exe" "ngettext.exe" "nettle-pbkdf2.exe" "nettle-lfib-stream.exe" "nettle-hash.exe" "ncursesw6-config" "msguniq.exe" "msgunfmt.exe" "msgmerge.exe" "msginit.exe" "msggrep.exe" "msgfmt.exe" "msgfilter.exe" "msgexec.exe" "msgen.exe" "msgconv.exe" "msgcomm.exe" "msgcmp.exe" "msgcat.exe" "msgattrib.exe" "montage.exe" "mogrify.exe" "minizip.exe" "miniunzip.exe" "MagickWand-config" "MagickCore-config" "magick.exe" "magick-script.exe" "Magick++-config" "lzmainfo.exe" "lzmadec.exe" "lz4cat.exe" "lz4c.exe" "lz4.exe" "linkicc.exe" "libXpm-noX4.dll" "libwinpthread-1.dll" "libwebpmux-2.dll" "libwebpextras-0.dll" "libwebpdemux-2.dll" "libwebpdecoder-2.dll" "libwebp-6.dll" "libuv-1.dll" "libturbojpeg-0.dll" "libtre-5.dll" "libtoolize" "libtool" "libtiffxx-5.dll" "libtiff-5.dll" "libtermcap-0.dll" "libtasn1-6.dll" "libsystre-0.dll" "libstdc++-6.dll" "libssp-0.dll" "libssh2-1.dll" "libspdylay-7.dll" "librtmp-1.dll" "libreadline7.dll" "libraqm-0.dll" "libquadmath-0.dll" "libpython2.7.dll" "libpspell-15.dll" "libpng16-config" "libpng16-16.dll" "libpng-config" "libpixman-1-0.dll" "libpcreposix-0.dll" "libpcrecpp-0.dll" "libpcre32-0.dll" "libpcre16-0.dll" "libpcre-1.dll" "libp11-kit-0.dll" "libopenmj2-7.dll" "libopenjpwl-7.dll" "libopenjpip-7.dll" "libopenjp3d-7.dll" "libopenjp2-7.dll" "libnghttp2-14.dll" "libnettle-6.dll" "libnetcfg" "libminizip-1.dll" "libmetalink-3.dll" "libMagickWand-7.Q16HDRI-0.dll" "libMagickCore-7.Q16HDRI-0.dll" "libMagick++-7.Q16HDRI-0.dll" "liblzo2-2.dll" "liblzma-5.dll" "liblz4.dll" "libltdl-7.dll" "liblqr-1-0.dll" "liblcms2-2.dll" "libjpeg-8.dll" "libjbig-0.dll" "libjasper-1.dll" "libjansson-4.dll" "libintl-8.dll" "libidn-11.dll" "libidn-11.def" "libiconv-2.dll" "libhogweed-4.dll" "libhistory7.dll" "libharfbuzz-icu-0.dll" "libharfbuzz-gobject-0.dll" "libharfbuzz-0.dll" "libgthread-2.0-0.dll" "libgraphite2.dll" "libgomp-1.dll" "libgobject-2.0-0.dll" "libgnutlsxx-28.dll" "libgnutls-30.dll" "libgmpxx-4.dll" "libgmp-10.dll" "libgmodule-2.0-0.dll" "libglib-2.0-0.dll" "libgio-2.0-0.dll" "libgif-7.dll" "libgfortran-3.dll" "libgettextsrc-0-19-7.dll" "libgettextpo-0.dll" "libgettextlib-0-19-7.dll" "libgdbm-4.dll" "libgcc_s_seh-1.dll" "libfribidi-0.dll" "libfreetype-6.dll" "libfontconfig-1.dll" "libfftw3l-3.dll" "libfftw3f-3.dll" "libfftw3-3.dll" "libffi-6.dll" "libexpat-1.dll" "libeay32.dll" "libdjvulibre-21.dll" "libdbus-1-3.dll" "libcurl-4.dll" "libcharset-1.dll" "libcares-2.dll" "libcairo-script-interpreter-2.dll" "libcairo-gobject-2.dll" "libcairo-2.dll" "libbz2-1.dll" "libatomic-1.dll" "libasprintf-0.dll" "libaspell-15.dll" "libarchive-13.dll" "ld.gold.exe" "ld.exe" "ld.bfd.exe" "json_pp" "jpgicc.exe" "jpegtran.exe" "jbgtopbm85.exe" "jbgtopbm.exe" "jasper.exe" "instmodsh.bat" "instmodsh" "install-info.exe" "import.exe" "imginfo.exe" "imgcmp.exe" "idn.exe" "idle" "identify.exe" "hb-view.exe" "hb-shape.exe" "hb-ot-shape-closure.exe" "h2xs" "h2ph" "gspawn-win64-helper.exe" "gspawn-win64-helper-console.exe" "gsettings.exe" "gresource.exe" "gr2fonttest.exe" "gprof.exe" "gobject-query.exe" "gnutls-serv.exe" "gnutls-cli.exe" "gnutls-cli-debug.exe" "glib-mkenums" "glib-gettextize" "glib-genmarshal.exe" "glib-compile-schemas.exe" "glib-compile-resources.exe" "gio.exe" "gio-querymodules.exe" "gif2webp.exe" "gif2tiff.exe" "gettextize" "gettext.sh" "gettext.exe" "gdbus.exe" "gdbus-codegen" "gdbserver.exe" "gdbm_load.exe" "gdbm_dump.exe" "gdbmtool.exe" "gdb.exe" "gcov.exe" "gcov-tool.exe" "gcc.exe" "gcc-ranlib.exe" "gcc-nm.exe" "gcc-ar.exe" "g++.exe" "fribidi.exe" "freetype-config" "fftwq-wisdom.exe" "fftwl-wisdom.exe" "fftwf-wisdom.exe" "fftw-wisdom.exe" "fftw-wisdom-to-conf" "fc-validate.exe" "fc-scan.exe" "fc-query.exe" "fc-pattern.exe" "fc-match.exe" "fc-list.exe" "fc-cat.exe" "fc-cache.exe" "fax2tiff.exe" "fax2ps.exe" "exetype" "etags.exe" "envsubst_changed.exe" "encguess" "enc2xs" "emacsclientw.exe" "emacsclient.exe" "emacs.exe" "emacs-25.1.exe" "elfedit.exe" "edit_test_dll.exe" "edit_test.exe" "edit.dll" "ebrowse.exe" "dwp.exe" "dwebp.exe" "dmake.exe" "dllwrap.exe" "dlltool.exe" "djvuxmlparser.exe" "djvutxt.exe" "djvutoxml.exe" "djvuserve.exe" "djvused.exe" "djvups.exe" "djvumake.exe" "djvuextract.exe" "djvudump.exe" "djvudigital" "djvmcvt.exe" "djvm.exe" "djpeg.exe" "display.exe" "ddjvu.exe" "dbus-update-activation-environment.exe" "dbus-test-tool.exe" "dbus-send.exe" "dbus-monitor.exe" "dbus-launch.exe" "dbus-daemon.exe" "cxpm-noX.exe" "cwebp.exe" "curl.exe" "curl-config" "ctest.exe" "ctags.exe" "csepdjvu.exe" "cpp.exe" "cpanm.bat" "cpanm" "cpan" "cpaldjvu.exe" "cpack.exe" "corelist" "convert.exe" "conjure.exe" "config_data.bat" "config_data" "composite.exe" "compare.exe" "cmcldeps.exe" "cmake.exe" "cmake-gui.exe" "cjpeg.exe" "cjb2.exe" "chkstow.bat" "chkstow" "certtool.exe" "cc.exe" "c44.exe" "c2ph" "c++filt.exe" "c++.exe" "bzz.exe" "bzmore" "bzless" "bzip2recover.exe" "bzip2.exe" "bzgrep" "bzfgrep" "bzegrep" "bzdiff" "bzcmp" "bzcat.exe" "bunzip2.exe" "bsdtar.exe" "bsdcpio.exe" "bsdcat.exe" "bmp2tiff.exe" "autopoint" "aspell.exe" "aspell-import" "asn1Parser.exe" "asn1Decoding.exe" "asn1Coding.exe" "as.exe" "ar.exe" "any2djvu" "animate.exe" "addr2line.exe" "addpm.exe" "2to3" "../" "./")
 
  ("c:/msys64/usr/" (22608 17889 0 0) "x86_64-pc-msys/" "var/" "ssl/" "src/" "share/" "local/" "libexec/" "lib/" "include/" "bin/" "../" "./")
-
- ("c:/msys64/" (22608 44508 0 0) "wget-log" "var/" "usr/" "tmp/" "network.xml" "msys2_shell.cmd" "msys2.ini" "msys2.ico" "msys2.exe" "mingw64.ini" "mingw64.exe" "mingw64/" "mingw32.ini" "mingw32.exe" "mingw32/" "maintenancetool.ini" "maintenancetool.exe" "maintenancetool.dat" "InstallationLog.txt" "etc/" "dev/" "components.xml" "autorebase.bat" "../" "./")
-
- ("c:/Users/NZ891R/gdrive/" (22609 63273 0 0) "todo/" "sshkeys - 2016-12-10/" "sshkeys - 2016-11-29/" "sshkeys - 2016-04-01/" "sshkeys/" "sql/" "Seadoo/" "Saratoga Wine Exchange_2016-11-09.pdf" "RPi-magpi/" "rpi/" "reference/" "Personal/" "McCullough/" "Kids/" "ISY/" "Imported from Google Notebook - Scratch.gdoc" "Imported from Google Notebook - My Notebook_.gdoc" "Imported from Google Notebook - Mobile notes.gdoc" "humour/" "Ginn" "Financial/" "emacs/" "electronics/" "ehome/" "desktop.ini" "Debian xfce BaseBackup/" "Career/" "CanadaPassportPPTC054.pdf" "CanadaPassporChildren.pdf" "Arduino/" "Apps/" ".tmp.drivedownload/" "../" "./")
 
  ("c:/Users/" (22572 31358 0 0) "Public/" "NZ891R/" "lz1slr/" "localadmin/" "fs_mzv8sl/" "fs_gzfwk0/" "desktop.ini" "Default User/" "Default/" "All Users/" "Administrator/" "../" "./")
 

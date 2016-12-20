@@ -10,7 +10,7 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents  . 15)
-			  (bookmarks . 5)))
+			  (bookmarks . 15)))
   :require page-break-lines)
 
 (provide 'init-dashboard)

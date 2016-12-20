@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-capture-last-stored"
+(("init.d"
+ (filename . "~/.emacs.d/init.d/")
+ (front-context-string . "flycheck_init-wh")
+ (rear-context-string . "544 12-19 16:03 ")
+ (position . 265))
+("org-capture-last-stored"
  (filename . "~/journal.org")
  (front-context-string . "**** test\nEntere")
  (rear-context-string . "16-02-28 Sunday\n")

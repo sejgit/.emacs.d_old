@@ -8,6 +8,7 @@
 (require 'req-package)
 
 (req-package org
+  :require writegood-mode
   :mode ("\\.org$" . org-mode)
   :bind (("<f1>" . org-mode)
 	 ("C-c l" . org-store-link)

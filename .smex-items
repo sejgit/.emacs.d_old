@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ browse-kill-ring
  el-get-list-packages
- customize-variable
- company-mode
- flycheck-info
- req-package--log-open-log
- comment-region
- aggressive-indent-mode
+ dashboard-insert-startupify-lists
+ describe-mode
+ org-dashboard-display
+ list-buffers
+ load-theme
 )
 
 ;; ----- smex-data -----
@@ -21,7 +21,7 @@
  (package-list-packages . 1)
  (calc . 1)
  (View-scroll-line-backward . 1)
- (load-theme . 2)
+ (load-theme . 3)
  (describe-variable . 1)
  (flyspell-mode . 2)
  (el-get-emacswiki-build-local-recipes . 1)
@@ -29,10 +29,10 @@
  (eval-buffer . 1)
  (eval-region . 1)
  (el-get-update . 2)
- (el-get-list-packages . 30)
+ (el-get-list-packages . 31)
  (comment-region . 3)
  (uncomment-region . 2)
- (describe-mode . 3)
+ (describe-mode . 4)
  (smex-update . 1)
  (help-mode . 1)
  (package-delete . 96)
@@ -41,9 +41,13 @@
  (el-get-find-recipe-file . 1)
  (aggressive-indent-mode . 1)
  (dashboard-mode . 1)
- (dashboard-insert-startupify-lists . 1)
+ (dashboard-insert-startupify-lists . 2)
  (req-package--log-open-log . 3)
  (flycheck-info . 1)
  (company-mode . 2)
  (customize-variable . 1)
+ (server-start . 1)
+ (list-buffers . 1)
+ (org-dashboard-display . 2)
+ (browse-kill-ring . 2)
 )

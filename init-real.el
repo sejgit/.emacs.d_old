@@ -1,12 +1,13 @@
 ;;; init-real.el --- Stephen's Emacs init-real.el file
 ;;; Commentary:
-					; 2016-02-24 init
-					; 2016 03 17 good ideas from aaron bedra's Emacs configuration
-					; 2016 11 29 integrate win-nt version & virtualbox
-					; 2016 11 30 cleanup & concat with linux versions
-					; 2016 12 12 transfer updates from test-version
-					; 2016 12 15 updates due to win move to wsys2/ming64
-					; 2016 12 15 split init.el & init-real.el adding init.d
+;; 2016-02-24 init
+;; 2016 03 17 good ideas from aaron bedra's Emacs configuration
+;; 2016 11 29 integrate win-nt version & virtualbox
+;; 2016 11 30 cleanup & concat with linux versions
+;; 2016 12 12 transfer updates from test-version
+;; 2016 12 15 updates due to win move to wsys2/ming64
+;; 2016 12 15 split init.el & init-real.el adding init.d
+
 
 ;;; Code:
 

@@ -1,4 +1,6 @@
-;; Stephen's emacs init file
+;;; init_old.el --- Stephen's emacs init file (old all in one file version)
+
+;;;Commentary:
 ;; 2016-02-24 init
 ;; 2016 03 17 good ideas from aaron bedra's emacs configuration
 ;; 2016 11 29 integrate win-nt version & virtualbox
@@ -6,6 +8,8 @@
 ;; 2016 12 12 transfer updates from test-version
 ;; 2016 12 15 updates due to win move to wsys2/ming64
 
+
+;;; Code:
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
 (setq user-mail-address "stephenearljenkins@gmail.com")
