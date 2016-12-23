@@ -1,7 +1,7 @@
 ;;; init-look-and-feel.el --- miscilaneous settings and a few small packages
 ;;; Commentary:
-					; 2016 12 16 init SeJ
-
+;; 2016 12 16 init SeJ
+;; 2016 12 21 add kill-this-buffer
 
 ;;; Code:
 
@@ -23,6 +23,7 @@
 (global-set-key (kbd "M-s") 'other-window)
 
 (global-set-key (kbd "<f1>") 'org-mode)
+(global-set-key (kbd "C-x k") 'kill-this-buffer) ;added tip from pragmatic emacs
 
 ;; some beginning settings
 (if (display-graphic-p)
