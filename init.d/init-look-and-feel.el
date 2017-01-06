@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
 ;; 2016 12 21 add kill-this-buffer
+;; 2017 01 06 cleanup by move of packages to init-misc-pkgs.el
 
 ;;; Code:
 
@@ -21,9 +22,9 @@
 (global-set-key (kbd "M-4") 'split-window-vertically)
 (global-set-key (kbd "M-2") 'delete-window)
 (global-set-key (kbd "M-s") 'other-window)
-
 (global-set-key (kbd "<f1>") 'org-mode)
 (global-set-key (kbd "C-x k") 'kill-this-buffer) ;added tip from pragmatic emacs
+(global-set-key (kbd "C-x w") 'delete-frame)
 
 ;; some beginning settings
 (if (display-graphic-p)
@@ -40,11 +41,6 @@
 (global-set-key (kbd "C-c <right>") 'windmove-right)
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
-
-;; rainbow-delimiters-mode
-(req-package rainbow-delimiters
-  :init
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; marking text and clipboard settings
 (delete-selection-mode t)
@@ -111,13 +107,6 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-(defun cleanup-region (beg end)
-  "Remove tmux artifacts from region."
-  (interactive "r")
-  (dolist (re '("\\\\│\·*\n" "\W*│\·*"))
-    (replace-regexp re "" nil beg end)))
-
-(global-set-key (kbd "C-x M-t") 'cleanup-region)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
 (setq-default show-trailing-whitespace t)
@@ -126,13 +115,12 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
-;; save the place in files
-(req-package saveplace
-  :init
-  (setq-default save-place t))
 
-;; conf-mode
-(req-package conf-mode :mode "\\.gitconfig$")
+;; Save whatever’s in the current (system) clipboard before
+;; replacing it with the Emacs’ text.
+;; https://github.com/dakrone/eos/blob/master/eos.org
+(setq save-interprogram-paste-before-kill t)
+
 
 (provide 'init-look-and-feel)
 ;;; init-look-and-feel ends here

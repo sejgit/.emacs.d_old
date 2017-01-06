@@ -43,11 +43,22 @@
 
 ;; themes
 ;; force emacsclient to use right theme & place window in right place
+
+;; tango-dark
 (defun load-tango-theme (frame)
   (select-frame frame)
   (load-theme 'tango-dark t)
   (set-frame-size-according-to-resolution)
   (switch-to-buffer "*dashboard*"))
+
+;; zenburn-theme
+(defun load-zenburn-theme (frame)
+  (select-frame frame)
+  (load-theme 'zenburn t)
+  (set-frame-size-according-to-resolution)
+  (switch-to-buffer "*dashboard*"))
+
+;; load preferred theme at startup
 (if (daemonp)
     (add-hook 'after-make-frame-functions #'load-tango-theme)
   (load-theme 'tango-dark t))
@@ -66,15 +77,17 @@
 (provide 'init)
 ;;; init.el ends here
 
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("9d91458c4ad7c74cf946bd97ad085c0f6a40c370ac0a1cbeb2e3879f15b40553" default)))
  '(package-selected-packages
    (quote
-    (browse-kill-ring discover-my-major which-key writegood-mode yasnippet yaml-mode sunrise-x-loop smex shell-pop req-package rainbow-delimiters org-dashboard org-cliplink org-bullets org markdown-mode macrostep load-dir ido-ubiquitous ido-at-point goto-chg gist furl flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav dummy-h-mode dired-toggle-sudo dired-rainbow dired-open dired-launch diff-hl deft dashboard company-shell company-quickhelp company-irony batch-mode bash-completion auto-complete async arduino-mode))))
+    (zenburn-theme volatile-highlights yasnippet yaml-mode writegood-mode which-key sunrise-x-loop smex shell-pop req-package rainbow-delimiters org-dashboard org-cliplink org-bullets markdown-mode macrostep load-dir ido-ubiquitous ido-at-point goto-chg google-this golden-ratio gist furl flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org dummy-h-mode discover-my-major dired-toggle-sudo dired-rainbow dired-open dired-launch diff-hl deft dashboard company-shell company-quickhelp company-irony browse-kill-ring batch-mode bash-completion auto-complete async arduino-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

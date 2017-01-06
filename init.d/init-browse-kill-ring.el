@@ -11,3 +11,4 @@
 
 (provide 'browse-kill-ring)
 ;;; init-browse-kill-ring.el ends here
+

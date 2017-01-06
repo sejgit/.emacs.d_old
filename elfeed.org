@@ -1,0 +1,22 @@
+* blogs                                                        :elfeed:
+** daily                                                        :daily:
+*** http://telescoper.wordpress.com/feed/
+*** http://xkcd.com/rss.xml
+*** http://timharford.com/feed/
+*** http://understandinguncertainty.org/rss.xml
+** emacs                                                        :emacs:
+*** http://www.reddit.com/r/emacs/.rss
+*** http://planet.emacsen.org/atom.xml
+*** http://feeds.feedburner.com/XahsEmacsBlog
+*** http://pragmaticemacs.com/feed/
+*** [[http://emacs.stackexchange.com/feeds][SX]]
+*** http://www.terminally-incoherent.com/blog/feed
+*** http://nullprogram.com/feed
+
+** linux                                                                   :linux:
+*** http://git-annex.branchable.com/design/assistant/blog/index.rss
+*** http://feeds.feedburner.com/InformationIsBeautiful
+*** [[http://orgmode.org][Orgmode Links supported as well]]
+
+
+

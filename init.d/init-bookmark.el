@@ -1,6 +1,6 @@
 ;;; init-bookmark.el -- Stephen's emacs init-bookmark.el
 ;;; Commentary:
-;; 2016 12 16
+;; 2016 12 16 init
 
 ;;; Code:
 

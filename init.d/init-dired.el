@@ -1,6 +1,6 @@
 ;;; init-dired.el --- Initialize emacs dired mode
 ;;; Commentary:
-					; 2016 12 16 init SeJ
+;; 2016 12 16 init SeJ
 
 ;;; Code:
 

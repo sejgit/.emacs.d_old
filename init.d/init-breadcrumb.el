@@ -1,6 +1,6 @@
 ;;; init-breadcrumb.el --- Initialize emacs breadcrumb
 ;;; Commentary:
-					; 2016 12 16 init SeJ
+;; 2016 12 16 init SeJ
 
 ;;; Code:
 
@@ -19,3 +19,4 @@
 
 (provide 'init-breadcrumb)
 ;;; init-breadcrumb.el ends here
+

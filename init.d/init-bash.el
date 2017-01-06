@@ -1,6 +1,6 @@
 ;;; init-bash.el --- Initialize emacs bash-completions
 ;;; Commentary:
-					; 2016 12 16 init SeJ
+;; 2016 12 16 init SeJ
 
 ;;; Code:
 

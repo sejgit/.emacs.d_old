@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- browse-kill-ring
- el-get-list-packages
- dashboard-insert-startupify-lists
- describe-mode
- org-dashboard-display
- list-buffers
  load-theme
+ grep
+ find-grep-dired
+ lgrep
+ google-this
+ comment-region
+ describe-mode
 )
 
 ;; ----- smex-data -----
@@ -17,22 +17,22 @@
  (help . 1)
  (help-mode-menu . 1)
  (dired . 1)
- (package-install . 1)
+ (package-install . 2)
  (package-list-packages . 1)
  (calc . 1)
  (View-scroll-line-backward . 1)
- (load-theme . 3)
+ (load-theme . 6)
  (describe-variable . 1)
- (flyspell-mode . 2)
+ (flyspell-mode . 4)
  (el-get-emacswiki-build-local-recipes . 1)
- (set-variable . 1)
+ (set-variable . 9)
  (eval-buffer . 1)
  (eval-region . 1)
  (el-get-update . 2)
  (el-get-list-packages . 31)
- (comment-region . 3)
+ (comment-region . 4)
  (uncomment-region . 2)
- (describe-mode . 4)
+ (describe-mode . 15)
  (smex-update . 1)
  (help-mode . 1)
  (package-delete . 96)
@@ -50,4 +50,24 @@
  (list-buffers . 1)
  (org-dashboard-display . 2)
  (browse-kill-ring . 2)
+ (markdown-mode . 2)
+ (list-packages . 4)
+ (dunnet . 1)
+ (org-mode . 1)
+ (org-lint . 1)
+ (customize-group . 1)
+ (aggressive-indent-global-mode . 2)
+ (org-toggle-checkbox . 2)
+ (bjm/elfeed-load-db-and-open . 6)
+ (elfeed-update . 4)
+ (elfeed-org . 6)
+ (elfeed . 5)
+ (bjm/elfeed-show-emacs . 2)
+ (elfeed-search-update--force . 1)
+ (google-this-mode . 1)
+ (woman . 1)
+ (google-this . 1)
+ (lgrep . 3)
+ (find-grep-dired . 3)
+ (grep . 3)
 )

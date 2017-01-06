@@ -1,6 +1,6 @@
 ;;; init-dashboard.el ---  Stephen's emacs init-dashboard.el
 ;;; Commentary:
-					; 2016 12 16
+;;; 2016 12 16
 
 ;;; Code:
 
@@ -14,4 +14,5 @@
   :require page-break-lines)
 
 (provide 'init-dashboard)
-;;; init-dashboard ends here
+;;; init-dashboard.el ends here
+
