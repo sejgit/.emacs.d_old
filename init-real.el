@@ -72,6 +72,11 @@
   (req-package-finish))
 
 
+;; load preferred theme at startup
+(if (daemonp)
+    (add-hook 'after-make-frame-functions #'load-tango-theme)
+  (load-theme 'tango-dark t))
+
 (switch-to-buffer "*dashboard*")
 (dashboard-insert-startupify-lists)
 

@@ -26,6 +26,7 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "/home/sej/.emacs.d/"
  "c:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/"
  "c:/Users/NZ891R/gdrive/ehome/.emacs.d/"
  "c:/Users/NZ891R/gdrive/todo/"
@@ -65,6 +66,8 @@
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/home/sej/.emacs.d/" (22639 42796 643440 0) "../" "init.d/" ".saves/" "#recentf#" ".git/" "el-get/" "places" "ac-comphist.dat" "LICENSE" "recentf" "auto-save-list/" "ido.last" "./" "bookmarks" ".smex-items" "init.el" "elfeed.org" ".gitignore" "elpa/" "README.md" "init-real.el" "smex-items" "server/" "tutorial/")
+
  ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/init.d/" (22639 38650 0 0) "init-yaml.elc" "init-yaml.el" "init-which-key.elc" "init-which-key.el" "init-spelling.elc" "init-spelling.el" "init-smex.elc" "init-smex.el" "init-org.elc" "init-org.el" "init-misc-pkgs.el" "init-markdown.elc" "init-markdown.el" "init-look-and-feel.elc" "init-look-and-feel.el" "init-ido.elc" "init-ido.el" "init-goto-chg.elc" "init-goto-chg.el" "init-golden-ratio.elc" "init-golden-ratio.el" "init-gist.elc" "init-gist.el" "init-flycheck.elc" "init-flycheck.el" "init-fic-ext.elc" "init-fic-ext.el" "init-elisp.elc" "init-elisp.el" "init-elfeed.el~" "init-elfeed.elc" "init-elfeed.el" "init-discover-my-major.elc" "init-discover-my-major.el" "init-dired.elc" "init-dired.el" "init-deft.elc" "init-deft.el" "init-dashboard.elc" "init-dashboard.el" "init-company-mode.elc" "init-company-mode.el" "init-browse-kill-ring.elc" "init-browse-kill-ring.el" "init-breadcrumb.elc" "init-breadcrumb.el" "init-bookmark.elc" "init-bookmark.el" "init-batch.elc" "init-batch.el" "init-bash.elc" "init-bash.el" "init-arduino.elc" "init-arduino.el" "init-aggressive-indent.elc" "init-aggressive-indent.el" ".saves/" "../" "./")
 
  ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/" (22639 39300 0 0) "var/" "url/" "tutorial/" "smex-items" "server/" "recentf" "README.md" "places" "LICENSE" "init.el" "init.d/" "init-real.el" "ido.last~" "ido.last" "elpa/" "elfeed.org" "el-get/" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".smex-items" ".saves/" ".gitignore" ".git/" "../" "./")
@@ -136,8 +139,6 @@
  ("c:/Users/NZ891R/Google Drive/ehome/dotfiles/" (22609 35670 0 0) "todo.txt-cli/" "sslh_setup/" "sslh/" "shell/" "RPi_Cam_Web_Interface/" "rpi-clone/" "README.md" "paul/" "liquidprompt/" "LICENSE" "letsencrypt/" "ips.txt" "installgdrive.sh" "github-keygen/" "git-extras/" "gamedata/" "drive/" "dependancies.sh" "dependancies.org" ".gitmodules" ".gitignore" ".git/" "../" "./")
 
  ("/home/sej/" (22589 45935 433706 193000) ".xsession-errors" "dead.letter" "../" ".gimp-2.8/" "apt-clone-2016-11-09.apt-clone.tar.gz" "fishtank/" ".xsession-errors.old" "arduino-1.6.8/" ".python_history" ".vboxclient-display.pid" "bin/" ".thumbnails/" ".shell/" "skydrive/" ".tmux/" ".ICEauthority" ".inputrc" ".gi_list" ".java/" "gdrive/" ".aptitude/" ".dbus/" "plot.png" ".selected_editor" ".config/" "sensors/" ".z" ".xscreensaver" ".vnc/" ".gstreamer-0.10/" ".mrconfig" ".gnome/" ".ssh/" ".crawl/" ".bash_history" ".paul" ".git-hub/" "sketchbook/" ".lesshst" "downloads/" ".dirs" ".bashrc" ".wireshark/" ".pki/" ".Xauthority" ".breadcrumb" "sej/" ".emacs.d/" ".oracle_jre_usage/" "dotfiles/" "./" "mbox" ".vboxclient-draganddrop.pid" ".mozilla/" "cam_rsa" ".vboxclient-seamless.pid" ".arduino/" "Desktop/" ".arduino15/" ".gconf/" ".vboxclient-clipboard.pid" "Arduino-Makefile/" ".cache/" ".gnupg/" ".bash_logout" ".bash_profile" ".pip/" ".w3m/" ".dmrc" ".local/" ".xinitrc" "ISY-Finder.state" "cam_rsa.pub" ".jssc/" "autowater/" ".remmina/")
-
- ("/home/sej/.emacs.d/" (22589 49665 910012 205000) "../" "lisp/" ".git/" "var/" ".#recentf" "places" "ac-comphist.dat" "LICENSE" "recentf" "auto-save-list/" "ido.last" "tramp" "./" "bookmarks" ".smex-items" "init.el" "session.10c5d36269000145841672400000039130024" ".gitignore" "elpa/" "README.md" "tutorial/")
 
  ("/home/" (22256 16861 636000 0) "../" "sej/" "./")
 )

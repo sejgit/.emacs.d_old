@@ -21,7 +21,7 @@
  (package-list-packages . 1)
  (calc . 1)
  (View-scroll-line-backward . 1)
- (load-theme . 6)
+ (load-theme . 10)
  (describe-variable . 1)
  (flyspell-mode . 4)
  (el-get-emacswiki-build-local-recipes . 1)
