@@ -1,13 +1,13 @@
 ;;; init-breadcrumb.el --- Initialize emacs breadcrumb
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
+;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:
 
 
-(require 'req-package)
-
-(req-package breadcrumb
+(use-package breadcrumb
+  :disabled t
   :bind (("S-SPC" . bc-set)             ; shift space for set bookmark
 	 ("M-j" . bc-previous)          ; M-j for jump to previous
 	 ("S-M-J" . bc-next)            ; Shift-M-j for jump to next

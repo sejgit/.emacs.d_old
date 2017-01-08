@@ -1,13 +1,12 @@
 ;;; init-markdown.el --- Initialize emacs markdown-mode
-;;; Commentary:
-					; 2016 12 16 init SeJ
+;;; Commentary: for editing of markdown files
+;; 2016 12 16 init SeJ
+;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:
 
-
-(require 'req-package)
-
-(req-package markdown-mode
+(use-package markdown-mode
+  :ensure t
   :mode
   "\\.md$"
   "\\.mdown$"

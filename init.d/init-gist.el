@@ -1,16 +1,15 @@
 ;;; init-gist.el ---  Stephen's emacs gist
 ;;; Commentary:
-					; 2016 12 16
+;; 2016 12 16
+;; 2017 01 06 change from req-package to use-package
 
 
 ;;; Code:
 
-(require 'req-package)
-
 ;; gist client
-
-(req-package gist
-  :bind (("<f9>" . gist-list)))
+(use-package gist
+  :ensure t
+  :bind ("<f9>" . gist-list))
 
 
 (provide 'init-gist)

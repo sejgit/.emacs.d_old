@@ -1,13 +1,13 @@
 ;;; init-deft.el --- Initialize emacs deft
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
+;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:
 
 
-(require 'req-package)
-
-(req-package deft
+(use-package deft
+  :ensure t
   :bind (("<f7>" . deft)
 	 ("C-c d" . deft))
   :config (progn (if (string-equal system-type "windows-nt")

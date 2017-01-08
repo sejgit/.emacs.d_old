@@ -1,37 +1,48 @@
 ;;; init-dired.el --- Initialize emacs dired mode
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
+;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:
 
 
-(require 'req-package)
+;;autorevert
+(use-package autorevert
+  :ensure t)
+
+;;diff-hl
+(use-package diff-hl
+  :ensure t)
 
 ;; single dired
-(req-package dired
+(use-package dired
   :commands dired
-  :require autorevert diff-hl
   :bind (:map dired-mode-map
               ("M-i" . helm-swoop)
               ("M-RET" . dired-find-file-other-window))
   :config
-  (add-hook-exec 'dired-mode (lambda () (auto-revert-mode 1)))
-  (add-hook-exec 'dired-mode (lambda () (diff-hl-dired-mode 1))))
+  (auto-revert-mode 1)
+  (diff-hl-dired-mode 1))
 
 ;; sunrise commander
-(req-package sunrise-commander :commands sunrise-cd)
+(use-package sunrise-commander
+  :ensure t
+  :commands sunrise-cd)
 
-(req-package sunrise-x-loop :require sunrise-commander)
+(use-package sunrise-x-loop
+  :ensure t)
 
 ;; dired rainbow
-(req-package dired-rainbow :require dired)
+(use-package dired-rainbow
+  :ensure t)
 
 ;; dired open
-(req-package dired-open :require dired)
+(use-package dired-open
+  :ensure t)
 
-(req-package dired-launch
-  :require dired
-  :init (dired-launch-enable))
+(use-package dired-launch
+  :ensure t
+  :config (dired-launch-enable))
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

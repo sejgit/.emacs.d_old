@@ -6,39 +6,33 @@
 ;; 2017 01 06 rainbow-delimiters ::dired mode for colours
 ;; 2017 01 06 saveplace ::return to the same place in saved file
 ;; 2017 01 06 conf-mode :: for editing conf/ini files
-;; 2017 01 06 zenburn-theme ::used from pragmatic Emacs
-
+;; 2017 01 06 zenburn-theme ::used from pragmatic Emacs 
+;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:
 
-
-(require 'req-package)
-
-;;zenburn-theme
-(req-package zenburn-theme
-  :ensure t
-					;:config
-					;(load-theme 'zenburn t)
-  )
-
 ;; google-this  C-/ <ret> to activate
-(req-package google-this
+(use-package google-this
+  :ensure t
   :config
   (google-this-mode 1))
 
 ;; volatile highlights - temporarily highlight changes from pasting etc
-(req-package volatile-highlights
+(use-package volatile-highlights
+  :ensure t
   :config
   (volatile-highlights-mode t))
 
 ;; rainbow-delimiters-mode
-(req-package rainbow-delimiters
-  :init
+(use-package rainbow-delimiters
+  :ensure t
+  :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; save the place in files
-(req-package saveplace
-  :init
+(use-package saveplace
+  :ensure t
+  :config
   (setq-default save-place t))
 
 ;; conf-mode  see below for assignments made in package
@@ -55,7 +49,10 @@
 ;; (define-key map "\C-c\"" 'conf-quote-normal)
 ;; (define-key map "\C-c'" 'conf-quote-normal)
 ;; (define-key map "\C-c\C-a" 'conf-align-assignments)
-(req-package conf-mode :mode "\\.gitconfig$")
+
+(use-package conf-mode
+  :ensure t
+  :mode "\\.gitconfig$")
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.ini ends here

@@ -1,26 +1,23 @@
 ;;; init-bash.el --- Initialize emacs bash-completions
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
-
+;; 2017 01 06 change from req-package to use-package
 ;;; Code:
 
-(require 'req-package)
 
-(req-package bash-completion
-  :require shell
+(use-package bash-completion
+  :ensure t
   :commands bash-completion-dynamic-complete
   :init
   (setq explicit-shell-file-name "bash")
   (setq comint-process-echoes t)
-  (setq bash-completion-process-timeout 0.5)
-  (add-hook-exec 'shell-mode 'shell-dynamic-complete-functions
-                 'bash-completion-dynamic-complete)
-  (add-hook-exec 'shell-mode 'shell-command-complete-functions
-                 'bash-completion-dynamic-complete))
+  (setq bash-completion-process-timeout 0.5))
 
-(req-package company-shell)
+(use-package company-shell
+  :ensure t)
 
-(req-package shell-pop
+(use-package shell-pop
+  :ensure t
   :bind ("M-\"" . shell-pop))
 
 (provide 'init-bash)

@@ -3,11 +3,9 @@
 ;; 2016 12 16 init SeJ
 ;; 2016 12 21 add kill-this-buffer
 ;; 2017 01 06 cleanup by move of packages to init-misc-pkgs.el
+;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:
-
-
-(require 'req-package)
 
 ;; keybindings
 (global-set-key (kbd "RET") 'newline-and-indent)

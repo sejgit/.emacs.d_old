@@ -1,13 +1,12 @@
 ;;; init-yaml.el --- Initialize emacs yaml
 ;;; Commentary:
-					; 2016 12 16 init SeJ
+;; 2016 12 16 init SeJ
+;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:
 
-
-(require 'req-package)
-
-(req-package yaml-mode
+(use-package yaml-mode
+  :ensure t
   :mode
   "\\.yml$"
   "\\.yaml$")
