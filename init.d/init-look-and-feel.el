@@ -25,12 +25,10 @@
 (global-set-key (kbd "C-x w") 'delete-frame)
 
 ;; some beginning settings
-(if (display-graphic-p)
-    (scroll-bar-mode nil)
-  (tool-bar-mode nil)
-  ;;(menu-bar-mode -1)
-  )
-(setq column-number-mode t)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode nil)
+(column-number-mode nil)
 
 ;; wind move built in package
 (when (fboundp 'windmove-default-keybindings)
