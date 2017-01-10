@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- el-get-list-packages
- el-get-init
- el-get-reload
+ next-multiframe-window
  list-packages
  comment-region
  ivy-mode
  swiper
+ package-delete
+ describe-mode
 )
 
 ;; ----- smex-data -----
@@ -73,4 +73,5 @@
  (swiper . 1)
  (ivy-mode . 1)
  (el-get-init . 1)
+ (next-multiframe-window . 3)
 )

@@ -21,8 +21,9 @@
 (global-set-key (kbd "M-2") 'delete-window)
 (global-set-key (kbd "M-s") 'other-window)
 (global-set-key (kbd "<f1>") 'org-mode)
-(global-set-key (kbd "C-x k") 'kill-this-buffer) ;added tip from pragmatic emacs
+(global-set-key (kbd "C-x k") 'kill-this-buffer) ;added tips from pragmatic emacs
 (global-set-key (kbd "C-x w") 'delete-frame)
+(global-set-key (kbd "s-'") 'next-multiframe-window)
 
 ;; some beginning settings
 (scroll-bar-mode -1)

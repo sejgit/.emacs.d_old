@@ -6,10 +6,16 @@
 ;; 2017 01 06 rainbow-delimiters ::dired mode for colours
 ;; 2017 01 06 saveplace ::return to the same place in saved file
 ;; 2017 01 06 conf-mode :: for editing conf/ini files
-;; 2017 01 06 zenburn-theme ::used from pragmatic Emacs 
+;; 2017 01 06 zenburn-theme ::used from pragmatic Emacs
 ;; 2017 01 06 change from req-package to use-package
-
+;; 2017 01 10 add swiper to M-s from pragmatic Emacs
 ;;; Code:
+
+
+;; swiper
+(use-package swiper
+  :ensure t
+  :bind ("C-s" . swiper))
 
 ;; google-this  C-/ <ret> to activate
 (use-package google-this
