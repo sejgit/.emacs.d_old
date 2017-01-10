@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- comment-region
+ el-get-list-packages
+ el-get-init
+ el-get-reload
  list-packages
+ comment-region
  ivy-mode
  swiper
- org-dashboard-display
- dashboard-insert-startupify-lists
- describe-mode
 )
 
 ;; ----- smex-data -----
@@ -29,7 +29,7 @@
  (eval-buffer . 1)
  (eval-region . 1)
  (el-get-update . 2)
- (el-get-list-packages . 31)
+ (el-get-list-packages . 36)
  (comment-region . 5)
  (uncomment-region . 2)
  (describe-mode . 16)
@@ -37,7 +37,7 @@
  (help-mode . 1)
  (package-delete . 96)
  (el-get-reinstall . 3)
- (el-get-reload . 2)
+ (el-get-reload . 3)
  (el-get-find-recipe-file . 1)
  (aggressive-indent-mode . 1)
  (dashboard-mode . 1)
@@ -51,7 +51,7 @@
  (org-dashboard-display . 3)
  (browse-kill-ring . 2)
  (markdown-mode . 2)
- (list-packages . 6)
+ (list-packages . 9)
  (dunnet . 1)
  (org-mode . 1)
  (org-lint . 1)
@@ -72,4 +72,5 @@
  (grep . 3)
  (swiper . 1)
  (ivy-mode . 1)
+ (el-get-init . 1)
 )

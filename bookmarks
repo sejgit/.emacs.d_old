@@ -2,12 +2,7 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("init-real.el"
- (filename . "~/.emacs.d/init-real.el")
- (front-context-string . ";;; init-real.el")
- (rear-context-string)
- (position . 1))
-("init.d"
+(("init.d"
  (filename . "~/.emacs.d/init.d/")
  (front-context-string . "flycheck_init-wh")
  (rear-context-string . "544 12-19 16:03 ")
