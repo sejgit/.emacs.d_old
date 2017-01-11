@@ -9,7 +9,9 @@
   :ensure t
   :diminish golden-ratio-mode
   :config
-  (golden-ratio-mode 1))
+  (golden-ratio-mode 1)
+  (global-set-key (kbd "s-'") 'next-multiframe-window)
+  (add-to-list 'golden-ratio-extra-commands 'next-multiframe-window))
 
 (provide 'init-golden-ratio)
 ;;; init-golden-ratio.el ends here

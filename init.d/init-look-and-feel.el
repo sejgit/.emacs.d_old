@@ -4,6 +4,7 @@
 ;; 2016 12 21 add kill-this-buffer
 ;; 2017 01 06 cleanup by move of packages to init-misc-pkgs.el
 ;; 2017 01 06 change from req-package to use-package
+;; 2017 01 11 add scroll-margin 3
 
 ;;; Code:
 
@@ -21,9 +22,11 @@
 (global-set-key (kbd "M-2") 'delete-window)
 (global-set-key (kbd "M-s") 'other-window)
 (global-set-key (kbd "<f1>") 'org-mode)
-(global-set-key (kbd "C-x k") 'kill-this-buffer) ;added tips from pragmatic emacs
+
+ ;added tips from pragmatic emacs
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x w") 'delete-frame)
-(global-set-key (kbd "s-'") 'next-multiframe-window)
+(setq scroll-margin 3)
 
 ;; some beginning settings
 (scroll-bar-mode -1)

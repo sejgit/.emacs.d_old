@@ -2,6 +2,14 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/ssh:home|ssh:fishtank:/home/pi/" . "fishtank/")
+ ("/ssh:home|ssh:fishtank:/home/" . "pi/")
+ ("/ssh:home|ssh:fishtank:/" . "home/")
+ ("/pi@home|ssh:fishtank:/home/" . "pi/")
+ ("/pi@home:|ssh:fishtank:/home/" . "pi/")
+ ("/pi@home:|ssh:pi@fishtank:/home/" . "pi/")
+ ("/pi@home:|ssh:pi@fishtank:/home/pi/" . "fishtank/")
+ ("/ssh:home:|ssh:fishtank:/" . "fishtank/")
  ("/home/sej/" . ".emacs.d/")
  ("/home/sej/.emacs.d/" . "init.d/")
  ("C:/Users/NZ891R/gdrive/todo/" . ".saves/")
@@ -21,13 +29,18 @@
  ("c:/Users/NZ891R/Google Drive/ehome/.shell/" . "aliases/")
  ("c:/Users/NZ891R/Google Drive/ehome/dotfiles/" . "shell/")
  ("c:/Users/NZ891R/Google Drive/ehome/" . ".shell/")
- ("/pi@home:/home/pi/" . "dotfiles/")
+ ("/pi@home:/home/pi/" . ".ssh/")
  ("/pi@home:/home/" . "pi/")
  ("/pi@home:/" . "home/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
+ "/home/sej/gdrive/"
+ "/ssh:home|ssh:fishtank:/home/pi/fishtank/"
+ "/home/sej/.ssh/"
+ "/pi@home:/home/pi/.ssh/"
+ "/home/sej/gdrive/todo/"
  "/home/sej/.emacs.d/init.d/"
  "/home/sej/"
  "c:/Users/NZ891R/gdrive/ehome/.emacs.d/"
@@ -55,6 +68,8 @@
 
 ;; ----- ido-work-file-list -----
 (
+ "error.log"
+ "config"
  "init-misc-pkgs.el"
  "budget.org"
  "elfeed.org"
@@ -63,17 +78,29 @@
  "2016eoyKrumback.txt"
  "init-browse-kill-ring.el"
  "init-discover-my-major.el"
- "init-company-mode.el"
- "init-gist.el"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/home/sej/.emacs.d/init.d/" (22645 15814 722557 733000) "init-elfeed.elc" "../" "init-aggressive-indent.el" "init-smex.el" "init-dired.elc" "init-deft.el" "init-discover-my-major.el" "init-ido.elc" "init-bash.el" "init-dashboard.el" "init-browse-kill-ring.elc" "init-company-mode.elc" "init-misc-pkgs.el" "init-browse-kill-ring.el" "init-bash.elc" "init-org.el" "init-batch.elc" "init-arduino.el" "init-gist.elc" "init-spelling.el" "init-breadcrumb.elc" "init-discover-my-major.elc" "init-flycheck.el" "init-which-key.el" "init-goto-chg.el" "init-batch.el" "init-golden-ratio.el" "init-flycheck.elc" "init-yaml.el" "init-elisp.elc" "init-markdown.elc" "init-dired.el" "init-arduino.elc" "init-org.elc" "init-spelling.elc" "init-elfeed.el" "init-elisp.el" "./" "init-fic-ext.elc" "init-yaml.elc" "init-gist.el" "init-misc-pkgs.elc" "init-aggressive-indent.elc" "init-look-and-feel.el" "init-breadcrumb.el" "init-markdown.el" "init-which-key.elc" "init-company-mode.el" "init-goto-chg.elc" "init-ido.el" "init-golden-ratio.elc" "init-smex.elc" "init-dashboard.elc" "init-deft.elc" "init-look-and-feel.elc" "init-fic-ext.el")
+ ("/home/sej/" (22646 33678 838526 840000) ".xsession-errors" "../" ".xsession-errors.old" ".xfce4-session.verbose-log" ".vboxclient-display.pid" "bin/" ".shell/" "skydrive/" ".tmux/" ".ICEauthority" ".inputrc" "gdrive/" ".dbus/" ".elfeed/" ".gnome2/" ".config/" ".z" ".gstreamer-0.10/" ".ssh/" ".bash_history" "downloads/" ".gnome2_private/" ".dirs" ".bashrc" ".pki/" ".Xauthority" ".breadcrumb" "sej/" ".emacs.d/" "sej.ispell" "dotfiles/" "./" ".xfce4-session.verbose-log.last" ".vboxclient-draganddrop.pid" ".mozilla/" ".vboxclient-seamless.pid" "Desktop/" ".gconf/" ".vboxclient-clipboard.pid" ".cache/" ".aspell.en.prepl" ".gnupg/" ".nano/" ".bash_logout" ".bash_profile" ".dmrc" ".local/")
 
- ("/home/sej/.emacs.d/" (22645 18124 429637 520000) "../" "init.d/" ".saves/" ".git/" "el-get/" "var/" "places" "ac-comphist.dat" "LICENSE" "recentf" "auto-save-list/" "ido.last" "./" "bookmarks" ".smex-items" "init.el" "elfeed.org" ".gitignore" "elpa/" "archive/" "README.md" "smex-items" "server/" "tutorial/")
+ ("/ssh:home|ssh:fishtank:/home/pi/fishtank/" (ftp . 412267.220683513) "__pycache__/" "fishtank.log.2" "plot.png" "fishwww/" ".saves/" "fishtank_v3.py" "./" ".gitignore" "error1.log" "fishtemp.log" "fishtank.log" "copyfishtankpics.sh" "copyerror.log" "fishtank.log.4" "LICENSE" "error.log" "../" "fishtank.log.5" "fishtank.log.3" "up.sh" "fishtank_v2.py" "connectfishwww.sh" "fishtank.log.1" ".git/" "README.md")
 
- ("/home/sej/" (22645 18049 15952 251000) ".xsession-errors" "../" ".xsession-errors.old" ".xfce4-session.verbose-log" ".vboxclient-display.pid" "bin/" ".shell/" "skydrive/" ".tmux/" ".ICEauthority" ".inputrc" "gdrive/" ".dbus/" ".elfeed/" ".gnome2/" ".config/" ".z" ".gstreamer-0.10/" ".ssh/" ".bash_history" "downloads/" ".gnome2_private/" ".dirs" ".bashrc" ".pki/" ".Xauthority" ".breadcrumb" "sej/" ".emacs.d/" "sej.ispell" "dotfiles/" "./" ".xfce4-session.verbose-log.last" ".vboxclient-draganddrop.pid" ".mozilla/" ".vboxclient-seamless.pid" "Desktop/" ".gconf/" ".vboxclient-clipboard.pid" ".cache/" ".aspell.en.prepl" ".gnupg/" ".nano/" ".bash_logout" ".bash_profile" ".dmrc" ".local/")
+ ("/ssh:home|ssh:fishtank:/home/pi/" (ftp . 412267.2161063119) ".python_history" ".selected_editor" "fishtank/" ".arduino/" ".inputrc" ".z" ".lesshst" ".bash_history" "image.jpg" ".dirs" ".bashrc~" ".bash_profile" ".saves/" "./" ".cache/" "sej/" ".gconf/" ".vnc/" "gdrive/" ".Xauthority" ".pip/" ".config/" "../" ".dbus/" ".bashrc" ".emacs.d/" ".bash_logout" ".ssh/" "bin/" ".breadcrumb~" ".shell/" "dotfiles/" ".breadcrumb")
+
+ ("/ssh:home|ssh:fishtank:/home/" (ftp . 412267.2147684565) "./" "../" "pi/")
+
+ ("/ssh:home|ssh:fishtank:/" (ftp . 412267.2119891304) "sys/" "boot/" "srv/" "lost+found/" "root/" "mnt/" "lib/" "media/" "./" "tmp/" "sbin/" "../" "var/" "boot.bak/" "etc/" "proc/" "run/" "bin/" "opt/" "dev/" "usr/" "home/")
+
+ ("/home/sej/gdrive/todo/" (22646 32807 116656 0) "wstaff.org" "west.org" "todo-home.org" "template.org" "taverna.org" "sstaff.org" "report.org" "pizzey.org" "penabaker.org" "ostermiller.org" "orgcard.org" "notes.org" "krumbach.org" "journal.org" "hrm.org" "finance.org" "emacs.org" "electronics.org" "done.org" "blank.org" ".saves/" "#emacs.org#" "../" "./")
+
+ ("/home/sej/gdrive/" (22646 9605 825824 600000) "zmbackup/" "todo/" "sshkeys - 2016-12-10/" "sshkeys - 2016-11-29/" "sshkeys - 2016-04-01/" "sshkeys/" "sql/" "Seadoo/" "Saratoga Wine Exchange_2016-11-09.pdf" "RPi-magpi/" "rpi/" "reference/" "Personal/" "McCullough/" "Kids/" "ISY/" "Imported from Google Notebook - Scratch.gdoc" "Imported from Google Notebook - My Notebook_.gdoc" "Imported from Google Notebook - Mobile notes.gdoc" "humour/" "Ginn" "Financial/" "emacs/" "electronics/" "ehome/" "desktop.ini" "Debian xfce BaseBackup/" "config" "Career/" "CanadaPassportPPTC054.pdf" "CanadaPassporChildren.pdf" "Arduino/" "Apps/" ".tmp.drivedownload/" "../" "./")
+
+ ("/home/sej/.ssh/" (22646 10142 548271 196000) "../" ".gitcred" "myauth" "myauth.git" "sshpass" "myproxy" "noproxy" ".paul3" "id_sejgit@github" "id_rsa.pub" ".paul2" "known_hosts" ".paul" "known_hosts_github" "authorized_keys" "./" "id_sejgit@github.pub" ".paul1" "auth" "id_rsa" "known_hosts.old" "config")
+
+ ("/home/sej/.emacs.d/" (22646 30884 941152 780000) "../" "init.d/" ".saves/" ".git/" "el-get/" "var/" "places" "ac-comphist.dat" "LICENSE" "recentf" "auto-save-list/" "ido.last" "./" "bookmarks" ".smex-items" "init.el" "elfeed.org" ".gitignore" "elpa/" "archive/" "README.md" "smex-items" "server/" "tutorial/")
+
+ ("/home/sej/.emacs.d/init.d/" (22646 30850 873152 780000) "init-elfeed.elc" "../" "init-aggressive-indent.el" "init-smex.el" "init-dired.elc" "init-deft.el" "init-discover-my-major.el" "init-ido.elc" "init-bash.el" "init-dashboard.el" "init-browse-kill-ring.elc" "init-company-mode.elc" "init-misc-pkgs.el" "init-browse-kill-ring.el" "init-bash.elc" "init-org.el" "init-batch.elc" "init-arduino.el" "init-gist.elc" "init-spelling.el" "init-breadcrumb.elc" "init-discover-my-major.elc" "init-flycheck.el" "init-which-key.el" "init-goto-chg.el" "init-batch.el" "init-golden-ratio.el" "init-flycheck.elc" "init-yaml.el" "init-elisp.elc" "init-markdown.elc" "init-dired.el" "init-arduino.elc" "init-org.elc" "init-spelling.elc" "init-elfeed.el" "init-elisp.el" "./" "init-fic-ext.elc" "init-yaml.elc" "init-gist.el" "init-misc-pkgs.elc" "init-aggressive-indent.elc" "init-look-and-feel.el" "init-breadcrumb.el" "init-markdown.el" "init-which-key.elc" "init-company-mode.el" "init-goto-chg.elc" "init-ido.el" "init-golden-ratio.elc" "init-smex.elc" "init-dashboard.elc" "init-deft.elc" "init-look-and-feel.elc" "init-fic-ext.el")
 
  ("c:/Users/NZ891R/gdrive/ehome/.emacs.d/" (22639 43119 0 0) "var/" "url/" "tutorial/" "smex-items" "server/" "recentf" "README.md" "places" "LICENSE" "init.el" "init.d/" "init-real.el" "ido.last~" "ido.last" "elpa/" "elfeed.org" "el-get/" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".smex-items" ".saves/" ".gitignore" ".git/" "../" "./")
 

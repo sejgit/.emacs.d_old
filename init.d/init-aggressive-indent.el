@@ -13,7 +13,7 @@
  (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
  (el-get 'sync))
 
-(use-package aggressive-indent-mode
+(use-package aggressive-indent
   :ensure t
   :config (progn (global-aggressive-indent-mode t)
 		 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))

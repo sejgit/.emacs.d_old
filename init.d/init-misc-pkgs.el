@@ -1,21 +1,28 @@
 ;;; init-misc-pkgs.el --- miscilaneous settings and a few small packages
 ;;; Commentary:
 ;; 2017 01 06 init SeJ moved from init-look-and-feel.el the package setups
-;; 2017 01 06 google-this ::search google with C-/ return
-;; 2017 01 06 volatile-highlights  ::temporarily highlight pasting changes
-;; 2017 01 06 rainbow-delimiters ::dired mode for colours
-;; 2017 01 06 saveplace ::return to the same place in saved file
-;; 2017 01 06 conf-mode :: for editing conf/ini files
-;; 2017 01 06 zenburn-theme ::used from pragmatic Emacs
+;; 2017 01 06 add google-this ::search google with C-/ return
+;; 2017 01 06 add volatile-highlights  ::temporarily highlight pasting changes
+;; 2017 01 06 add rainbow-delimiters ::dired mode for colours
+;; 2017 01 06 add saveplace ::return to the same place in saved file
+;; 2017 01 06 add conf-mode :: for editing conf/ini files
+;; 2017 01 06 remove zenburn-theme ::used from pragmatic Emacs
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 01 10 add swiper to M-s from pragmatic Emacs
+;; 2017 01 10 add crux to move to biginning of line intelligently
+;; 2017 01 10 add avy for efficient movement through search
+;; 2017 01 10 move swiper to own file & add ivy-dired-recent-dirs()
+
 ;;; Code:
 
-
-;; swiper
-(use-package swiper
+(use-package avy
   :ensure t
-  :bind ("C-s" . swiper))
+  :bind (("M-s" . avy-goto-word-1)))
+
+;; crux
+(use-package crux
+  :ensure t
+  :bind ("C-a" . crux-move-beginning-of-line))
 
 ;; google-this  C-/ <ret> to activate
 (use-package google-this

@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
 ;; 2017 01 06 change from req-package to use-package
+;; 2017 01 11 add dired-narrow :: filter dired screen
 
 ;;; Code:
 
@@ -24,6 +25,13 @@
   (auto-revert-mode 1)
   (diff-hl-dired-mode 1))
 
+(use-package dired-ranger
+  :ensure t
+  :bind (:map dired-mode-map
+              ("W" . dired-ranger-copy)
+              ("X" . dired-ranger-move)
+              ("Y" . dired-ranger-paste)))
+
 ;; sunrise commander
 (use-package sunrise-commander
   :ensure t
@@ -43,6 +51,12 @@
 (use-package dired-launch
   :ensure t
   :config (dired-launch-enable))
+
+;;narrow dired to match filter
+(use-package dired-narrow
+  :ensure t
+  :bind (:map dired-mode-map
+              ("/" . dired-narrow)))
 
 (provide 'init-dired)
 ;;; init-dired.el ends here
