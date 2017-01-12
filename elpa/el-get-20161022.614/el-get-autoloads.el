@@ -3,7 +3,7 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "el-get" "el-get.el" (22646 55885 0 0))
+;;;### (autoloads nil "el-get" "el-get.el" (22646 58492 187406 0))
 ;;; Generated autoloads from el-get.el
 
 (autoload 'el-get-version "el-get" "\
@@ -102,8 +102,8 @@ already installed packages is considered.
 
 ;;;***
 
-;;;### (autoloads nil "el-get-bundle" "el-get-bundle.el" (22646 55885
-;;;;;;  0 0))
+;;;### (autoloads nil "el-get-bundle" "el-get-bundle.el" (22646 58492
+;;;;;;  231428 0))
 ;;; Generated autoloads from el-get-bundle.el
 
 (autoload 'el-get-bundle-el-get "el-get-bundle" "\
@@ -157,8 +157,8 @@ required.
 
 ;;;***
 
-;;;### (autoloads nil "el-get-check" "el-get-check.el" (22646 55885
-;;;;;;  0 0))
+;;;### (autoloads nil "el-get-check" "el-get-check.el" (22646 58492
+;;;;;;  235430 0))
 ;;; Generated autoloads from el-get-check.el
 
 (autoload 'el-get-check-recipe "el-get-check" "\
@@ -177,7 +177,7 @@ object or a file path.
 ;;;***
 
 ;;;### (autoloads nil "el-get-list-packages" "el-get-list-packages.el"
-;;;;;;  (22646 55885 0 0))
+;;;;;;  (22646 58492 239432 0))
 ;;; Generated autoloads from el-get-list-packages.el
 
 (autoload 'el-get-list-packages "el-get-list-packages" "\
@@ -191,7 +191,7 @@ Display a list of packages.
 ;;;;;;  "el-get-byte-compile.el" "el-get-core.el" "el-get-custom.el"
 ;;;;;;  "el-get-dependencies.el" "el-get-install.el" "el-get-methods.el"
 ;;;;;;  "el-get-notify.el" "el-get-pkg.el" "el-get-recipes.el" "el-get-status.el")
-;;;;;;  (22646 55885 0 0))
+;;;;;;  (22646 58492 243433 999000))
 
 ;;;***
 

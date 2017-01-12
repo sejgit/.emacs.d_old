@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ comment-region
  dashboard-insert-startupify-lists
  bookmark-jump
  eval-region
  tramp-version
  sunrise
  describe-mode
- next-multiframe-window
 )
 
 ;; ----- smex-data -----
@@ -30,7 +30,7 @@
  (eval-region . 3)
  (el-get-update . 2)
  (el-get-list-packages . 36)
- (comment-region . 5)
+ (comment-region . 6)
  (uncomment-region . 2)
  (describe-mode . 18)
  (smex-update . 1)
