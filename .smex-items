@@ -1,10 +1,10 @@
 
 ;; ----- smex-history -----
 (
+ eval-region
  comment-region
  dashboard-insert-startupify-lists
  bookmark-jump
- eval-region
  tramp-version
  sunrise
  describe-mode
@@ -27,7 +27,7 @@
  (el-get-emacswiki-build-local-recipes . 1)
  (set-variable . 9)
  (eval-buffer . 1)
- (eval-region . 3)
+ (eval-region . 9)
  (el-get-update . 2)
  (el-get-list-packages . 36)
  (comment-region . 6)
