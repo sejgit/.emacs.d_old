@@ -84,14 +84,6 @@
 (
  ("/home/sej/" (22646 33678 838526 840000) ".xsession-errors" "../" ".xsession-errors.old" ".xfce4-session.verbose-log" ".vboxclient-display.pid" "bin/" ".shell/" "skydrive/" ".tmux/" ".ICEauthority" ".inputrc" "gdrive/" ".dbus/" ".elfeed/" ".gnome2/" ".config/" ".z" ".gstreamer-0.10/" ".ssh/" ".bash_history" "downloads/" ".gnome2_private/" ".dirs" ".bashrc" ".pki/" ".Xauthority" ".breadcrumb" "sej/" ".emacs.d/" "sej.ispell" "dotfiles/" "./" ".xfce4-session.verbose-log.last" ".vboxclient-draganddrop.pid" ".mozilla/" ".vboxclient-seamless.pid" "Desktop/" ".gconf/" ".vboxclient-clipboard.pid" ".cache/" ".aspell.en.prepl" ".gnupg/" ".nano/" ".bash_logout" ".bash_profile" ".dmrc" ".local/")
 
- ("/ssh:home|ssh:fishtank:/home/pi/fishtank/" (ftp . 412267.220683513) "__pycache__/" "fishtank.log.2" "plot.png" "fishwww/" ".saves/" "fishtank_v3.py" "./" ".gitignore" "error1.log" "fishtemp.log" "fishtank.log" "copyfishtankpics.sh" "copyerror.log" "fishtank.log.4" "LICENSE" "error.log" "../" "fishtank.log.5" "fishtank.log.3" "up.sh" "fishtank_v2.py" "connectfishwww.sh" "fishtank.log.1" ".git/" "README.md")
-
- ("/ssh:home|ssh:fishtank:/home/pi/" (ftp . 412267.2161063119) ".python_history" ".selected_editor" "fishtank/" ".arduino/" ".inputrc" ".z" ".lesshst" ".bash_history" "image.jpg" ".dirs" ".bashrc~" ".bash_profile" ".saves/" "./" ".cache/" "sej/" ".gconf/" ".vnc/" "gdrive/" ".Xauthority" ".pip/" ".config/" "../" ".dbus/" ".bashrc" ".emacs.d/" ".bash_logout" ".ssh/" "bin/" ".breadcrumb~" ".shell/" "dotfiles/" ".breadcrumb")
-
- ("/ssh:home|ssh:fishtank:/home/" (ftp . 412267.2147684565) "./" "../" "pi/")
-
- ("/ssh:home|ssh:fishtank:/" (ftp . 412267.2119891304) "sys/" "boot/" "srv/" "lost+found/" "root/" "mnt/" "lib/" "media/" "./" "tmp/" "sbin/" "../" "var/" "boot.bak/" "etc/" "proc/" "run/" "bin/" "opt/" "dev/" "usr/" "home/")
-
  ("/home/sej/gdrive/todo/" (22646 32807 116656 0) "wstaff.org" "west.org" "todo-home.org" "template.org" "taverna.org" "sstaff.org" "report.org" "pizzey.org" "penabaker.org" "ostermiller.org" "orgcard.org" "notes.org" "krumbach.org" "journal.org" "hrm.org" "finance.org" "emacs.org" "electronics.org" "done.org" "blank.org" ".saves/" "#emacs.org#" "../" "./")
 
  ("/home/sej/gdrive/" (22646 9605 825824 600000) "zmbackup/" "todo/" "sshkeys - 2016-12-10/" "sshkeys - 2016-11-29/" "sshkeys - 2016-04-01/" "sshkeys/" "sql/" "Seadoo/" "Saratoga Wine Exchange_2016-11-09.pdf" "RPi-magpi/" "rpi/" "reference/" "Personal/" "McCullough/" "Kids/" "ISY/" "Imported from Google Notebook - Scratch.gdoc" "Imported from Google Notebook - My Notebook_.gdoc" "Imported from Google Notebook - Mobile notes.gdoc" "humour/" "Ginn" "Financial/" "emacs/" "electronics/" "ehome/" "desktop.ini" "Debian xfce BaseBackup/" "config" "Career/" "CanadaPassportPPTC054.pdf" "CanadaPassporChildren.pdf" "Arduino/" "Apps/" ".tmp.drivedownload/" "../" "./")
