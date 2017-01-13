@@ -4,7 +4,7 @@
 ;; 2016 12 21 add kill-this-buffer
 ;; 2017 01 06 cleanup by move of packages to init-misc-pkgs.el
 ;; 2017 01 06 change from req-package to use-package
-;; 2017 01 11 add scroll-margin 3
+;; 2017 01 11 add more pragmatic Emacs tips
 ;; 2017 01 12 add steve drunken tips
 
 ;;; Code:
@@ -28,7 +28,11 @@
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x w") 'delete-frame)
 (setq scroll-margin 3)
-
+;;keep cursor at same position when scrolling
+(setq scroll-preserve-screen-position 1)
+;;scroll window up/down by one line
+(global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
+(global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
 
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
 (global-set-key "\C-x\C-m" 'execute-extended-command)

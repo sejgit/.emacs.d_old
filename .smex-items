@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ ediff-current-file
  list-packages
  eval-region
  org-version
  isearch-backward-regexp
  isearch-forward-regexp
  eval-expression
- shrink-frame
 )
 
 ;; ----- smex-data -----
@@ -82,4 +82,5 @@
  (isearch-forward-regexp . 2)
  (isearch-backward-regexp . 1)
  (org-version . 1)
+ (ediff-current-file . 2)
 )
