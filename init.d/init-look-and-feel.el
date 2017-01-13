@@ -5,6 +5,7 @@
 ;; 2017 01 06 cleanup by move of packages to init-misc-pkgs.el
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 01 11 add scroll-margin 3
+;; 2017 01 12 add steve drunken tips
 
 ;;; Code:
 
@@ -28,10 +29,19 @@
 (global-set-key (kbd "C-x w") 'delete-frame)
 (setq scroll-margin 3)
 
+
+;;added tips from steve drunken blog 10 specific ways to improve productivity
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+
 ;; some beginning settings
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
-(menu-bar-mode nil)
+(menu-bar-mode -1)
 (column-number-mode nil)
 
 ;; wind move built in package
@@ -107,7 +117,7 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-(global-set-key (kbd "C-c n") 'cleanup-buffer)
+(global-set-key (kbd "M-<SPC>") 'cleanup-buffer)
 
 (setq-default show-trailing-whitespace t)
 

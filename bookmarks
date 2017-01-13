@@ -2,7 +2,22 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("init.d"
+(("init-misc-pkgs.el"
+ (filename . "~/.emacs.d/init.d/init-misc-pkgs.el")
+ (front-context-string . ";;; init-misc-pk")
+ (rear-context-string)
+ (position . 1))
+("CAP"
+ (filename . "~/skydrive/CAP/")
+ (front-context-string . "2016_CAPfinal_se")
+ (rear-context-string . "32 Nov 28 13:28 ")
+ (position . 223))
+("init-look-and-feel.el"
+ (filename . "~/.emacs.d/init.d/init-look-and-feel.el")
+ (front-context-string . ";;; init-look-an")
+ (rear-context-string)
+ (position . 1))
+("init.d"
  (filename . "~/.emacs.d/init.d/")
  (front-context-string . "flycheck_init-wh")
  (rear-context-string . "544 12-19 16:03 ")

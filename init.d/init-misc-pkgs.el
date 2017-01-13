@@ -68,5 +68,5 @@
   :mode "\\.gitconfig$")
 
 (provide 'init-misc-pkgs)
-;;; init-misc-pkgs.ini ends here
+;;; init-misc-pkgs.el ends here
 

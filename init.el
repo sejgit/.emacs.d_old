@@ -7,6 +7,7 @@
 ;; 2016 12 12 transfer updates from test-version
 ;; 2016 12 15 updates due to win move to wsys2/ming64
 ;; 2017 01 06 bring together init & real-init
+;; 2017 01 10 change setup of initial frame size and position
 
 ;;; Code:
 
@@ -37,33 +38,6 @@
 
 ;; recompile configs
 (add-hook 'kill-emacs-hook (lambda () (byte-recompile-directory my-init-dir 0 t)))
-
-;; set frame size and position
-;; (defun set-frame-size-according-to-resolution ()
-;;   (interactive)
-;;   (if window-system
-;;       (progn
-;; 	;; use 120 char wide window for largeish displays
-;; 	;; and smaller 80 column windows for smaller displays
-;; 	;; pick whatever numbers make sense for you
-;; 	(if (> (x-display-pixel-width) 1280)
-;; 	    (add-to-list 'default-frame-alist (cons 'width 100))
-;; 	  ;;(add-to-list 'default-frame-alist (cons 'width 80))
-;; 	  )
-;; 	;; for the height, subtract a couple hundred pixels
-;; 	;; from the screen height (for panels, menubars and
-;; 	;; whatnot), then divide by the height of a char to
-;; 	;; get the height we want
-;; 	(add-to-list 'default-frame-alist
-;; 		     (cons 'height (/ (- (x-display-pixel-height) 110)
-;; 				      (frame-char-height))))
-;; 	(modify-frame-parameters
-;; 	 nil '((user-position . t) (left . (- +160))))
-;; 	(modify-frame-parameters
-;; 	 nil '((user-position . t) (top . (+ +20))))
-
-;; 	)))
-;; (set-frame-size-according-to-resolution)
 
 ;; themes
 ;; tango-dark
@@ -102,6 +76,7 @@
 
 (switch-to-buffer "*dashboard*")
 (dashboard-insert-startupify-lists)
+(sej-frame-resize-r)
 
 (provide 'init)
 ;;; init.el ends here

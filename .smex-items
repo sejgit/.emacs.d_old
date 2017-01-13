@@ -2,12 +2,12 @@
 ;; ----- smex-history -----
 (
  eval-region
- comment-region
- dashboard-insert-startupify-lists
- bookmark-jump
- tramp-version
- sunrise
- describe-mode
+ org-version
+ isearch-backward-regexp
+ isearch-forward-regexp
+ eval-expression
+ shrink-frame
+ describe-variable
 )
 
 ;; ----- smex-data -----
@@ -22,12 +22,12 @@
  (calc . 1)
  (View-scroll-line-backward . 1)
  (load-theme . 11)
- (describe-variable . 1)
+ (describe-variable . 2)
  (flyspell-mode . 4)
  (el-get-emacswiki-build-local-recipes . 1)
- (set-variable . 9)
+ (set-variable . 10)
  (eval-buffer . 1)
- (eval-region . 9)
+ (eval-region . 10)
  (el-get-update . 2)
  (el-get-list-packages . 36)
  (comment-region . 6)
@@ -77,4 +77,9 @@
  (sunrise . 1)
  (tramp-version . 1)
  (bookmark-jump . 1)
+ (shrink-frame . 8)
+ (eval-expression . 1)
+ (isearch-forward-regexp . 2)
+ (isearch-backward-regexp . 1)
+ (org-version . 1)
 )
