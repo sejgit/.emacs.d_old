@@ -33,12 +33,12 @@
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
-(global-set-key "\C-w" 'backward-kill-word)
+;;(global-set-key "\C-w" 'backward-kill-word) ; not using to avoid confussion
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
 
-;; some beginning settings
+;; Some beginning settings
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -117,7 +117,7 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-(global-set-key (kbd "M-<SPC>") 'cleanup-buffer)
+(global-set-key (kbd "M-c") 'cleanup-buffer)
 
 (setq-default show-trailing-whitespace t)
 

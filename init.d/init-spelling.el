@@ -12,13 +12,15 @@
   (("<f8>" . ispell-word)
    ("C-<f8>" . flyspell-mode)
    ("M-<f8>" . flyspell-check-next-highlighted-word))
+  :init
+  (add-hook 'text-mode-hook 'flyspell-mode)
   :config
   (setq ispell-personal-dictionary "~/sej.ispell")
   (if (string-equal system-type "windows-nt")
       (setq ispell-program-name "hunspell.exe")
     (progn (setq ispell-program-name "aspell")
 	   (setq ispell-extra-args '("--sug-mode=ultra" "lang=en"))))
-    (setq ispell-local-dictionary "en_US")
+  (setq ispell-local-dictionary "en_US")
   (defun flyspell-check-next-highlighed-word ()
     "Custom function to spell check next highlighted word"
     (interactive)
