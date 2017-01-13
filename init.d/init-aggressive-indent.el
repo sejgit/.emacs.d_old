@@ -10,12 +10,11 @@
 (use-package el-get
   :ensure t
   :config
- (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
- (el-get 'sync))
+  (el-get 'sync))
 
 (use-package aggressive-indent
   :ensure t
-  :config (progn (global-aggressive-indent-mode t)
+  :config (progn (global-aggressive-indent-mode 1)
 		 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
 
 (provide 'init-aggressive-indent)

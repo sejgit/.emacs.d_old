@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ list-packages
  eval-region
  org-version
  isearch-backward-regexp
  isearch-forward-regexp
  eval-expression
  shrink-frame
- describe-variable
 )
 
 ;; ----- smex-data -----
@@ -51,7 +51,7 @@
  (org-dashboard-display . 3)
  (browse-kill-ring . 2)
  (markdown-mode . 2)
- (list-packages . 9)
+ (list-packages . 10)
  (dunnet . 1)
  (org-mode . 1)
  (org-lint . 1)
