@@ -7,6 +7,16 @@
 ;;; Code:
 
 (use-package org
+  :defines
+  org-capture-bookmark
+  org-capture-templates
+  org-agenda-window-setup
+  org-agenda-span
+  org-agenda-skip-scheduled-if-deadline-is-shown
+  org-agenda-todo-ignore-deadlines
+  org-agenda-todo-ignore-scheduled
+  org-agenda-sorting-strategy
+  org-agenda-skip-deadline-prewarning-if-scheduled
   :mode ("\\.org$" . org-mode)
   :bind (("<f1>" . org-mode)
 	 ("C-c l" . org-store-link)
@@ -16,7 +26,7 @@
          ("C-c b" . org-iswitchb))
   :config (progn (setq org-default-notes-file (concat org-directory "/notes.org"))
                  (setq org-tags-column -110)
-                 (setq org-capture-bookmark t)
+		 (setq org-capture-bookmark t)
                  (setq org-refile-use-outline-path 'file)
                  (setq org-startup-folded 'showeverything)
                  (setq org-log-done 'note)
@@ -26,14 +36,14 @@
 		       org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "|" "DONE(d)")
 					   (sequence "DELIGATE(D)" "CHECK(C)" "|" "VERIFIED(V)")
 					   (sequence "|" "CANCELED(x)"))
-		       org-todo-keyword-faces '(("TODO" . org-warning) 
+		       org-todo-keyword-faces '(("TODO" . org-warning)
 						("INPROGRESS" . (:foreground "blue" :weight bold))
 						("DONE" . (:foreground "green" :weight bold))
 						("DELIGATE" . (:foreground "blue" :weight bold))
 						("VERIFIED" . (:foreground "green" :weight bold))
 						("CANCELED" .(:foreground "grey" :weight bold))))
-		 (setq org-capture-templates 
-		       '(("t" "Todo" entry (file+headline (concat deft-directory "/gtd.org")  "Tasks") "* TODO %?\n  %i\n  %a")
+		 (setq org-capture-templates
+		       '(("t" "Todo" entry (file+headline (concat deft-directory "/gtd.org")  "Tasks") "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
 			 ("j" "Journal" entry (file+datetree (concat deft-directory "/journal.org"))
 			  "* %?\nEntered on %U\n  %i\n  %a")))
 		 (add-hook 'org-mode-hook
@@ -42,7 +52,7 @@
 		 (add-hook 'org-mode-hook
 			   (lambda ()
 			     (writegood-mode)))
-                 (define-key org-mode-map (kbd "C-M-\\") 'org-indent-region)
+		 (define-key org-mode-map (kbd "C-M-\\") 'org-indent-region)
 		 ;; org-mode agenda options
 		 ;;open agenda in current window
 		 (setq org-agenda-window-setup (quote current-window))
@@ -71,7 +81,7 @@
 (use-package org-bullets
   :ensure t
   :commands org-bullets-mode
-  :config (add-hook-exec 'org-mode (lambda () (org-bullets-mode 1))))
+  :config (org-bullets-mode 1))
 
 (use-package org-cliplink
   :ensure t
@@ -80,6 +90,11 @@
 (use-package org-dashboard
   :ensure t
   :commands org-dashboard-display)
+
+(use-package org-mu4e
+  :defines
+  org-mu4e-link-query-in-headers-mode
+  :config (setq org-mu4e-link-query-in-headers-mode nil))
 
 (provide 'init-org)
 ;;; init-org.el ends here

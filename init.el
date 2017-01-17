@@ -88,7 +88,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (frame-cmds el-get aggressive-indent zenburn-theme yasnippet yaml-mode writegood-mode which-key volatile-highlights use-package sunrise-x-loop smex shell-pop rainbow-delimiters org-dashboard org-cliplink org-bullets markdown-mode macrostep log4e load-dir ido-ubiquitous ido-at-point goto-chg google-this golden-ratio gist furl flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org dummy-h-mode dired-toggle-sudo dired-ranger dired-rainbow dired-open dired-narrow dired-launch diff-hl deft dashboard crux counsel company-shell company-quickhelp company-irony browse-kill-ring batch-mode bash-completion avy auto-complete async arduino-mode))))
+    (thesaurus org-mu4e mu4e frame-cmds el-get aggressive-indent zenburn-theme yasnippet yaml-mode writegood-mode which-key volatile-highlights use-package sunrise-x-loop smex shell-pop rainbow-delimiters org-dashboard org-cliplink org-bullets markdown-mode macrostep log4e load-dir ido-ubiquitous ido-at-point goto-chg google-this golden-ratio gist furl flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org dummy-h-mode dired-toggle-sudo dired-ranger dired-rainbow dired-open dired-narrow dired-launch diff-hl deft dashboard crux counsel company-shell company-quickhelp company-irony browse-kill-ring batch-mode bash-completion avy auto-complete async arduino-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

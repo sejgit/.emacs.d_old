@@ -23,10 +23,10 @@
  (rear-context-string . "544 12-19 16:03 ")
  (position . 265))
 ("org-capture-last-stored"
- (filename . "~/journal.org")
- (front-context-string . "**** test\nEntere")
- (rear-context-string . "16-02-28 Sunday\n")
- (position . 51))
+ (filename . "~/gdrive/todo/journal.org")
+ (front-context-string . "**** Bluetooth d")
+ (rear-context-string . "17-01-16 Monday\n")
+ (position . 383))
 ("notes"
  (filename . "~/.emacs.d/notes")
  (front-context-string . "\n** Fri Feb 26 0")

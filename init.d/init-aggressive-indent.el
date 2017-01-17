@@ -10,6 +10,7 @@
 (use-package el-get
   :ensure t
   :config
+  (fboundp 'el-get)
   (el-get 'sync))
 
 (use-package aggressive-indent

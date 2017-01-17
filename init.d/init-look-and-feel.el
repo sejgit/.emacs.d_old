@@ -21,7 +21,7 @@
 (global-set-key (kbd "M-3") 'delete-other-windows)
 (global-set-key (kbd "M-4") 'split-window-vertically)
 (global-set-key (kbd "M-2") 'delete-window)
-(global-set-key (kbd "M-s") 'other-window)
+(global-set-key (kbd "M-'") 'other-window)
 (global-set-key (kbd "<f1>") 'org-mode)
 
  ;added tips from pragmatic emacs
@@ -33,6 +33,8 @@
 ;;scroll window up/down by one line
 (global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
 (global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
+(global-set-key (kbd "M-SPC") 'cycle-spacing)
+
 
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
 (global-set-key "\C-x\C-m" 'execute-extended-command)

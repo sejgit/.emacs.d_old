@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
 ;; 2017 01 06 change from req-package to use-package
+;; 2017 01 15 add support for thesaurus.el
 
 ;;; Code:
 
@@ -28,6 +29,13 @@
     (ispell-word))
   (setq flyspell-issue-welcome-flag nil)
   (setq-default ispell-list-command "list"))
+
+(use-package thesaurus
+  :ensure t
+  :bind ("C-x t" . thesaurus-choose-synonym-and-replace)
+  :config
+  (thesaurus-set-bhl-api-key-from-file "~/.ssh/BigHugeLabs.apikey.txt"))
+
 
 (provide 'init-spelling)
 ;;; init-spelling.el ends here
