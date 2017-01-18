@@ -82,7 +82,7 @@
 
 (switch-to-buffer "*dashboard*")
 (declare-function sej-frame-resize-r "init-frame-cmds.el" nil)
-(sej-frame-resize-r)
+(when (display-graphic-p) (sej-frame-resize-r))
 
 (provide 'init)
 ;;; init.el ends here
