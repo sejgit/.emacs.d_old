@@ -9,6 +9,7 @@ projectile-bookmarks.eld
 network-security-data
 .smex-items
 smex-items
+tramp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
