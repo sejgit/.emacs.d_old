@@ -6,6 +6,7 @@
 ;;; Code:
 
 (use-package markdown-mode
+  :defer t
   :ensure t
   :mode
   "\\.md$"

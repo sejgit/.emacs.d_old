@@ -1,31 +1,37 @@
 ;;; init-company.el --- Company-mode configuration
+
 ;;; Commentary:
 ;; 2016 12 16 SeJ
 ;; 2017 01 07 switch from req-package to use-package
+
 ;;; Code:
 
 (use-package yasnippet
+  :defer t
   :ensure t)
 
 (use-package company
+  :defer t
   :ensure t
-  :config (progn (global-company-mode 1)
-                 (setq company-idle-delay 0.1)
-                 (setq company-show-numbers t)
-                 (setq company-minimum-prefix-length 2)
-                 (setq company-dabbrev-downcase nil)
-                 (setq company-dabbrev-other-buffers t)
-		 (setq company-auto-complete nil)
-                 (setq company-dabbrev-code-other-buffers 'all)
-                 (setq company-dabbrev-code-everywhere t)
-                 (setq company-dabbrev-code-ignore-case t)
-                 (global-set-key (kbd "C-<tab>") 'company-dabbrev)
-                 (global-set-key (kbd "M-<tab>") 'company-complete)
-                 (global-set-key (kbd "C-c C-y") 'company-yasnippet)))
+  :bind
+  (("C-<tab>" . company-dabbrev)
+   ("M-<tab>" . company-complete)
+   ("C-c C-y" . company-yasnippet))
+  :config (setq global-company-mode 1
+		company-idle-delay 0.1
+		company-show-numbers t
+		company-minimum-prefix-length 2
+		company-dabbrev-downcase nil
+		company-dabbrev-other-buffers t
+		company-auto-complete nil
+		company-dabbrev-code-other-buffers 'all
+		company-dabbrev-code-everywhere t
+		company-dabbrev-code-ignore-case t))
+
 
 (use-package company-quickhelp
   :ensure t
-  :config (company-quickhelp-mode 1))
+  :config (setq company-quickhelp-mode 1))
 
 
 (provide 'init-company)

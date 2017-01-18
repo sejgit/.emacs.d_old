@@ -7,10 +7,11 @@
 
 (use-package golden-ratio
   :ensure t
+  :demand t
   :diminish golden-ratio-mode
+  :bind ("M-'" . next-multiframe-window)
   :config
   (golden-ratio-mode 1)
-  (global-set-key (kbd "s-'") 'next-multiframe-window)
   (add-to-list 'golden-ratio-extra-commands 'next-multiframe-window))
 
 (provide 'init-golden-ratio)

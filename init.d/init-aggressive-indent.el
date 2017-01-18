@@ -8,6 +8,7 @@
 
 ;; el-get
 (use-package el-get
+  :defer t
   :ensure t)
 
 

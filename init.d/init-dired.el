@@ -34,10 +34,12 @@
 
 ;; sunrise commander
 (use-package sunrise-commander
+  :defer t
   :ensure t
   :commands sunrise-cd)
 
 (use-package sunrise-x-loop
+  :defer t
   :ensure t)
 
 ;; dired rainbow

@@ -26,7 +26,9 @@
 
 ;; google-this  C-/ <ret> to activate
 (use-package google-this
+  :defer t
   :ensure t
+  :bind ("C-/" google-this)
   :config
   (google-this-mode 1))
 
@@ -81,6 +83,7 @@
 ;; (define-key map "\C-c\C-a" 'conf-align-assignments)
 
 (use-package conf-mode
+  :defer t
   :ensure t
   :mode "\\.gitconfig$")
 

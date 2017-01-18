@@ -8,6 +8,7 @@
 
 ;; gist client
 (use-package gist
+  :defer t
   :ensure t
   :bind ("<f9>" . gist-list))
 

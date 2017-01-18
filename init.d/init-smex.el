@@ -1,5 +1,7 @@
 ;;; init-smex.el --- Stephen's emacs init-smex.el
-;;; Commentary:  provides a convenient interface to your recently and most frequently used commands. 
+;;; Commentary:
+;; provides a convenient interface to your recently and most frequently used commands.
+
 ;; 2016 12 16
 ;; 2017 01 07 switch from req-package to use-package
 ;;; Code:

@@ -6,6 +6,7 @@
 
 
 (use-package bash-completion
+  :defer t
   :ensure t
   :commands bash-completion-dynamic-complete
   :init
@@ -14,6 +15,7 @@
   (setq bash-completion-process-timeout 0.5))
 
 (use-package company-shell
+  :defer t
   :ensure t)
 
 (use-package shell-pop

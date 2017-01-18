@@ -6,6 +6,7 @@
 ;;; Code:
 
 (use-package yaml-mode
+  :defer t
   :ensure t
   :mode
   "\\.yml$"
