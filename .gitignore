@@ -1,7 +1,7 @@
 # emacs stuff
 ac-comphist.dat
 el-get/
-elpa/
+#elpa/
 ido.last
 places
 recentf
