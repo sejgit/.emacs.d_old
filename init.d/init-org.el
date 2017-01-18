@@ -91,10 +91,5 @@
   :ensure t
   :commands org-dashboard-display)
 
-(use-package org-mu4e
-  :defines
-  org-mu4e-link-query-in-headers-mode
-  :config (setq org-mu4e-link-query-in-headers-mode nil))
-
 (provide 'init-org)
 ;;; init-org.el ends here

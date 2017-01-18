@@ -129,6 +129,12 @@
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
+
+(use-package org-mu4e
+  :defines
+  org-mu4e-link-query-in-headers-mode
+  :config (setq org-mu4e-link-query-in-headers-mode nil))
+
 )
 
 ;;; init-mu4e.el ends here
