@@ -126,7 +126,9 @@
 
 ;; attempt to show images when viewing messages
 (setq mu4e-view-show-images t)
-
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
 
 ;;; init-mu4e.el ends here
 

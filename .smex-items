@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- other-frame
+ dired-do-isearch
+ find-name-dired
+ mu4e-update-mail-and-index
  new-frame
+ mu4e
+ other-frame
  describe-mode
- elfeed-update
- elfeed
- elfeed-org
- list-packages
 )
 
 ;; ----- smex-data -----
@@ -87,13 +87,15 @@
  (cycle-spacing . 1)
  (comment-box . 1)
  (term . 1)
- (mu4e . 12)
+ (mu4e . 13)
  (mu4e-about . 1)
  (mu4e-news . 1)
- (mu4e-update-mail-and-index . 3)
+ (mu4e-update-mail-and-index . 4)
  (mu4e-update-index . 1)
  (my-mu4e-set-account . 2)
  (mu4e-org-mode . 1)
- (new-frame . 1)
+ (new-frame . 2)
  (other-frame . 1)
+ (find-name-dired . 2)
+ (dired-do-isearch . 5)
 )

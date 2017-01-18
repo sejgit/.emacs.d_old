@@ -20,7 +20,7 @@
 	 ("C-M-<right>" . enlarge-frame-horizontally)
 	 ("C-M-<up>" . shrink-frame)
 	 ("C-C-<left>" . shrink-frame-horizontally))
-  :init
+  :config
   ;;set frame full height and 86 columns wide
   ;;and position at screen left
   (defun sej-frame-resize-l ()
