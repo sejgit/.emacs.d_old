@@ -5,7 +5,7 @@
 ;; 2017 01 15 adding pragmatic Emacs hints
 
 ;;; Code:
-
+(when (require 'mu4e nil t)
 (require 'mu4e)
 (require 'smtpmail)
 (setq mu4e-get-mail-command "offlineimap")
@@ -129,6 +129,7 @@
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
+)
 
 ;;; init-mu4e.el ends here
 
