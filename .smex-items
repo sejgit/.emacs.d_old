@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- list-packages
- eval-expression
- eval-buffer
- mu4e-org-mode
- mu4e-update-mail-and-index
- mu4e
+ other-frame
+ new-frame
  describe-mode
+ elfeed-update
+ elfeed
+ elfeed-org
+ list-packages
 )
 
 ;; ----- smex-data -----
@@ -32,7 +32,7 @@
  (el-get-list-packages . 36)
  (comment-region . 6)
  (uncomment-region . 2)
- (describe-mode . 20)
+ (describe-mode . 23)
  (smex-update . 1)
  (help-mode . 1)
  (package-delete . 96)
@@ -59,9 +59,9 @@
  (aggressive-indent-global-mode . 2)
  (org-toggle-checkbox . 2)
  (bjm/elfeed-load-db-and-open . 6)
- (elfeed-update . 9)
- (elfeed-org . 6)
- (elfeed . 10)
+ (elfeed-update . 10)
+ (elfeed-org . 7)
+ (elfeed . 11)
  (bjm/elfeed-show-emacs . 2)
  (elfeed-search-update--force . 1)
  (google-this-mode . 1)
@@ -94,4 +94,6 @@
  (mu4e-update-index . 1)
  (my-mu4e-set-account . 2)
  (mu4e-org-mode . 1)
+ (new-frame . 1)
+ (other-frame . 1)
 )

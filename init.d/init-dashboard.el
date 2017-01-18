@@ -8,10 +8,11 @@
 (use-package dashboard
   :config
   (use-package page-break-lines
-  :ensure t)
+    :ensure t)
   (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents  . 15)
-			  (bookmarks . 15))))
+			  (bookmarks . 15)))
+  (dashboard-insert-startupify-lists))
 
 
 (provide 'init-dashboard)

@@ -8,6 +8,7 @@
 ;; 2016 12 15 updates due to win move to wsys2/ming64
 ;; 2017 01 06 bring together init & real-init
 ;; 2017 01 10 change setup of initial frame size and position
+;; 2017 01 18 changes to allow setup to work on nox versions
 
 ;;; Code:
 
@@ -37,14 +38,16 @@
 (require 'bind-key)
 
 ;; recompile configs
+(defconst my-init-dir "~/.emacs.d/init.d")
 (add-hook 'kill-emacs-hook (lambda () (byte-recompile-directory my-init-dir 0 t)))
 
 ;; themes
 ;; tango-dark
 (defun load-tango-theme (frame)
+  "Load tango-dark theme in current FRAME."
   (select-frame frame)
   (load-theme 'tango-dark t)
-  (set-frame-size-according-to-resolution)
+  ;;(set-frame-size-according-to-resolution)
   (switch-to-buffer "*dashboard*"))
 
 ;; load preferred theme at startup
@@ -52,7 +55,6 @@
     (add-hook 'after-make-frame-functions #'load-tango-theme)
   (load-theme 'tango-dark t))
 
-(defconst my-init-dir "~/.emacs.d/init.d")
 
 ;; remove irritating 'got redefined' messages
 (setq ad-redefinition-action 'accept)
@@ -61,6 +63,10 @@
 (random t)
 (use-package load-dir
   :ensure t
+  :defines
+  load-dir-debug
+  load-dir-recursive
+  :functions load-dir-one
   :init
   (setq force-load-messages t)
   (setq load-dir-debug nil)
@@ -75,7 +81,7 @@
   (load-theme 'tango-dark t))
 
 (switch-to-buffer "*dashboard*")
-(dashboard-insert-startupify-lists)
+(declare-function sej-frame-resize-r "init-frame-cmds.el" nil)
 (sej-frame-resize-r)
 
 (provide 'init)
@@ -94,4 +100,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "red" :height 1.0))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "orange" :height 1.0))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "yellow" :height 1.0))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "green" :height 1.0))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "blue" :height 1.0))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "violet" :height 1.0))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "purple" :height 1.0))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "black" :height 1.0))))
+ '(rainbow-delimiters-unmatched-face ((t (:background "cyan" :height 1.0)))))
