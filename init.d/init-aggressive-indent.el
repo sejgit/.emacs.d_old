@@ -8,10 +8,8 @@
 
 ;; el-get
 (use-package el-get
-  :ensure t
-  :config
-  (fboundp 'el-get)
-  (el-get 'sync))
+  :ensure t)
+
 
 (use-package aggressive-indent
   :ensure t
