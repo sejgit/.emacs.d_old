@@ -1,11 +1,14 @@
 # emacs stuff
 ac-comphist.dat
-el-get/.loaddefs.el
-el-get/.loaddefs.elc
+el-get
+elpa
 ido.last
 places
 recentf
 projectile-bookmarks.eld
+network-security-data
+.smex-items
+smex-items
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
