@@ -24,59 +24,49 @@
          ("C-c a" . org-agenda)
          ("C-'" . org-cycle-agenda-files)
          ("C-c b" . org-iswitchb))
-  :config (progn (setq org-default-notes-file (concat org-directory "/notes.org"))
-                 (setq org-tags-column -110)
-		 (setq org-capture-bookmark t)
-                 (setq org-refile-use-outline-path 'file)
-                 (setq org-startup-folded 'showeverything)
-                 (setq org-log-done 'note)
-		 (setq org-tags-column 75)
-		 (global-set-key (kbd "<f1>") 'org-mode)
-		 (setq org-log-done t
-		       org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "|" "DONE(d)")
-					   (sequence "DELIGATE(D)" "CHECK(C)" "|" "VERIFIED(V)")
-					   (sequence "|" "CANCELED(x)"))
-		       org-todo-keyword-faces '(("TODO" . org-warning)
-						("INPROGRESS" . (:foreground "blue" :weight bold))
-						("DONE" . (:foreground "green" :weight bold))
-						("DELIGATE" . (:foreground "blue" :weight bold))
-						("VERIFIED" . (:foreground "green" :weight bold))
-						("CANCELED" .(:foreground "grey" :weight bold))))
-		 (setq org-capture-templates
-		       '(("t" "Todo" entry (file+headline (concat deft-directory "/gtd.org")  "Tasks") "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
-			 ("j" "Journal" entry (file+datetree (concat deft-directory "/journal.org"))
-			  "* %?\nEntered on %U\n  %i\n  %a")))
-		 (add-hook 'org-mode-hook
-			   (lambda ()
-			     (flyspell-mode)))
-		 (add-hook 'org-mode-hook
-			   (lambda ()
-			     (writegood-mode)))
-		 (define-key org-mode-map (kbd "C-M-\\") 'org-indent-region)
-		 ;; org-mode agenda options
-		 ;;open agenda in current window
-		 (setq org-agenda-window-setup (quote current-window))
-		 ;;warn me of any deadlines in next 7 days
-		 (setq org-deadline-warning-days 7)
-		 ;;show me tasks scheduled or due in next fortnight
-		 (setq org-agenda-span (quote fortnight))
-		 ;;don't show tasks as scheduled if they are already shown as a deadline
-		 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
-		 ;;don't give awarning colour to tasks with impending deadlines
-		 ;;if they are scheduled to be done
-		 (setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
-		 ;;don't show tasks that are scheduled or have deadlines in the
-		 ;;normal todo list
-		 (setq org-agenda-todo-ignore-deadlines (quote all))
-		 (setq org-agenda-todo-ignore-scheduled (quote all))
-		 ;;sort tasks in order of when they are due and then by priority
-		 (setq org-agenda-sorting-strategy
-		       (quote
-			((agenda deadline-up priority-down)
-			 (todo priority-down category-keep)
-			 (tags priority-down category-keep)
-			 (search category-keep))))
-		 ))
+  :config
+  (if (string-equal system-type "windows-nt")
+      (setq org-directory "C:/Users/NZ891R/gdrive/todo")
+    (setq org-directory "~/gdrive/todo"))
+  (setq org-default-notes-file (concat org-directory "/notes.org")
+	org-tags-column -110
+	org-capture-bookmark t
+	org-refile-use-outline-path 'file
+	org-startup-folded 'showeverything
+	org-log-done 'note
+	org-tags-column 75
+	org-log-done t
+	org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "|" "DONE(d)")
+			    (sequence "DELIGATE(D)" "CHECK(C)" "|" "VERIFIED(V)")
+			    (sequence "|" "CANCELED(x)"))
+	org-todo-keyword-faces '(("TODO" . org-warning)
+				 ("INPROGRESS" . (:foreground "blue" :weight bold))
+				 ("DONE" . (:foreground "green" :weight bold))
+				 ("DELIGATE" . (:foreground "blue" :weight bold))
+				 ("VERIFIED" . (:foreground "green" :weight bold))
+				 ("CANCELED" .(:foreground "grey" :weight bold))))
+  (setq org-capture-templates
+	'(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org")  "Tasks") "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
+	  ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
+	   "* %?\nEntered on %U\n  %i\n  %a")))
+  (add-hook 'org-mode-hook (lambda () (flyspell-mode)))
+  (add-hook 'org-mode-hook (lambda () (writegood-mode)))
+  (define-key org-mode-map (kbd "C-M-\\") 'org-indent-region)
+
+  ;; org-mode agenda options
+  (setq org-agenda-files (list org-directory)
+	org-agenda-window-setup (quote current-window) ;open agenda in current window
+	org-deadline-warning-days 7 ;warn me of any deadlines in next 7 days
+	org-agenda-span (quote fortnight) ;show me tasks scheduled or due in next fortnight
+	org-agenda-skip-scheduled-if-deadline-is-shown t ;don't show tasks as scheduled if they are already shown as a deadline
+	org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
+	org-agenda-sorting-strategy ;sort tasks in order of when they are due and then by priority
+	(quote
+	 ((agenda deadline-up priority-down)
+	  (todo priority-down category-keep)
+	  (tags priority-down category-keep)
+	  (search category-keep))))
+  )
 
 (use-package org-bullets
   :ensure t
