@@ -12,8 +12,25 @@
 ;; 2017 01 10 add crux to move to biginning of line intelligently
 ;; 2017 01 10 add avy for efficient movement through search
 ;; 2017 01 10 move swiper to own file & add ivy-dired-recent-dirs()
-
+;; 2017 01 16 add drag-stuff to move highlighted region around
+;; 2017 01 16 add beacon mode to highlight cursor when moved
 ;;; Code:
+
+(use-package beacon
+  :ensure t
+  :defer 2
+  :diminish beacon-mode
+  :config
+  (beacon-mode 1))
+
+;; Moves selected region around.
+(use-package drag-stuff
+  :ensure t
+  :diminish drag-stuff-mode
+  :bind (("M-<down>" . drag-stuff-down)
+         ("M-<up>" . drag-stuff-up))
+  :config
+  (drag-stuff-global-mode))
 
 (use-package avy
   :ensure t
@@ -35,14 +52,17 @@
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
   :ensure t
+  :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
 
 ;; rainbow-delimiters-mode
 (use-package rainbow-delimiters
   :ensure t
+  :diminish rainbow-delimiters-mode
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
@@ -85,6 +105,7 @@
 (use-package conf-mode
   :defer t
   :ensure t
+  :diminish conf-mode
   :mode "\\.gitconfig$")
 
 (provide 'init-misc-pkgs)

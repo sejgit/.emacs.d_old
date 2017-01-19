@@ -29,7 +29,7 @@
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
     (setq org-directory "~/gdrive/todo"))
   (setq org-default-notes-file (concat org-directory "/notes.org")
-	org-tags-column -110
+	org-tags-column 50
 	org-capture-bookmark t
 	org-refile-use-outline-path 'file
 	org-startup-folded 'showeverything
