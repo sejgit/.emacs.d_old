@@ -6,6 +6,8 @@
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 01 11 add more pragmatic Emacs tips
 ;; 2017 01 12 add steve drunken tips
+;; 2017 01 30 add sudo-edit function (C-x C-r) to edit file as sudo
+
 
 ;;; Code:
 
@@ -137,6 +139,22 @@
 ;; replacing it with the Emacs’ text.
 ;; https://github.com/dakrone/eos/blob/master/eos.org
 (setq save-interprogram-paste-before-kill t)
+
+
+;; function to edit the curent file as root
+(defun sudo-edit (&optional arg)
+  "Edit currently visited file as root.
+
+With a prefix ARG prompt for a file to visit.
+Will also prompt for a file to visit if current
+buffer is not visiting a file."
+  (interactive "P")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:"
+                         (ido-read-file-name "Find file(as root): ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(global-set-key (kbd "C-x C-r") 'sudo-edit)
 
 
 (provide 'init-look-and-feel)
