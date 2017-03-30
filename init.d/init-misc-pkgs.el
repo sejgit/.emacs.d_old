@@ -32,11 +32,12 @@
   :config
   (drag-stuff-global-mode))
 
+;; efficient moving through search terms
 (use-package avy
   :ensure t
   :bind (("M-s" . avy-goto-word-1)))
 
-;; crux
+;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
   :ensure t
   :bind ("C-a" . crux-move-beginning-of-line))
@@ -56,7 +57,7 @@
   :config
   (volatile-highlights-mode t))
 
-;; rainbow-delimiters-mode
+;; rainbow-delimiters-mode - multicoloured brackets
 (use-package rainbow-delimiters
   :ensure t
   :diminish rainbow-delimiters-mode

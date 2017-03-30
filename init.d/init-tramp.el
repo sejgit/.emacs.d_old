@@ -3,14 +3,15 @@
 ;; tramp setup.
 
 ;; 2017 03 14 init SeJ
+;; 2017 03 28 fix settings
 
 ;;; Code:
 
-(custom-set-variables
- '(tramp-default-method "ssh" nil (tramp))
- '(tramp-default-user "pi" nil (tramp))
- '(tramp-default-host "home" nil (tramp))
- '(password-cache-expiry nil))
+(setq
+ tramp-default-method "ssh"
+ tramp-default-user "pi"
+ tramp-default-host "home"
+ password-cache-expiry nil)
 
 (defadvice tramp-handle-write-region
     (after tramp-write-beep-advice activate)

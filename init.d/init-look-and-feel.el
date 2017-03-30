@@ -7,7 +7,7 @@
 ;; 2017 01 11 add more pragmatic Emacs tips
 ;; 2017 01 12 add steve drunken tips
 ;; 2017 01 30 add sudo-edit function (C-x C-r) to edit file as sudo
-
+;; 2017 03 29 add truncate lines setting
 
 ;;; Code:
 
@@ -52,6 +52,18 @@
   (tool-bar-mode -1))
 (menu-bar-mode -1)
 (column-number-mode nil)
+
+;; each line of text gets one line on the screen
+(setq-default truncate-lines 1)
+(setq truncate-partial-width-windows 1)
+
+;; ignore case when searching
+(setq-default case-fold-search 1)
+
+;; require final newlines in files when they are saved
+(setq require-final-newline 1)
+;; add a new line when going to the next line
+(setq next-line-add-newlines t)
 
 ;; wind move built in package
 (when (fboundp 'windmove-default-keybindings)
@@ -100,7 +112,7 @@
 
 ;; macro saving
 (defun save-macro (name)
-  "Save a macro.  Take a name as argument and save the last defined macro under this name at the end of your init file."
+  "Save a macro.  Take a NAME as argument and save the last defined macro under this name at the end of your init file."
   (interactive "SName of the macro :")
   (kmacro-name-last-macro name)
   (find-file user-init-file)
@@ -112,10 +124,12 @@
 
 ;; indentation and buffer cleanup
 (defun untabify-buffer ()
+  "Remove tabs from a buffer and replace with spaces."
   (interactive)
   (untabify (point-min) (point-max)))
 
 (defun indent-buffer ()
+  "Indent current buffer."
   (interactive)
   (indent-region (point-min) (point-max)))
 
