@@ -14,11 +14,8 @@
 ;; 2017 01 10 move swiper to own file & add ivy-dired-recent-dirs()
 ;; 2017 01 16 add drag-stuff to move highlighted region around
 ;; 2017 01 16 add beacon mode to highlight cursor when moved
-;; 2017 03 30 add magit & pyenv-mode-auto
+;; 2017 03 30 move magit & pyenv-mode-auto to init-python.el
 ;;; Code:
-
-(use-package magit)
-(use-package pyenv-mode-auto)
 
 (use-package beacon
   :ensure t

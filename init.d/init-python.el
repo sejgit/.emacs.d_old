@@ -9,8 +9,12 @@
   :config
   (elpy-enable)
   (setq elpy-rpc-python-command "python3")
-  (elpy-use-ipython)
   )
 
 (provide 'init-python)
+
+(use-package magit)
+
+(use-package pyenv-mode-auto)
+
 ;;; init-python.el ends here
