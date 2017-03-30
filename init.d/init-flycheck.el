@@ -8,13 +8,22 @@
 
 (use-package flycheck
   :ensure t
-  :config (progn (global-flycheck-mode 1)
-		 (set-face-attribute 'flycheck-warning nil
-				     :inherit 'warning
-				     :underline nil)
-		 (set-face-attribute 'flycheck-error nil
-				     :inherit 'error
-				     :underline nil)))
+  :preface
+  (declare-function flycheck-next-error flycheck nil)
+  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+  (fringe-mode (quote (4 . 0)))
+  (global-flycheck-mode 1)
+  :config
+  (setq flycheck-emacs-lisp-load-path 'inherit)
+  (setq flycheck-python-flake8-executable "flake8")
+  (setq flycheck-flake8-maximum-line-length 79)
+  (setq flycheck-highlighting-mode 'lines)
+  (progn 	  (set-face-attribute 'flycheck-warning nil
+				      :inherit 'warning
+				      :underline nil)
+		  (set-face-attribute 'flycheck-error nil
+				      :inherit 'error
+				      :underline nil)))
 
 (use-package flycheck-pos-tip
   :ensure t
