@@ -39,6 +39,10 @@
   :init
   (autoload 'jedi:setup "jedi" nil t)
   (add-hook 'python-mode-hook 'jedi:setup)
+<<<<<<< HEAD
+=======
+  (setq jedi:setup-keys t)
+>>>>>>> origin/HEAD
   (setq jedi:complete-on-dot t)
   :preface
   (declare-function jedi:goto-definition jedi nil)
