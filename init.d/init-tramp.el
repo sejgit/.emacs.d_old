@@ -4,34 +4,42 @@
 
 ;; 2017 03 14 init SeJ
 ;; 2017 03 28 fix settings
+;; 2017 04 04 get tramp into use-package
 
 ;;; Code:
 
-(setq
- tramp-default-method "ssh"
- tramp-default-user "pi"
- tramp-default-host "home"
- password-cache-expiry nil)
 
-(defadvice tramp-handle-write-region
-    (after tramp-write-beep-advice activate)
-  "Make tramp beep after writing a file."
-  (interactive)
-  (beep))
+(use-package tramp
+  :defer 2
+  :commands
+  (tramp-default-method
+   tramp-default-user
+   tramp-default-host)
+  :init
+  (setq
+   tramp-default-method "ssh"
+   tramp-default-user "pi"
+   tramp-default-host "home"
+   password-cache-expiry nil)
 
-(defadvice tramp-handle-do-copy-or-rename-file
-    (after tramp-copy-beep-advice activate)
-  "Make tramp beep after copying a file."
-  (interactive)
-  (beep))
+  (defadvice tramp-handle-write-region
+      (after tramp-write-beep-advice activate)
+    "Make tramp beep after writing a file."
+    (interactive)
+    (beep))
 
-(defadvice tramp-handle-insert-file-contents
-    (after tramp-insert-beep-advice activate)
-  "Make tramp beep after inserting a file."
-  (interactive)
-  (beep))
+  (defadvice tramp-handle-do-copy-or-rename-file
+      (after tramp-copy-beep-advice activate)
+    "Make tramp beep after copying a file."
+    (interactive)
+    (beep))
 
-
+  (defadvice tramp-handle-insert-file-contents
+      (after tramp-insert-beep-advice activate)
+    "Make tramp beep after inserting a file."
+    (interactive)
+    (beep))
+  )
 
 (provide 'init-tramp)
 ;;; init-tramp.el ends here

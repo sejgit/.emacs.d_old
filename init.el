@@ -11,6 +11,7 @@
 ;; 2017 01 18 changes to allow setup to work on nox versions
 ;; 2017 01 19 add gc-cons garbage collection limit
 ;; 2017 03 31 black background to tango dark theme
+;; 2017 04 04 remove recompile at kill in favour of auto-compile package
 ;;; Code:
 
 ;; gc-cons garbage collection up the limit
@@ -25,11 +26,12 @@
 (setq package-enable-at-startup nil)
 
 ;; elpa
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("elpa" . "http://tromey.com/elpa/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("sunrise" . "http://joseito.republika.pl/sunrise-commander/"))
+(setq load-prefer-newer t)
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -37,13 +39,20 @@
   (package-install 'use-package))
 
 (eval-when-compile
-  (require 'use-package))
+  (require 'use-package)
+  (setq use-package-always-ensure t))
 (require 'diminish)
 (require 'bind-key)
 
+
 ;; recompile configs
 (defconst my-init-dir "~/.emacs.d/init.d")
-(add-hook 'kill-emacs-hook (lambda () (byte-recompile-directory my-init-dir 0 t)))
+(use-package auto-compile
+  :ensure t
+  :init
+  ;;(auto-compile-on-load-mode)
+  (auto-compile-on-save-mode)
+  )
 
 ;; themes
 ;; tango-dark
@@ -113,4 +122,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ag zenburn-theme yasnippet yaml-mode writegood-mode which-key volatile-highlights use-package thesaurus sunrise-x-loop smex shell-pop rainbow-delimiters pyvenv python-mode pyenv-mode-auto org-dashboard org-cliplink org-bullets markdown-mode magithub macrostep log4e load-dir jedi ido-ubiquitous ido-at-point goto-chg google-this golden-ratio gist furl frame-cmds flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org el-get dummy-h-mode drag-stuff dired-toggle-sudo dired-ranger dired-rainbow dired-open dired-narrow dired-launch diff-hl deft dashboard crux counsel company-shell company-quickhelp company-jedi company-irony browse-kill-ring beacon batch-mode bash-completion avy arduino-mode aggressive-indent))))
+    (zenburn-theme yasnippet yaml-mode writegood-mode which-key volatile-highlights use-package thesaurus sunrise-x-loop smex shell-pop rainbow-delimiters pyvenv python-mode pyenv-mode-auto org-dashboard org-cliplink org-bullets markdown-mode magithub macrostep log4e load-dir jedi ido-ubiquitous ido-at-point goto-chg google-this golden-ratio gist furl frame-cmds flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org el-get dummy-h-mode drag-stuff dired-toggle-sudo dired-ranger dired-rainbow dired-open dired-narrow dired-launch diff-hl deft dashboard crux counsel company-shell company-quickhelp company-jedi company-irony browse-kill-ring beacon batch-mode bash-completion avy arduino-mode aggressive-indent ag)))
+ '(password-cache-expiry nil)
+ '(tramp-default-host "home" nil (tramp))
+ '(tramp-default-method "ssh" nil (tramp))
+ '(tramp-default-user "pi" nil (tramp)))

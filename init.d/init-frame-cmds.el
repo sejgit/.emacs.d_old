@@ -7,7 +7,6 @@
 
 (use-package frame-cmds
   :if (display-graphic-p)
-  :ensure t
   :bind (("C-c s <left>" . sej-frame-resize-l)
 	 ("C-c s <right>" . sej-frame-resize-r)
 	 ("C-c s <S-right>" . sej-frame-resize-r2)

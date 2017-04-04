@@ -3,12 +3,12 @@
 ;; 2016 12 16 init SeJ
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 01 15 add support for thesaurus.el
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 
 
 (use-package flyspell
-  :ensure t
   :bind
   (("<f8>" . ispell-word)
    ("C-<f8>" . flyspell-mode)
@@ -34,7 +34,6 @@
   (setq-default ispell-list-command "list"))
 
 (use-package thesaurus
-  :ensure t
   :bind ("C-x t" . thesaurus-choose-synonym-and-replace)
   :config
   (thesaurus-set-bhl-api-key-from-file "~/.ssh/BigHugeLabs.apikey.txt"))

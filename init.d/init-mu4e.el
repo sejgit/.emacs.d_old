@@ -3,11 +3,16 @@
 ;;; Commentary:
 ;; 2017 01 14 init sej
 ;; 2017 01 15 adding pragmatic Emacs hints
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 (when (require 'mu4e nil t)
   (use-package mu4e
     :defer t
+    :defines
+    starttls-use-gnutls
+    smtpmail-starttls-credentials
+    smtpmail-auth-credentials
     :config
     (require 'smtpmail)
     (setq mu4e-get-mail-command "offlineimap")
@@ -101,7 +106,7 @@
 		(completing-read (format "Compose with account: (%s) "
 					 (mapconcat #'(lambda (var) (car var))
 						    my-mu4e-account-alist "/"))
-				 (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+				 (mapcar #'(lambda (var) (car var))  my-mu4e-account-alist)
 				 nil t nil nil (caar my-mu4e-account-alist))))
 	     (account-vars (cdr (assoc account my-mu4e-account-alist))))
 	(if account-vars

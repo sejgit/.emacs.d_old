@@ -2,12 +2,16 @@
 ;;; Commentary:
 ;; 2016 12 16
 ;; 2017 01 06 change from req-package to use-package
-
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 
+(use-package flycheck-color-mode-line
+  :defer 2)
+
 (use-package flycheck
-  :ensure t
+  :defer 2
+  :ensure flycheck-color-mode-line
   :preface
   (declare-function flycheck-next-error flycheck nil)
   (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
@@ -26,7 +30,7 @@
 				      :underline nil)))
 
 (use-package flycheck-pos-tip
-  :ensure t
+  :defer 2
   :commands flycheck-pos-tip-error-messages
   :config (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 

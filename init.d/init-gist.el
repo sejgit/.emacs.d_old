@@ -2,14 +2,12 @@
 ;;; Commentary:
 ;; 2016 12 16
 ;; 2017 01 06 change from req-package to use-package
-
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 
 ;; gist client
 (use-package gist
-  :defer t
-  :ensure t
   :bind ("<f9>" . gist-list))
 
 

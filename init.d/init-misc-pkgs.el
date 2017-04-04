@@ -1,4 +1,5 @@
 ;;; init-misc-pkgs.el --- miscilaneous settings and a few small packages
+
 ;;; Commentary:
 ;; 2017 01 06 init SeJ moved from init-look-and-feel.el the package setups
 ;; 2017 01 06 add google-this ::search google with C-/ return
@@ -15,18 +16,18 @@
 ;; 2017 01 16 add drag-stuff to move highlighted region around
 ;; 2017 01 16 add beacon mode to highlight cursor when moved
 ;; 2017 03 30 move magit & pyenv-mode-auto to init-python.el
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
+
 ;;; Code:
 
 (use-package beacon
-  :ensure t
-  :defer 2
+  :defer 5
   :diminish beacon-mode
   :config
   (beacon-mode 1))
 
-;; Moves selected region around.
+;; Moves selected region around
 (use-package drag-stuff
-  :ensure t
   :diminish drag-stuff-mode
   :bind (("M-<down>" . drag-stuff-down)
          ("M-<up>" . drag-stuff-up))
@@ -35,32 +36,27 @@
 
 ;; efficient moving through search terms
 (use-package avy
-  :ensure t
   :bind (("M-s" . avy-goto-word-1)))
+
+;; google-this
+(use-package google-this
+  :bind ("C-c x" . google-this)
+  :config (google-this-mode 1))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
-  :ensure t
   :bind ("C-a" . crux-move-beginning-of-line))
-
-;; google-this  C-/ <ret> to activate
-(use-package google-this
-  :defer t
-  :ensure t
-  :bind ("C-/" google-this)
-  :config
-  (google-this-mode 1))
 
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
-  :ensure t
+  :defer 5
   :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
 
 ;; rainbow-delimiters-mode - multicoloured brackets
 (use-package rainbow-delimiters
-  :ensure t
+  :defer 2
   :diminish rainbow-delimiters-mode
   :init
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -85,7 +81,7 @@
 
 ;; save the place in files
 (use-package saveplace
-  :ensure t
+  :defer 2
   :config
   (setq-default save-place t))
 
@@ -105,8 +101,6 @@
 ;; (define-key map "\C-c\C-a" 'conf-align-assignments)
 
 (use-package conf-mode
-  :defer t
-  :ensure t
   :diminish conf-mode
   :mode "\\.gitconfig$")
 

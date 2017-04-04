@@ -4,10 +4,12 @@
 
 ;; 2016 12 16
 ;; 2017 01 07 switch from req-package to use-package
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
+
 ;;; Code:
 
 (use-package smex
-  :ensure t
+  :defer 5
   :bind (("M-x" . smex)
 	 ("M-X" . smex-major-mode-commands))
   :config (progn (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))

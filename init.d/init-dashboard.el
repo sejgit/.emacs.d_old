@@ -14,7 +14,6 @@
 			  (bookmarks . 15)))
   (dashboard-insert-startupify-lists))
 
-
 (provide 'init-dashboard)
 ;;; init-dashboard.el ends here
 

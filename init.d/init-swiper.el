@@ -3,12 +3,13 @@
 
 ;;; Log:
 ;; 2017 01 11 init & move swiper from init-misc-pkgs.el
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 
 ;; swiper
 (use-package swiper
-  :ensure t
+  :defer 2
   :functions ivy--regex
   :bind
   (("C-s" . swiper)

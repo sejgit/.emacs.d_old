@@ -1,11 +1,12 @@
 ;;; init-yasnippet.el --- Initialize emacs yasnippet
 ;;; Commentary:
 ;; 2017 03 29 SeJ init
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 
 (use-package yasnippet
-  :ensure t
+  :defer 2
   :config (yas-global-mode 1)
   )
 

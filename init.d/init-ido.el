@@ -6,12 +6,11 @@
 ;;; Logs:
 ;; 2016 12 16
 ;; 2017 01 09 switch from req-package to use-package
-
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 
 (use-package ido
-  :ensure t
   :init (defalias 'list-buffers 'ibuffer)
   :bind ("C-x C-f" . ido-find-file)
   :config
@@ -21,18 +20,18 @@
 	ido-use-virtual-buffers t))
 
 (use-package ido-ubiquitous
-  :ensure t
+  :defer 2
   :config (ido-ubiquitous-mode t))
 
 (use-package flx-ido
-  :ensure t
+  :defer 2
   :config
   (flx-ido-mode 1)
   (setq ido-enable-flex-matching t)
   (setq ido-use-faces nil))
 
 (use-package ido-at-point
-  :ensure t
+  :defer 2
   :config (ido-at-point-mode 1))
 
 (provide 'init-ido)

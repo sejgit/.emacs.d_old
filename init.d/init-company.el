@@ -3,16 +3,14 @@
 ;;; Commentary:
 ;; 2016 12 16 SeJ
 ;; 2017 01 07 switch from req-package to use-package
+;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 
 ;;; Code:
 
 (use-package yasnippet
-  :defer t
-  :ensure t)
+  :defer 2)
 
 (use-package company
-  :defer t
-  :ensure t
   :bind
   (("C-<tab>" . company-dabbrev)
    ("M-<tab>" . company-complete)
@@ -30,14 +28,15 @@
 
 
 (use-package company-quickhelp
-  :ensure t
+  :defer 2
   :config (setq company-quickhelp-mode 1))
 
 (use-package company-jedi
+  :defer 2
   :config (add-to-list 'company-backends 'company-jedi))
-
-
 
 (provide 'init-company)
 ;;; init-company.el ends here
+
+
 
