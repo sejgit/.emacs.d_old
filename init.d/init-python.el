@@ -1,6 +1,7 @@
 ;;; init-python.el ---  Stephen's emacs init-python.el
 ;;; Commentary:
 ;; 2017 03 29 SeJ init
+;; 2017 04 04 set python-interpreter
 
 ;;; Code:
 
@@ -24,6 +25,7 @@
          ("\\.cpy$" . python-mode)
          ("\\.vpy$" . python-mode))
   :config
+  (setq python-shell-interpreter "python3")
   (declare-function py-insert-debug netsight nil)
   (setq fill-column 79)
   (setq-default flycheck-flake8rc "~/.config/flake8rc")
@@ -39,10 +41,6 @@
   :init
   (autoload 'jedi:setup "jedi" nil t)
   (add-hook 'python-mode-hook 'jedi:setup)
-<<<<<<< HEAD
-=======
-  (setq jedi:setup-keys t)
->>>>>>> origin/HEAD
   (setq jedi:complete-on-dot t)
   :preface
   (declare-function jedi:goto-definition jedi nil)
