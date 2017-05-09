@@ -19,7 +19,7 @@
   (setq ispell-personal-dictionary "~/sej.ispell")
   (if (string-equal system-type "windows-nt")
       (setq ispell-program-name "hunspell.exe")
-    (progn (setq ispell-program-name "aspell")
+    (progn (setq ispell-program-name "/usr/local/bin/aspell")
 	   (setq ispell-extra-args '("--sug-mode=ultra" "lang=en_CA"))))
   (setq ispell-local-dictionary "en_CA")
   (setq ispell-local-dictionary-alist '(("canadian" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil  ("-d" "en_CA") nil utf-8)

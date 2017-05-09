@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("init.d"
+(("config"
+ (filename . "~/.ssh/config")
+ (front-context-string . "## outside the f")
+ (rear-context-string)
+ (position . 1))
+("init.d"
  (filename . "~/.emacs.d/init.d/")
  (front-context-string . "flycheck_init-wh")
  (rear-context-string . "544 12-19 16:03 ")

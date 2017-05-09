@@ -1,0 +1,4 @@
+2017-05-09  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* init-look-and-feel.el: add keybindings from emacs-starter-kit
+

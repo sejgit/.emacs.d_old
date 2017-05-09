@@ -5,6 +5,7 @@
 ;; 2017 03 14 init SeJ
 ;; 2017 03 28 fix settings
 ;; 2017 04 04 get tramp into use-package
+;; 2017 05 08 possible changes for darwin
 
 ;;; Code:
 
@@ -16,12 +17,16 @@
    tramp-default-user
    tramp-default-host)
   :init
-  (setq
-   tramp-default-method "ssh"
-   tramp-default-user "pi"
-   tramp-default-host "home"
-   password-cache-expiry nil)
-
+  (if (eq system-type 'darwin)
+      (setq
+       tramp-default-method "ssh"
+       password-cache-expiry nil)
+    (setq
+     tramp-default-method "ssh"
+     tramp-default-user "pi"
+     tramp-default-host "home"
+     password-cache-expiry nil)
+    )
   (defadvice tramp-handle-write-region
       (after tramp-write-beep-advice activate)
     "Make tramp beep after writing a file."

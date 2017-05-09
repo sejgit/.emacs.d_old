@@ -8,7 +8,8 @@
 ;; 2017 01 12 add steve drunken tips
 ;; 2017 01 30 add sudo-edit function (C-x C-r) to edit file as sudo
 ;; 2017 03 29 add truncate lines setting
-
+;; 2017 05 09 add copy-line C-c C-k
+;; 2017 05 09 add some neat keybindings from emacs-starter-kit
 ;;; Code:
 
 ;; keybindings
@@ -30,8 +31,10 @@
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x w") 'delete-frame)
 (setq scroll-margin 3)
+
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
+
 ;;scroll window up/down by one line
 (global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
 (global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
@@ -41,9 +44,59 @@
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
-;;(global-set-key "\C-w" 'backward-kill-word) ; not using to avoid confussion
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
+
+;;added from emacs-starter-kit
+;; You know, like Readline.
+(global-set-key (kbd "C-M-d") 'backward-kill-word)
+
+;; Align your code in a pretty way.
+(global-set-key (kbd "C-x \\") 'align-regexp)
+
+;; Perform general cleanup.
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+
+;; Turn on the menu bar for exploring new modes
+(global-set-key (kbd "C-<f10>") 'menu-bar-mode)
+
+;; Use regex searches by default.
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+
+;; Jump to a definition in the current file. (This is awesome.)
+(global-set-key (kbd "C-x C-i") 'ido-imenu)
+
+;; File finding
+(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
+(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+(global-set-key (kbd "C-c y") 'bury-buffer)
+(global-set-key (kbd "C-c r") 'revert-buffer)
+(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; Start eshell or switch to it if it's active.
+(global-set-key (kbd "C-x m") 'eshell)
+
+;; Start a new eshell even if one is active.
+(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
+
+;; Start a regular shell if you prefer that.
+(global-set-key (kbd "C-x M-m") 'shell)
+
+;; Fetch the contents at a URL, display it raw.
+(global-set-key (kbd "C-x C-h") 'view-url)
+
+;; Should be able to eval-and-replace anywhere.
+(global-set-key (kbd "C-c e") 'eval-and-replace)
+
+;; For debugging Emacs modes
+(global-set-key (kbd "C-c p") 'message-point)
+
+(global-set-key (kbd "C-c q") 'join-line)
 
 
 ;; Some beginning settings
@@ -95,6 +148,20 @@
       use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
+
+(defun copy-line (&optional arg)
+  "Do a kill-line but copy rather than kill.  This function directly calls
+kill-line, so see documentation of kill-line for how to use it including prefix
+argument and relevant variables.  This function works by temporarily making the
+buffer read-only, so I suggest setting kill-read-only-ok to t."
+  (interactive "P")
+  (setq buffer-read-only t)
+  (kill-line arg)
+  (setq buffer-read-only nil)
+  (move-beginning-of-line 1))
+
+(setq-default kill-read-only-ok t)
+(global-set-key "\C-c\C-k" 'copy-line)
 
 ;; electric-pair-mode
 (electric-pair-mode t)
