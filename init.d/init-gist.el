@@ -8,7 +8,7 @@
 
 ;; gist client
 (use-package gist
-  :bind ("<f9>" . gist-list))
+  :bind ("C-M-g" . gist-list))
 
 
 (provide 'init-gist)

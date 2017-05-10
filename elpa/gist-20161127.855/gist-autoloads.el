@@ -3,7 +3,7 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "gist" "gist.el" (22613 52825 0 0))
+;;;### (autoloads nil "gist" "gist.el" (22803 26063 0 0))
 ;;; Generated autoloads from gist.el
 
 (autoload 'gist-region "gist" "\

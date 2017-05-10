@@ -17,7 +17,10 @@
   (ido-mode t)
   (ido-everywhere t)
   (setq ido-enable-flex-matching t
-	ido-use-virtual-buffers t))
+	ido-use-virtual-buffers t
+	ido-enable-prefix nil
+        ido-use-filename-at-point 'guess
+        ido-max-prospects 10))
 
 (use-package ido-ubiquitous
   :defer 2

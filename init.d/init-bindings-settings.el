@@ -1,4 +1,4 @@
-;;; init-look-and-feel.el --- miscilaneous settings and a few small packages
+;;; init-bindings-settings.el --- bindings & settings
 ;;; Commentary:
 ;; 2016 12 16 init SeJ
 ;; 2016 12 21 add kill-this-buffer
@@ -10,6 +10,7 @@
 ;; 2017 03 29 add truncate lines setting
 ;; 2017 05 09 add copy-line C-c C-k
 ;; 2017 05 09 add some neat keybindings from emacs-starter-kit
+;; 2017 05 09 rename file to init-bindings-settings.el
 ;;; Code:
 
 ;; keybindings
@@ -149,17 +150,6 @@
       visible-bell t)
 (show-paren-mode t)
 
-(defun copy-line (&optional arg)
-  "Do a kill-line but copy rather than kill.  This function directly calls
-kill-line, so see documentation of kill-line for how to use it including prefix
-argument and relevant variables.  This function works by temporarily making the
-buffer read-only, so I suggest setting kill-read-only-ok to t."
-  (interactive "P")
-  (setq buffer-read-only t)
-  (kill-line arg)
-  (setq buffer-read-only nil)
-  (move-beginning-of-line 1))
-
 (setq-default kill-read-only-ok t)
 (global-set-key "\C-c\C-k" 'copy-line)
 
@@ -176,6 +166,17 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
       kept-new-versions 6
       kept-old-versions 2
       version-control t)       ; use versioned backups
+
+(defun copy-line (&optional arg)
+  "Do a kill-line but copy rather than kill.  This function directly calls
+kill-line, so see documentation of kill-line for how to use it including prefix
+argument and relevant variables.  This function works by temporarily making the
+buffer read-only, so I suggest setting kill-read-only-ok to t."
+  (interactive "P")
+  (setq buffer-read-only t)
+  (kill-line arg)
+  (setq buffer-read-only nil)
+  (move-beginning-of-line 1))
 
 ;; macro saving
 (defun save-macro (name)
@@ -238,5 +239,5 @@ buffer is not visiting a file."
 (global-set-key (kbd "C-x C-r") 'sudo-edit)
 
 
-(provide 'init-look-and-feel)
-;;; init-look-and-feel ends here
+(provide 'init-bindings-settings)
+;;; init-bindings-settings.el ends here
