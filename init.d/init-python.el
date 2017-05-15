@@ -3,8 +3,10 @@
 ;; 2017 03 29 SeJ init
 ;; 2017 04 04 set python-interpreter
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
-
+;; 2017 05 14 adds from purcell/.emacs.d
 ;;; Code:
+
+(use-package pip-requirements)
 
 (use-package ediff
   :defer t
@@ -24,6 +26,14 @@
   (setq python-shell-interpreter "ipython3 --simple-prompt -i"
 	python-shell-interpreter-args "--simple-prompt -i")
   :config
+  (use-package anaconda-mode
+    :config
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  (use-package company-anaconda
+    :config
+    (add-hook 'python-mode-hook
+	      (lambda () (sanityinc/local-push-company-backend 'company-anaconda))))
   (declare-function py-insert-debug netsight nil)
   (setq fill-column 79)
   (setq-default flycheck-flake8rc "~/.config/flake8rc")
@@ -35,8 +45,6 @@
 (use-package pyenv-mode-auto
   :defer t)
 (provide 'init-python)
-(use-package magit
-  :defer t)
 
 (use-package jedi
   :init

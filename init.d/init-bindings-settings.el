@@ -11,15 +11,23 @@
 ;; 2017 05 09 add copy-line C-c C-k
 ;; 2017 05 09 add some neat keybindings from emacs-starter-kit
 ;; 2017 05 09 rename file to init-bindings-settings.el
+;; 2017 05 12 adds from purcell/emacs.d
+
 ;;; Code:
 
 ;; keybindings
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 (global-set-key (kbd "M-/") 'hippie-expand)
+(setq hippie-expand-try-functions-list
+      '(try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill))
+
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "C-c C-k") 'compile)
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-set-key (kbd "M-3") 'delete-other-windows)
@@ -46,7 +54,6 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 (global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
 
 ;;added from emacs-starter-kit
 ;; You know, like Readline.
@@ -119,13 +126,18 @@
 ;; add a new line when going to the next line
 (setq next-line-add-newlines t)
 
-;; wind move built in package
+;; wind move built in package (default bindins are S-<cursor>)
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 (global-set-key (kbd "C-c <left>")  'windmove-left)
 (global-set-key (kbd "C-c <right>") 'windmove-right)
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
+;; framemove will move frames when at limits of current frame
+(use-package framemove
+  :config
+  (setq framemove-hook-into-windmove t))
+
 
 ;; marking text and clipboard settings
 (delete-selection-mode t)
@@ -238,6 +250,11 @@ buffer is not visiting a file."
 
 (global-set-key (kbd "C-x C-r") 'sudo-edit)
 
+;; uniquify settings
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator " • ")
+(setq uniquify-after-kill-buffer-p t)
+(setq uniquify-ignore-buffers-re "^\\*")
 
 (provide 'init-bindings-settings)
 ;;; init-bindings-settings.el ends here

@@ -1,3 +1,9 @@
+2017-05-10  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* init-misc-pkgs.el: add bookmark+
+	add rpn-calc
+	
+
 2017-05-09  Stephen Jenkins  <stephenearljenkins@gmail.com>
 
 	* init-bindings-settings.el:  rename file to init-bindings-settings.el

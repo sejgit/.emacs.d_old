@@ -17,6 +17,9 @@
 ;; 2017 01 16 add beacon mode to highlight cursor when moved
 ;; 2017 03 30 move magit & pyenv-mode-auto to init-python.el
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
+;; 2017 05 10 add bookmark+
+;; 2017 05 10 add rpn-calc
+;; 2017 05 12 mods from purcell/emacs.d
 
 ;;; Code:
 
@@ -97,6 +100,59 @@
 (use-package conf-mode
   :diminish conf-mode
   :mode "\\.gitconfig$")
+
+(use-package bookmark+)
+(use-package rpn-calc)
+(use-package wgrep
+  :init
+  (setq-default grep-highlight-matches t
+		grep-scroll-output t)
+  :config
+  (when *is-a-mac*
+    (setq-default locate-command "mdfind"))
+
+  (when (executable-find "ag")
+    (use-package ag)
+    (use-package wgrep-ag)
+    (setq-default ag-highlight-search t)
+    (global-set-key (kbd "M-?") 'ag-project)))
+
+(use-package indent-guide
+  :config
+  (add-hook 'prog-mode-hook 'indent-guide-mode)
+  :diminish
+  indent-guide-mode)
+
+(use-package nlinum)
+
+(use-package page-break-lines
+  :config
+  (setq global-page-break-lines-mode t)
+  :diminish
+  psge-break-lines-mode)
+
+(use-package crontab-mode
+  :config
+  (add-auto-mode 'crontab-mode "\\.?cron\\(tab\\)?\\'"))
+
+(use-package textile-mode
+  :config
+  (setq auto-mode-alist
+	(cons '("\\.textile\\'" . textile-mode) auto-mode-alist)))
+
+(use-package whitespace-cleanup-mode
+  :config
+  (global-whitespace-cleanup-mode t))
+
+(use-package csv-mode
+  :config
+  (add-auto-mode 'csv-mode "\\.[Cc][Ss][Vv]\\'")
+  (setq csv-separators '("," ";" "|" " ")))
+(use-package csv-nav)
+
+(use-package php-mode
+  :config
+  (use-package smarty-mode))
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here
