@@ -10,6 +10,15 @@ network-security-data
 .smex-items
 smex-items
 tramp
+network-security.data
+.uptimes.el
+.python-environments/default
+eshell/
+bookmarks
+elfeed.org
+server/
+archive/
+elpa/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

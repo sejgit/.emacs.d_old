@@ -2,3 +2,8 @@ ls
 ll
 ll
 ls
+ls
+ll
+git status
+cd .emacs.d/
+git status

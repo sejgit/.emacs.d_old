@@ -42,6 +42,7 @@
 (require 'init-utils)
 
 (defun sanityinc/time-subtract-millis (b a)
+  "Calc times.  B - A."
   (* 1000.0 (float-time (time-subtract b a))))
 
 (defvar sanityinc/require-times nil
@@ -107,15 +108,15 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
 
 (add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
 
-;; init-exec-path
-(use-package exec-path-from-shell
-  :ensure t
-  :init
-  (after-load 'exec-path-from-shell
-    (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
-      (add-to-list 'exec-path-from-shell-variables var)))
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+;; ;; init-exec-path
+;; (use-package exec-path-from-shell
+;;   :ensure t
+;;   :init
+;;   (after-load 'exec-path-from-shell
+;;     (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
+;;       (add-to-list 'exec-path-from-shell-variables var)))
+;;   (when (memq window-system '(mac ns x))
+;;     (exec-path-from-shell-initialize)))
 
 ;; recompile configs
 (defconst my-init-dir "~/.emacs.d/init.d")
