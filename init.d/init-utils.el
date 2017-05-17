@@ -1,3 +1,10 @@
+;;; init-utils.el --- Some Utility functions
+
+;;; Commentary:
+;;2017 05 17 init SeJ from purcell/.emacs.d
+
+;;; Code:
+
 (if (fboundp 'with-eval-after-load)
     (defalias 'after-load 'with-eval-after-load)
   (defmacro after-load (feature &rest body)
@@ -74,3 +81,4 @@
 
 
 (provide 'init-utils)
+;;; init-utils.el ends here
