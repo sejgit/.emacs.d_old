@@ -7,7 +7,7 @@
 ;;; Code:
 
 (use-package pip-requirements)
-
+(use-package python-environment)
 (use-package ediff
   :defer t
   :config
@@ -44,7 +44,6 @@
   :defer t)
 (use-package pyenv-mode-auto
   :defer t)
-(provide 'init-python)
 
 (use-package jedi
   :init
@@ -59,5 +58,5 @@
 	 ("C-c r" . jedi:related-names)
 	 ("C-?" . jedi:show-doc)))
 
-
+(provide 'init-python)
 ;;; init-python.el ends here

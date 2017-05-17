@@ -24,7 +24,6 @@
   :config
   (setq-default magit-diff-refine-hunk t)
   (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up)
-  (add-hook 'magit-popup-mode-hook 'sanityinc/no-trailing-whitespace)
   (fullframe magit-status magit-mode-quit-window)
   (add-hook 'git-commit-mode-hook 'goto-address-mode)
   (when *is-a-mac*

@@ -49,11 +49,10 @@
 (global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
-
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
-(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+(global-set-key (kbd "C-c C-m") 'execute-extended-command)
+(global-set-key (kbd "C-x C-k") 'kill-region)
 
 ;;added from emacs-starter-kit
 ;; You know, like Readline.
@@ -73,9 +72,6 @@
 (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
-
-;; Jump to a definition in the current file. (This is awesome.)
-(global-set-key (kbd "C-x C-i") 'ido-imenu)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)

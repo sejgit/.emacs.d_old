@@ -20,6 +20,7 @@
 ;; 2017 05 10 add bookmark+
 ;; 2017 05 10 add rpn-calc
 ;; 2017 05 12 mods from purcell/emacs.d
+;; 2017 05 17 add help-fns+.el
 
 ;;; Code:
 
@@ -153,6 +154,8 @@
 (use-package php-mode
   :config
   (use-package smarty-mode))
+
+(use-package help-fns+)
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here
