@@ -4,6 +4,8 @@
 ;; 2017 04 04 set python-interpreter
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 05 14 adds from purcell/.emacs.d
+;; 2017 05 19 add mastering Emacs python debugging with compile
+
 ;;; Code:
 
 (use-package pip-requirements)
@@ -30,10 +32,7 @@
     :config
     (add-hook 'python-mode-hook 'anaconda-mode)
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-  (use-package company-anaconda
-    :config
-    (add-hook 'python-mode-hook
-	      (lambda () (sanityinc/local-push-company-backend 'company-anaconda))))
+  (use-package company-anaconda)
   (declare-function py-insert-debug netsight nil)
   (setq fill-column 79)
   (setq-default flycheck-flake8rc "~/.config/flake8rc")
@@ -57,6 +56,39 @@
   :bind (("C-." . jedi:goto-definition)
 	 ("C-c r" . jedi:related-names)
 	 ("C-?" . jedi:show-doc)))
+
+(require 'python)
+(defun python--add-debug-highlight ()
+  "Adds a highlighter for use by `python--pdb-breakpoint-string'"
+  (highlight-lines-matching-regexp "## DEBUG ##\\s-*$" 'hi-red-b))
+
+(add-hook 'python-mode-hook 'python--add-debug-highlight)
+
+(defvar python--pdb-breakpoint-string "import pdb; pdb.set_trace() ## DEBUG ##"
+  "Python breakpoint string used by `python-insert-breakpoint'")
+
+(defun python-insert-breakpoint ()
+  "Inserts a python breakpoint using `pdb'"
+  (interactive)
+  (back-to-indentation)
+  ;; this preserves the correct indentation in case the line above
+  ;; point is a nested block
+  (split-line)
+  (insert python--pdb-breakpoint-string))
+(define-key python-mode-map (kbd "<f6>") 'python-insert-breakpoint)
+
+(defadvice compile (before ad-compile-smart activate)
+  "Advises `compile' so it sets the argument COMINT to t
+if breakpoints are present in `python-mode' files"
+  (when (derived-mode-p major-mode 'python-mode)
+    (save-excursion
+      (save-match-data
+        (goto-char (point-min))
+        (if (re-search-forward (concat "^\\s-*" python--pdb-breakpoint-string "$")
+                               (point-max) t)
+            ;; set COMINT argument to `t'.
+            (ad-set-arg 1 t))))))
+
 
 (provide 'init-python)
 ;;; init-python.el ends here

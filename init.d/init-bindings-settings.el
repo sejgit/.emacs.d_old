@@ -1,5 +1,8 @@
 ;;; init-bindings-settings.el --- bindings & settings
 ;;; Commentary:
+;; Main file for keybindings.
+
+;;; ChangeLog
 ;; 2016 12 16 init SeJ
 ;; 2016 12 21 add kill-this-buffer
 ;; 2017 01 06 cleanup by move of packages to init-misc-pkgs.el
@@ -35,14 +38,13 @@
 (global-set-key (kbd "M-2") 'delete-window)
 (global-set-key (kbd "M-'") 'other-window)
 (global-set-key (kbd "<f1>") 'org-mode)
+(global-set-key (kbd "<f2>") 'shell)
+(global-set-key (kbd "<f5>") 'ag)
+(global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
- ;added tips from pragmatic emacs
+;;added tips from pragmatic emacs
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x w") 'delete-frame)
-(setq scroll-margin 3)
-
-;;keep cursor at same position when scrolling
-(setq scroll-preserve-screen-position 1)
 
 ;;scroll window up/down by one line
 (global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
@@ -64,9 +66,6 @@
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
-;; Turn on the menu bar for exploring new modes
-(global-set-key (kbd "C-<f10>") 'menu-bar-mode)
-
 ;; Use regex searches by default.
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
@@ -82,15 +81,6 @@
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; Start eshell or switch to it if it's active.
-(global-set-key (kbd "C-x m") 'eshell)
-
-;; Start a new eshell even if one is active.
-(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
-
-;; Start a regular shell if you prefer that.
-(global-set-key (kbd "C-x M-m") 'shell)
-
 ;; Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x C-h") 'view-url)
 
@@ -101,26 +91,6 @@
 (global-set-key (kbd "C-c p") 'message-point)
 
 (global-set-key (kbd "C-c q") 'join-line)
-
-
-;; Some beginning settings
-(when (display-graphic-p)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1))
-(menu-bar-mode -1)
-(column-number-mode nil)
-
-;; each line of text gets one line on the screen
-(setq-default truncate-lines 1)
-(setq truncate-partial-width-windows 1)
-
-;; ignore case when searching
-(setq-default case-fold-search 1)
-
-;; require final newlines in files when they are saved
-(setq require-final-newline 1)
-;; add a new line when going to the next line
-(setq next-line-add-newlines t)
 
 ;; wind move built in package (default bindins are S-<cursor>)
 (when (fboundp 'windmove-default-keybindings)
@@ -134,6 +104,29 @@
   :config
   (setq framemove-hook-into-windmove t))
 
+;; Some beginning settings
+(when (display-graphic-p)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1))
+(menu-bar-mode -1)
+(column-number-mode nil)
+(setq next-line-add-newlines t)
+
+;;keep cursor at same position when scrolling
+(setq scroll-preserve-screen-position 1)
+(setq scroll-margin 3)
+
+;; each line of text gets one line on the screen
+(setq-default truncate-lines 1)
+(setq truncate-partial-width-windows 1)
+
+;; ignore case when searching
+(setq-default case-fold-search 1)
+
+;; require final newlines in files when they are saved
+(setq require-final-newline 1)
+;; add a new line when going to the next line
+(setq next-line-add-newlines t)
 
 ;; marking text and clipboard settings
 (delete-selection-mode t)
@@ -158,9 +151,6 @@
       visible-bell t)
 (show-paren-mode t)
 
-(setq-default kill-read-only-ok t)
-(global-set-key "\C-c\C-k" 'copy-line)
-
 ;; electric-pair-mode
 (electric-pair-mode t)
 
@@ -174,6 +164,9 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)       ; use versioned backups
+
+(setq-default kill-read-only-ok t)
+(global-set-key "\C-c\C-k" 'copy-line)
 
 (defun copy-line (&optional arg)
   "Do a kill-line but copy rather than kill.  This function directly calls

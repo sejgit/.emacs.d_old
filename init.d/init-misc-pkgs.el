@@ -40,7 +40,7 @@
 
 ;; efficient moving through search terms
 (use-package avy
-  :bind (("M-s" . avy-goto-word-1)))
+  :bind ("C-<return>" . avy-goto-word-1))
 
 ;; google-this
 (use-package google-this
