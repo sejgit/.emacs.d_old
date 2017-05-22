@@ -15,6 +15,7 @@
 ;; 2017 05 09 add some neat keybindings from emacs-starter-kit
 ;; 2017 05 09 rename file to init-bindings-settings.el
 ;; 2017 05 12 adds from purcell/emacs.d
+;; 2017 05 21 add delete to trash can
 
 ;;; Code:
 
@@ -165,6 +166,9 @@
       kept-old-versions 2
       version-control t)       ; use versioned backups
 
+;; delete to trash can
+(setq delete-by-moving-to-trash t)
+
 (setq-default kill-read-only-ok t)
 (global-set-key "\C-c\C-k" 'copy-line)
 
@@ -213,6 +217,32 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 (setq-default show-trailing-whitespace t)
 
+(defun push-mark-no-activate ()
+  "Pushes `point' to `mark-ring' and does not activate the region.  Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled."
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+
+(global-set-key (kbd "C-`") 'push-mark-no-activate)
+
+(defun jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.  This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
+(global-set-key (kbd "M-`") 'jump-to-mark)
+
+(defface visible-mark-active
+  ;; put this before (require 'visible-mark)
+  '((((type tty) (class mono)))
+    (t (:background "magenta"))) "")
+
+(use-package visible-mark
+  :config
+  (global-visible-mark-mode 1) ;; or add (visible-mark-mode) to specific hooks
+  (setq visible-mark-max 3)
+  (setq visible-mark-faces `(visible-mark-face1 visible-mark-face2))
+  )
+
 ;; color codes
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
@@ -222,7 +252,6 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 ;; replacing it with the Emacs’ text.
 ;; https://github.com/dakrone/eos/blob/master/eos.org
 (setq save-interprogram-paste-before-kill t)
-
 
 ;; function to edit the curent file as root
 (defun sudo-edit (&optional arg)

@@ -59,16 +59,16 @@
 
 (require 'python)
 (defun python--add-debug-highlight ()
-  "Adds a highlighter for use by `python--pdb-breakpoint-string'"
+  "Add a highlighter for use by `python--pdb-breakpoint-string'."
   (highlight-lines-matching-regexp "## DEBUG ##\\s-*$" 'hi-red-b))
 
 (add-hook 'python-mode-hook 'python--add-debug-highlight)
 
 (defvar python--pdb-breakpoint-string "import pdb; pdb.set_trace() ## DEBUG ##"
-  "Python breakpoint string used by `python-insert-breakpoint'")
+  "Python breakpoint string used by `python-insert-breakpoint'.")
 
 (defun python-insert-breakpoint ()
-  "Inserts a python breakpoint using `pdb'"
+  "Insert a python breakpoint using `pdb'."
   (interactive)
   (back-to-indentation)
   ;; this preserves the correct indentation in case the line above
@@ -78,8 +78,7 @@
 (define-key python-mode-map (kbd "<f6>") 'python-insert-breakpoint)
 
 (defadvice compile (before ad-compile-smart activate)
-  "Advises `compile' so it sets the argument COMINT to t
-if breakpoints are present in `python-mode' files"
+  "Advises `compile' so it will set the argument COMINT to t if breakpoints are present in `python-mode' files."
   (when (derived-mode-p major-mode 'python-mode)
     (save-excursion
       (save-match-data
@@ -88,6 +87,39 @@ if breakpoints are present in `python-mode' files"
                                (point-max) t)
             ;; set COMINT argument to `t'.
             (ad-set-arg 1 t))))))
+
+(defvar python-last-buffer nil
+  "Name of the Python buffer that last invoked `toggle-between-python-buffers'.")
+
+(make-variable-buffer-local 'python-last-buffer)
+
+(defun toggle-between-python-buffers ()
+  "Toggle between a `python-mode' buffer and its inferior Python process.
+When invoked from a `python-mode' buffer it will switch the
+active buffer to its associated Python process.  If the command is
+invoked from a Python process, it will switch back to the `python-mode' buffer."
+  (interactive)
+  ;; check if `major-mode' is `python-mode' and if it is, we check if
+  ;; the process referenced in `python-buffer' is running
+  (if (and (eq major-mode 'python-mode)
+           (processp (get-buffer-process python-shell-internal-buffer)))
+      (progn
+        ;; store a reference to the current *other* buffer; relying
+        ;; on `other-buffer' alone wouldn't be wise as it would never work
+        ;; if a user were to switch away from the inferior Python
+        ;; process to a buffer that isn't our current one.
+        (switch-to-buffer python-shell-internal-buffer)
+        (setq python-last-buffer (other-buffer)))
+    ;; switch back to the last `python-mode' buffer, but only if it
+    ;; still exists.
+    (when (eq major-mode 'inferior-python-mode)
+      (if (buffer-live-p python-last-buffer)
+	  (switch-to-buffer python-last-buffer)
+        ;; buffer's dead; clear the variable.
+        (setq python-last-buffer nil)))))
+
+(define-key inferior-python-mode-map (kbd "<f12>") 'toggle-between-python-buffers)
+(define-key python-mode-map (kbd "<f12>") 'toggle-between-python-buffers)
 
 
 (provide 'init-python)
