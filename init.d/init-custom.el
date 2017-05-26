@@ -11,7 +11,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "/Users/stephenjenkins/.emacs.d/bookmarks")
  '(package-selected-packages
    (quote
     (visible-mark ido-imenu help-fns+ help-fns+\.el origami paredit-everywhere paredit-everywhere-mode framemove company-anaconda anaconda-mode pip-requirements php-mode smarty-mode csv-nav csv-mode whitespace-cleanup-mode textile-mode crontab-mode guide-key magit-gh-pulls github-issues github-clone bug-reference-github yagist git-messenger fullframe git-timemachine gitconfig-mode gitignore-mode git-blamed browse-at-remote nlinum indent-guide ivy-historian uniquify diredful dired dired-sort dired+ scratch wgrep-ag uptimes rpn-calc bookmark+ flycheck-color-mode-line gist zenburn-theme yasnippet yaml-mode writegood-mode which-key volatile-highlights use-package thesaurus sunrise-x-loop smex shell-pop rainbow-delimiters pyvenv python-mode pyenv-mode-auto org-dashboard org-cliplink org-bullets markdown-mode magithub macrostep log4e load-dir jedi ido-ubiquitous ido-at-point goto-chg google-this golden-ratio furl frame-cmds flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org el-get dummy-h-mode drag-stuff dired-toggle-sudo dired-ranger dired-rainbow dired-open dired-narrow dired-launch diff-hl deft dashboard crux counsel company-shell company-quickhelp company-jedi company-irony browse-kill-ring beacon batch-mode bash-completion avy arduino-mode aggressive-indent ag))))

@@ -20,7 +20,10 @@
 	ido-use-virtual-buffers t
 	ido-enable-prefix nil
         ido-use-filename-at-point 'guess
-        ido-max-prospects 10))
+        ido-max-prospects 10
+	ido-create-new-buffer 'always
+	ido-ignore-extensions t
+	ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf")))
 
 (use-package ido-ubiquitous
   :defer 2

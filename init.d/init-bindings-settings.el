@@ -16,6 +16,7 @@
 ;; 2017 05 09 rename file to init-bindings-settings.el
 ;; 2017 05 12 adds from purcell/emacs.d
 ;; 2017 05 21 add delete to trash can
+;; 2017 05 25 add imenu binding
 
 ;;; Code:
 
@@ -67,12 +68,6 @@
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
-;; Use regex searches by default.
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
-
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
@@ -100,6 +95,11 @@
 (global-set-key (kbd "C-c <right>") 'windmove-right)
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
+
+;; set imenu to M-i
+(global-set-key (kbd "M-i") 'imenu)
+
+
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
   :config
@@ -169,7 +169,13 @@
 ;; delete to trash can
 (setq delete-by-moving-to-trash t)
 
+;; remove kill buffer with live process prompt
+(setq kill-buffer-query-functions
+      (remq 'process-kill-buffer-query-function
+	    kill-buffer-query-functions))
+
 (setq-default kill-read-only-ok t)
+
 (global-set-key "\C-c\C-k" 'copy-line)
 
 (defun copy-line (&optional arg)
