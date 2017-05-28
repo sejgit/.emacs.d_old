@@ -15,8 +15,9 @@
    ("M-y" . helm-show-kill-ring)
    ("C-x c o" . helm-occur)
    ("C-x c s" . helm-swoop)
+   ("C-x c SPC" . helm-all-mark-rings)
    )
-  :config
+  :init
   (require 'helm-config))
 
 (provide 'init-helm)
