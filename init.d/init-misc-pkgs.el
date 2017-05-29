@@ -21,6 +21,7 @@
 ;; 2017 05 10 add rpn-calc
 ;; 2017 05 12 mods from purcell/emacs.d
 ;; 2017 05 17 add help-fns+.el
+;; 2017 05 28 add whole-line-or-region
 
 ;;; Code:
 
@@ -157,6 +158,12 @@
 
 (use-package help-fns+)
 
+(use-package whole-line-or-region
+  :config
+  (whole-line-or-region-mode t))
+
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here
+
+
 
