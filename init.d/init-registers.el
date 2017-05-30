@@ -15,7 +15,7 @@
 
 (dolist (r `((?i (file . ,"~/.emacs.d/init.el"))
 	     (?b (file . ,"~/.emacs.d/init.d/init-bindings-settings.el"))
-	     (?d (file . ,"~/.emacs.d/init.d/init-defuns.el"))
+	     (?m (file . ,"~/.emacs.d/init.d/init-misc-pkgs.el"))
 	     (?r (file . ,"~/.emacs.d/init.d/init-registers.el"))))
   (set-register (car r) (cadr r)))
 

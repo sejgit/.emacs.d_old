@@ -17,13 +17,14 @@
 ;; 2017 05 12 adds from purcell/emacs.d
 ;; 2017 05 21 add delete to trash can
 ;; 2017 05 25 add imenu binding
+;; 2017 05 30 hippie-expand remap M-/ C-M-/
 
 ;;; Code:
 
 ;; keybindings
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
 (setq hippie-expand-try-functions-list
       '(try-complete-file-name-partially
         try-complete-file-name
@@ -41,7 +42,7 @@
 (global-set-key (kbd "M-'") 'other-window)
 (global-set-key (kbd "<f1>") 'org-mode)
 (global-set-key (kbd "<f2>") 'shell)
-(global-set-key (kbd "<f5>") 'ag)
+(global-set-key (kbd "<f5>") 'counsel-ag)
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 ;;added tips from pragmatic emacs
