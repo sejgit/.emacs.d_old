@@ -119,18 +119,12 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
 
 ;; themes
 ;; tango-dark
-(defun load-tango-theme (frame)
-  "Load tango-dark theme in current FRAME."
+(defun load-cyberpunk-theme (frame)
+  "Load cyberpunk theme in current FRAME."
   (select-frame frame)
-  (load-theme 'tango-dark t)
+  (load-theme 'cyberpunk t)
   ;;(set-frame-size-according-to-resolution)
-  (set-background-color "black")
   (switch-to-buffer "*dashboard*"))
-
-;; load preferred theme at startup
-(if (daemonp)
-    (add-hook 'after-make-frame-functions #'load-tango-theme)
-  (load-theme 'tango-dark t))
 
 ;; remove irritating 'got redefined' messages
 (setq ad-redefinition-action 'accept)
@@ -153,11 +147,10 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
 
 ;; load preferred theme at startup
 (if (daemonp)
-    (add-hook 'after-make-frame-functions #'load-tango-theme)
-  (load-theme 'tango-dark t)
-  (set-background-color "black"))
+    (add-hook 'after-make-frame-functions #'load-cyberpunk-theme)
+  (load-theme 'cyberpunk t) )
 
-(switch-to-buffer "*dashboard*")
+  (switch-to-buffer "*dashboard*")
 (declare-function sej-frame-resize-r "init-frame-cmds.el" nil)
 (when (display-graphic-p) (sej-frame-resize-r))
 

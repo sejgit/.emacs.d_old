@@ -1,3 +1,7 @@
+2017-06-01  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* init-misc-pkgs.el (crontab-mode): bring simple modes together; prepare to separate in own file & eliminate batch, yaml, etc
+
 2017-05-10  Stephen Jenkins  <stephenearljenkins@gmail.com>
 
         * init-misc-pkgs.el: add bookmark+

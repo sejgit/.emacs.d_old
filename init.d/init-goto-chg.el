@@ -8,7 +8,7 @@
 ;;; Code:
 
 (use-package goto-chg
-  :bind (("C-." . goto-last-change)
+  :bind (;;("C-." . goto-last-change)
 	 ;; M-. can conflict with etags tag search. But C-. can get overwritten
 	 ;; by flyspell-auto-correct-word. And goto-last-change needs a really fast key.
 	 ("M-." . goto-last-change)

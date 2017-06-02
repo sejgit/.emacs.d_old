@@ -99,10 +99,6 @@
 ;; (define-key map "\C-c'" 'conf-quote-normal)
 ;; (define-key map "\C-c\C-a" 'conf-align-assignments)
 
-(use-package conf-mode
-  :diminish conf-mode
-  :mode "\\.gitconfig$")
-
 (use-package bookmark+)
 (use-package rpn-calc)
 (use-package wgrep
@@ -133,6 +129,14 @@
   :diminish
   psge-break-lines-mode)
 
+(use-package help-fns+)
+
+(use-package whole-line-or-region
+  ;; operate on current line if region undefined
+  :config
+  (whole-line-or-region-mode t))
+
+;; TODO move simple modes to own file with batch, yaml, etc
 (use-package crontab-mode
   :config
   (add-auto-mode 'crontab-mode "\\.?cron\\(tab\\)?\\'"))
@@ -143,6 +147,7 @@
 	(cons '("\\.textile\\'" . textile-mode) auto-mode-alist)))
 
 (use-package whitespace-cleanup-mode
+  ;; intelligently call whitespace-cleanup on save
   :config
   (global-whitespace-cleanup-mode t))
 
@@ -156,11 +161,9 @@
   :config
   (use-package smarty-mode))
 
-(use-package help-fns+)
-
-(use-package whole-line-or-region
-  :config
-  (whole-line-or-region-mode t))
+(use-package conf-mode
+  :diminish conf-mode
+  :mode "\\.gitconfig$")
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here

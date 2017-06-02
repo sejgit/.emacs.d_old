@@ -20,10 +20,12 @@
   (if (string-equal system-type "windows-nt")
       (setq ispell-program-name "hunspell.exe")
     (progn (setq ispell-program-name "/usr/local/bin/aspell")
-	   (setq ispell-extra-args '("--sug-mode=ultra" "lang=en_CA"))))
-  (setq ispell-local-dictionary "en_CA")
-  (setq ispell-local-dictionary-alist '(("canadian" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil  ("-d" "en_CA") nil utf-8)
-					("american" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "en_US") nil utf-8)))
+	   ))
+  ;;	   (setq ispell-extra-args '("--sug-mode=ultra" "lang=en_GB-ise"))))
+  ;; (setq ispell-local-dictionary "en_GB-ise")
+  (setq ispell-dictionary-alist '(("british" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil  ("-d" "en_GB-ise") nil utf-8)
+				  ("canadian" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil  ("-d" "en_CA") nil utf-8)
+				  ("american" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "en_US") nil utf-8)))
 
   (defun flyspell-check-next-highlighed-word ()
     "Custom function to spell check next highlighted word"
