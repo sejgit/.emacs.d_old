@@ -36,9 +36,9 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(global-set-key (kbd "M-3") 'delete-other-windows)
-(global-set-key (kbd "M-4") 'split-window-vertically)
-(global-set-key (kbd "M-2") 'delete-window)
+;;(global-set-key (kbd "M-3") 'delete-other-windows)
+;;(global-set-key (kbd "M-4") 'split-window-vertically)
+;;(global-set-key (kbd "M-2") 'delete-window)
 (global-set-key (kbd "M-'") 'other-window)
 (global-set-key (kbd "<f1>") 'org-mode)
 (global-set-key (kbd "<f2>") 'shell)
