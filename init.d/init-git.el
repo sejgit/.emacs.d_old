@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 ;;2017 05 14 init SeJ from purcell/.emacs.d
-
+;;2017 06 12 add font-awesome git icon
 ;;; Code:
 
 
@@ -52,6 +52,14 @@
 (use-package github-clone)
 (use-package github-issues)
 (use-package magit-gh-pulls)
+
+(defun my-vc-git-mode-line-string (orig-fn &rest args)
+  "Replace Git in modeline with font-awesome git icon via ORIG-FN and ARGS."
+  (let ((str (apply orig-fn args)))
+    (concat [#xF1D3] ":" (substring-no-properties str 4))))
+
+(advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)
+
 
 (provide 'init-git)
 ;;;init-git.el ends here

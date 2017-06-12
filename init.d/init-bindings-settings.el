@@ -18,10 +18,27 @@
 ;; 2017 05 21 add delete to trash can
 ;; 2017 05 25 add imenu binding
 ;; 2017 05 30 hippie-expand remap M-/ C-M-/
+;; 2017 06 05 add sej-map keyboard mapping
 
 ;;; Code:
 
-;; keybindings
+;; set up personal keymap
+(dotimes (n 10)
+  (global-unset-key (kbd (format "C-%d" n))))
+(define-prefix-command 'sej-map)
+(global-set-key (kbd "C-1") 'sej-map)
+
+(define-key sej-map (kbd "a") 'counsel-ag)
+(define-key sej-map (kbd "e") 'mu4e)
+(define-key sej-map (kbd "s") 'shell)
+(define-key sej-map (kbd "m") 'menu-bar-mode)
+(define-key sej-map (kbd "o") 'org-mode)
+
+(global-set-key (kbd "<f1>") 'org-mode)
+(global-set-key (kbd "<f2>") 'shell)
+(global-set-key (kbd "M-'") 'other-window)
+
+;; general keybindings
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
@@ -39,11 +56,6 @@
 ;;(global-set-key (kbd "M-3") 'delete-other-windows)
 ;;(global-set-key (kbd "M-4") 'split-window-vertically)
 ;;(global-set-key (kbd "M-2") 'delete-window)
-(global-set-key (kbd "M-'") 'other-window)
-(global-set-key (kbd "<f1>") 'org-mode)
-(global-set-key (kbd "<f2>") 'shell)
-(global-set-key (kbd "<f5>") 'counsel-ag)
-(global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 ;;added tips from pragmatic emacs
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
@@ -76,7 +88,7 @@
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;;(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x C-h") 'view-url)
@@ -86,7 +98,6 @@
 
 ;; For debugging Emacs modes
 (global-set-key (kbd "C-c p") 'message-point)
-
 (global-set-key (kbd "C-c q") 'join-line)
 
 ;; wind move built in package (default bindins are S-<cursor>)

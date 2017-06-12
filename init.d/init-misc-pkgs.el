@@ -22,6 +22,7 @@
 ;; 2017 05 12 mods from purcell/emacs.d
 ;; 2017 05 17 add help-fns+.el
 ;; 2017 05 28 add whole-line-or-region
+;; 2017 06 12 add mode-icons
 
 ;;; Code:
 
@@ -165,8 +166,20 @@
   :diminish conf-mode
   :mode "\\.gitconfig$")
 
+(use-package mode-icons
+  :ensure t
+  :config
+  (mode-icons-mode)
+  )
+
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here
+
+
+
+
+
+
 
 
 
