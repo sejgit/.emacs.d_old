@@ -23,8 +23,16 @@
 ;; 2017 05 17 add help-fns+.el
 ;; 2017 05 28 add whole-line-or-region
 ;; 2017 06 12 add mode-icons
-
+;; 2017 06 19 add no-littering
 ;;; Code:
+
+
+(use-package no-littering               ; Keep .emacs.d clean
+  :ensure t
+  :config
+  (require 'recentf)
+  (add-to-list 'recentf-exclude no-littering-var-directory)
+  (add-to-list 'recentf-exclude no-littering-etc-directory))
 
 (use-package beacon
   :defer 5
