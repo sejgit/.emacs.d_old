@@ -7,6 +7,7 @@
 
 (use-package yasnippet
   :defer 2
+  :disabled
   :config (yas-global-mode 1)
   )
 

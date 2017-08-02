@@ -24,8 +24,15 @@
 ;; 2017 05 28 add whole-line-or-region
 ;; 2017 06 12 add mode-icons
 ;; 2017 06 19 add no-littering
+;; 2017 08 02 add beginend mode
 ;;; Code:
 
+
+(use-package beginend               ; smart M-< & M->
+  :ensure t
+  :config
+  (beginend-global-mode)
+  )
 
 (use-package no-littering               ; Keep .emacs.d clean
   :ensure t

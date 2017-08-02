@@ -25,7 +25,7 @@
 	ido-ignore-extensions t
 	ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf")))
 
-(use-package ido-ubiquitous
+(use-package ido-completing-read+
   :defer 2
   :config (ido-ubiquitous-mode t))
 
