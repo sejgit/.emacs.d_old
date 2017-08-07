@@ -4,7 +4,7 @@
 ;; 2016 12 16
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
-
+;; 2017 08 07 add suggestions from Orgmode for GTD
 ;;; Code:
 
 (use-package org
@@ -26,10 +26,17 @@
          ("C-'" . org-cycle-agenda-files)
          ("C-c b" . org-iswitchb))
   :config
+  (setq debug-on-error t)
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
     (setq org-directory "~/gdrive/todo"))
-  (setq org-default-notes-file (concat org-directory "/notes.org")
+  (defconst org-file-inbox (concat org-directory "/inbox.org"))
+  (defconst org-file-someday (concat org-directory "/someday.org"))
+  (defconst org-file-tickler (concat org-directory "/tickler.org"))
+  (defconst org-file-gtd (concat org-directory "/gtd.org"))
+  (defconst org-file-journal (concat org-directory "/journal.org"))
+  (defconst org-file-notes (concat org-directory "/notes.org"))
+  (setq org-default-notes-file org-file-notes
 	org-tags-column 50
 	org-capture-bookmark t
 	org-refile-use-outline-path 'file
@@ -37,25 +44,28 @@
 	org-log-done 'note
 	org-tags-column 75
 	org-log-done t
-	org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "|" "DONE(d)")
+	org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")
 			    (sequence "DELIGATE(D)" "CHECK(C)" "|" "VERIFIED(V)")
 			    (sequence "|" "CANCELED(x)"))
 	org-todo-keyword-faces '(("TODO" . org-warning)
-				 ("INPROGRESS" . (:foreground "blue" :weight bold))
+				 ("WAITING" . (:foreground "blue" :weight bold))
 				 ("DONE" . (:foreground "green" :weight bold))
 				 ("DELIGATE" . (:foreground "blue" :weight bold))
 				 ("VERIFIED" . (:foreground "green" :weight bold))
-				 ("CANCELED" .(:foreground "grey" :weight bold))))
+				 ("CANCELED" . (:foreground "grey" :weight bold))))
   (setq org-capture-templates
-	'(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org")  "Tasks") "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
-	  ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
-	   "* %?\nEntered on %U\n  %i\n  %a")))
+	'(("t" "Todo [inbox]" entry (file+headline org-file-gtd  "Tasks") "* TODO %i%?")
+	  ("T" "Tickler" entry (file+headline org-file-tickler  "Tickler") "* %i%?\n %U")
+	  ("j" "Journal" entry (file+datetree org-file-journal "Journal")  "* %i%?\n %U")))
   (add-hook 'org-mode-hook (lambda () (flyspell-mode)))
   (add-hook 'org-mode-hook (lambda () (writegood-mode)))
   (define-key org-mode-map (kbd "C-M-\\") 'org-indent-region)
 
   ;; org-mode agenda options
-  (setq org-agenda-files (list org-directory)
+  (setq org-agenda-files (list org-file-inbox org-file-gtd org-file-tickler)
+	org-refile-targets '((org-file-gtd :maxlevel . 3)
+			     (org-file-someday :maxlevel . 1)
+			     (org-file-tickler :maxlevel . 2))
 	org-agenda-window-setup (quote current-window) ;open agenda in current window
 	org-deadline-warning-days 7 ;warn me of any deadlines in next 7 days
 	org-agenda-span (quote fortnight) ;show me tasks scheduled or due in next fortnight

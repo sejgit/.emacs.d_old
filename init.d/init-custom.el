@@ -13,7 +13,8 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(bmkp-last-as-first-bookmark-file "/Users/stephenjenkins/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file
+   "/Users/stephenjenkins/.emacs.d/var/bmkp/current-bookmark.el")
  '(fci-rule-color "#383838")
  '(nrepl-message-colors
    (quote
