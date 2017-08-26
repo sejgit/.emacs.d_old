@@ -1,6 +1,9 @@
 ;;; init-misc-pkgs.el --- miscilaneous settings and a few small packages
 
 ;;; Commentary:
+;;Lots of small packages not deserving of their own file so far.
+
+;;; ChangeLog:
 ;; 2017 01 06 init SeJ moved from init-look-and-feel.el the package setups
 ;; 2017 01 06 add google-this ::search google with C-/ return
 ;; 2017 01 06 add volatile-highlights  ::temporarily highlight pasting changes
@@ -25,15 +28,45 @@
 ;; 2017 06 12 add mode-icons
 ;; 2017 06 19 add no-littering
 ;; 2017 08 02 add beginend mode
+;; 2017 08 22 add midnight mode
+;; 2017 08 23 add comments to packages
+;; 2017 08 23 add expand-region, vlf
+;; 2017 08 25 add undo-tree
+
 ;;; Code:
+;; undo tree mode to improve undo features
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-visualizer-timestamps t)
+  (diminish 'undo-tree-mode))
 
+;; expand selected region larger & smaller
+(use-package expand-region
+  :ensure t
+  :defer t
+  :bind (("s-=" . er/expand-region)
+         ("s--" . er/contract-region)))
 
+;; vlf lets you handle very large files for viewing
+(use-package vlf-setup
+  :ensure vlf)
+
+;; midnight mode to clear buffers at midnight
+(use-package midnight
+  :config
+  (customize-set-variable 'midnight-mode t)
+  )
+
+;; redefine M-< and M-> for some modes
 (use-package beginend               ; smart M-< & M->
   :ensure t
   :config
   (beginend-global-mode)
   )
 
+;; help keeping ~/.emacs.d clean
 (use-package no-littering               ; Keep .emacs.d clean
   :ensure t
   :config
@@ -41,6 +74,7 @@
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory))
 
+;; Highlight the cursor whenever the window scrolls
 (use-package beacon
   :defer 5
   :diminish beacon-mode
@@ -115,15 +149,21 @@
 ;; (define-key map "\C-c'" 'conf-quote-normal)
 ;; (define-key map "\C-c\C-a" 'conf-align-assignments)
 
+;; extensions to standard library 'bookmark.el'
 (use-package bookmark+)
+
+;; quick RPN calculator for hackers
 (use-package rpn-calc)
+
+;; writable grep buffer and apply the changes to files
 (use-package wgrep
   :init
   (setq-default grep-highlight-matches t
 		grep-scroll-output t)
   :config
   (when *is-a-mac*
-    (setq-default locate-command "mdfind"))
+    (setq-default locate-command "which")
+    (setq exec-path (append exec-path '("/usr/local/bin"))))
 
   (when (executable-find "ag")
     (use-package ag)
@@ -131,56 +171,68 @@
     (setq-default ag-highlight-search t)
     (global-set-key (kbd "M-?") 'ag-project)))
 
+;; show vertical lines to guide indentation
 (use-package indent-guide
   :config
   (add-hook 'prog-mode-hook 'indent-guide-mode)
   :diminish
   indent-guide-mode)
 
+;; show line numbers in the margin
 (use-package nlinum)
 
+;; display ^L page breaks as tidy horizontal lines
 (use-package page-break-lines
   :config
   (setq global-page-break-lines-mode t)
   :diminish
   psge-break-lines-mode)
 
+;; extentions to 'help-fns.el'
 (use-package help-fns+)
 
+;; operate on current line if region undefined
 (use-package whole-line-or-region
-  ;; operate on current line if region undefined
   :config
-  (whole-line-or-region-mode t))
+  (whole-line-or-region-global-mode t))
 
 ;; TODO move simple modes to own file with batch, yaml, etc
 (use-package crontab-mode
   :config
   (add-auto-mode 'crontab-mode "\\.?cron\\(tab\\)?\\'"))
 
+;; textile markup editing major mode
 (use-package textile-mode
   :config
   (setq auto-mode-alist
 	(cons '("\\.textile\\'" . textile-mode) auto-mode-alist)))
 
+;; intelligently call whitespace-cleanup on save
 (use-package whitespace-cleanup-mode
   ;; intelligently call whitespace-cleanup on save
   :config
   (global-whitespace-cleanup-mode t))
 
+;; major mode for csv
 (use-package csv-mode
   :config
   (add-auto-mode 'csv-mode "\\.[Cc][Ss][Vv]\\'")
   (setq csv-separators '("," ";" "|" " ")))
+
+;; navigate and edit CSV files
 (use-package csv-nav)
 
+;; major mode for editing PHP code
 (use-package php-mode
   :config
   (use-package smarty-mode))
 
+;; major mode for editing conf/ini/properties files
 (use-package conf-mode
   :diminish conf-mode
   :mode "\\.gitconfig$")
 
+;; show icons for modes
 (use-package mode-icons
   :ensure t
   :config

@@ -26,7 +26,6 @@
          ("C-'" . org-cycle-agenda-files)
          ("C-c b" . org-iswitchb))
   :config
-  (setq debug-on-error t)
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
     (setq org-directory "~/gdrive/todo"))

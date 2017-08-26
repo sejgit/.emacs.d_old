@@ -1,5 +1,8 @@
 ;;; init.el ---  Stephen's emacs init file
 ;;; Commentary:
+;; my core Emacs file over time
+
+;;; Changelog
 ;; 2016-02-24 init
 ;; 2016 03 17 good ideas from aaron bedra's Emacs configuration
 ;; 2016 11 29 integrate win-nt version & virtualbox
@@ -14,9 +17,29 @@
 ;; 2017 04 04 remove recompile at kill in favour of auto-compile package
 ;; 2017 05 08 add code to move custom-sets/faces to custom.el
 ;; 2017 05 12 additions from purcell-emacs.d
+;; 2017 08 22 additions from EOS Emacs operating System by Lee Hinman
+
 
 ;;; Code:
 
+;; debugger on
+(setq debug-on-error t)
+(setq debug-on-quit t)
+
+;; set up timing
+(defvar after-sejinit-hook nil
+  "Hooks to run after all of the sejinit has been loaded.")
+
+(defvar emacs-start-time (current-time)
+  "Time Emacs was started.")
+
+;; Temporarily reduce garbage collection during startup
+(defconst sej/initial-gc-cons-threshold gc-cons-threshold
+  "Initial value of `gc-cons-threshold' at start-up time.")
+(setq gc-cons-threshold (* 128 1024 1024))
+
+
+;; Bootstrap config
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
 (setq user-mail-address "stephenearljenkins@gmail.com")
@@ -27,46 +50,25 @@
 (when (version<= emacs-version "24.4")
   (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
 
-(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
+;;(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
+
+;; define a const for mac behaviour
 (defconst *is-a-mac* (eq system-type 'darwin))
 
-;; Temporarily reduce garbage collection during startup
-(defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
-  "Initial value of `gc-cons-threshold' at start-up time.")
-(setq gc-cons-threshold (* 128 1024 1024))
-(add-hook 'after-init-hook
-          (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
+;; turn on syntax highlightng for all buffers
+(global-font-lock-mode t)
 
-;; Bootstrap config
+;; raise the maximum number of logs in the *Messages* buffer
+(setq message-log-max 16384)
+
+;; wait a bit longer than the default 0.5s before assuming Emacs is idle
+(setq idle-update-delay 2)
+
+;; make gnutls a bit safer
+(setq gnutls-min-prime-bits 4096)
+
 (add-to-list 'load-path (expand-file-name "init.d" user-emacs-directory))
 (require 'init-utils)
-
-(defun sanityinc/time-subtract-millis (b a)
-  "Calc times.  B - A."
-  (* 1000.0 (float-time (time-subtract b a))))
-
-(defvar sanityinc/require-times nil
-  "A list of (FEATURE . LOAD-DURATION).
-LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
-
-(defadvice require (around sanityinc/build-require-times (feature &optional filename noerror) activate)
-  "Note in `sanityinc/require-times' the time taken to require each feature."
-  (let* ((already-loaded (memq feature features))
-         (require-start-time (and (not already-loaded) (current-time))))
-    (prog1
-        ad-do-it
-      (when (and (not already-loaded) (memq feature features))
-        (let ((time (sanityinc/time-subtract-millis (current-time) require-start-time)))
-          (add-to-list 'sanityinc/require-times
-                       (cons feature time)
-                       t))))))
-
-(defun sanityinc/show-init-time ()
-  "Doc string."
-  (message "init completed in %.2fms"
-           (sanityinc/time-subtract-millis after-init-time before-init-time)))
-
-(add-hook 'after-init-hook 'sanityinc/show-init-time)
 
 (require 'package)
 
@@ -88,25 +90,10 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
 (eval-when-compile
   (require 'use-package)
   (setq use-package-always-ensure t))
+(require 'cl)
 (require 'diminish)
 (require 'bind-key)
 (require 'cl-lib)
-
-(defun sanityinc/set-tabulated-list-column-width (col-name width)
-  "Set any column with name COL-NAME to the given WIDTH."
-  (when (> width (length col-name))
-    (cl-loop for column across tabulated-list-format
-             when (string= col-name (car column))
-             do (setf (elt column 1) width))))
-
-(defun sanityinc/maybe-widen-package-menu-columns ()
-  "Widen some columns of the package menu table to avoid truncation."
-  (when (boundp 'tabulated-list-format)
-    (sanityinc/set-tabulated-list-column-width "Version" 13)
-    (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
-      (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
-
-(add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
 
 ;; recompile configs
 (defconst my-init-dir "~/.emacs.d/init.d")
@@ -157,10 +144,19 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
 (setq custom-file "~/.emacs.d/init.d/init-custom.el")
 (load custom-file 'noerror)
 
-(require 'server)
-(unless (server-running-p) (server-start))
+;; Lame, server has bad autoloads :(
+(require 'server nil t)
+(use-package server
+  ;;  :if window-system
+  :init
+  (when (not (server-running-p server-name))
+    (server-start)))
+
 
 (use-package uptimes)
+
+(setq debug-on-error nil)
+(setq debug-on-quit nil)
 
 (provide 'init)
 ;;; init.el ends here

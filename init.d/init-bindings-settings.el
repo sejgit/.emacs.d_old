@@ -19,26 +19,61 @@
 ;; 2017 05 25 add imenu binding
 ;; 2017 05 30 hippie-expand remap M-/ C-M-/
 ;; 2017 06 05 add sej-map keyboard mapping
+;; 2017 08 07 add Hyper & Super keys for osx and win remove sej-map
+;; 2017 08 21 add some Lisp stuff from Getting Started with Emacs Lisp
+
+
 
 ;;; Code:
 
-;; set up personal keymap
-(dotimes (n 10)
-  (global-unset-key (kbd (format "C-%d" n))))
-(define-prefix-command 'sej-map)
-(global-set-key (kbd "C-1") 'sej-map)
+;; set keys for Apple keyboard, for emacs in OS X
+;; make cmd key do Meta
+;; make opt key do Super
+;; make Control key do Control
+;; make Fn key do Hyper
 
-(define-key sej-map (kbd "a") 'counsel-ag)
-(define-key sej-map (kbd "e") 'mu4e)
-(define-key sej-map (kbd "s") 'shell)
-(define-key sej-map (kbd "m") 'menu-bar-mode)
-(define-key sej-map (kbd "o") 'org-mode)
+;; make PC keyboard's Win key or other to type Super or Hyper, for emacs running on Windows.
+;; Left Windows key
+;; Right Windows key
+;; Menu/App key
 
+(defconst *is-a-mac* (eq system-type 'darwin))
+
+(if *is-a-mac*
+    (progn
+      (setq mac-command-modifier 'meta)
+      (setq mac-option-modifier 'super)
+      (setq mac-control-modifier 'control)
+      (setq ns-function-modifier 'hyper)
+      ))
+;; (progn
+;;   (setq w32-pass-lwindow-to-system nil)
+;;   (setq w32-lwindow-modifier 'super)
+;;   (setq w32-pass-rwindow-to-system nil)
+;;   (setq w32-rwindow-modifier 'super)
+;;   (setq w32-pass-apps-to-system nil)
+;;   (setq w32-apps-modifier 'hyper)
+;;   ))
+
+;; use hyper (alt on osx) for mode type bindings
+(global-set-key (kbd "H-a") 'counsel-ag)
+(global-set-key (kbd "H-h") 'ns-do-hide-emacs)
+(global-set-key (kbd "H-˙") 'ns-do-hide-others)
+(global-set-key (kbd "H-m") 'menu-bar-mode)
+(global-set-key (kbd "H-o") 'org-mode)
 (global-set-key (kbd "<f1>") 'org-mode)
+(global-set-key (kbd "H-s") 'shell)
 (global-set-key (kbd "<f2>") 'shell)
-(global-set-key (kbd "M-'") 'other-window)
+;;(global-set-key (kbd "H-e") 'mu4e) ; not used for the moment
+;;(global-set-key (kbd "M-`") 'ns-next-frame)
+
+;; use super for lisp or programming stuff
+;; some lisp stuff from Getting Started with Emacs Lisp
+(global-set-key (kbd "<s-return>") 'eval-last-sexp)
+(global-set-key (kbd "s-i") 'emacs-init-time)
 
 ;; general keybindings
+(global-set-key (kbd "M-'") 'other-window)
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
@@ -88,10 +123,6 @@
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-;;(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;; Fetch the contents at a URL, display it raw.
-(global-set-key (kbd "C-x C-h") 'view-url)
 
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c e") 'eval-and-replace)
@@ -117,9 +148,21 @@
 (when (display-graphic-p)
   (scroll-bar-mode -1)
   (tool-bar-mode -1))
-(menu-bar-mode -1)
+(menu-bar-mode t)
 (column-number-mode nil)
 (setq next-line-add-newlines t)
+
+;; indentation & fill column
+(setq tab-width 2
+      indent-tabs-mode nil
+      fill-column 80)
+
+;; yes and no settings
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; don't indicate empty or end of a buffer
+(setq-default indicate-empty-lines nil)
+(setq-default indicate-buffer-boundaries nil)
 
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
@@ -138,25 +181,16 @@
 (setq next-line-add-newlines t)
 
 ;; marking text and clipboard settings
-(delete-selection-mode t)
+(delete-selection-mode nil)
 (transient-mark-mode t)
 (setq select-enable-clipboard t)
 
 ;; empty line settings
 (setq-default indicate-empty-lines nil)
-(when (not indicate-empty-lines)
-  (toggle-indicate-empty-lines))
-
-;; indentation
-(setq tab-width 2
-      indent-tabs-mode nil)
-
-;; yes and no settings
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; echo keystrokes ; no dialog boxes ; visable bell ; highlight parens
-(setq echo-keystrokes 0.1
-      use-dialog-box nil
+;;(setq echo-keystrokes 0.1)
+(setq use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
 
@@ -165,6 +199,7 @@
 
 ;; Add proper word wrapping
 (global-visual-line-mode t)
+(setq line-move-visual t)
 
 (setq backup-by-copying t      ; don't clobber symlinks
       backup-directory-alist
@@ -184,13 +219,14 @@
 
 (setq-default kill-read-only-ok t)
 
+;; hide mouse while typing
+(setq make-pointer-invisible t)
+
+
 (global-set-key "\C-c\C-k" 'copy-line)
 
 (defun copy-line (&optional arg)
-  "Do a kill-line but copy rather than kill.  This function directly calls
-kill-line, so see documentation of kill-line for how to use it including prefix
-argument and relevant variables.  This function works by temporarily making the
-buffer read-only, so I suggest setting kill-read-only-ok to t."
+  "Do a 'kill-line' but copy rather than kill.  This function will directly call 'kill-line', so see documentation of 'kill-line' for how to use it including prefix argument ARG and relevant variables.  This function works by temporarily making the buffer read-only, so I suggest setting 'kill-read-only-ok' to t."
   (interactive "P")
   (setq buffer-read-only t)
   (kill-line arg)
@@ -245,13 +281,6 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 (global-set-key (kbd "C-`") 'push-mark-no-activate)
 (global-set-key (kbd "M-`") 'jump-to-mark)
 
-(use-package visible-mark
-  :config
-  (global-visible-mark-mode 1) ;; or add (visible-mark-mode) to specific hooks
-  (setq visible-mark-max 3)
-  (setq visible-mark-faces `(visible-mark-face1 visible-mark-face2))
-  )
-
 ;; color codes
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
@@ -283,5 +312,16 @@ buffer is not visiting a file."
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
 
+(defadvice kill-buffer (around kill-buffer-around-advice activate)
+  "Bury the *scratch* buffer, but never kill it."
+  (let ((buffer-to-kill (ad-get-arg 0)))
+    (if (equal buffer-to-kill "*scratch*")
+        (bury-buffer)
+      ad-do-it)))
+
+
 (provide 'init-bindings-settings)
 ;;; init-bindings-settings.el ends here
+
+
+

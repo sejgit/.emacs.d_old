@@ -5,54 +5,24 @@
 
 
 ;;; Code:
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
  '(bmkp-last-as-first-bookmark-file
    "/Users/stephenjenkins/.emacs.d/var/bmkp/current-bookmark.el")
- '(fci-rule-color "#383838")
- '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (beginend pdf-tools no-littering mode-icons helm-projectile cyberpunk-theme whole-line-or-region visible-mark ido-imenu help-fns+ help-fns+\.el framemove company-anaconda anaconda-mode pip-requirements php-mode smarty-mode csv-nav csv-mode whitespace-cleanup-mode textile-mode crontab-mode guide-key magit-gh-pulls github-issues github-clone bug-reference-github yagist git-messenger fullframe git-timemachine gitconfig-mode gitignore-mode git-blamed browse-at-remote nlinum indent-guide ivy-historian uniquify diredful dired dired-sort dired+ scratch wgrep-ag uptimes rpn-calc bookmark+ flycheck-color-mode-line gist zenburn-theme yasnippet yaml-mode writegood-mode which-key volatile-highlights use-package thesaurus sunrise-x-loop smex shell-pop rainbow-delimiters pyvenv python-mode pyenv-mode-auto org-dashboard org-cliplink org-bullets markdown-mode magithub macrostep log4e load-dir jedi ido-ubiquitous ido-at-point goto-chg google-this golden-ratio furl frame-cmds flycheck-pos-tip flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org el-get dummy-h-mode drag-stuff dired-toggle-sudo dired-ranger dired-rainbow dired-open dired-narrow dired-launch diff-hl deft dashboard crux counsel company-shell company-quickhelp company-jedi company-irony browse-kill-ring beacon batch-mode bash-completion avy arduino-mode aggressive-indent ag)))
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
- '(vc-annotate-background "#2B2B2B")
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3"))
-
-
-
+    (undo-tree vlf expand-region zenburn-theme yaml-mode yagist writegood-mode whole-line-or-region whitespace-cleanup-mode which-key wgrep-ag wc-mode volatile-highlights visible-mark use-package uptimes thesaurus textile-mode sunrise-x-loop smex smarty-mode shell-pop scratch rpn-calc rainbow-delimiters pyvenv python-mode pyenv-mode-auto pip-requirements php-mode pdf-tools org-dashboard org-cliplink org-bullets no-littering nlinum mode-icons markdown-mode magithub magit-gh-pulls macrostep log4e load-dir jedi ivy-historian indent-guide ido-ubiquitous ido-at-point help-fns+ helm-projectile guide-key goto-chg google-this golden-ratio gitignore-mode github-issues github-clone gitconfig-mode git-timemachine git-messenger git-blamed gist fullframe framemove frame-cmds flycheck-pos-tip flycheck-color-mode-line flx-ido fic-ext-mode emr elisp-slime-nav elfeed-org el-get dummy-h-mode drag-stuff diredful dired-toggle-sudo dired-sort dired-ranger dired-rainbow dired-open dired-narrow dired-launch dired+ diff-hl deft dashboard cyberpunk-theme csv-nav csv-mode crux crontab-mode counsel company-shell company-quickhelp company-jedi company-irony company-anaconda bug-reference-github browse-kill-ring browse-at-remote bookmark+ beginend beacon batch-mode bash-completion avy auto-compile arduino-mode aggressive-indent ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flycheck-error ((((class color)) (:underline "Red"))))
+ '(flycheck-warning ((((class color)) (:underline "Orange"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "red" :height 1.0))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "orange" :height 1.0))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "yellow" :height 1.0))))
