@@ -5,7 +5,7 @@
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 05 14 adds from purcell/.emacs.d
 ;; 2017 05 19 add mastering Emacs python debugging with compile
-
+;; 2017 08 25 add from EOS insert-doc-string
 ;;; Code:
 
 (use-package pip-requirements)
@@ -28,6 +28,19 @@
   (setq python-shell-interpreter "ipython3 --simple-prompt -i"
 	python-shell-interpreter-args "--simple-prompt -i")
   :config
+  (add-hook 'python-mode-hook 'flycheck-mode)
+
+  (add-hook 'python-mode-hook
+	    (lambda ()
+	      (add-to-list 'flycheck-disabled-checkers 'python-pylint)))
+  (require 'python)
+
+  (define-skeleton python-insert-docstring
+    "Insert a Python docstring."
+    "This string is ignored!"
+    "\"\"\"" - "\n\n    \"\"\"")
+
+  (define-key python-mode-map (kbd "s-\"") 'python-insert-docstring)
   (use-package anaconda-mode
     :config
     (add-hook 'python-mode-hook 'anaconda-mode)

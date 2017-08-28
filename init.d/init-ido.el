@@ -13,7 +13,6 @@
 
 (use-package ido
   :init (defalias 'list-buffers 'ibuffer)
-  :bind ("C-x C-f" . ido-find-file)
   :commands
   ido-everywhere
   :config
@@ -42,12 +41,12 @@
   :defer 2
   :config (ido-at-point-mode))
 
-(use-package smex
-  :bind (("M-x" . smex)
-	 ("M-X" . smex-major-mode-commands))
-  :config
-  (setq smex-auto-update 60)
-  (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory)))
+;; (use-package smex
+;;   :bind (("M-x" . smex)
+;; 	 ("M-X" . smex-major-mode-commands))
+;; :config
+;; (setq smex-auto-update 60)
+;; (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory)))
 
 (provide 'init-ido)
 ;;; init-ido.el ends here
