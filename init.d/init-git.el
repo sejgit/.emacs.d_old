@@ -46,19 +46,32 @@
   :ensure t)
 
 ;; see your file over time
+;; - First do M-x git-timemachine
+;; Use the following keys to navigate historic version of the file
+
+;; p Visit previous historic version
+;; n Visit next historic version
+;; w Copy the abbreviated hash of the current historic version
+;; W Copy the full hash of the current historic version
+;; g Goto nth revision
+;; q Exit the time machine.
+;; b Run magit-blame on the currently visited revision (if magit available).
+;;
+;; Do NOT call git-timemachine-mode or git-timemachine-show-previous-revision
+;; or other functions directly!
 (use-package git-timemachine
   :defer t
   :ensure t
-  ;; - First do M-x git-timemachine
-  ;; - Then navigate versions by hitting p and n keys
-  ;;
-  ;; Do NOT call git-timemachine-mode or git-timemachine-show-previous-revision
-  ;; or other functions directly!
   )
+
+;; force mgit to open in one window in the current frame when called
 (use-package fullframe
   :defer t
-  :ensure t)
+  :ensure t
+  :config
+  (fullframe magit-status magit-mode-quit-window))
 
+;; aids for git commits
 (use-package git-commit
   :bind
   ;; Convenient binding for vc-git-grep
