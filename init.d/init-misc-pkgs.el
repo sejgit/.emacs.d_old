@@ -32,15 +32,41 @@
 ;; 2017 08 23 add comments to packages
 ;; 2017 08 23 add expand-region, vlf
 ;; 2017 08 25 add undo-tree
+;; 2017 08 28 add smartscan & dtrt-indent & highlight-numbers
 
 ;;; Code:
-;; undo tree mode to improve undo features
+
+;; hightlight-numbers in a special way
+(use-package highlight-numbers
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook #'highlight-numbers-mode))
+
+;; dtrt-indent to automatically set the right indent for other people's files
+(use-package dtrt-indent
+  :ensure t
+  :diminish t
+  :config
+  ;; (setq dtrt-indent-active-mode-line-info "")
+  )
+
+;; smartscan M-n & M-p to jumb between the same variable in multiple places
+(use-package smartscan
+  :ensure t
+  :functions prog-mode-hook
+  :init
+  (add-hook #'prog-mode-hook #'smartscan-mode)
+  :config
+  (bind-key "M-'" #'other-window smartscan-map)
+  (setq smartscan-symbol-selector "symbol"))
+
+;; undo tree mode to improve undo features remove C-/ in my keymap for use with dabbrev
 (use-package undo-tree
   :ensure t
+  :diminish undo-tree-mode
   :config
   (global-undo-tree-mode)
-  (setq undo-tree-visualizer-timestamps t)
-  (diminish 'undo-tree-mode))
+  (setq undo-tree-visualizer-timestamps t))
 
 ;; expand selected region larger & smaller
 (use-package expand-region
@@ -95,8 +121,11 @@
 
 ;; google-this
 (use-package google-this
-  :bind ("C-c x" . google-this)
-  :config (google-this-mode 1))
+  :bind
+  (("C-c x" . google-this)
+   ("s-g" . google-this))
+  :config
+  (google-this-mode 1))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
@@ -177,9 +206,6 @@
   (add-hook 'prog-mode-hook 'indent-guide-mode)
   :diminish
   indent-guide-mode)
-
-;; show line numbers in the margin
-(use-package nlinum)
 
 ;; display ^L page breaks as tidy horizontal lines
 (use-package page-break-lines

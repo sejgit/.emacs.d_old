@@ -19,8 +19,9 @@
 
 (use-package python
   :interpreter "python"
-  :bind (("<kp-5>" . py-insert-debug)
-         ("<f9>" . py-insert-debug))
+  :bind (:map python-mode-map
+	      ("<backtab>" . python-back-indent)
+	      ("<f9>" . py-insert-debug))
   :mode (("\\.py$" . python-mode)
          ("\\.cpy$" . python-mode)
          ("\\.vpy$" . python-mode))

@@ -4,7 +4,7 @@
 
 ;; ChangeLog
 ;; 2017 05 26 add standard use-package terminology
-;;2017 08 25 add exec-path-from-shell from EOS
+;; 2017 08 25 add exec-path-from-shell from EOS
 
 ;;; Code:
 

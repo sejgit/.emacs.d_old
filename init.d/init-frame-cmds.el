@@ -1,25 +1,30 @@
 ;;; init-frame-cmds.el --- Initialize frame-cmds and setup functions
 ;;; Commentary:
+;; commands to move the frams around and size in Emacs
+
+;;; ChangeLog
 ;; 2017 01 10 init SeJ
 ;; 2017 01 17 comment out some irritating binds
-
+;; 2017 08 29 map to sej-mode-map
 ;;; Code:
 
 (use-package frame-cmds
+  :defines sej-mode-map
   :if (display-graphic-p)
-  :bind (("C-c s <left>" . sej-frame-resize-l)
-	 ("C-c s <right>" . sej-frame-resize-r)
-	 ("C-c s <S-right>" . sej-frame-resize-r2)
-	 ;;("M-<up>" . move-frame-up)
-	 ;;("M-<down>" . move-frame-down)
-	 ;;("M-<left>" . move-frame-left)
-	 ;;("M-<right>" . move-frame-right)
-	 ("M-S-v" . move-frame-to-screen-top)      ; like `M-v'
-	 ("C-S-v" . move-frame-to-screen-bottom)   ; like `C-v'
-	 ("C-M-<down>" . enlarge-frame)
-	 ("C-M-<right>" . enlarge-frame-horizontally)
-	 ;;("C-M-<up>" . shrink-frame)
-	 ("C-C-<left>" . shrink-frame-horizontally))
+  :bind (:map sej-mode-map
+	      ("C-c s <left>" . sej-frame-resize-l)
+	      ("C-c s <right>" . sej-frame-resize-r)
+	      ("C-c s <S-right>" . sej-frame-resize-r2)
+	      ;;("M-<up>" . move-frame-up)
+	      ;;("M-<down>" . move-frame-down)
+	      ;;("M-<left>" . move-frame-left)
+	      ;;("M-<right>" . move-frame-right)
+	      ("M-S-v" . move-frame-to-screen-top)      ; like `M-v'
+	      ("C-S-v" . move-frame-to-screen-bottom)   ; like `C-v'
+	      ("C-M-<down>" . enlarge-frame)
+	      ("C-M-<right>" . enlarge-frame-horizontally)
+	      ;;("C-M-<up>" . shrink-frame)
+	      ("C-C-<left>" . shrink-frame-horizontally))
   :config
   ;;set frame full height and 86 columns wide
   ;;and position at screen left

@@ -1,6 +1,9 @@
 ;;; init-dashboard.el ---  Stephen's emacs init-dashboard.el
 ;;; Commentary:
-;;; 2016 12 16
+;; set-up for dashboard
+
+;;; ChangeLog
+;; 2016 12 16 init sej
 ;; 2017 01 06 change from req-package to use-package
 
 ;;; Code:

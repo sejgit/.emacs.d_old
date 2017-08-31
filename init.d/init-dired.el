@@ -1,15 +1,19 @@
 ;;; init-dired.el --- Initialize emacs dired mode
 ;;; Commentary:
+;; dired mode related packages and settings for Emacs
+
+;;; ChangeLog
 ;; 2016 12 16 init SeJ
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 01 11 add dired-narrow :: filter dired screen
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 05 12 updates from purcell/emacs.d
+;; 2017 08 29 cleanup title block and use-package settings
 
 ;;; Code:
-
 (use-package dired+
-  :init
+  :ensure
+  :config
   (auto-revert-mode 1)
   (diff-hl-dired-mode 1)
   (setq diredp-hide-details-initially-flag nil

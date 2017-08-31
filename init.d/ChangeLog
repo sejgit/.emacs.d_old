@@ -1,3 +1,30 @@
+2017-08-30  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* removed init-folding.el as not used in any workflow
+
+	* init-flycheck.el: ;; 2017 08 29 map to sej-mode-hook
+
+	* init-elfeed.el (elfeed): disabled for now until better use case
+
+	* init-deft.el:  change bindings to sej-mode-map & add H-d
+
+	* init-company.el:  change binding to sej-map
+
+2017-08-29  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* init-bindings-settings.el: play around with adding my own minor mode for keymapping
+
+2017-08-28  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* init-lisp.el: added some paredit, eldoc, & ielm settings from EOS
+
+	* init-flycheck.el: add some flycheck settings & helm-flycheck
+
+	* init-misc-pkgs.el (google-this): added super-g for google
+	(smartscan): added smartscan M-n M-p when over point to search word
+	(dtrt-indent): added for proper indenting with other people's files
+	(highlight-numbers): special highlighting of numbers
+
 2017-06-12  Stephen Jenkins  <stephenearljenkins@gmail.com>
 
 	* init-misc-pkgs.el (mode-icons): add mode-icons

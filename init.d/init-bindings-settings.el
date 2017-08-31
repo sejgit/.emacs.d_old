@@ -21,8 +21,7 @@
 ;; 2017 06 05 add sej-map keyboard mapping
 ;; 2017 08 07 add Hyper & Super keys for osx and win remove sej-map
 ;; 2017 08 21 add some Lisp stuff from Getting Started with Emacs Lisp
-
-
+;; 2017 08 29 take another run at sej-map
 
 ;;; Code:
 
@@ -55,28 +54,94 @@
 ;;   (setq w32-apps-modifier 'hyper)
 ;;   ))
 
+;; Below is taken from stackexchange (Emacs)
+;; Main use is to have my key bindings have the highest priority
+;; https://github.com/kaushalmodi/.emacs.d/blob/master/elisp/modi-mode.el
+
+;; Instead of below going to use the prefix where appropriate but use Hyper & Super a lot
+;; (defvar sej-keymap-prefix (kbd "C-c s")
+;;   "'sej-mode' keymap prefix.
+;; Overrides the default binding.")
+
+;; (defvar sej-mode-map (make-sparse-keymap)
+;;   "Keymap for `sej-mode' whose bindings begin with 'sej-keymap-prefix'.")
+;; (fset 'sej-mode-map sej-mode-map)
+
+;; (defvar sej-mode-map (let ((map (make-sparse-keymap)))
+;; 		       (define-key map sej-keymap-prefix 'sej-mode-map)
+;; 		       map)
+;;   "Keymap for 'sej-mode'.")
+
+(defvar sej-mode-map (make-sparse-keymap)
+  "Keymap for 'sej-mode'.")
+
+;;;###autoload
+(define-minor-mode sej-mode
+  "A minor mode so that my key settings override annoying major modes."
+  ;; If init-value is not set to t, this mode does not get enabled in
+  ;; `fundamental-mode' buffers even after doing \"(global-my-mode 1)\".
+  ;; More info: http://emacs.stackexchange.com/q/16693/115
+  :init-value t
+  :lighter " sej"
+  :keymap sej-mode-map)
+
+;;;###autoload
+(define-globalized-minor-mode global-sej-mode sej-mode sej-mode)
+
+;; https://github.com/jwiegley/use-package/blob/master/bind-key.el
+;; The keymaps in `emulation-mode-map-alists' take precedence over
+;; `minor-mode-map-alist'
+(add-to-list 'emulation-mode-map-alists `((sej-mode . ,sej-mode-map)))
+
+;; Turn off the minor mode in the minibuffer
+(defun turn-off-sej-mode ()
+  "Turn off sej-mode."
+  (sej-mode -1))
+(add-hook 'minibuffer-setup-hook #'turn-off-sej-mode)
+
+(defmacro bind-to-sej-map (key fn)
+  "Bind to KEY a function to the `sej-mode-map'.
+USAGE: (bind-to-sej-map \"f\" #'full-screen-center)."
+  `(define-key sej-mode-map (kbd ,key) ,fn))
+
+;; http://emacs.stackexchange.com/a/12906/115
+(defun unbind-from-sej-map (key)
+  "Unbind from KEY the function from the 'sej-mode-map'.
+USAGE: (unbind-from-modi-map \"key f\")."
+  (interactive "kUnset key from sej-mode-map: ")
+  (define-key sej-mode-map (kbd (key-description key)) nil)
+  (message "%s" (format "Unbound %s key from the %s."
+			(propertize (key-description key)
+				    'face 'font-lock-function-name-face)
+			(propertize "sej-mode-map"
+				    'face 'font-lock-function-name-face))))
+;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
+
+(setq last-kbd-macro
+      "\C-f\344\344define\C-f\C-f\C-f\C-f\C-fsej-mode-map \C-a\C-n\370end-ma")
+
 ;; use hyper (alt on osx) for mode type bindings
-(global-set-key (kbd "H-a") 'counsel-ag)
-(global-set-key (kbd "H-h") 'ns-do-hide-emacs)
-(global-set-key (kbd "H-˙") 'ns-do-hide-others)
-(global-set-key (kbd "H-m") 'menu-bar-mode)
-(global-set-key (kbd "H-o") 'org-mode)
-(global-set-key (kbd "<f1>") 'org-mode)
-(global-set-key (kbd "H-s") 'shell)
-(global-set-key (kbd "<f2>") 'shell)
+(define-key sej-mode-map (kbd "H-a") 'counsel-ag)
+(define-key sej-mode-map (kbd "H-o") 'org-mode)
+(define-key sej-mode-map (kbd "<f1>") 'org-mode)
+(define-key sej-mode-map (kbd "H-s") 'shell)
+(define-key sej-mode-map (kbd "<f2>") 'shell)
+(define-key sej-mode-map (kbd "H-m") 'menu-bar-mode)
+(define-key sej-mode-map (kbd "H-h") 'ns-do-hide-emacs)
+(define-key sej-mode-map (kbd "H-H") 'ns-do-hide-others)
 ;;(global-set-key (kbd "H-e") 'mu4e) ; not used for the moment
 ;;(global-set-key (kbd "M-`") 'ns-next-frame)
 
-;; use super for lisp or programming stuff
+;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
-(global-set-key (kbd "<s-return>") 'eval-last-sexp)
-(global-set-key (kbd "s-i") 'emacs-init-time)
+(define-key sej-mode-map (kbd "<s-return>") 'eval-last-sexp)
+(define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
 
 ;; general keybindings
-(global-set-key (kbd "M-'") 'other-window)
-(global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-(global-set-key [remap dabbrev-expand] 'hippie-expand)
+(define-key sej-mode-map (kbd "M-'") 'other-window)
+(define-key sej-mode-map (kbd "C-j") 'newline-and-indent)
+(define-key sej-mode-map (kbd "C-;") 'comment-or-uncomment-region)
+(define-key sej-mode-map [remap dabbrev-expand] 'hippie-expand)
 (setq hippie-expand-try-functions-list
       '(try-complete-file-name-partially
         try-complete-file-name
@@ -84,60 +149,60 @@
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill))
 
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "C-x g") 'magit-status)
+(define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
+(define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
+(define-key sej-mode-map (kbd "C-x g") 'magit-status)
 
-;;(global-set-key (kbd "M-3") 'delete-other-windows)
-;;(global-set-key (kbd "M-4") 'split-window-vertically)
-;;(global-set-key (kbd "M-2") 'delete-window)
+(define-key sej-mode-map (kbd "s-3") 'delete-other-windows)
+(define-key sej-mode-map (kbd "s-4") 'split-window-vertically)
+(define-key sej-mode-map (kbd "s-2") 'delete-window)
 
 ;;added tips from pragmatic emacs
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
-(global-set-key (kbd "C-x w") 'delete-frame)
+(define-key sej-mode-map (kbd "C-x k") 'kill-this-buffer)
+(define-key sej-mode-map (kbd "C-x w") 'delete-frame)
 
 ;;scroll window up/down by one line
-(global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
-(global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
-(global-set-key (kbd "M-SPC") 'cycle-spacing)
+(define-key sej-mode-map (kbd "M-n") (kbd "C-u 1 C-v"))
+(define-key sej-mode-map (kbd "M-p") (kbd "C-u 1 M-v"))
+(define-key sej-mode-map (kbd "M-SPC") 'cycle-spacing)
 
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-(global-set-key (kbd "C-c C-m") 'execute-extended-command)
-(global-set-key (kbd "C-x C-k") 'kill-region)
+(define-key sej-mode-map (kbd "C-x C-m") 'execute-extended-command)
+(define-key sej-mode-map (kbd "C-c C-m") 'execute-extended-command)
+(define-key sej-mode-map (kbd "C-x C-k") 'kill-region)
 
 ;;added from emacs-starter-kit
 ;; You know, like Readline.
-(global-set-key (kbd "C-M-d") 'backward-kill-word)
+(define-key sej-mode-map (kbd "C-M-d") 'backward-kill-word)
 
 ;; Align your code in a pretty way.
-(global-set-key (kbd "C-x \\") 'align-regexp)
+(define-key sej-mode-map (kbd "C-x \\") 'align-regexp)
 
 ;; Perform general cleanup.
-(global-set-key (kbd "C-c n") 'cleanup-buffer)
+(define-key sej-mode-map (kbd "C-c n") 'cleanup-buffer)
 
 ;; File finding
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-(global-set-key (kbd "C-c y") 'bury-buffer)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+(define-key sej-mode-map (kbd "C-x M-f") 'ido-find-file-other-window)
+(define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
+(define-key sej-mode-map (kbd "C-x f") 'recentf-ido-find-file)
+(define-key sej-mode-map (kbd "C-c y") 'bury-buffer)
+(define-key sej-mode-map (kbd "C-c r") 'revert-buffer)
+(define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
 
 ;; Should be able to eval-and-replace anywhere.
-(global-set-key (kbd "C-c e") 'eval-and-replace)
+(define-key sej-mode-map (kbd "C-c e") 'eval-and-replace)
 
 ;; For debugging Emacs modes
-(global-set-key (kbd "C-c p") 'message-point)
-(global-set-key (kbd "C-c q") 'join-line)
+(define-key sej-mode-map (kbd "C-c p") 'message-point)
+(define-key sej-mode-map (kbd "C-c q") 'join-line)
 
 ;; wind move built in package (default bindins are S-<cursor>)
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
-(global-set-key (kbd "C-c <left>")  'windmove-left)
-(global-set-key (kbd "C-c <right>") 'windmove-right)
-(global-set-key (kbd "C-c <up>")    'windmove-up)
-(global-set-key (kbd "C-c <down>")  'windmove-down)
+(define-key sej-mode-map (kbd "C-c <left>")  'windmove-left)
+(define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
+(define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
+(define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
 
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
@@ -196,6 +261,16 @@
 
 ;; electric-pair-mode
 (electric-pair-mode t)
+(electric-layout-mode t)
+(electric-indent-mode t)
+;; Ignore electric indentation for python and yaml
+(defun electric-indent-ignore-mode (char)
+  "Ignore electric indentation for 'python-mode'.  CHAR is input character."
+  (if (or (equal major-mode 'python-mode)
+          (equal major-mode 'yaml-mode))
+      'no-indent
+    nil))
+(add-hook 'electric-indent-functions 'electric-indent-ignore-mode)
 
 ;; Add proper word wrapping
 (global-visual-line-mode t)
@@ -223,7 +298,7 @@
 (setq make-pointer-invisible t)
 
 
-(global-set-key "\C-c\C-k" 'copy-line)
+(define-key sej-mode-map "\C-c\C-k" 'copy-line)
 
 (defun copy-line (&optional arg)
   "Do a 'kill-line' but copy rather than kill.  This function will directly call 'kill-line', so see documentation of 'kill-line' for how to use it including prefix argument ARG and relevant variables.  This function works by temporarily making the buffer read-only, so I suggest setting 'kill-read-only-ok' to t."
@@ -263,7 +338,7 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-(global-set-key (kbd "M-c") 'cleanup-buffer)
+(define-key sej-mode-map (kbd "M-c") 'cleanup-buffer)
 
 (setq-default show-trailing-whitespace t)
 
@@ -278,8 +353,8 @@
   (interactive)
   (set-mark-command 1))
 
-(global-set-key (kbd "C-`") 'push-mark-no-activate)
-(global-set-key (kbd "M-`") 'jump-to-mark)
+(define-key sej-mode-map (kbd "C-`") 'push-mark-no-activate)
+(define-key sej-mode-map (kbd "M-`") 'jump-to-mark)
 
 ;; color codes
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
@@ -304,7 +379,7 @@ buffer is not visiting a file."
                          (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-(global-set-key (kbd "C-x C-r") 'sudo-edit)
+(define-key sej-mode-map (kbd "C-x C-r") 'sudo-edit)
 
 ;; uniquify settings
 (setq uniquify-buffer-name-style 'reverse)
@@ -322,6 +397,9 @@ buffer is not visiting a file."
 
 (provide 'init-bindings-settings)
 ;;; init-bindings-settings.el ends here
+
+
+
 
 
 
