@@ -1,5 +1,7 @@
 2017-08-31  Stephen Jenkins  <stephenearljenkins@gmail.com>
 
+	* init-helm.el: map to sej-mode-map & trim bindings
+
 	* init-goto-chg.el: map to sej-mode-map
 
 	* init-golden-ratio.el (golden-ratio): map to sej-mode-map & setq golden-ratio-auto-scale

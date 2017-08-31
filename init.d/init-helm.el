@@ -1,37 +1,41 @@
 ;;; init-helm.el --- init helm
 ;;; Commentary:
+;; helm frameword settings for Emacs
 
-;;; Log:
+;;; ChangeLog:
 ;; 2017 05 26 init SeJ
 ;; 2017 08 25 add helm items from EOS
+;; 2017 08 30 map to sej-mode-map & trim bindings
 
 ;;; Code:
 
 (use-package helm-config
   :ensure helm
   :demand t ;; demand it be loaded!
+  :defines sej-mode-map
   :diminish helm-mode
   :bind
-  (("C-M-z" . helm-resume)
-   ("C-x C-f" . helm-find-files)
-   ("C-x C-r" . helm-mini)
-   ("C-x o" . helm-occur)
-   ("M-y" . helm-show-kill-ring)
-   ("C-h a" . helm-apropos)
-   ;;   ("C-h m" . helm-man-woman)
-   ("C-h SPC" . helm-all-mark-rings)
-   ("C-x C-i" . helm-semantic-or-imenu)
-   ("M-x" . helm-M-x)
-   ("C-x C-b" . helm-buffers-list)
-   ("C-x C-r" . helm-mini)
-   ("C-x b" . helm-mini)
-   ("C-h t" . helm-world-time)))
+  (:map sej-mode-map
+	("C-M-z" . helm-resume)
+	("C-x C-f" . helm-find-files)
+	("C-x C-r" . helm-mini)
+	("C-x o" . helm-occur)
+	("M-y" . helm-show-kill-ring)
+	("C-h a" . helm-apropos)
+	;;   ("C-h m" . helm-man-woman)
+	("C-h SPC" . helm-all-mark-rings)
+	("M-x" . helm-M-x)
+	("C-x C-b" . helm-buffers-list)
+	("C-x b" . helm-mini)))
 
 (use-package helm-swoop
   :ensure t
-  :bind (("M-i" . helm-swoop)
-         ("M-I" . helm-swoop-back-to-last-point)
-         ("C-c M-i" . helm-multi-swoop))
+  :defer t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("M-i" . helm-swoop)
+	      ("M-I" . helm-swoop-back-to-last-point)
+	      ("C-c M-i" . helm-multi-swoop))
   :config
   ;; When doing isearch, hand the word over to helm-swoop
   (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
@@ -51,10 +55,13 @@
 
 (use-package helm-descbinds
   :ensure t
-  :bind ("C-h b" . helm-descbinds)
+  :defer t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-h b" . helm-descbinds))
   :init (fset 'describe-bindings 'helm-descbinds))
 
 
-(provide 'init-helm)
+  (provide 'init-helm)
 ;;; init-helm.el ends here
 
