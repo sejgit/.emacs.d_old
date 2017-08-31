@@ -1,3 +1,7 @@
+2017-08-31  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* init-git.el: 2017 08 30 deleted a few packages & documented the rest
+
 2017-08-30  Stephen Jenkins  <stephenearljenkins@gmail.com>
 
 	* removed init-folding.el as not used in any workflow

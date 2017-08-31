@@ -7,6 +7,7 @@
 ;; 2017 05 14 init SeJ from purcell/.emacs.d
 ;; 2017 06 12 add font-awesome git icon
 ;; 2017 08 29 map to sej-mode-map & documentation & defer/ensure
+;; 2017 08 30 deleted a few packages & documented the rest
 
 ;;; Code:
 
@@ -71,39 +72,27 @@
   :config
   (fullframe magit-status magit-mode-quit-window))
 
-;; aids for git commits
-(use-package git-commit
-  :bind
-  ;; Convenient binding for vc-git-grep
-  ("C-x v f" . vc-git-grep)
-  :defer t
-  :ensure t)
-
+;; popup to show commit
 (use-package git-messenger
   :defer t
   :ensure t
   :bind
   ;; Though see also vc-annotate's "n" & "p" bindings
-  ("C-x v p" . git-messenger:popup-message))
+  (:map sej-mode-map
+	("C-c s p" . git-messenger:popup-message)
+	("s-p" . git-messenger:popup-message)))
 
-(use-package yagist
-  :defer t
-  :ensure t)
-
-(use-package bug-reference-github
-  :defer t
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'bug-reference-prog-mode))
-
+;; easy way to clone a github M-x github-clone (respository directory)
 (use-package github-clone
   :defer t
   :ensure t)
 
+;; listing & editing issues M-x github-issues (user repo)
 (use-package github-issues
   :defer t
   :ensure t)
 
+;; for listing & managing pull requests https://github.com/sigma/magit-gh-pulls
 (use-package magit-gh-pulls
   :defer t
   :ensure t)
