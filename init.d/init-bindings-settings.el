@@ -152,10 +152,11 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
 (define-key sej-mode-map (kbd "C-x g") 'magit-status)
+(define-key sej-mode-map (kbd "s-b") 'helm-mini)
 
-(define-key sej-mode-map (kbd "s-3") 'delete-other-windows)
-(define-key sej-mode-map (kbd "s-4") 'split-window-vertically)
-(define-key sej-mode-map (kbd "s-2") 'delete-window)
+(define-key sej-mode-map (kbd "s-0") 'delete-window)
+(define-key sej-mode-map (kbd "s-1") 'delete-other-windows)
+(define-key sej-mode-map (kbd "s-2") 'split-window-vertically)
 
 ;;added tips from pragmatic emacs
 (define-key sej-mode-map (kbd "C-x k") 'kill-this-buffer)
@@ -186,6 +187,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
 (define-key sej-mode-map (kbd "C-x f") 'recentf-ido-find-file)
 (define-key sej-mode-map (kbd "C-c y") 'bury-buffer)
+(define-key sej-mode-map (kbd "s-y") 'bury-buffer)
 (define-key sej-mode-map (kbd "C-c r") 'revert-buffer)
 (define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
 

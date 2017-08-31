@@ -1,5 +1,7 @@
 2017-08-31  Stephen Jenkins  <stephenearljenkins@gmail.com>
 
+	* init-goto-chg.el: map to sej-mode-map
+
 	* init-golden-ratio.el (golden-ratio): map to sej-mode-map & setq golden-ratio-auto-scale
 
 	* init-git.el: 2017 08 30 deleted a few packages & documented the rest
