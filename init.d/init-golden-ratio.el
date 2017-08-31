@@ -8,7 +8,7 @@
 
 (use-package golden-ratio
   :ensure t
-  :defer t
+  :defer 5
   :defines sej-mode-map
   :diminish golden-ratio-mode
   :bind (:map sej-mode-map

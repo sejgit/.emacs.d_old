@@ -33,32 +33,24 @@
 ;; 2017 08 23 add expand-region, vlf
 ;; 2017 08 25 add undo-tree
 ;; 2017 08 28 add smartscan & dtrt-indent & highlight-numbers
-
+;; 2017 08 30 clean-up, defer, map to sej-mode-map
 ;;; Code:
 
 ;; hightlight-numbers in a special way
 (use-package highlight-numbers
   :ensure t
+  :defer 10
   :init
   (add-hook 'prog-mode-hook #'highlight-numbers-mode))
 
 ;; dtrt-indent to automatically set the right indent for other people's files
 (use-package dtrt-indent
   :ensure t
+  :defer 10
   :diminish t
   :config
   ;; (setq dtrt-indent-active-mode-line-info "")
   )
-
-;; smartscan M-n & M-p to jumb between the same variable in multiple places
-(use-package smartscan
-  :ensure t
-  :functions prog-mode-hook
-  :init
-  (add-hook #'prog-mode-hook #'smartscan-mode)
-  :config
-  (bind-key "M-'" #'other-window smartscan-map)
-  (setq smartscan-symbol-selector "symbol"))
 
 ;; undo tree mode to improve undo features remove C-/ in my keymap for use with dabbrev
 (use-package undo-tree
@@ -68,12 +60,14 @@
   (global-undo-tree-mode)
   (setq undo-tree-visualizer-timestamps t))
 
-;; expand selected region larger & smaller
+;; expand selection region larger & smaller
 (use-package expand-region
   :ensure t
   :defer t
-  :bind (("s-=" . er/expand-region)
-         ("s--" . er/contract-region)))
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("s-=" . er/expand-region)
+	      ("s--" . er/contract-region)))
 
 ;; vlf lets you handle very large files for viewing
 (use-package vlf-setup
@@ -88,6 +82,7 @@
 ;; redefine M-< and M-> for some modes
 (use-package beginend               ; smart M-< & M->
   :ensure t
+  :defer 10
   :config
   (beginend-global-mode)
   )
@@ -102,6 +97,7 @@
 
 ;; Highlight the cursor whenever the window scrolls
 (use-package beacon
+  :ensure t
   :defer 5
   :diminish beacon-mode
   :config
@@ -109,38 +105,55 @@
 
 ;; Moves selected region around
 (use-package drag-stuff
+  :ensure t
+  :defer 5
   :diminish drag-stuff-mode
-  :bind (("M-<down>" . drag-stuff-down)
-         ("M-<up>" . drag-stuff-up))
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("M-<down>" . drag-stuff-down)
+	      ("M-<up>" . drag-stuff-up))
   :config
   (drag-stuff-global-mode))
 
 ;; efficient moving through search terms
 (use-package avy
-  :bind ("C-<return>" . avy-goto-word-1))
+  :ensure t
+  :defer 10
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-<return>" . avy-goto-word-1)))
 
 ;; google-this
 (use-package google-this
-  :bind
-  (("C-c x" . google-this)
-   ("s-g" . google-this))
+  :ensure t
+  :defer 10
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-c x" . google-this)
+	      ("s-g" . google-this))
   :config
   (google-this-mode 1))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
-  :bind ("C-a" . crux-move-beginning-of-line))
+  :ensure t
+  :defer 10
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-a" . crux-move-beginning-of-line)))
 
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
-  :defer 5
+  :ensure t
+  :defer 10
   :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
 
 ;; rainbow-delimiters-mode - multicoloured brackets
 (use-package rainbow-delimiters
-  :defer 2
+  :ensure t
+  :defer 10
   :diminish rainbow-delimiters-mode
   :init
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -159,7 +172,8 @@
 
 ;; save the place in files
 (use-package saveplace
-  :defer 2
+  :ensure t
+  :defer 10
   :config
   (setq-default save-place t))
 
@@ -179,13 +193,19 @@
 ;; (define-key map "\C-c\C-a" 'conf-align-assignments)
 
 ;; extensions to standard library 'bookmark.el'
-(use-package bookmark+)
+(use-package bookmark+
+  :ensure t
+  :defer 10)
 
 ;; quick RPN calculator for hackers
-(use-package rpn-calc)
+(use-package rpn-calc
+  :ensure t
+  :defer t)
 
 ;; writable grep buffer and apply the changes to files
 (use-package wgrep
+  :ensure t
+  :defer t
   :init
   (setq-default grep-highlight-matches t
 		grep-scroll-output t)
@@ -198,10 +218,12 @@
     (use-package ag)
     (use-package wgrep-ag)
     (setq-default ag-highlight-search t)
-    (global-set-key (kbd "M-?") 'ag-project)))
+    (define-key sej-mode-map (kbd "M-?") 'ag-project)))
 
 ;; show vertical lines to guide indentation
 (use-package indent-guide
+  :ensure t
+  :defer 10
   :config
   (add-hook 'prog-mode-hook 'indent-guide-mode)
   :diminish
@@ -209,52 +231,72 @@
 
 ;; display ^L page breaks as tidy horizontal lines
 (use-package page-break-lines
+  :ensure t
+  :defer 10
   :config
   (setq global-page-break-lines-mode t)
   :diminish
   psge-break-lines-mode)
 
 ;; extentions to 'help-fns.el'
-(use-package help-fns+)
+(use-package help-fns+
+  :ensure t
+  :defer 10)
 
 ;; operate on current line if region undefined
 (use-package whole-line-or-region
+  :ensure t
+  :defer 10
   :config
   (whole-line-or-region-global-mode t))
 
 ;; TODO move simple modes to own file with batch, yaml, etc
 (use-package crontab-mode
+  :ensure t
+  :defer t
   :config
   (add-auto-mode 'crontab-mode "\\.?cron\\(tab\\)?\\'"))
 
 ;; textile markup editing major mode
 (use-package textile-mode
+  :ensure t
+  :defer t
   :config
   (setq auto-mode-alist
 	(cons '("\\.textile\\'" . textile-mode) auto-mode-alist)))
 
 ;; intelligently call whitespace-cleanup on save
 (use-package whitespace-cleanup-mode
+  :ensure t
+  :defer 10
   ;; intelligently call whitespace-cleanup on save
   :config
   (global-whitespace-cleanup-mode t))
 
 ;; major mode for csv
 (use-package csv-mode
+  :ensure t
+  :defer t
   :config
   (add-auto-mode 'csv-mode "\\.[Cc][Ss][Vv]\\'")
   (setq csv-separators '("," ";" "|" " ")))
 
 ;; navigate and edit CSV files
-(use-package csv-nav)
+(use-package csv-nav
+  :ensure t
+  :defer t)
 
 ;; major mode for editing PHP code
 (use-package php-mode
+  :ensure t
+  :defer t
   :config
   (use-package smarty-mode))
 
 ;; major mode for editing conf/ini/properties files
 (use-package conf-mode
+  :ensure t
+  :defer t
   :diminish conf-mode
   :mode "\\.gitconfig$")
 

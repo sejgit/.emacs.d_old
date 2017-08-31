@@ -1,13 +1,13 @@
 ;;; init-js.el --- Some helpful Javascript helpers
 
 ;;; Commentary:
-;;
 ;; Part of the Emacs Starter Kit
-
 ;; NB: js-mode is part of Emacs since version 23.2 (with an alias
 ;; javascript-mode). It is derived and updated from Espresso mode.
 
+;;; ChangeLog:
 ;; 2017 05 09 init copied from part of Emacs Starter Kit
+;; 2017 08 30 cleaned up some comments
 
 ;;; Code:
 (defvar esk-js-mode-hook nil)

@@ -10,10 +10,13 @@
 ;; 2017 08 24 add flymake to this file
 ;; 2017 08 28 add some flycheck settings & helm-flycheck
 ;; 2017 08 29 map to sej-mode-hook
+;; 2017 80 30 update some binds
 
 ;;; Code:
 
 (use-package flymake
+  :ensure t
+  :defer t
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
@@ -43,15 +46,15 @@
   :defer 15)
 
 (use-package flycheck
-  :defer 15
-  :defines sej-mode-map
   :ensure t
+  :defer 15
+  :diminish flycheck-mode
+  :defines sej-mode-map
   :bind
   (:map sej-mode-map
 	("s-]" . flycheck-previous-error)
 	("s-[" . flycheck-next-error)
 	("C-c f" . flycheck-list-errors))
-  :diminish flycheck-mode
   :config
   (defadvice flycheck-next-error (before wh/flycheck-next-error-push-mark activate)
     (push-mark))
@@ -75,6 +78,7 @@
 				      :underline nil)))
 
 (use-package flycheck-pos-tip
+  :ensure t
   :defer 15
   :commands flycheck-pos-tip-error-messages
   :config
@@ -85,9 +89,11 @@
 
 (use-package helm-flycheck
   :ensure t
+  :defer t
   :bind
-  (:map flycheck-mode-map ("C-c ! h" . helm-flycheck)))
-
+  (:map sej-mode-map
+	("C-c s h" . helm-flycheck)
+	("s-h" . helm-flycheck)))
 
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here

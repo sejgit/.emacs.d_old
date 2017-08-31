@@ -12,6 +12,8 @@
 
 ;;; Code:
 (use-package company
+  :ensure t
+  :defer t
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
@@ -29,11 +31,13 @@
 		company-dabbrev-code-ignore-case t))
 
 (use-package company-quickhelp
-  :defer 2
+  :ensure t
+  :defer t
   :config (setq company-quickhelp-mode 1))
 
 (use-package company-jedi
-  :defer 2
+  :ensure t
+  :defer t
   :config (add-to-list 'company-backends 'company-jedi))
 
 (provide 'init-company)

@@ -6,18 +6,18 @@
 ;;; ChangeLog
 ;; 2017 08 25 init SeJ
 ;; 2017 08 28 added some paredit, eldoc, & ielm settings from EOS
+;; 2017 08 30 clean up some comments & defers
 
 ;;; Code:
 
 
 ;; toggle-debug-on-error
 (define-key emacs-lisp-mode-map (kbd "C-c d") 'toggle-debug-on-error)
-;; macrostep allows us to incrementally expand the macros in our elisp file
-(define-key emacs-lisp-mode-map (kbd "C-c d") 'toggle-debug-on-error)
 
 ;; Paredit for editing within lisp
 (use-package paredit
   :ensure t
+  :defer t
   :commands paredit-mode
   :config
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
@@ -42,6 +42,8 @@
 
 ;; we don't want this minor mode to be shown in the minibuffer, however
 (use-package eldoc
+  :ensure t
+  :defer t
   :diminish
   eldoc-mode
   :config
@@ -53,7 +55,7 @@
 
 ;; add a nice popup for ielm
 (defun ielm-other-window ()
-  "Run ielm on other window"
+  "Run ielm on other window."
   (interactive)
   (switch-to-buffer-other-window
    (get-buffer-create "*ielm*"))
@@ -71,6 +73,7 @@
 ;; turn on elisp-slime-nav if available so M-. works to jump to function definitions
 (use-package elisp-slime-nav
   :ensure t
+  :defer t
   :diminish elisp-slime-nav-mode
   :config (add-hook 'emacs-lisp-mode-hook #'elisp-slime-nav-mode))
 
