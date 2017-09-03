@@ -7,13 +7,14 @@
 ;; 2017 05 14 SeJ init from purcell/.emacs.d
 ;; 2017 06 01 simplified & added helm-projectile
 ;; 2017 08 25 add settings from EOS
-
+;; 2017 08 30 cleanup
 
 ;;; Code:
 
 (use-package projectile
   :ensure t
-  :defer 5
+  :defer 10
+  :defines sej-mode-map
   :commands projectile-mode
   :functions
   multi-compile-run
@@ -35,6 +36,7 @@
   (add-to-list 'projectile-globally-ignored-file-suffixes ".class")
   (use-package helm-projectile
     :ensure t
+    :defer 10
     :init
     (use-package helm-ag
       :ensure t)

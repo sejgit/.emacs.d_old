@@ -3,12 +3,17 @@
 ;;; Commentary:
 ;;to be auto inserted in new files
 
-;;; Log
+;;; ChangeLog
 ;; 2017 05 17 init SeJ
+;; 2017 09 01 update ensure / defines
 
 ;;; Code:
 
 (use-package autoinsert
+  :ensure t
+  :defines
+  auto-insert-query
+  auto-insert-directory
   :init
   (setq auto-insert-directory "~/.emacs.d/templates/")
   (setq auto-insert-query nil)

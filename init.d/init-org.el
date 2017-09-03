@@ -1,14 +1,19 @@
 ;;; init.org --- Stephen's emacs init.org.el file
 ;;; Commentary:
 ;; org-mode settings
+
+;;;ChangeLog
 ;; 2016 12 16
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 08 07 add suggestions from Orgmode for GTD
+;; 2017 08 30 map sej-mode-map & comments cleanup
 ;;; Code:
 
 (use-package org
+  :ensure t
   :defines
+  sej-mode-map
   org-capture-bookmark
   org-capture-templates
   org-agenda-window-setup
@@ -19,12 +24,12 @@
   org-agenda-sorting-strategy
   org-agenda-skip-deadline-prewarning-if-scheduled
   :mode ("\\.org$" . org-mode)
-  :bind (("<f1>" . org-mode)
-	 ("C-c l" . org-store-link)
-         ("C-c c" . org-capture)
-         ("C-c a" . org-agenda)
-         ("C-'" . org-cycle-agenda-files)
-         ("C-c b" . org-iswitchb))
+  :bind (:map sej-mode-map ("<f1>" . org-mode)
+	      ("C-c l" . org-store-link)
+	      ("C-c c" . org-capture)
+	      ("C-c a" . org-agenda)
+	      ("C-'" . org-cycle-agenda-files)
+	      ("C-c b" . org-iswitchb))
   :config
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
@@ -82,9 +87,6 @@
   :defer t
   :commands org-bullets-mode
   :config (org-bullets-mode 1))
-
-(use-package org-cliplink
-  :bind ("C-M-y" . org-cliplink))
 
 (use-package org-dashboard
   :defer t

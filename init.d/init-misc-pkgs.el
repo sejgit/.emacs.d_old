@@ -34,6 +34,7 @@
 ;; 2017 08 25 add undo-tree
 ;; 2017 08 28 add smartscan & dtrt-indent & highlight-numbers
 ;; 2017 08 30 clean-up, defer, map to sej-mode-map
+;; 2017 09 01 turn off for now as not using features
 ;;; Code:
 
 ;; hightlight-numbers in a special way
@@ -127,6 +128,7 @@
 (use-package google-this
   :ensure t
   :defer 10
+  :diminish google-this-mode
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-c x" . google-this)
@@ -194,6 +196,7 @@
 
 ;; extensions to standard library 'bookmark.el'
 (use-package bookmark+
+  :disabled ;; turn off for now as not using features
   :ensure t
   :defer 10)
 
@@ -241,7 +244,19 @@
 ;; extentions to 'help-fns.el'
 (use-package help-fns+
   :ensure t
-  :defer 10)
+  :defer 5)
+
+;; helful is an improved help-fns & help-fns+
+(use-package helpful
+  :ensure t
+  :defer 10
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-h f" . helpful-function)
+	      ("C-h c" . helpful-command)
+	      ("C-h M" . helpful-macro)
+	      ("C-h v" . helpful-variable)
+	      ("C-h i" . helpful-at-point)))
 
 ;; operate on current line if region undefined
 (use-package whole-line-or-region

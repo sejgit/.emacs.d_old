@@ -13,7 +13,7 @@
 ;;; Code:
 (use-package company
   :ensure t
-  :defer t
+  :defer 10
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
@@ -32,16 +32,17 @@
 
 (use-package company-quickhelp
   :ensure t
-  :defer t
+  :defer 10
   :config (setq company-quickhelp-mode 1))
 
 (use-package company-jedi
   :ensure t
-  :defer t
+  :defer 10
   :config (add-to-list 'company-backends 'company-jedi))
 
 (provide 'init-company)
 ;;; init-company.el ends here
+
 
 
 

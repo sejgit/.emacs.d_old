@@ -1,21 +1,24 @@
 ;;; init-tramp.el --- Stephen's emacs init-tramp.el
+
 ;;; Commentary:
 ;; tramp setup.
 
+;;; ChangeLog:
 ;; 2017 03 14 init SeJ
 ;; 2017 03 28 fix settings
 ;; 2017 04 04 get tramp into use-package
 ;; 2017 05 08 possible changes for darwin
+;; 2017 09 01 minor use-package tweaks
 
 ;;; Code:
 
-
 (use-package tramp
+  :ensure nil
   :defer 2
   :commands
-  (tramp-default-method
-   tramp-default-user
-   tramp-default-host)
+  tramp-default-method
+  tramp-default-user
+  tramp-default-host
   :init
   (if (eq system-type 'darwin)
       (setq

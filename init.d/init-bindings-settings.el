@@ -135,19 +135,32 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
 (define-key sej-mode-map (kbd "<s-return>") 'eval-last-sexp)
+(define-key sej-mode-map (kbd "<M-return>") 'eval-buffer)
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
+(define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
+(define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined just here for ref
 
 ;; general keybindings
+(define-key global-map (kbd "C-h C-h") nil)
+(define-key sej-mode-map (kbd "C-h C-h") nil)
 (define-key sej-mode-map (kbd "M-'") 'other-window)
 (define-key sej-mode-map (kbd "C-j") 'newline-and-indent)
 (define-key sej-mode-map (kbd "C-;") 'comment-or-uncomment-region)
-(define-key sej-mode-map [remap dabbrev-expand] 'hippie-expand)
+(define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (setq hippie-expand-try-functions-list
-      '(try-complete-file-name-partially
-        try-complete-file-name
+      '(hippie-expand-try-functions-list
+	try-complete-file-name-partially
         try-expand-dabbrev
         try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill))
+        try-expand-dabbrev-from-kill
+	try-complete-file-name-partially
+        try-complete-file-name
+	try-expand-all-abbrevs
+	try-expand-list
+	try-expand-line
+	try-expand-line-all-buffers
+	try-complete-lisp-symbol-partially
+	try-compelete-lisp-symbol))
 
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
@@ -208,8 +221,19 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
+  :ensure t
   :config
   (setq framemove-hook-into-windmove t))
+
+;; buffer-move to swap buffers between windows
+(use-package buffer-move
+  :ensure t
+  :defer t
+  :bind (:map sej-mode-map
+	      ("<s-up>" . buf-move-up)
+	      ("<s-down>" . buf-move-down)
+	      ("<s-left>" . buf-move-left)
+	      ("<s-right>" . buf-move-right)))
 
 ;; Some beginning settings
 (when (display-graphic-p)

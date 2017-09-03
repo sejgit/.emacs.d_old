@@ -1,4 +1,5 @@
 ;;; init-spelling.el --- Initialize emacs spelling settings
+
 ;;; Commentary:
 ;; spelling settings for Emacs
 
@@ -8,17 +9,21 @@
 ;; 2017 01 15 add support for thesaurus.el
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 08 24 change to when statements from writequite.org
+;; 2017 09 01 map to sej-mode-map, clean up comments
 
 ;;; Code:
 
-
+;; main spelling package
 (use-package flyspell
   :defines
-  (flyspell-goto-next-error)
+  sej-mode-map
+  :functions
+  flyspell-goto-next-error
   :bind
-  (("<f8>" . ispell-word)
-   ("C-<f8>" . flyspell-mode)
-   ("M-<f8>" . flyspell-check-next-highlighted-word))
+  (:map sej-mode-map
+	("<f8>" . ispell-word)
+	("C-<f8>" . flyspell-mode)
+	("M-<f8>" . flyspell-check-next-highlighted-word))
   :init
   (add-hook 'text-mode-hook 'flyspell-mode)
   :config

@@ -3,13 +3,13 @@
 ;;; Commentary:
 ;; some packages and settings for viewing files and pdf specifically
 
-;;; Log
+;;; ChangeLog
 ;; 2017 08 23 init SeJ
 
 ;;; Code:
 
 (use-package view
-  :defer 15
+  :ensure nil
   :config
   (progn
     (defun View-goto-line-last (&optional line)
@@ -32,6 +32,7 @@
     (define-key view-mode-map (kbd "l") 'forward-char)))
 
 (use-package doc-view
+  :ensure nil
   :config
   (define-key doc-view-mode-map (kbd "j")
     #'doc-view-next-line-or-next-page)
