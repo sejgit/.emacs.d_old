@@ -12,13 +12,14 @@ smex-items
 tramp
 network-security.data
 .uptimes.el
-.python-environments/default
+.python-environments/
 eshell/
 bookmarks
 elfeed.org
 server/
 archive/
 elpa/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -9,16 +9,36 @@
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 05 12 updates from purcell/emacs.d
 ;; 2017 08 29 cleanup title block and use-package settings
+;; 2017 09 05 changes from EOS
 
 ;;; Code:
 
 (use-package dired
   :ensure nil
   :defer t
+  :defines
+  sej-mode-map
+  ls-lisp-dirs-first
+  global-auto-revert-non-file-buffers
+  wdired-allow-to-change-permissions
   :functions sej/dired-truncate-lines sej/dired-rename-buffer-name
+  :bind (:map sej-mode-map
+	      ("H-j" . dired-jump)
+	      :map dired-mode-map
+	      ("M-o" . dired-omit-mode)
+	      ("C-M-u" . dired-up-directory)
+	      ("l" . dired-up-directory)
+	      ("C-x C-q" . wdired-change-to-wdired-mode)
+	      ("M-!" . async-shell-command))
   :commands (dired-toggle-read-only ; to toggle read-only state of any buffer
              dired-get-filename) ; called by `dired-single'
   :config
+  (use-package dired-aux
+    :ensure nil
+    :init
+    (use-package dired-async
+      :ensure async))
+  (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-deletes 'always)
   (setq dired-recursive-copies  'always)
   ;; Set this variable to non-nil, Dired will try to guess a default
@@ -27,6 +47,13 @@
   ;; of the current subdir of this dired buffer. The target is used
   ;; in the prompt for file copy, rename etc.
   (setq dired-dwim-target t)
+  (setq ls-lisp-dirs-first t
+	;; -F marks links with @
+        dired-ls-F-marks-symlinks t
+        delete-by-moving-to-trash t
+        ;; Don't auto refresh dired
+        global-auto-revert-non-file-buffers nil
+        wdired-allow-to-change-permissions t)
 
   ;; Dired listing switches
   ;;  -a : Do not ignore entries starting with .
@@ -51,9 +78,9 @@ It added extra strings at the front and back of the default dired buffer name."
   (add-hook 'dired-mode-hook #'sej/dired-rename-buffer-name)
   (add-hook 'dired-mode-hook #'sej/dired-truncate-lines)
 
-  (setq dired-omit-verbose nil)
+  (setq dired-omit-verbose t)
   ;; hide backup, autosave, *.*~ files
-  ;; omit mode can be toggled using `M-o' in dired buffer
+  ;; omit mode can be toggled using `C-x M-o' in dired buffer
   (add-hook 'dired-mode-hook #'dired-omit-mode)
 
   (use-package dired+
@@ -108,13 +135,46 @@ It added extra strings at the front and back of the default dired buffer name."
       :ensure t
       :config (dired-launch-enable))
 
+    (use-package dired-sort)
+
     ;;narrow dired to match filter
     (use-package dired-narrow
       :ensure t
       :bind (:map dired-mode-map
 		  ("/" . dired-narrow)))
 
-    (use-package dired-sort)
+    ;; use async everything in dired
+    (use-package async
+      :ensure t
+      :config
+      ;; (autoload 'dired-async-mode "dired-async.el" nil t)
+      (dired-async-mode 1))
+
+    ;; Quick-preview provides a nice preview of the thing at point for files.
+    (use-package quick-preview
+      :ensure t
+      :defines sej-mode-map
+      :bind (:map sej-mode-map
+		  ("C-c q" . quick-preview-at-point)
+		  :map dired-mode-map
+		  ("Q" . quick-preview-at-point)))
+
+
+    ;; Icons in Dired buffers (and other buffers)
+    (use-package all-the-icons
+      :ensure t)
+
+    (use-package all-the-icons-dired
+      :ensure t
+      :init
+      (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
+    ;; Fuco1 has a nice blog post about this,
+    ;; https://fuco1.github.io/2017-07-15-Collapse-unique-nested-paths-in-dired-with-dired-collapse-mode.html
+    (use-package dired-collapse
+      :ensure t
+      :init
+      (add-hook 'dired-mode-hook 'dired-collapse-mode))
     ))
 
 
