@@ -10,9 +10,35 @@
 ;; 2017 08 25 add auto-fill-mode from EOS
 ;; 2017 09 04 change to init-writing.el & add yaml, elasticsearch, skeleton, abbrev, thesaurus
 ;;            numbering rectangles, writing/viewing helpers, highlighting indentation
-
+;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode from init-misc-pkgs.el
 
 ;;; Code:
+
+;; show vertical lines to guide indentation
+(use-package indent-guide
+  :ensure t
+  :defer 10
+  :config
+  (add-hook 'prog-mode-hook 'indent-guide-mode)
+  :diminish
+  indent-guide-mode)
+
+;; display ^L page breaks as tidy horizontal lines
+(use-package page-break-lines
+  :ensure t
+  :defer 10
+  :config
+  (setq global-page-break-lines-mode t)
+  :diminish
+  psge-break-lines-mode)
+
+;; intelligently call whitespace-cleanup on save
+(use-package whitespace-cleanup-mode
+  :ensure t
+  :defer 10
+  ;; intelligently call whitespace-cleanup on save
+  :config
+  (global-whitespace-cleanup-mode t))
 
 ;; insert more often than you think
 (defun lod ()
@@ -47,7 +73,11 @@
 ;; YAML support
 (use-package yaml-mode
   :defer t
-  :ensure t)
+  :ensure t
+  :mode
+  "\\.yml$"
+  "\\.yaml$"
+  )
 
 ;; Elasticsearch uses asciidoc everywhere for documentation
 (use-package adoc-mode
@@ -122,18 +152,44 @@
     'org-mode-abbrev-table
     '(("<el" "" 'eos/org-wrap-elisp 0))))
 
-;; synaurus is bound to C-c s but that is my keymap so adding H-t
-(use-package synosaurus
-  :ensure t
-  :defer 15
-  :defines sej-mode-map
-  :bind (:map sej-mode-map
-	      ("H-t" . synosaurus-lookup))
-  :init
-  (setq-default synosaurus-backend 'synosaurus-backend-wordnet)
-  (add-hook 'after-init-hook #'synosaurus-mode))
 
-(provide 'init-markdown)
-;;; init-markdown.el ends here
+;; Let's say you have a list like:
+;; First Item
+;; Second Item
+;; Third Item
+;; Fourth Item
+;; And you want to number it to look like:
+;; 1. First Item
+;; 2. Second Item
+;; 3. Third Item
+;; 4. Fourth Item
+;; This function allows you to hit C-x r N and specify the pattern and starting offset to number lines in rectangular-selection mode:
+(defun number-rectangle (start end format-string from)
+  "Delete (don't save) text in the region-rectangle, then number it."
+  (interactive
+   (list (region-beginning) (region-end)
+         (read-string "Number rectangle: "
+                      (if (looking-back "^ *") "%d. " "%d"))
+         (read-number "From: " 1)))
+  (save-excursion
+    (goto-char start)
+    (setq start (point-marker))
+    (goto-char end)
+    (setq end (point-marker))
+    (delete-rectangle start end)
+    (goto-char start)
+    (loop with column = (current-column)
+          while (and (<= (point) end) (not (eobp)))
+          for i from from   do
+          (move-to-column column t)
+          (insert (format format-string i))
+          (forward-line 1)))
+  (goto-char start))
+
+(define-key sej-mode-map (kbd "C-x r N") 'number-rectangle)
+
+
+(provide 'init-writing)
+;;; init-writing.el ends here
 
 

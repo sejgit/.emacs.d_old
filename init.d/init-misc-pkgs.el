@@ -35,6 +35,8 @@
 ;; 2017 08 28 add smartscan & dtrt-indent & highlight-numbers
 ;; 2017 08 30 clean-up, defer, map to sej-mode-map
 ;; 2017 09 01 turn off for now as not using features
+;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode to init-writing.el
+
 ;;; Code:
 
 ;; hightlight-numbers in a special way
@@ -223,24 +225,6 @@
     (setq-default ag-highlight-search t)
     (define-key sej-mode-map (kbd "M-?") 'ag-project)))
 
-;; show vertical lines to guide indentation
-(use-package indent-guide
-  :ensure t
-  :defer 10
-  :config
-  (add-hook 'prog-mode-hook 'indent-guide-mode)
-  :diminish
-  indent-guide-mode)
-
-;; display ^L page breaks as tidy horizontal lines
-(use-package page-break-lines
-  :ensure t
-  :defer 10
-  :config
-  (setq global-page-break-lines-mode t)
-  :diminish
-  psge-break-lines-mode)
-
 ;; extentions to 'help-fns.el'
 (use-package help-fns+
   :ensure t
@@ -279,14 +263,6 @@
   :config
   (setq auto-mode-alist
 	(cons '("\\.textile\\'" . textile-mode) auto-mode-alist)))
-
-;; intelligently call whitespace-cleanup on save
-(use-package whitespace-cleanup-mode
-  :ensure t
-  :defer 10
-  ;; intelligently call whitespace-cleanup on save
-  :config
-  (global-whitespace-cleanup-mode t))
 
 ;; major mode for csv
 (use-package csv-mode

@@ -110,7 +110,7 @@ It added extra strings at the front and back of the default dired buffer name."
 
     ;;narrow dired to match filter
     (use-package dired-narrow
-      :ensure t 
+      :ensure t
       :bind (:map dired-mode-map
 		  ("/" . dired-narrow)))
 

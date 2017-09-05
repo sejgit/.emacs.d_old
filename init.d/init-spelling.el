@@ -10,6 +10,7 @@
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 08 24 change to when statements from writequite.org
 ;; 2017 09 01 map to sej-mode-map, clean up comments
+;; 2017 09 03 add Synosaurus as another Thesaurus option
 
 ;;; Code:
 
@@ -62,10 +63,29 @@
   (setq-default ispell-list-command "list"))
 
 ;; thesaurus set-up requires apikey
+;; note see below for synosaurus setup
 (use-package thesaurus
-  :bind ("C-x t" . thesaurus-choose-synonym-and-replace)
+  :ensure t
+  :defer 15
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-x t" . thesaurus-choose-synonym-and-replace))
   :config
   (thesaurus-set-bhl-api-key-from-file "~/.ssh/BigHugeLabs.apikey.txt"))
+
+;; synaurus is bound to C-c s l for lookup or r for replace adding H-t
+;; note requires installation of wordnet
+(use-package synosaurus
+  :ensure t
+  :defer 15
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("H-t" . synosaurus-lookup)
+	      ("C-c s l" . synosaurus-lookup)
+	      ("C-c s r" . synosaurus-choose-and-replace))
+  :init
+  (setq-default synosaurus-backend 'synosaurus-backend-wordnet)
+  (add-hook 'after-init-hook #'synosaurus-mode))
 
 
 (provide 'init-spelling)
