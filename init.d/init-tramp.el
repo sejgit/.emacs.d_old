@@ -9,12 +9,13 @@
 ;; 2017 04 04 get tramp into use-package
 ;; 2017 05 08 possible changes for darwin
 ;; 2017 09 01 minor use-package tweaks
+;; 2017 09 06 add pass
 
 ;;; Code:
 
 (use-package tramp
   :ensure nil
-  :defer 2
+  :defer 7
   :commands
   tramp-default-method
   tramp-default-user
@@ -30,6 +31,8 @@
      tramp-default-host "home"
      password-cache-expiry nil)
     )
+  (setq tramp-use-ssh-controlmaster-options nil)
+
   (defadvice tramp-handle-write-region
       (after tramp-write-beep-advice activate)
     "Make tramp beep after writing a file."
@@ -48,6 +51,10 @@
     (interactive)
     (beep))
   )
+
+(use-package pass
+  :ensure t
+  :defer 7)
 
 (provide 'init-tramp)
 ;;; init-tramp.el ends here

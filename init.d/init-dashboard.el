@@ -9,6 +9,7 @@
 ;;; Code:
 
 (use-package dashboard
+  :ensure t
   :config
   (use-package page-break-lines
     :ensure t)

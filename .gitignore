@@ -20,6 +20,7 @@ server/
 archive/
 elpa/
 .DS_Store
+savehist
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

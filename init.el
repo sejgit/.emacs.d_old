@@ -89,6 +89,17 @@
   (require 'bind-key)
   (require 'cl-lib)
 
+  ;; save histories
+  (require 'savehist)
+  (setq savehist-file (concat user-emacs-directory "savehist"))
+  (savehist-mode 1)
+  (setq savehist-save-minibuffer-history 1)
+  (setq savehist-additional-variables
+	'(kill-ring
+	  search-ring
+	  regexp-search-ring))
+  (setq-default save-place t)
+
   ;; recompile configs
   (defconst my-init-dir "~/.emacs.d/init.d")
   (use-package auto-compile
@@ -146,6 +157,14 @@
     (when (not (server-running-p server-name))
       (server-start)))
 
+  ;; set backups
+  ;; (setq backup-by-copying t      ; don't clobber symlinks
+  ;; 	backup-directory-alist
+  ;; 	'(("." . ".saves"))    ; don't litter my fs tree
+  ;; 	delete-old-versions t
+  ;; 	kept-new-versions 6
+  ;; 	kept-old-versions 2
+  ;; 	version-control t)       ; use versioned backups
 
   (use-package uptimes)
 

@@ -36,6 +36,8 @@
 ;; 2017 08 30 clean-up, defer, map to sej-mode-map
 ;; 2017 09 01 turn off for now as not using features
 ;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode to init-writing.el
+;; 2017 09 06 removed no-littering as was messing with backups
+
 
 ;;; Code:
 
@@ -89,14 +91,6 @@
   :config
   (beginend-global-mode)
   )
-
-;; help keeping ~/.emacs.d clean
-(use-package no-littering               ; Keep .emacs.d clean
-  :ensure t
-  :config
-  (require 'recentf)
-  (add-to-list 'recentf-exclude no-littering-var-directory)
-  (add-to-list 'recentf-exclude no-littering-etc-directory))
 
 ;; Highlight the cursor whenever the window scrolls
 (use-package beacon
@@ -297,6 +291,7 @@
   :config
   (mode-icons-mode)
   )
+
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here

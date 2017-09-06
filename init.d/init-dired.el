@@ -18,7 +18,6 @@
   :defer t
   :defines
   sej-mode-map
-  ls-lisp-dirs-first
   global-auto-revert-non-file-buffers
   wdired-allow-to-change-permissions
   :functions sej/dired-truncate-lines sej/dired-rename-buffer-name
@@ -47,13 +46,11 @@
   ;; of the current subdir of this dired buffer. The target is used
   ;; in the prompt for file copy, rename etc.
   (setq dired-dwim-target t)
-  (setq ls-lisp-dirs-first t
+  (setq global-auto-revert-non-file-buffers nil
 	;; -F marks links with @
-        dired-ls-F-marks-symlinks t
-        delete-by-moving-to-trash t
-        ;; Don't auto refresh dired
-        global-auto-revert-non-file-buffers nil
-        wdired-allow-to-change-permissions t)
+	delete-by-moving-to-trash t
+	;; Don't auto refresh dired
+	wdired-allow-to-change-permissions t)
 
   ;; Dired listing switches
   ;;  -a : Do not ignore entries starting with .
