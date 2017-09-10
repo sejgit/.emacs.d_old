@@ -83,7 +83,7 @@
 	      ("H-t" . synosaurus-lookup)
 	      ("C-c s l" . synosaurus-lookup)
 	      ("C-c s r" . synosaurus-choose-and-replace))
-  :init
+  :config
   (setq-default synosaurus-backend 'synosaurus-backend-wordnet)
   (add-hook 'after-init-hook #'synosaurus-mode))
 
