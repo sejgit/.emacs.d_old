@@ -81,6 +81,7 @@ It added extra strings at the front and back of the default dired buffer name."
   (add-hook 'dired-mode-hook #'dired-omit-mode)
 
   (use-package dired+
+    :ensure t
     :init
     ;; Details toggling is bound to "(" in `dired-mode' by default
     (setq diredp-hide-details-initially-flag nil)

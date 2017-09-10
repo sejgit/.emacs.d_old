@@ -110,13 +110,15 @@
     )
 
   ;; themes
-  ;; tango-dark
+  (use-package cyberpunk-theme
+    :ensure t
+    :config
   (defun load-cyberpunk-theme (frame)
     "Load cyberpunk theme in current FRAME."
     (select-frame frame)
     (load-theme 'cyberpunk t)
     ;;(set-frame-size-according-to-resolution)
-    (switch-to-buffer "*dashboard*"))
+    (switch-to-buffer "*dashboard*")))
 
   ;; remove irritating 'got redefined' messages
   (setq ad-redefinition-action 'accept)
