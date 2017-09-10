@@ -154,9 +154,8 @@
   :ensure t
   :defer 10
   :diminish rainbow-delimiters-mode
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   (custom-set-faces
    '(rainbow-delimiters-depth-1-face ((t (:foreground "red" :height 1.0))))
    '(rainbow-delimiters-depth-2-face ((t (:foreground "orange" :height 1.0))))

@@ -6,6 +6,7 @@
 ;;; ChangeLog
 ;; 2017 05 17 init SeJ from purcell/.emacs.d
 ;; 2017 08 29 add copy-from-osx & paste-to-osx
+;; 2017 09 08 fixed above for only mac
 
 ;;; Code:
 
@@ -19,8 +20,9 @@
       (process-send-string proc text)
       (process-send-eof proc))))
 
+(when *is-a-mac*
 (setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
+(setq interprogram-paste-function 'copy-from-osx))
 
 
 ;; bunch of stuff from purcell

@@ -1,4 +1,5 @@
 # emacs stuff
+init-custom.el
 ac-comphist.dat
 el-get/
 #elpa/
