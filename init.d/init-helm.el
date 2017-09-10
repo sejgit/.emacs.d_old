@@ -11,7 +11,7 @@
 
 (use-package helm
   :ensure nil
-  :demand t ;; demand it be loaded!
+  :demand
   :defines sej-mode-map
   :diminish helm-mode
   :bind

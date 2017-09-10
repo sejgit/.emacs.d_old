@@ -30,6 +30,7 @@
   ;; Set up statistics for company completions
   (use-package company-statistics
     :ensure t
+    :demand
     :init (add-hook 'after-init-hook #'company-statistics-mode))
   (use-package company-jedi
     :ensure t

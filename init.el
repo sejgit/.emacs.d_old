@@ -92,9 +92,11 @@
   (unless (package-installed-p 'dashboard)
     (package-refresh-contents)
     (package-install 'dashboard))
-  (set-fontset-font "fontset-default"
-		    (cons page-break-lines-char page-break-lines-char)
-		    (face-attribute 'default :family))
+  (require 'dashboard)
+  (require 'page-break-lines)
+  (use-package flycheck-color-mode-line
+    :ensure t
+    :defer 15)
 
   ;; save histories
   (require 'savehist)
