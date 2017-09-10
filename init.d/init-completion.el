@@ -77,9 +77,9 @@
   :diminish ""
   :defines smart-tab-using-hippie-expand
   :init
-  (global-smart-tab-mode 1)
   (setq smart-tab-using-hippie-expand t)
   :config
+  (global-smart-tab-mode 1)
   (add-to-list 'smart-tab-disabled-major-modes 'mu4e-compose-mode)
   (add-to-list 'smart-tab-disabled-major-modes 'erc-mode)
   (add-to-list 'smart-tab-disabled-major-modes 'shell-mode))

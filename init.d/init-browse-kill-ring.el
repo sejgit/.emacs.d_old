@@ -10,7 +10,7 @@
 (use-package browse-kill-ring
   :ensure t
   :defer 2
-  :init (browse-kill-ring-default-keybindings))
+  :config (browse-kill-ring-default-keybindings))
 
 (provide 'browse-kill-ring)
 ;;; init-browse-kill-ring.el ends here
