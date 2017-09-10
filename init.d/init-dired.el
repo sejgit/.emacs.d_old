@@ -121,6 +121,7 @@ It added extra strings at the front and back of the default dired buffer name."
     ;; https://fuco1.github.io/2017-07-15-Collapse-unique-nested-paths-in-dired-with-dired-collapse-mode.html
     ;; https://github.com/Fuco1/dired-hacks/blob/master/dired-collapse.el
     (use-package dired-collapse
+      :ensure t
       :config
       (progn
 	(add-hook 'dired-mode-hook #'dired-collapse-mode)))
@@ -173,12 +174,7 @@ It added extra strings at the front and back of the default dired buffer name."
       :init
       (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
-    ;; Fuco1 has a nice blog post about this,
-    ;; https://fuco1.github.io/2017-07-15-Collapse-unique-nested-paths-in-dired-with-dired-collapse-mode.html
-    (use-package dired-collapse
-      :ensure t
-      :init
-      (add-hook 'dired-mode-hook 'dired-collapse-mode))
+
     ))
 
 
