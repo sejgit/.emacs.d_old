@@ -88,8 +88,13 @@
   (require 'diminish)
   (require 'bind-key)
   (require 'cl-lib)
-  (require 'dashboard)
-  (require 'page-break-lines)
+
+  (unless (package-installed-p 'dashboard)
+    (package-refresh-contents)
+    (package-install 'dashboard))
+  (set-fontset-font "fontset-default"
+		    (cons page-break-lines-char page-break-lines-char)
+		    (face-attribute 'default :family))
 
   ;; save histories
   (require 'savehist)
@@ -107,7 +112,7 @@
   (use-package auto-compile
     :ensure t
     :init
-    ;;(auto-compile-on-load-mode)
+    (auto-compile-on-load-mode)
     (auto-compile-on-save-mode)
     )
 
@@ -115,12 +120,12 @@
   (use-package cyberpunk-theme
     :ensure t
     :config
-  (defun load-cyberpunk-theme (frame)
-    "Load cyberpunk theme in current FRAME."
-    (select-frame frame)
-    (load-theme 'cyberpunk t)
-    ;;(set-frame-size-according-to-resolution)
-    (switch-to-buffer "*dashboard*")))
+    (defun load-cyberpunk-theme (frame)
+      "Load cyberpunk theme in current FRAME."
+      (select-frame frame)
+      (load-theme 'cyberpunk t)
+      ;;(set-frame-size-according-to-resolution)
+      (switch-to-buffer "*dashboard*")))
 
   ;; remove irritating 'got redefined' messages
   (setq ad-redefinition-action 'accept)
@@ -160,15 +165,6 @@
     :init
     (when (not (server-running-p server-name))
       (server-start)))
-
-  ;; set backups
-  ;; (setq backup-by-copying t      ; don't clobber symlinks
-  ;; 	backup-directory-alist
-  ;; 	'(("." . ".saves"))    ; don't litter my fs tree
-  ;; 	delete-old-versions t
-  ;; 	kept-new-versions 6
-  ;; 	kept-old-versions 2
-  ;; 	version-control t)       ; use versioned backups
 
   (use-package uptimes)
 
