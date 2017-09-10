@@ -10,6 +10,7 @@
 ;; 2017 05 12 updates from purcell/emacs.d
 ;; 2017 08 29 cleanup title block and use-package settings
 ;; 2017 09 05 changes from EOS
+;; 2017 09 07 added and commented out dired-du (slows down dired a lot!)
 
 ;;; Code:
 
@@ -32,6 +33,11 @@
   :commands (dired-toggle-read-only ; to toggle read-only state of any buffer
              dired-get-filename) ; called by `dired-single'
   :config
+  ;; (use-package dired-du
+  ;;   :ensure t
+  ;;   :config
+  ;;   (add-hook 'dired-mode-hook #'dired-du-mode))
+  
   (use-package dired-aux
     :ensure nil
     :init

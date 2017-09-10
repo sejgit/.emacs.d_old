@@ -11,6 +11,7 @@
 ;; 2017 09 04 change to init-writing.el & add yaml, elasticsearch, skeleton, abbrev, thesaurus
 ;;            numbering rectangles, writing/viewing helpers, highlighting indentation
 ;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode from init-misc-pkgs.el
+;; 2017 09 07 move YAML mode to init-misc-filetypes.el
 
 ;;; Code:
 
@@ -69,15 +70,6 @@
 	      (flyspell-mode t)
 	      (auto-fill-mode t)))
   (setq markdown-command "pandoc --smart -f markdown -t html"))
-
-;; YAML support
-(use-package yaml-mode
-  :defer t
-  :ensure t
-  :mode
-  "\\.yml$"
-  "\\.yaml$"
-  )
 
 ;; Elasticsearch uses asciidoc everywhere for documentation
 (use-package adoc-mode

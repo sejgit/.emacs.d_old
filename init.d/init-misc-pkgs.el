@@ -37,7 +37,7 @@
 ;; 2017 09 01 turn off for now as not using features
 ;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode to init-writing.el
 ;; 2017 09 06 removed no-littering as was messing with backups
-
+;; 2017 09 07 move modes for editing filetypes to init-misc-filetypes.el
 
 ;;; Code:
 
@@ -175,21 +175,6 @@
   :config
   (setq-default save-place t))
 
-;; conf-mode  see below for assignments made in package
-;; (define-key map "\C-c\C-u" 'conf-unix-mode)
-;; (define-key map "\C-c\C-w" 'conf-windows-mode)
-;; (define-key map "\C-c\C-j" 'conf-javaprop-mode)
-;; (define-key map "\C-c\C-s" 'conf-space-keywords)
-;; (define-key map "\C-c " 'conf-space-keywords)
-;; (define-key map "\C-c\C-c" 'conf-colon-mode)
-;; (define-key map "\C-c:" 'conf-colon-mode)
-;; (define-key map "\C-c\C-x" 'conf-xdefaults-mode)
-;; (define-key map "\C-c\C-p" 'conf-ppd-mode)
-;; (define-key map "\C-c\C-q" 'conf-quote-normal)
-;; (define-key map "\C-c\"" 'conf-quote-normal)
-;; (define-key map "\C-c'" 'conf-quote-normal)
-;; (define-key map "\C-c\C-a" 'conf-align-assignments)
-
 ;; extensions to standard library 'bookmark.el'
 (use-package bookmark+
   :disabled ;; turn off for now as not using features
@@ -243,54 +228,11 @@
   :config
   (whole-line-or-region-global-mode t))
 
-;; TODO move simple modes to own file with batch, yaml, etc
-(use-package crontab-mode
-  :ensure t
-  :defer t
-  :config
-  (add-auto-mode 'crontab-mode "\\.?cron\\(tab\\)?\\'"))
-
-;; textile markup editing major mode
-(use-package textile-mode
-  :ensure t
-  :defer t
-  :config
-  (setq auto-mode-alist
-	(cons '("\\.textile\\'" . textile-mode) auto-mode-alist)))
-
-;; major mode for csv
-(use-package csv-mode
-  :ensure t
-  :defer t
-  :config
-  (add-auto-mode 'csv-mode "\\.[Cc][Ss][Vv]\\'")
-  (setq csv-separators '("," ";" "|" " ")))
-
-;; navigate and edit CSV files
-(use-package csv-nav
-  :ensure t
-  :defer t)
-
-;; major mode for editing PHP code
-(use-package php-mode
-  :ensure t
-  :defer t
-  :config
-  (use-package smarty-mode))
-
-;; major mode for editing conf/ini/properties files
-(use-package conf-mode
-  :ensure t
-  :defer t
-  :diminish conf-mode
-  :mode "\\.gitconfig$")
-
 ;; show icons for modes
 (use-package mode-icons
   :ensure t
   :config
-  (mode-icons-mode)
-  )
+  (mode-icons-mode))
 
 
 (provide 'init-misc-pkgs)

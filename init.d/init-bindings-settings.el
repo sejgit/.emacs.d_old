@@ -22,6 +22,7 @@
 ;; 2017 08 07 add Hyper & Super keys for osx and win remove sej-map
 ;; 2017 08 21 add some Lisp stuff from Getting Started with Emacs Lisp
 ;; 2017 08 29 take another run at sej-map
+;; 2017 09 08 add code to unset C- M- digit keys
 
 ;;; Code:
 
@@ -117,8 +118,11 @@ USAGE: (unbind-from-modi-map \"key f\")."
 				    'face 'font-lock-function-name-face))))
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
-(setq last-kbd-macro
-      "\C-f\344\344define\C-f\C-f\C-f\C-f\C-fsej-mode-map \C-a\C-n\370end-ma")
+;; unset C- and M- digit keys
+(dotimes (n 10)
+  (global-unset-key (kbd (format "C-%d" n)))
+  (global-unset-key (kbd (format "M-%d" n)))
+  )
 
 ;; use hyper (alt on osx) for mode type bindings
 (define-key sej-mode-map (kbd "H-a") 'counsel-ag)
@@ -145,7 +149,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-h C-h") nil)
 (define-key sej-mode-map (kbd "M-'") 'other-window)
 (define-key sej-mode-map (kbd "C-j") 'newline-and-indent)
-(define-key sej-mode-map (kbd "C-;") 'comment-or-uncomment-region)
+(define-key sej-mode-map (kbd "C-;") 'comment-dwim)
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (setq hippie-expand-try-functions-list
       '(hippie-expand-try-functions-list
@@ -170,20 +174,20 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "s-0") 'delete-window)
 (define-key sej-mode-map (kbd "s-1") 'delete-other-windows)
 (define-key sej-mode-map (kbd "s-2") 'split-window-vertically)
+(define-key sej-mode-map (kbd "s-3") 'split-window-right)
 
 ;;added tips from pragmatic emacs
 (define-key sej-mode-map (kbd "C-x k") 'kill-this-buffer)
 (define-key sej-mode-map (kbd "C-x w") 'delete-frame)
 
 ;;scroll window up/down by one line
-(define-key sej-mode-map (kbd "M-n") (kbd "C-u 1 C-v"))
-(define-key sej-mode-map (kbd "M-p") (kbd "C-u 1 M-v"))
+(define-key sej-mode-map (kbd "s-n") (kbd "C-u 1 C-v"))
+(define-key sej-mode-map (kbd "s-p") (kbd "C-u 1 M-v"))
 (define-key sej-mode-map (kbd "M-SPC") 'cycle-spacing)
 
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
 (define-key sej-mode-map (kbd "C-x C-m") 'execute-extended-command)
 (define-key sej-mode-map (kbd "C-c C-m") 'execute-extended-command)
-(define-key sej-mode-map (kbd "C-x C-k") 'kill-region)
 
 ;;added from emacs-starter-kit
 ;; You know, like Readline.
@@ -195,7 +199,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; Perform general cleanup.
 (define-key sej-mode-map (kbd "C-c n") 'cleanup-buffer)
 
-;; File finding
+;; File & buffer finding
 (define-key sej-mode-map (kbd "C-x M-f") 'ido-find-file-other-window)
 (define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
 (define-key sej-mode-map (kbd "C-x f") 'recentf-ido-find-file)
@@ -203,13 +207,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "s-y") 'bury-buffer)
 (define-key sej-mode-map (kbd "C-c r") 'revert-buffer)
 (define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
-
-;; Should be able to eval-and-replace anywhere.
-(define-key sej-mode-map (kbd "C-c e") 'eval-and-replace)
-
-;; For debugging Emacs modes
-(define-key sej-mode-map (kbd "C-c p") 'message-point)
-(define-key sej-mode-map (kbd "C-c q") 'join-line)
+(define-key sej-mode-map (kbd "M-n") 'bs-cycle-next)
+(define-key sej-mode-map (kbd "M-p") 'bs-cycle-previous)
 
 ;; wind move built in package (default bindins are S-<cursor>)
 (when (fboundp 'windmove-default-keybindings)
