@@ -12,6 +12,7 @@
 ;; 2017 09 01 map to sej-mode-map, clean up comments
 ;; 2017 09 03 add Synosaurus as another Thesaurus option
 
+
 ;;; Code:
 
 ;; main spelling package

@@ -9,8 +9,8 @@
 
 ;;; Code:
 
-(use-package helm-config
-  :ensure helm
+(use-package helm
+  :ensure nil
   :demand t ;; demand it be loaded!
   :defines sej-mode-map
   :diminish helm-mode

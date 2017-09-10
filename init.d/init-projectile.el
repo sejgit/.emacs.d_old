@@ -20,8 +20,8 @@
   multi-compile-run
   helm-projectile-multi-compile-project
   :diminish projectile-mode
-  :init (add-hook 'after-init-hook #'projectile-mode)
   :config
+  (add-hook 'after-init-hook #'projectile-mode)
   (bind-key "C-c p b" #'projectile-switch-to-buffer #'projectile-command-map)
   (bind-key "C-c p K" #'projectile-kill-buffers #'projectile-command-map)
 

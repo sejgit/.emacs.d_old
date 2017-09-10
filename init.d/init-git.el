@@ -23,7 +23,6 @@
 	("C-x M-g" . magit-dispatch-popup)
 	:map magit-status-mode-map
 	("C-M-<up>" . magit-section-up))
-  :defer t
   :config
   (setq-default magit-diff-refine-hunk t)
   (fullframe magit-status magit-mode-quit-window)

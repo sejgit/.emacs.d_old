@@ -81,18 +81,19 @@ It added extra strings at the front and back of the default dired buffer name."
   (add-hook 'dired-mode-hook #'sej/dired-rename-buffer-name)
   (add-hook 'dired-mode-hook #'sej/dired-truncate-lines)
 
-  (setq dired-omit-verbose t)
-  ;; hide backup, autosave, *.*~ files
-  ;; omit mode can be toggled using `C-x M-o' in dired buffer
-  (add-hook 'dired-mode-hook #'dired-omit-mode)
-
   (use-package dired+
     :ensure t
+    :demand t
     :init
     ;; Details toggling is bound to "(" in `dired-mode' by default
     (setq diredp-hide-details-initially-flag nil)
     :config
-    ;; Privilege indicator faces
+      (setq dired-omit-verbose t)
+  ;; hide backup, autosave, *.*~ files
+  ;; omit mode can be toggled using `C-x M-o' in dired buffer
+  (add-hook 'dired-mode-hook #'dired-omit-mode)
+
+  ;; Privilege indicator faces
     (defun sej/dired-update-privilege-faces ()
       (set-face-attribute 'diredp-dir-priv nil
 			  :foreground "#7474FFFFFFFF"

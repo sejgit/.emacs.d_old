@@ -88,6 +88,8 @@
   (require 'diminish)
   (require 'bind-key)
   (require 'cl-lib)
+  (require 'dashboard)
+  (require 'page-break-lines)
 
   ;; save histories
   (require 'savehist)

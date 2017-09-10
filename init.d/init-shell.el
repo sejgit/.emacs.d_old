@@ -30,7 +30,7 @@
 ;; set up any SSH or GPG keychains that the Keychain tool has set up for us
 (use-package keychain-environment
   :ensure t
-  :init
+  :config
   (add-hook 'after-init-hook #'keychain-refresh-environment))
 
 ;; Emacs does not handle less well so use cat

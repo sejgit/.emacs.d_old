@@ -45,7 +45,7 @@
 (use-package highlight-numbers
   :ensure t
   :defer 10
-  :init
+  :config
   (add-hook 'prog-mode-hook #'highlight-numbers-mode))
 
 ;; dtrt-indent to automatically set the right indent for other people's files

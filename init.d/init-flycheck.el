@@ -40,7 +40,6 @@
   (add-hook 'post-command-hook 'flymake-error-at-point))
 
 
-
 (use-package flycheck-color-mode-line
   :ensure t
   :defer 15)
