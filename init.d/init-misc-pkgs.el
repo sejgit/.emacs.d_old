@@ -80,6 +80,7 @@
 
 ;; midnight mode to clear buffers at midnight
 (use-package midnight
+  :ensure t
   :config
   (customize-set-variable 'midnight-mode t)
   )

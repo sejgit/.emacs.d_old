@@ -8,6 +8,7 @@
 
 
 (use-package browse-kill-ring
+  :ensure t
   :defer 2
   :init (browse-kill-ring-default-keybindings))
 

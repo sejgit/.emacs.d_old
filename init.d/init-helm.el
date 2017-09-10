@@ -24,7 +24,7 @@
 	("C-h a" . helm-apropos)
 	;;   ("C-h m" . helm-man-woman)
 	("C-h SPC" . helm-all-mark-rings)
-	("M-x" . helm-M-x)
+	;;("M-x" . helm-M-x)
 	("C-x C-b" . helm-buffers-list)
 	("C-x b" . helm-mini)))
 
