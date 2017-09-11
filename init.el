@@ -103,7 +103,7 @@
            all-the-icons-dired
            ;;elfeed
            ;;elfeed-org
-           fic-ext-mode
+           fic-mode
            flymake
            flycheck-color-mode-line
            flycheck

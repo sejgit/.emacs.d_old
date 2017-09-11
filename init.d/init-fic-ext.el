@@ -8,18 +8,19 @@
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 08 29 diminish fic-ext-mode
+;; 2017 09 11 change to fic-mode
 
 ;;; Code:
 
-(use-package fic-ext-mode
+(use-package fic-mode
   :defer 2
-  :diminish fic-ext-mode
+  :diminish fic-mode
   :config
   (defun add-something-to-mode-hooks (mode-list something)
     "helper function to add a callback to multiple hooks"
     (dolist (mode mode-list)
       (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
-  (add-something-to-mode-hooks '( c++ tcl emacs-lisp arduino python text markdown latex) 'fic-ext-mode))
+  (add-something-to-mode-hooks '( c++ tcl emacs-lisp arduino python text markdown latex) 'turn-onfic-mode))
 
 (provide 'init-fic-ext)
 ;;; init-fic-ext.el ends here
