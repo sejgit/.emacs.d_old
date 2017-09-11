@@ -72,11 +72,9 @@
 
 (use-package pyvenv
   :ensure t
-  :defer t)
-
-(use-package pyenv-mode-auto
-  :ensure t
-  :defer t)
+  :defer t
+  :config
+  (add-hook 'pyvenv-post-activate-hooks 'pyvenv-restart-python))
 
 (use-package jedi
   :ensure t

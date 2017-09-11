@@ -13,23 +13,23 @@
 
 ;;; Code:
 
-(use-package ido
-  :ensure t
-  :defer t
-  :init (defalias 'list-buffers 'ibuffer)
-  :commands
-  ido-everywhere
-  :config
-  (ido-mode t)
-  (ido-everywhere t)
-  (setq ido-enable-flex-matching nil
-	ido-use-virtual-buffers t
-	ido-enable-prefix nil
-        ido-use-filename-at-point 'guess
-        ido-max-prospects 10
-	ido-create-new-buffer 'always
-	ido-ignore-extensions t
-	ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf")))
+;; (use-package ido
+;;   :ensure t
+;;   :defer t
+;;   :init (defalias 'list-buffers 'ibuffer)
+;;   :commands
+;;   ido-everywhere
+;;   :config
+;;   (ido-mode t)
+;;   (ido-everywhere nil)
+;;   (setq ido-enable-flex-matching nil
+;; 	ido-use-virtual-buffers t
+;; 	ido-enable-prefix nil
+;;         ido-use-filename-at-point 'guess
+;;         ido-max-prospects 10
+;; 	ido-create-new-buffer 'always
+;; 	ido-ignore-extensions t
+;; 	ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf")))
 
 ;; making ido completion available in as many places as possible
 ;; (use-package ido-completing-read+
@@ -37,16 +37,16 @@
 ;;   :defer 2
 ;;   :config (ido-ubiquitous-mode t))
 
-;; improves ido searching using fuzzy matching
-(use-package flx-ido
-  :ensure t
-  :defer 2
-  :config
-  (ido-mode 1)
-  (ido-everywhere 1)
-  (flx-ido-mode 1)
-  (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil))
+;; ;; improves ido searching using fuzzy matching
+;; (use-package flx-ido
+;;   :ensure t
+;;   :defer 2
+;;   :config
+;;   (ido-mode 1)
+;;   (ido-everywhere 1)
+;;   (flx-ido-mode 1)
+;;   (setq ido-enable-flex-matching t)
+;;   (setq ido-use-faces nil))
 
 ;; (use-package smex
 ;;   :bind (("M-x" . smex)

@@ -18,7 +18,7 @@
 ;; 2017 05 08 add code to move custom-sets/faces to custom.el
 ;; 2017 05 12 additions from purcell-emacs.d
 ;; 2017 08 22 additions from EOS Emacs operating System by Lee Hinman
-
+;; 2017 09 11 package load re-introduced
 
 ;;; Code:
 
@@ -65,21 +65,154 @@
   (require 'init-utils)
 
   (require 'package)
-
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (setq load-prefer-newer t)
 
-;;; Fire up package.el
+  ;; package list
+  (setq package-list
+		'(use-package
+		   aggressive-indent
+		   auto-complete
+		   bash-completion
+		   company-shell
+		   framemove
+		   buffer-move
+		   browse-kill-ring
+		   company
+		   company-quickhelp
+		   company-statistics
+		   smart-tab
+		   dashboard
+		   page-break-lines
+		   deft
+		   dired+
+		   dired-collapse
+		   async
+		   browse-at-remote
+		   dired-rainbow
+		   dired-open
+		   dired-launch
+		   dired-sort
+		   dired-narrow
+		   async
+		   quick-preview
+		   all-the-icons
+		   all-the-icons-dired
+		   ;;elfeed
+		   ;;elfeed-org
+		   fic-ext-mode
+		   flymake
+		   flycheck-color-mode-line
+		   flycheck
+		   flycheck-pos-tip
+		   helm-flycheck
+		   frame-cmds
+		   gist
+		   magit
+		   git-blamed
+		   gitignore-mode
+		   gitconfig-mode
+		   git-timemachine
+		   fullframe
+		   git-messenger
+		   github-clone
+		   github-issues
+		   magit-gh-pulls
+		   golden-ratio
+		   goto-chg
+		   helm
+		   helm-swoop
+		   helm-descbinds
+		   ido
+		   flx-ido
+		   smex
+		   paredit
+		   eldoc
+		   elisp-slime-nav
+		   arduino-mode
+		   batch-mode
+		   conf-mode
+		   crontab-mode
+		   csv-mode
+		   csv-nav
+		   nov
+		   php-mode
+		   textile-mode
+		   yaml-mode
+		   highlight-numbers
+		   dtrt-indent
+		   undo-tree
+		   expand-region
+		   vlf
+		   midnight
+		   beginend
+		   beacon
+		   drag-stuff
+		   avy
+		   google-this
+		   crux
+		   volatile-highlights
+		   rainbow-delimiters
+		   saveplace
+		   bookmark+
+		   rpn-calc
+		   wgrep
+		   ag
+		   wgrep-ag
+		   help-fns+
+		   helpful
+		   whole-line-or-region
+		   mode-icons
+		   org
+		   org-bullets
+		   org-dashboard
+		   projectile
+		   helm-projectile
+		   helm-ag
+		   grep
+		   pip-requirements
+		   python-environment
+		   ediff
+		   python
+		   anaconda-mode
+		   pyvenv
+		   jedi
+		   exec-path-from-shell
+		   with-editor
+		   keychain-environment
+		   eshell
+		   eshell-prompt-extras
+		   flyspell
+		   thesaurus
+		   synosaurus
+		   autoinsert
+		   tramp
+		   pass
+		   view
+		   doc-view
+		   which-key
+		   indent-guide
+		   page-break-lines
+		   whitespace-cleanup-mode
+		   markdown-mode
+		   adoc-mode
+		   skeleton
+		   ))
 
+  ;; Fire up package.el
   (setq package-enable-at-startup nil)
   (package-initialize)
 
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+  ;; install the missing packages
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package)))
 
   (eval-when-compile
     (require 'use-package)
@@ -89,12 +222,9 @@
   (require 'bind-key)
   (require 'cl-lib)
 
-  (unless (package-installed-p 'dashboard)
-    (package-refresh-contents)
-    (package-install 'dashboard))
   (set-fontset-font "fontset-default"
-		    (cons page-break-lines-char page-break-lines-char)
-		    (face-attribute 'default :family))
+					(cons page-break-lines-char page-break-lines-char)
+					(face-attribute 'default :family))
 
   ;; save histories
   (require 'savehist)
@@ -102,9 +232,9 @@
   (savehist-mode 1)
   (setq savehist-save-minibuffer-history 1)
   (setq savehist-additional-variables
-	'(kill-ring
-	  search-ring
-	  regexp-search-ring))
+		'(kill-ring
+		  search-ring
+		  regexp-search-ring))
   (setq-default save-place t)
 
   ;; recompile configs

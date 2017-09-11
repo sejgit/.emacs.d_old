@@ -17,16 +17,17 @@
   :bind
   (:map sej-mode-map
 	("C-M-z" . helm-resume)
-	("C-x C-f" . helm-find-files)
+	;;("C-x C-f" . helm-find-files)
 	("C-x C-r" . helm-mini)
 	("C-x o" . helm-occur)
-	("M-y" . helm-show-kill-ring)
+	;;("M-y" . helm-show-kill-ring)
 	("C-h a" . helm-apropos)
 	;;   ("C-h m" . helm-man-woman)
 	("C-h SPC" . helm-all-mark-rings)
 	;;("M-x" . helm-M-x)
 	("C-x C-b" . helm-buffers-list)
-	("C-x b" . helm-mini)))
+	;;("C-x b" . helm-mini)
+	))
 
 (use-package helm-swoop
   :ensure t

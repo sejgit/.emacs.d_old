@@ -1,5 +1,6 @@
 # emacs stuff
 init-custom.el
+company-statistics.cache.el
 ac-comphist.dat
 el-get/
 #elpa/

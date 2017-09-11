@@ -279,7 +279,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (setq-default indicate-empty-lines nil)
 
 ;; echo keystrokes ; no dialog boxes ; visable bell ; highlight parens
-;;(setq echo-keystrokes 0.1)
+(setq echo-keystrokes 0.1)
 (setq use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
