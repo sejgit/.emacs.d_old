@@ -40,10 +40,6 @@
   (add-hook 'post-command-hook 'flymake-error-at-point))
 
 
-(use-package flycheck-color-mode-line
-  :ensure t
-  :defer 15)
-
 (use-package flycheck
   :ensure t
   :defer 15
@@ -74,12 +70,17 @@
 				      :underline nil)
 		  (set-face-attribute 'flycheck-error nil
 				      :inherit 'error
-				      :underline nil)))
+				      :underline nil))
+  (use-package flycheck-color-mode-line
+    :ensure t
+    :demand
+    :defer 15))
 
 (use-package flycheck-pos-tip
   :ensure t
   :defer 15
   :commands flycheck-pos-tip-error-messages
+  :defines flycheck-pos-tip-timeout
   :config
   (flycheck-pos-tip-mode)
   (setq flycheck-pos-tip-timeout 10

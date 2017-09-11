@@ -1,4 +1,5 @@
 ;;; init-helm.el --- init helm
+
 ;;; Commentary:
 ;; helm frameword settings for Emacs
 
@@ -11,7 +12,7 @@
 
 (use-package helm
   :ensure nil
-  :demand t ;; demand it be loaded!
+  :demand
   :defines sej-mode-map
   :diminish helm-mode
   :bind
@@ -63,6 +64,10 @@
   :init (fset 'describe-bindings 'helm-descbinds))
 
 
-  (provide 'init-helm)
+(provide 'init-helm)
 ;;; init-helm.el ends here
+
+
+
+
 

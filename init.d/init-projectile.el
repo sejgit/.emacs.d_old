@@ -37,9 +37,10 @@
   (use-package helm-projectile
     :ensure t
     :defer 10
-    :init
+    :config
     (use-package helm-ag
-      :ensure t)
+      :ensure t
+      :demand)
     (use-package grep) ;; required for helm-ag to work properly
     (setq projectile-completion-system 'helm)
     ;; no fuzziness for projectile-helm
@@ -47,15 +48,11 @@
     (helm-projectile-on)
     :config
     ;; Add multi-compile to the mix for projects
-    (defun helm-projectile-multi-compile-project (dir)
-      "A Helm action to invoke multi-compile on a project.
-`dir' is the project root."
-      (let ((default-directory dir))
-	(multi-compile-run)))
-
-    ;; Add new projectile binding for multi-compile
-    (helm-projectile-define-key helm-projectile-projects-map
-      (kbd "M-m")  #'helm-projectile-multi-compile-project)))
+    ))
 
 (provide 'init-projectile)
 ;;; init-projectile.el ends here
+
+
+
+

@@ -3,9 +3,11 @@
 
 (define-abbrev-table 'Custom-mode-abbrev-table '())
 
-(define-abbrev-table 'browse-kill-ring-edit-mode-abbrev-table '())
+(define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
-(define-abbrev-table 'browse-kill-ring-mode-abbrev-table '())
+(define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
+
+(define-abbrev-table 'calendar-mode-abbrev-table '())
 
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
@@ -45,13 +47,13 @@
     ("<el" "" (quote eos/org-wrap-elisp) 0)
    ))
 
+(define-abbrev-table 'outline-mode-abbrev-table '())
+
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
-
-(define-abbrev-table 'shell-mode-abbrev-table '())
 
 (define-abbrev-table 'special-mode-abbrev-table '())
 

@@ -30,6 +30,7 @@
   ;; Set up statistics for company completions
   (use-package company-statistics
     :ensure t
+    :demand
     :init (add-hook 'after-init-hook #'company-statistics-mode))
   (use-package company-jedi
     :ensure t
@@ -57,16 +58,19 @@
 
 (use-package company-dabbrev
   :ensure nil
-  :defines cmpany-dabrev-ignore-case company-dabbrev-downcase
+  :defines
+  company-dabbrev-ignore-case
+  company-dabbrev-downcase
   :init
   (setq company-dabbrev-ignore-case nil
         ;; don't downcase dabbrev suggestions
-        company-dabbrev-downcase nil
         company-dabbrev-downcase nil))
 
 (use-package company-dabbrev-code
   :ensure nil
-  :defines company-dabbrev-code-ignore-case company-dabbrev-code-modes
+  :defines
+  company-dabbrev-code-modes
+  company-dabbrev-code-ignore-case
   :init
   (setq company-dabbrev-code-modes t
         company-dabbrev-code-ignore-case nil))
@@ -75,7 +79,8 @@
   :ensure t
   :defer t
   :diminish ""
-  :defines smart-tab-using-hippie-expand
+  :defines
+  smart-tab-using-hippie-expand
   :init
   (setq smart-tab-using-hippie-expand t)
   :config
