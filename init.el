@@ -222,10 +222,6 @@
   (require 'bind-key)
   (require 'cl-lib)
 
-  (set-fontset-font "fontset-default"
-                    (cons page-break-lines-char page-break-lines-char)
-                    (face-attribute 'default :family))
-
   ;; save histories
   (require 'savehist)
   (setq savehist-file (concat user-emacs-directory "savehist"))
