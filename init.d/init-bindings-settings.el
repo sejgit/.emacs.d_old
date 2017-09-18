@@ -151,6 +151,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-j") 'newline-and-indent)
 (define-key sej-mode-map (kbd "C-;") 'comment-dwim)
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
+(define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
 (setq hippie-expand-try-functions-list
       '(hippie-expand-try-functions-list
 	try-complete-file-name-partially
