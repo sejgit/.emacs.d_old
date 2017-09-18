@@ -41,18 +41,11 @@
   :config
   (global-whitespace-cleanup-mode t))
 
-;; insert more often than you think
-(defun lod ()
-  "Well. This is disappointing."
-  (interactive)
-  (insert "ಠ_ಠ"))
-
-(define-key sej-mode-map (kbd "s-l") #'lod)
-
 ;; markdown-mode used a lot on Github
 (use-package markdown-mode
   :ensure t
   :defer t
+  :functions writegood-mode
   :mode
   (("\\`README\\.md\\'" . gfm-mode)
    ("github\\.com.*\\.txt\\'" . gfm-mode)
@@ -157,11 +150,11 @@
 ;; 4. Fourth Item
 ;; This function allows you to hit C-x r N and specify the pattern and starting offset to number lines in rectangular-selection mode:
 (defun number-rectangle (start end format-string from)
-  "Delete (don't save) text in the region-rectangle, then number it."
+  "Delete text in the region-rectangle, then number it."
   (interactive
    (list (region-beginning) (region-end)
          (read-string "Number rectangle: "
-                      (if (looking-back "^ *") "%d. " "%d"))
+                      (if (looking-back "^ *" nil nil) "%d. " "%d"))
          (read-number "From: " 1)))
   (save-excursion
     (goto-char start)

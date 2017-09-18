@@ -23,6 +23,7 @@
 ;; 2017 08 21 add some Lisp stuff from Getting Started with Emacs Lisp
 ;; 2017 08 29 take another run at sej-map
 ;; 2017 09 08 add code to unset C- M- digit keys
+;; 2017 09 18 add goto-line with temp line numbers
 
 ;;; Code:
 
@@ -423,6 +424,17 @@ buffer is not visiting a file."
         (bury-buffer)
       ad-do-it)))
 
+;; line numbers when using goto-line s-l or M-g M-g or M-g g
+(global-set-key [remap goto-line] 'goto-line-with-feedback)
+
+(defun goto-line-with-feedback ()
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive)
+  (unwind-protect
+      (progn
+        (linum-mode 1)
+        (goto-line (read-number "Goto line: ")))
+    (linum-mode -1)))
 
 (provide 'init-bindings-settings)
 ;;; init-bindings-settings.el ends here
