@@ -128,7 +128,7 @@
   :diminish google-this-mode
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("C-c x" . google-this)
+	      ("C-c g" . google-this)
 	      ("s-g" . google-this))
   :config
   (google-this-mode 1))

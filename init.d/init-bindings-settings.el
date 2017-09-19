@@ -139,8 +139,9 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
-(define-key sej-mode-map (kbd "<s-return>") 'eval-last-sexp)
-(define-key sej-mode-map (kbd "<M-return>") 'eval-buffer)
+(define-key sej-mode-map (kbd "<M-return>") 'eval-last-sexp)
+(define-key sej-mode-map (kbd "<s-return>") 'eval-buffer)
+(define-key sej-mode-map (kbd "s-b") 'helm-mini)
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
 (define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined just here for ref
@@ -155,28 +156,30 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
 (setq hippie-expand-try-functions-list
       '(hippie-expand-try-functions-list
-	try-complete-file-name-partially
+        try-complete-file-name-partially
         try-expand-dabbrev
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill
-	try-complete-file-name-partially
+        try-complete-file-name-partially
         try-complete-file-name
-	try-expand-all-abbrevs
-	try-expand-list
-	try-expand-line
-	try-expand-line-all-buffers
-	try-complete-lisp-symbol-partially
-	try-compelete-lisp-symbol))
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-expand-line-all-buffers
+        try-complete-lisp-symbol-partially
+        try-compelete-lisp-symbol))
 
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
 (define-key sej-mode-map (kbd "C-x g") 'magit-status)
-(define-key sej-mode-map (kbd "s-b") 'helm-mini)
 
 (define-key sej-mode-map (kbd "s-0") 'delete-window)
 (define-key sej-mode-map (kbd "s-1") 'delete-other-windows)
 (define-key sej-mode-map (kbd "s-2") 'split-window-vertically)
 (define-key sej-mode-map (kbd "s-3") 'split-window-right)
+(define-key sej-mode-map (kbd "s-4") 'dired-other-frame)
+(define-key sej-mode-map (kbd "s-5") 'make-frame-command)
+(define-key sej-mode-map (kbd "s-6") 'delete-other-frames)
 
 ;;added tips from pragmatic emacs
 (define-key sej-mode-map (kbd "C-x k") 'kill-this-buffer)
@@ -202,9 +205,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-c n") 'cleanup-buffer)
 
 ;; File & buffer finding
-(define-key sej-mode-map (kbd "C-x M-f") 'ido-find-file-other-window)
 (define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
-(define-key sej-mode-map (kbd "C-x f") 'recentf-ido-find-file)
 (define-key sej-mode-map (kbd "C-c y") 'bury-buffer)
 (define-key sej-mode-map (kbd "s-y") 'bury-buffer)
 (define-key sej-mode-map (kbd "C-c r") 'revert-buffer)
