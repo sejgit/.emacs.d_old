@@ -34,23 +34,6 @@
 ;; 	ido-ignore-extensions t
 ;; 	ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf")))
 
-;; ;; making ido completion available in as many places as possible
-;; (use-package ido-completing-read+
-;;   :ensure t
-;;   :defer 2
-;;   :config (ido-ubiquitous-mode t))
-
-;; ;; improves ido searching using fuzzy matching
-;; (use-package flx-ido
-;;   :ensure t
-;;   :defer 2
-;;   :config
-;;   (ido-mode 1)
-;;   (ido-everywhere 1)
-;;   (flx-ido-mode 1)
-;;   (setq ido-enable-flex-matching t)
-;;   (setq ido-use-faces nil))
-
 ;; ;; beter finding of M-x
 ;; (use-package smex
 ;;   :bind (;; ("M-x" . smex)

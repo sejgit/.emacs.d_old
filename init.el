@@ -123,12 +123,14 @@
            magit-gh-pulls
            golden-ratio
            goto-chg
+           ido
+	   smex
+	   ivy
+	   counsel
+	   swiper
            helm
            helm-swoop
            helm-descbinds
-           ido
-           flx-ido
-           smex
            paredit
            eldoc
            elisp-slime-nav
@@ -300,4 +302,19 @@
 
 (provide 'init)
 ;;; init.el ends here
+
+
+;;; ideas for later maybe
+
+;; Need different settings for different machines?
+;; ;; Settings for currently logged in user
+;; (setq user-settings-dir
+;;       (concat user-emacs-directory "users/" user-login-name))
+
+;; ;; Conclude init by setting up specifics for the current user
+;; (when (file-exists-p user-settings-dir)
+;;   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+;; These are the last lines of my init.el. They will load any *.el files in the ~/.emacs.d/users/user-login-name/ folder.
+
+;; Anything specific for that machine goes there.
 

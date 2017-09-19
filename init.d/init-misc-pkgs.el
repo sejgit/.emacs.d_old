@@ -215,7 +215,7 @@
   :defer 10
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("C-h f" . helpful-function)
+	      ;;("C-h f" . helpful-function)
 	      ("C-h c" . helpful-command)
 	      ("C-h M" . helpful-macro)
 	      ("C-h v" . helpful-variable)

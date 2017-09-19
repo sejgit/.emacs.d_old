@@ -95,7 +95,7 @@
   ;; Though see also vc-annotate's "n" & "p" bindings
   (:map sej-mode-map
 	("C-c s p" . git-messenger:popup-message)
-	("s-p" . git-messenger:popup-message)))
+	("s-m" . git-messenger:popup-message)))
 
 ;; easy way to clone a github M-x github-clone (respository directory)
 (use-package github-clone

@@ -24,6 +24,7 @@
 ;; 2017 08 29 take another run at sej-map
 ;; 2017 09 08 add code to unset C- M- digit keys
 ;; 2017 09 18 add goto-line with temp line numbers
+;; 2017 09 19 add transpose keybindings
 
 ;;; Code:
 
@@ -46,6 +47,8 @@
       (setq mac-option-modifier 'super)
       (setq mac-control-modifier 'control)
       (setq ns-function-modifier 'hyper)
+      ;; keybinding to toggle full screen mode
+      (global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
       ))
 ;; (progn
 ;;   (setq w32-pass-lwindow-to-system nil)
@@ -70,8 +73,8 @@
 ;; (fset 'sej-mode-map sej-mode-map)
 
 ;; (defvar sej-mode-map (let ((map (make-sparse-keymap)))
-;; 		       (define-key map sej-keymap-prefix 'sej-mode-map)
-;; 		       map)
+;;           (define-key map sej-keymap-prefix 'sej-mode-map)
+;;           map)
 ;;   "Keymap for 'sej-mode'.")
 
 (defvar sej-mode-map (make-sparse-keymap)
@@ -113,10 +116,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
   (interactive "kUnset key from sej-mode-map: ")
   (define-key sej-mode-map (kbd (key-description key)) nil)
   (message "%s" (format "Unbound %s key from the %s."
-			(propertize (key-description key)
-				    'face 'font-lock-function-name-face)
-			(propertize "sej-mode-map"
-				    'face 'font-lock-function-name-face))))
+                        (propertize (key-description key)
+                                    'face 'font-lock-function-name-face)
+                        (propertize "sej-mode-map"
+                                    'face 'font-lock-function-name-face))))
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
 ;; unset C- and M- digit keys
@@ -142,9 +145,13 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "<M-return>") 'eval-last-sexp)
 (define-key sej-mode-map (kbd "<s-return>") 'eval-buffer)
 (define-key sej-mode-map (kbd "s-b") 'helm-mini)
+(define-key sej-mode-map (kbd "s-d") 'duplicate-current-line-or-region)  ;;defined below
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
 (define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined just here for ref
+;; toggle two most recent buffers
+(fset 'quick-switch-buffer [?\C-x ?b return])
+(define-key sej-mode-map (kbd "s-o") 'quick-switch-buffer)
 
 ;; general keybindings
 (define-key global-map (kbd "C-h C-h") nil)
@@ -185,6 +192,12 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-x k") 'kill-this-buffer)
 (define-key sej-mode-map (kbd "C-x w") 'delete-frame)
 
+;; Zap to char
+(define-key sej-mode-map (kbd "M-z") 'zap-to-char)
+(define-key sej-mode-map (kbd "s-z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
+(define-key sej-mode-map (kbd "C-M-d") 'backward-kill-word)
+(define-key sej-mode-map (kbd "C-c C-k") 'copy-line) ;; defined below
+
 ;;scroll window up/down by one line
 (define-key sej-mode-map (kbd "s-n") (kbd "C-u 1 C-v"))
 (define-key sej-mode-map (kbd "s-p") (kbd "C-u 1 M-v"))
@@ -194,9 +207,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-x C-m") 'execute-extended-command)
 (define-key sej-mode-map (kbd "C-c C-m") 'execute-extended-command)
 
-;;added from emacs-starter-kit
-;; You know, like Readline.
-(define-key sej-mode-map (kbd "C-M-d") 'backward-kill-word)
 
 ;; Align your code in a pretty way.
 (define-key sej-mode-map (kbd "C-x \\") 'align-regexp)
@@ -212,10 +222,18 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
 (define-key sej-mode-map (kbd "M-n") 'bs-cycle-next)
 (define-key sej-mode-map (kbd "M-p") 'bs-cycle-previous)
+(define-key sej-mode-map (kbd "C-c b") 'create-scratch-buffer) ; defined below
+
+;; Transpose stuff with M-t
+(global-unset-key (kbd "M-t")) ;; which used to be transpose-words
+(global-set-key (kbd "M-t l") 'transpose-lines)
+(global-set-key (kbd "M-t w") 'transpose-words)
+(global-set-key (kbd "M-t s") 'transpose-sexps)
+(global-set-key (kbd "M-t p") 'transpose-params)
 
 ;; wind move built in package (default bindins are S-<cursor>)
 (when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
+  (windmove-default-keybindings)) ;; Shift + direction
 (define-key sej-mode-map (kbd "C-c <left>")  'windmove-left)
 (define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
 (define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
@@ -232,10 +250,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
   :ensure t
   :defer t
   :bind (:map sej-mode-map
-	      ("<s-up>" . buf-move-up)
-	      ("<s-down>" . buf-move-down)
-	      ("<s-left>" . buf-move-left)
-	      ("<s-right>" . buf-move-right)))
+              ("<s-up>" . buf-move-up)
+              ("<s-down>" . buf-move-down)
+              ("<s-left>" . buf-move-left)
+              ("<s-right>" . buf-move-right)))
 
 ;; Some beginning settings
 (when (display-graphic-p)
@@ -305,9 +323,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (setq line-move-visual t)
 
 (setq-default backup-directory-alist
-	      '(("." . ".saves")))    ; don't litter my fs tree
+              '(("." . ".saves")))    ; don't litter my fs tree
 
-(setq backup-by-copying t      ; don't clobber symlinks
+(setq vc-make-backup-files t
+      backup-by-copying t      ; don't clobber symlinks
       backup-directory-alist
       '(("." . ".saves"))    ; don't litter my fs tree
       delete-old-versions t
@@ -321,16 +340,31 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; remove kill buffer with live process prompt
 (setq kill-buffer-query-functions
       (remq 'process-kill-buffer-query-function
-	    kill-buffer-query-functions))
+            kill-buffer-query-functions))
 
 (setq-default kill-read-only-ok t)
 
 ;; hide mouse while typing
 (setq make-pointer-invisible t)
 
+;; as name suggests ; defined as C-c b in above keymappings
+(defun create-scratch-buffer nil
+  "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
+  (interactive)
+  (let ((n 0)
+        bufname)
+    (while (progn
+             (setq bufname (concat "*scratch"
+                                   (if (= n 0) "" (int-to-string n))
+                                   "*"))
+             (setq n (1+ n))
+             (get-buffer bufname)))
+    (switch-to-buffer (get-buffer-create bufname))
+    (emacs-lisp-mode)
+    ))
 
-(define-key sej-mode-map "\C-c\C-k" 'copy-line)
 
+;; copy the current line ; mapped to C-c C-k above
 (defun copy-line (&optional arg)
   "Do a 'kill-line' but copy rather than kill.  This function will directly call 'kill-line', so see documentation of 'kill-line' for how to use it including prefix argument ARG and relevant variables.  This function works by temporarily making the buffer read-only, so I suggest setting 'kill-read-only-ok' to t."
   (interactive "P")
@@ -338,6 +372,65 @@ USAGE: (unbind-from-modi-map \"key f\")."
   (kill-line arg)
   (setq buffer-read-only nil)
   (move-beginning-of-line 1))
+
+;; duplicate the current line or region defined ; mapped to s-d above
+(defun duplicate-current-line-or-region (arg)
+  "Duplicates the current line or region ARG times.
+If there's no region, the current line will be duplicated."
+  (interactive "p")
+  (if (region-active-p)
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (duplicate-region arg beg end)
+        (one-shot-keybinding "d" (lambda() (interactive) (duplicate-region 1 beg end))))
+    (duplicate-current-line arg)
+    (one-shot-keybinding "d" 'duplicate-current-line)))
+
+(defun one-shot-keybinding (key command)
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd key) command)
+     map) t))
+
+(defun replace-region-by (fn)
+  (let* ((beg (region-beginning))
+         (end (region-end))
+         (contents (buffer-substring beg end)))
+    (delete-region beg end)
+    (insert (funcall fn contents))))
+
+(defun duplicate-region (&optional num start end)
+  "Duplicates the region bounded by START and END NUM times.
+If no START and END is provided, the current region-beginning and
+region-end is used."
+  (interactive "p")
+  (save-excursion
+    (let* ((start (or start (region-beginning)))
+           (end (or end (region-end)))
+           (region (buffer-substring start end)))
+      (goto-char end)
+      (dotimes (i num)
+        (insert region)))))
+
+(defun paredit-duplicate-current-line ()
+  (back-to-indentation)
+  (let (kill-ring kill-ring-yank-pointer)
+    (paredit-kill)
+    (yank)
+    (newline-and-indent)
+    (yank)))
+
+(defun duplicate-current-line (&optional num)
+  "Duplicate the current line NUM times."
+  (interactive "p")
+  (if (bound-and-true-p paredit-mode)
+      (paredit-duplicate-current-line)
+    (save-excursion
+      (when (eq (point-at-eol) (point-max))
+        (goto-char (point-max))
+        (newline)
+        (forward-char -1))
+      (duplicate-region num (point-at-bol) (1+ (point-at-eol))))))
 
 ;; macro saving
 (defun save-macro (name)
@@ -434,14 +527,8 @@ buffer is not visiting a file."
   (unwind-protect
       (progn
         (linum-mode 1)
-        (goto-line (read-number "Goto line: ")))
+        (with-no-warnings (goto-line (read-number "Goto line: "))))
     (linum-mode -1)))
 
-(provide 'init-bindings-settings)
+  (provide 'init-bindings-settings)
 ;;; init-bindings-settings.el ends here
-
-
-
-
-
-
