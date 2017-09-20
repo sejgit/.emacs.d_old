@@ -23,13 +23,13 @@
   org-agenda-todo-ignore-scheduled
   org-agenda-sorting-strategy
   org-agenda-skip-deadline-prewarning-if-scheduled
+  :functions
+  writegood-mode
   :mode ("\\.org$" . org-mode)
   :bind (:map sej-mode-map ("<f1>" . org-mode)
 	      ("C-c l" . org-store-link)
 	      ("C-c c" . org-capture)
-	      ("C-c a" . org-agenda)
-	      ("C-'" . org-cycle-agenda-files)
-	      ("C-c b" . org-iswitchb))
+	      ("C-c a" . org-agenda))
   :config
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")

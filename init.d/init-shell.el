@@ -7,8 +7,22 @@
 ;; 2017 05 26 add standard use-package terminology
 ;; 2017 08 25 add exec-path-from-shell from EOS
 ;; 2017 09 06 change name to init-shell
+;; 2017 09 20 move bash from init-bash.el to here & delete file
 
 ;;; Code:
+
+(use-package bash-completion
+  :defer 2
+  :commands bash-completion-dynamic-complete
+  :defines explicit-shell-file-name
+  :config
+  (setq explicit-shell-file-name "bash")
+  (setq comint-process-echoes t)
+  (setq bash-completion-process-timeout 0.5)
+  (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)  )
+
+(use-package company-shell
+  :defer 2)
 
 ;; this allows GUI Emacs to inherit $PATH
 (use-package exec-path-from-shell

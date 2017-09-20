@@ -10,8 +10,25 @@
 ;; 2017 08 29 remove yasnippet
 ;; 2017 08 30 change binding to sej-map
 ;; 2017 09 03 rename to init-completion.el update company settings with EOS
+;; 2017 09 20 move hippie-expand settings from init-bindings-settings.el
 
 ;;; Code:
+
+(setq hippie-expand-try-functions-list
+      '(hippie-expand-try-functions-list
+        try-complete-file-name-partially
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-expand-line-all-buffers
+        try-complete-lisp-symbol-partially
+        try-compelete-lisp-symbol))
+
 (use-package company
   :ensure t
   :defer 10

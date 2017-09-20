@@ -9,15 +9,25 @@
 ;; 2017 08 29 map to sej-mode-map & documentation & defer/ensure
 ;; 2017 08 30 deleted a few packages & documented the rest
 ;; 2017 09 18 add full screen for magit-status and return to previous on quit
+;; 2017 09 20 move init-gist.el to here & delete file
 
 ;;; Code:
+
+;; gist client
+(use-package gist
+  :defines sej-mode-map
+  :bind
+  (:map sej-mode-map
+	("C-M-g" . gist-list)
+	("H-g" . gist-list)))
 
 ;; git on Emacs https://github.com/magit/magit
 (use-package magit
   :defer t
   :ensure t
-  :functions fillframe/maaybe-restore-configuration
-  :defines sej-mode-map *is-a-mac*
+  :defines
+  sej-mode-map
+  *is-a-mac*
   :bind
   (:map sej-mode-map
 	([(meta f12)] . magit-status)
@@ -122,5 +132,3 @@
 
 (provide 'init-git)
 ;;;init-git.el ends here
-
-

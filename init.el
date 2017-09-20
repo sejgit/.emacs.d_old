@@ -62,7 +62,6 @@
   (setq gnutls-min-prime-bits 4096)
 
   (add-to-list 'load-path (expand-file-name "init.d" user-emacs-directory))
-  (require 'init-utils)
 
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -241,8 +240,7 @@
     :ensure t
     :init
     (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode)
-    )
+    (auto-compile-on-save-mode))
 
   ;; themes
   (use-package cyberpunk-theme

@@ -1,3 +1,18 @@
+2017-09-20  Stephen Jenkins  <stephenearljenkins@gmail.com>
+
+	* some restructuring ...
+* init-aggressive-indent +-> init-appearance.el
+init-bindings-settings.el /-> self, init-misc-defuns.el, init-appearance, init-movement.el
+* init-autocomplete.el +-> init-lisp.el
+* init-bash.el  +-> init-shell.el
+* init-gist.el  +-> init-git.el
+* init-golden-ratio.el +-> init-appearance.el
+* init-goto-chg.el -> init-movement.el
+* init-which-key.el -> init-misc-pkgs.el
+* init-utils.el -- delete extras & move rest to init-misc-defuns.el
+* int-misc-pkgs.el /-> self, init-appearance.el , init-movement.el
+
+
 2017-08-31  Stephen Jenkins  <stephenearljenkins@gmail.com>
 
 	* init-misc-pkgs.el (drag-stuff): clean-up, defer, map to sej-mode-map

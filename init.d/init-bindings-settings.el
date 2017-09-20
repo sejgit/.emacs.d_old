@@ -12,8 +12,8 @@
 ;; 2017 01 30 add sudo-edit function (C-x C-r) to edit file as sudo
 ;; 2017 03 29 add truncate lines setting
 ;; 2017 05 09 add copy-line C-c C-k
-;; 2017 05 09 add some neat keybindings from emacs-starter-kit
-;; 2017 05 09 rename file to init-bindings-settings.el
+;; 	      add some neat keybindings from emacs-starter-kit
+;; 	      rename file to init-bindings-settings.el
 ;; 2017 05 12 adds from purcell/emacs.d
 ;; 2017 05 21 add delete to trash can
 ;; 2017 05 25 add imenu binding
@@ -24,7 +24,8 @@
 ;; 2017 08 29 take another run at sej-map
 ;; 2017 09 08 add code to unset C- M- digit keys
 ;; 2017 09 18 add goto-line with temp line numbers
-;; 2017 09 19 add transpose keybindings
+;; 2017 09 19 add transpose keybindings & others from magnar
+;; 2017 09 20 make more pure keybindings & move others stuff out
 
 ;;; Code:
 
@@ -42,22 +43,23 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 (if *is-a-mac*
-    (progn
-      (setq mac-command-modifier 'meta)
-      (setq mac-option-modifier 'super)
-      (setq mac-control-modifier 'control)
-      (setq ns-function-modifier 'hyper)
-      ;; keybinding to toggle full screen mode
-      (global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
-      ))
-;; (progn
-;;   (setq w32-pass-lwindow-to-system nil)
-;;   (setq w32-lwindow-modifier 'super)
-;;   (setq w32-pass-rwindow-to-system nil)
-;;   (setq w32-rwindow-modifier 'super)
-;;   (setq w32-pass-apps-to-system nil)
-;;   (setq w32-apps-modifier 'hyper)
-;;   ))
+    (with-no-warnings
+      (progn
+        (setq mac-command-modifier 'meta)
+        (setq mac-option-modifier 'super)
+        (setq mac-control-modifier 'control)
+        (setq ns-function-modifier 'hyper)
+        ;; keybinding to toggle full screen mode
+        (global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
+        )
+      (progn
+        (setq w32-pass-lwindow-to-system nil)
+        (setq w32-lwindow-modifier 'super)
+        (setq w32-pass-rwindow-to-system nil)
+        (setq w32-rwindow-modifier 'super)
+        (setq w32-pass-apps-to-system nil)
+        (setq w32-apps-modifier 'hyper)
+        )))
 
 ;; Below is taken from stackexchange (Emacs)
 ;; Main use is to have my key bindings have the highest priority
@@ -161,20 +163,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-;") 'comment-dwim)
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
-(setq hippie-expand-try-functions-list
-      '(hippie-expand-try-functions-list
-        try-complete-file-name-partially
-        try-expand-dabbrev
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-all-abbrevs
-        try-expand-list
-        try-expand-line
-        try-expand-line-all-buffers
-        try-complete-lisp-symbol-partially
-        try-compelete-lisp-symbol))
 
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
@@ -207,7 +195,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-x C-m") 'execute-extended-command)
 (define-key sej-mode-map (kbd "C-c C-m") 'execute-extended-command)
 
-
 ;; Align your code in a pretty way.
 (define-key sej-mode-map (kbd "C-x \\") 'align-regexp)
 
@@ -239,21 +226,49 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
 (define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
 
-;; framemove will move frames when at limits of current frame
-(use-package framemove
-  :ensure t
-  :config
-  (setq framemove-hook-into-windmove t))
+;; buffer-move package to swap buffers between windows
+;; (defined in init-movement.el)
+(define-key sej-mode-map (kbd "<s-up>") 'buf-move-up)
+(define-key sej-mode-map (kbd "<s-down>") 'buf-move-down)
+(define-key sej-mode-map (kbd "<s-left>") 'buf-move-left)
+(define-key sej-mode-map (kbd "<s-right>") 'buf-move-right)
 
-;; buffer-move to swap buffers between windows
-(use-package buffer-move
-  :ensure t
-  :defer t
-  :bind (:map sej-mode-map
-              ("<s-up>" . buf-move-up)
-              ("<s-down>" . buf-move-down)
-              ("<s-left>" . buf-move-left)
-              ("<s-right>" . buf-move-right)))
+;; goto-chg package
+;; (defined in init-movement.el)
+(define-key sej-mode-map (kbd "M-.") 'goto-last-change)
+(define-key sej-mode-map (kbd "C-M-.") 'goto-last-change)
+(define-key sej-mode-map (kbd "C-,") 'goto-last-change-reverse)
+
+;; avy efficient movement through beginning letters
+;; (defined in init-movement.el)
+(define-key sej-mode-map (kbd "C-<return>") 'avy-goto-word-1)
+
+;; crux package smart beginning of line movement
+;; (defined in init-movement.el)
+(define-key sej-mode-map (kbd "C-a") 'crux-move-beginning-of-line)
+
+;; drag-stuff package
+;; (defined in init-movement.el)
+(define-key sej-mode-map (kbd "M-<down>") 'drag-stuff-down)
+(define-key sej-mode-map (kbd "M-<up>") 'drag-stuff-up)
+
+;; push and jump to mark functions
+;; (defined in init-misc-defuns.el)
+(define-key sej-mode-map (kbd "C-`") 'push-mark-no-activate)
+(define-key sej-mode-map (kbd "M-`") 'jump-to-mark)
+
+;; cleanup-buffer function
+;; (defined in init-misc-defuns.el)
+(define-key sej-mode-map (kbd "M-c") 'cleanup-buffer)
+
+;; function to edit the curent file as root
+;; (defined in init-misc-defuns.el)
+(define-key sej-mode-map (kbd "C-x C-r") 'sudo-edit)
+
+;; line numbers when using goto-line s-l or M-g M-g or M-g g
+;; (defined in init-misc-defuns.el)
+(global-set-key [remap goto-line] 'goto-line-with-feedback)
+
 
 ;; Some beginning settings
 (when (display-graphic-p)
@@ -274,6 +289,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; don't indicate empty or end of a buffer
 (setq-default indicate-empty-lines nil)
 (setq-default indicate-buffer-boundaries nil)
+(setq-default show-trailing-whitespace t)
 
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
@@ -347,163 +363,15 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; hide mouse while typing
 (setq make-pointer-invisible t)
 
-;; as name suggests ; defined as C-c b in above keymappings
-(defun create-scratch-buffer nil
-  "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
-  (interactive)
-  (let ((n 0)
-        bufname)
-    (while (progn
-             (setq bufname (concat "*scratch"
-                                   (if (= n 0) "" (int-to-string n))
-                                   "*"))
-             (setq n (1+ n))
-             (get-buffer bufname)))
-    (switch-to-buffer (get-buffer-create bufname))
-    (emacs-lisp-mode)
-    ))
-
-
-;; copy the current line ; mapped to C-c C-k above
-(defun copy-line (&optional arg)
-  "Do a 'kill-line' but copy rather than kill.  This function will directly call 'kill-line', so see documentation of 'kill-line' for how to use it including prefix argument ARG and relevant variables.  This function works by temporarily making the buffer read-only, so I suggest setting 'kill-read-only-ok' to t."
-  (interactive "P")
-  (setq buffer-read-only t)
-  (kill-line arg)
-  (setq buffer-read-only nil)
-  (move-beginning-of-line 1))
-
-;; duplicate the current line or region defined ; mapped to s-d above
-(defun duplicate-current-line-or-region (arg)
-  "Duplicates the current line or region ARG times.
-If there's no region, the current line will be duplicated."
-  (interactive "p")
-  (if (region-active-p)
-      (let ((beg (region-beginning))
-            (end (region-end)))
-        (duplicate-region arg beg end)
-        (one-shot-keybinding "d" (lambda() (interactive) (duplicate-region 1 beg end))))
-    (duplicate-current-line arg)
-    (one-shot-keybinding "d" 'duplicate-current-line)))
-
-(defun one-shot-keybinding (key command)
-  (set-transient-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (kbd key) command)
-     map) t))
-
-(defun replace-region-by (fn)
-  (let* ((beg (region-beginning))
-         (end (region-end))
-         (contents (buffer-substring beg end)))
-    (delete-region beg end)
-    (insert (funcall fn contents))))
-
-(defun duplicate-region (&optional num start end)
-  "Duplicates the region bounded by START and END NUM times.
-If no START and END is provided, the current region-beginning and
-region-end is used."
-  (interactive "p")
-  (save-excursion
-    (let* ((start (or start (region-beginning)))
-           (end (or end (region-end)))
-           (region (buffer-substring start end)))
-      (goto-char end)
-      (dotimes (i num)
-        (insert region)))))
-
-(defun paredit-duplicate-current-line ()
-  (back-to-indentation)
-  (let (kill-ring kill-ring-yank-pointer)
-    (paredit-kill)
-    (yank)
-    (newline-and-indent)
-    (yank)))
-
-(defun duplicate-current-line (&optional num)
-  "Duplicate the current line NUM times."
-  (interactive "p")
-  (if (bound-and-true-p paredit-mode)
-      (paredit-duplicate-current-line)
-    (save-excursion
-      (when (eq (point-at-eol) (point-max))
-        (goto-char (point-max))
-        (newline)
-        (forward-char -1))
-      (duplicate-region num (point-at-bol) (1+ (point-at-eol))))))
-
-;; macro saving
-(defun save-macro (name)
-  "Save a macro.  Take a NAME as argument and save the last defined macro under this name at the end of your init file."
-  (interactive "SName of the macro :")
-  (kmacro-name-last-macro name)
-  (find-file user-init-file)
-  (goto-char (point-max))
-  (newline)
-  (insert-kbd-macro name)
-  (newline)
-  (switch-to-buffer nil))
-
-;; indentation and buffer cleanup
-(defun untabify-buffer ()
-  "Remove tabs from a buffer and replace with spaces."
-  (interactive)
-  (untabify (point-min) (point-max)))
-
-(defun indent-buffer ()
-  "Indent current buffer."
-  (interactive)
-  (indent-region (point-min) (point-max)))
-
-(defun cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer."
-  (interactive)
-  (indent-buffer)
-  (untabify-buffer)
-  (delete-trailing-whitespace))
-
-(define-key sej-mode-map (kbd "M-c") 'cleanup-buffer)
-
-(setq-default show-trailing-whitespace t)
-
-(defun push-mark-no-activate ()
-  "Pushes `point' to `mark-ring' and does not activate the region.  Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled."
-  (interactive)
-  (push-mark (point) t nil)
-  (message "Pushed mark to ring"))
-
-(defun jump-to-mark ()
-  "Jumps to the local mark, respecting the `mark-ring' order.  This is the same as using \\[set-mark-command] with the prefix argument."
-  (interactive)
-  (set-mark-command 1))
-
-(define-key sej-mode-map (kbd "C-`") 'push-mark-no-activate)
-(define-key sej-mode-map (kbd "M-`") 'jump-to-mark)
 
 ;; color codes
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
-
 ;; Save whatever’s in the current (system) clipboard before
 ;; replacing it with the Emacs’ text.
 ;; https://github.com/dakrone/eos/blob/master/eos.org
 (setq save-interprogram-paste-before-kill t)
-
-;; function to edit the curent file as root
-(defun sudo-edit (&optional arg)
-  "Edit currently visited file as root.
-
-With a prefix ARG prompt for a file to visit.
-Will also prompt for a file to visit if current
-buffer is not visiting a file."
-  (interactive "P")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:"
-                         (ido-read-file-name "Find file(as root): ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
-(define-key sej-mode-map (kbd "C-x C-r") 'sudo-edit)
 
 ;; uniquify settings
 (setq uniquify-buffer-name-style 'reverse)
@@ -518,17 +386,5 @@ buffer is not visiting a file."
         (bury-buffer)
       ad-do-it)))
 
-;; line numbers when using goto-line s-l or M-g M-g or M-g g
-(global-set-key [remap goto-line] 'goto-line-with-feedback)
-
-(defun goto-line-with-feedback ()
-  "Show line numbers temporarily, while prompting for the line number input"
-  (interactive)
-  (unwind-protect
-      (progn
-        (linum-mode 1)
-        (with-no-warnings (goto-line (read-number "Goto line: "))))
-    (linum-mode -1)))
-
-  (provide 'init-bindings-settings)
+(provide 'init-bindings-settings)
 ;;; init-bindings-settings.el ends here

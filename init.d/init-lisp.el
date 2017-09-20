@@ -7,9 +7,29 @@
 ;; 2017 08 25 init SeJ
 ;; 2017 08 28 added some paredit, eldoc, & ielm settings from EOS
 ;; 2017 08 30 clean up some comments & defers
+;; 2017 09 20 move autocomplete from init-autocomplete.el & delete file
+;;            move paredit defun from init-bindings-settings.el
 
 ;;; Code:
 
+;; autocomplete
+(use-package auto-complete
+  :defer 2
+  :config
+  (ac-config-default)
+  (global-auto-complete-mode t)
+  )
+
+(defun ielm-auto-complete ()
+  "Enables `auto-complete' support in \\[ielm]."
+  (setq ac-sources '(ac-source-functions
+		     ac-source-variables
+		     ac-source-features
+		     ac-source-symbols
+		     ac-source-words-in-same-mode-buffers))
+  (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
+  (auto-complete-mode 1))
+(add-hook 'ielm-mode-hook 'ielm-auto-complete)
 
 ;; toggle-debug-on-error
 (define-key emacs-lisp-mode-map (kbd "C-c d") 'toggle-debug-on-error)
@@ -18,7 +38,11 @@
 (use-package paredit
   :ensure t
   :defer t
-  :commands paredit-mode
+  :commands
+  paredit-mode
+  paredit-kill
+  :diminish
+  paredit-mode
   :config
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
   (add-hook 'ielm-mode-hook #'paredit-mode)
@@ -34,8 +58,15 @@
       'paredit-backward-slurp-sexp)
     ;; ESC-C-right
     (define-key paredit-mode-map (kbd "ESC M-]")
-      'paredit-backward-barf-sexp)))
-
+      'paredit-backward-barf-sexp))
+  (defun paredit-duplicate-current-line ()
+    "Paredit duplicate current line."
+    (back-to-indentation)
+    (let (kill-ring kill-ring-yank-pointer)
+      (paredit-kill)
+      (yank)
+      (newline-and-indent)
+      (yank)))  )
 
 ;; like rainbow-delimiters in elisp modes
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
