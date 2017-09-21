@@ -58,15 +58,7 @@
       'paredit-backward-slurp-sexp)
     ;; ESC-C-right
     (define-key paredit-mode-map (kbd "ESC M-]")
-      'paredit-backward-barf-sexp))
-  (defun paredit-duplicate-current-line ()
-    "Paredit duplicate current line."
-    (back-to-indentation)
-    (let (kill-ring kill-ring-yank-pointer)
-      (paredit-kill)
-      (yank)
-      (newline-and-indent)
-      (yank)))  )
+      'paredit-backward-barf-sexp)))
 
 ;; like rainbow-delimiters in elisp modes
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)

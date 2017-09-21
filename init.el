@@ -19,6 +19,7 @@
 ;; 2017 05 12 additions from purcell-emacs.d
 ;; 2017 08 22 additions from EOS Emacs operating System by Lee Hinman
 ;; 2017 09 11 package load re-introduced
+;; 2017 09 21 reordering per ideas from magnars
 
 ;;; Code:
 
@@ -29,6 +30,17 @@
 (defvar emacs-start-time (current-time)
   "Time Emacs was started.")
 
+;; define a const for mac behaviour
+(defconst *is-a-mac* (eq system-type 'darwin))
+
+;; Turn off mouse interface early in startup to avoid momentary display
+(if (fboundp 'menu-bar-mode) (menu-bar-mode t))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+;; No splash screen
+(setq inhibit-startup-message t)
+
 ;; reduce garbage collection
 (setq gc-cons-threshold (* 50 1024 1024))
 
@@ -36,6 +48,9 @@
 ;; whoami
 (setq user-full-name "Stephen Jenkins")
 (setq user-mail-address "stephenearljenkins@gmail.com")
+
+(defvar init-dir
+  (expand-file-name "init.d" user-emacs-directory))
 
 (let ((minver "24.1"))
   (when (version<= emacs-version minver)
@@ -45,9 +60,6 @@
 
 ;; wrap init in this to reduce file access times
 (let ((file-name-handler-alist nil))
-
-  ;; define a const for mac behaviour
-  (defconst *is-a-mac* (eq system-type 'darwin))
 
   ;; turn on syntax highlightng for all buffers
   (global-font-lock-mode t)
@@ -61,147 +73,19 @@
   ;; make gnutls a bit safer
   (setq gnutls-min-prime-bits 4096)
 
-  (add-to-list 'load-path (expand-file-name "init.d" user-emacs-directory))
+  ;; remove irritating 'got redefined' messages
+  (setq ad-redefinition-action 'accept)
+
+  (add-to-list 'load-path init-dir)
+  (setq custom-file (expand-file-name "init-custom.el" init-dir))
+  (load custom-file 'noerror)
 
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (setq load-prefer-newer t)
-
-  ;; package list
-  (setq package-list
-        '(use-package
-           aggressive-indent
-           auto-complete
-           bash-completion
-           company-shell
-           framemove
-           buffer-move
-           browse-kill-ring
-           company
-           company-quickhelp
-           company-statistics
-           smart-tab
-           dashboard
-           page-break-lines
-           deft
-           dired+
-           dired-collapse
-           async
-           browse-at-remote
-           dired-rainbow
-           dired-open
-           dired-launch
-           dired-sort
-           dired-narrow
-           async
-           quick-preview
-           all-the-icons
-           all-the-icons-dired
-           ;;elfeed
-           ;;elfeed-org
-           fic-mode
-           flymake
-           flycheck-color-mode-line
-           flycheck
-           flycheck-pos-tip
-           helm-flycheck
-           frame-cmds
-           gist
-           magit
-           git-blamed
-           gitignore-mode
-           gitconfig-mode
-           git-timemachine
-           fullframe
-           git-messenger
-           github-clone
-           github-issues
-           magit-gh-pulls
-           golden-ratio
-           goto-chg
-           ido
-	   smex
-	   ivy
-	   counsel
-	   swiper
-           helm
-           helm-swoop
-           helm-descbinds
-           paredit
-           eldoc
-           elisp-slime-nav
-           arduino-mode
-           batch-mode
-           conf-mode
-           crontab-mode
-           csv-mode
-           csv-nav
-           nov
-           php-mode
-           textile-mode
-           yaml-mode
-           highlight-numbers
-           dtrt-indent
-           undo-tree
-           expand-region
-           vlf
-           midnight
-           beginend
-           beacon
-           drag-stuff
-           avy
-           google-this
-           crux
-           volatile-highlights
-           rainbow-delimiters
-           saveplace
-           bookmark+
-           rpn-calc
-           wgrep
-           ag
-           wgrep-ag
-           help-fns+
-           helpful
-           whole-line-or-region
-           mode-icons
-           org
-           org-bullets
-           org-dashboard
-           projectile
-           helm-projectile
-           helm-ag
-           grep
-           pip-requirements
-           python-environment
-           ediff
-           python
-           anaconda-mode
-           pyvenv
-           jedi
-           exec-path-from-shell
-           with-editor
-           keychain-environment
-           eshell
-           eshell-prompt-extras
-           flyspell
-           thesaurus
-           synosaurus
-           autoinsert
-           tramp
-           pass
-           view
-           doc-view
-           which-key
-           indent-guide
-           page-break-lines
-           whitespace-cleanup-mode
-           markdown-mode
-           adoc-mode
-           skeleton
-           ))
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
@@ -210,18 +94,170 @@
   (unless package-archive-contents
     (package-refresh-contents))
 
-  ;; install the missing packages
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-install package)))
-
   (eval-when-compile
     (require 'use-package)
-    (setq use-package-always-ensure t))
+    (setq use-package-always-ensure t)
+    )
   (require 'cl)
   (require 'diminish)
   (require 'bind-key)
   (require 'cl-lib)
+
+  ;; Lame, server has bad autoloads :(
+  (require 'server nil t)
+  (use-package server
+    ;;  :if window-system
+    :init
+    (when (not (server-running-p server-name))
+      (server-start)))
+
+  ;; Remove security vulnerability
+  (eval-after-load "enriched"
+    '(defun enriched-decode-display-prop (start end &optional param)
+       (list start end)))
+
+  ;; load preferred theme at startup
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions #'load-cyberpunk-theme)
+    (load-theme 'cyberpunk t) )
+
+  ;; package list
+  (defvar package-list
+    '(use-package
+       aggressive-indent
+       auto-complete
+       bash-completion
+       company-shell
+       framemove
+       buffer-move
+       browse-kill-ring
+       company
+       company-quickhelp
+       company-statistics
+       smart-tab
+       dashboard
+       page-break-lines
+       deft
+       dired+
+       dired-collapse
+       async
+       browse-at-remote
+       dired-rainbow
+       dired-open
+       dired-launch
+       dired-sort
+       dired-narrow
+       async
+       quick-preview
+       all-the-icons
+       all-the-icons-dired
+       ;;elfeed
+       ;;elfeed-org
+       fic-mode
+       flymake
+       flycheck-color-mode-line
+       flycheck
+       flycheck-pos-tip
+       helm-flycheck
+       frame-cmds
+       gist
+       magit
+       git-blamed
+       gitignore-mode
+       gitconfig-mode
+       git-timemachine
+       fullframe
+       git-messenger
+       github-clone
+       github-issues
+       magit-gh-pulls
+       golden-ratio
+       goto-chg
+       ido
+       smex
+       ivy
+       counsel
+       swiper
+       helm
+       helm-swoop
+       helm-descbinds
+       paredit
+       eldoc
+       elisp-slime-nav
+       arduino-mode
+       batch-mode
+       conf-mode
+       crontab-mode
+       csv-mode
+       csv-nav
+       nov
+       php-mode
+       textile-mode
+       yaml-mode
+       highlight-numbers
+       dtrt-indent
+       undo-tree
+       expand-region
+       vlf
+       midnight
+       beginend
+       beacon
+       drag-stuff
+       avy
+       google-this
+       crux
+       volatile-highlights
+       rainbow-delimiters
+       saveplace
+       bookmark+
+       rpn-calc
+       wgrep
+       ag
+       wgrep-ag
+       help-fns+
+       helpful
+       whole-line-or-region
+       mode-icons
+       org
+       org-bullets
+       org-dashboard
+       projectile
+       helm-projectile
+       helm-ag
+       grep
+       pip-requirements
+       python-environment
+       ediff
+       python
+       anaconda-mode
+       pyvenv
+       jedi
+       exec-path-from-shell
+       with-editor
+       keychain-environment
+       eshell
+       eshell-prompt-extras
+       flyspell
+       thesaurus
+       synosaurus
+       autoinsert
+       tramp
+       pass
+       view
+       doc-view
+       which-key
+       indent-guide
+       page-break-lines
+       whitespace-cleanup-mode
+       markdown-mode
+       adoc-mode
+       skeleton
+       ))
+
+  ;; install the missing packages
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package)))
 
   ;; save histories
   (require 'savehist)
@@ -253,9 +289,6 @@
       ;;(set-frame-size-according-to-resolution)
       (switch-to-buffer "*dashboard*")))
 
-  ;; remove irritating 'got redefined' messages
-  (setq ad-redefinition-action 'accept)
-
   ;; init.d
   (random t)
   (use-package load-dir
@@ -271,27 +304,11 @@
     :config
     (load-dir-one my-init-dir))
 
-
-  ;; load preferred theme at startup
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions #'load-cyberpunk-theme)
-    (load-theme 'cyberpunk t) )
-
-  (switch-to-buffer "*dashboard*")
-  (declare-function sej-frame-resize-r "init-frame-cmds.el" nil)
+  (declare-function sej-frame-resize-r (expand-file-name "init-frame-cmds" init-dir) nil)
   (when (display-graphic-p) (sej-frame-resize-r))
 
-  (setq custom-file "~/.emacs.d/init.d/init-custom.el")
-  (load custom-file 'noerror)
-
-  ;; Lame, server has bad autoloads :(
-  (require 'server nil t)
-  (use-package server
-    ;;  :if window-system
-    :init
-    (when (not (server-running-p server-name))
-      (server-start)))
-
+  (load-cyberpunk-theme(selected-frame))
+  ;;(switch-to-buffer "*dashboard*")
   (use-package uptimes)
 
   (setq debug-on-error nil)

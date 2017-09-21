@@ -1,8 +1,8 @@
-;;; init-bindings-settings.el --- bindings & settings
+;;; init+bindings.el --- Emacs bindings
 ;;; Commentary:
 ;; Main file for keybindings.
 
-;;; ChangeLog
+;;; ChangeLog:
 ;; 2016 12 16 init SeJ
 ;; 2016 12 21 add kill-this-buffer
 ;; 2017 01 06 cleanup by move of packages to init-misc-pkgs.el
@@ -124,6 +124,22 @@ USAGE: (unbind-from-modi-map \"key f\")."
                                     'face 'font-lock-function-name-face))))
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
+;; shorthand for interactive lambdas
+(defmacro λ (&rest body)
+  `(lambda ()
+     (interactive)
+     ,@body))
+
+(global-set-key (kbd "H-l") (λ (insert "\u03bb")))
+(global-set-key (kbd "C-x 8 l") (λ (insert "\u03bb")))
+;; More neat bindings for C-x 8
+(global-set-key (kbd "C-x 8 t m") (λ (insert "™")))
+(global-set-key (kbd "C-x 8 C") (λ (insert "©")))
+(global-set-key (kbd "C-x 8 - >") (λ (insert "→")))
+(global-set-key (kbd "C-x 8 8") (λ (insert "∞")))
+(global-set-key (kbd "C-x 8 v") (λ (insert "✓")))
+
+
 ;; unset C- and M- digit keys
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n)))
@@ -221,10 +237,11 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; wind move built in package (default bindins are S-<cursor>)
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings)) ;; Shift + direction
-(define-key sej-mode-map (kbd "C-c <left>")  'windmove-left)
-(define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
-(define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
-(define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
+(winner-mode t)
+;;(define-key sej-mode-map (kbd "C-c <left>")  'windmove-left)
+;;(define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
+;;(define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
+;;(define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
 
 ;; buffer-move package to swap buffers between windows
 ;; (defined in init-movement.el)
@@ -270,121 +287,5 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
 
 
-;; Some beginning settings
-(when (display-graphic-p)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1))
-(menu-bar-mode t)
-(column-number-mode nil)
-(setq next-line-add-newlines t)
-
-;; indentation & fill column
-(setq tab-width 2
-      indent-tabs-mode nil
-      fill-column 80)
-
-;; yes and no settings
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; don't indicate empty or end of a buffer
-(setq-default indicate-empty-lines nil)
-(setq-default indicate-buffer-boundaries nil)
-(setq-default show-trailing-whitespace t)
-
-;;keep cursor at same position when scrolling
-(setq scroll-preserve-screen-position 1)
-(setq scroll-margin 3)
-
-;; each line of text gets one line on the screen
-(setq-default truncate-lines 1)
-(setq truncate-partial-width-windows 1)
-
-;; ignore case when searching
-(setq-default case-fold-search 1)
-
-;; require final newlines in files when they are saved
-(setq require-final-newline 1)
-;; add a new line when going to the next line
-(setq next-line-add-newlines t)
-
-;; marking text and clipboard settings
-(delete-selection-mode nil)
-(transient-mark-mode t)
-(setq select-enable-clipboard t)
-
-;; empty line settings
-(setq-default indicate-empty-lines nil)
-
-;; echo keystrokes ; no dialog boxes ; visable bell ; highlight parens
-(setq echo-keystrokes 0.1)
-(setq use-dialog-box nil
-      visible-bell t)
-(show-paren-mode t)
-
-;; electric-pair-mode
-(electric-pair-mode t)
-(electric-layout-mode t)
-(electric-indent-mode t)
-;; Ignore electric indentation for python and yaml
-(defun electric-indent-ignore-mode (char)
-  "Ignore electric indentation for 'python-mode'.  CHAR is input character."
-  (if (or (equal major-mode 'python-mode)
-          (equal major-mode 'yaml-mode))
-      'no-indent
-    nil))
-(add-hook 'electric-indent-functions 'electric-indent-ignore-mode)
-
-;; Add proper word wrapping
-(global-visual-line-mode t)
-(setq line-move-visual t)
-
-(setq-default backup-directory-alist
-              '(("." . ".saves")))    ; don't litter my fs tree
-
-(setq vc-make-backup-files t
-      backup-by-copying t      ; don't clobber symlinks
-      backup-directory-alist
-      '(("." . ".saves"))    ; don't litter my fs tree
-      delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t)       ; use versioned backups
-
-;; delete to trash can
-(setq delete-by-moving-to-trash t)
-
-;; remove kill buffer with live process prompt
-(setq kill-buffer-query-functions
-      (remq 'process-kill-buffer-query-function
-            kill-buffer-query-functions))
-
-(setq-default kill-read-only-ok t)
-
-;; hide mouse while typing
-(setq make-pointer-invisible t)
-
-
-;; color codes
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-(add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
-
-;; Save whatever’s in the current (system) clipboard before
-;; replacing it with the Emacs’ text.
-;; https://github.com/dakrone/eos/blob/master/eos.org
-(setq save-interprogram-paste-before-kill t)
-
-;; uniquify settings
-(setq uniquify-buffer-name-style 'reverse)
-(setq uniquify-separator " • ")
-(setq uniquify-after-kill-buffer-p t)
-(setq uniquify-ignore-buffers-re "^\\*")
-
-(defadvice kill-buffer (around kill-buffer-around-advice activate)
-  "Bury the *scratch* buffer, but never kill it."
-  (let ((buffer-to-kill (ad-get-arg 0)))
-    (if (equal buffer-to-kill "*scratch*")
-        (bury-buffer)
-      ad-do-it)))
-
-(provide 'init-bindings-settings)
-;;; init-bindings-settings.el ends here
+(provide 'init+bindings)
+;;; init+bindings.el ends here

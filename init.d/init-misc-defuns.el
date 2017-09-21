@@ -14,9 +14,11 @@
 
 ;; from https://gist.github.com/the-kenny/267162
 (defun copy-from-osx ()
+  "For copying from osx."
   (shell-command-to-string "pbpaste"))
 
 (defun paste-to-osx (text &optional push)
+  "For copying to osx TEXT with optional PUSH."
   (let ((process-connection-type nil))
     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
       (process-send-string proc text)
@@ -28,7 +30,7 @@
 
 ;; as name suggests ; defined as C-c b in above keymappings
 (defun create-scratch-buffer nil
-  "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
+  "Create a new scratch buffer to work in (could be *scratch* - *scratchX*)."
   (interactive)
   (let ((n 0)
 	bufname)
@@ -66,12 +68,14 @@ If there's no region, the current line will be duplicated."
     (one-shot-keybinding "d" 'duplicate-current-line)))
 
 (defun one-shot-keybinding (key command)
+  "One shot keybinding of KEY and COMMAND."
   (set-transient-map
    (let ((map (make-sparse-keymap)))
      (define-key map (kbd key) command)
      map) t))
 
 (defun replace-region-by (fn)
+  "Replace regiion by FN."
   (let* ((beg (region-beginning))
 	 (end (region-end))
 	 (contents (buffer-substring beg end)))
@@ -79,9 +83,8 @@ If there's no region, the current line will be duplicated."
     (insert (funcall fn contents))))
 
 (defun duplicate-region (&optional num start end)
-  "Duplicates the region bounded by START and END NUM times.
-If no START and END is provided, the current region-beginning and
-region-end is used."
+  "Duplicates the region NUM times bounded by START and END.
+If no START and END is provided, the current 'region-beginning' and 'region-end' is used."
   (interactive "p")
   (save-excursion
     (let* ((start (or start (region-beginning)))
@@ -102,6 +105,15 @@ region-end is used."
 	(newline)
 	(forward-char -1))
       (duplicate-region num (point-at-bol) (1+ (point-at-eol))))))
+
+(defun paredit-duplicate-current-line ()
+  "Paredit duplicate current line."
+  (back-to-indentation)
+  (let (kill-ring kill-ring-yank-pointer)
+    (paredit-kill)
+    (yank)
+    (newline-and-indent)
+    (yank)))
 
 ;; macro saving
 (defun save-macro (name)
@@ -159,7 +171,7 @@ buffer is not visiting a file."
 
 ;; line numbers when using goto-line s-l or M-g M-g or M-g g
 (defun goto-line-with-feedback ()
-  "Show line numbers temporarily, while prompting for the line number input"
+  "Show line numbers temporarily, while prompting for the line number input."
   (interactive)
   (unwind-protect
       (progn
@@ -167,6 +179,16 @@ buffer is not visiting a file."
 	(with-no-warnings (goto-line (read-number "Goto line: "))))
     (linum-mode -1)))
 
+;; Offer to create parent directories if they do not exist
+;; http://iqbalansari.github.io/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/
+(defun my-create-non-existent-directory ()
+  "Ask to make directory for file if it does not exist."
+  (let ((parent-directory (file-name-directory buffer-file-name)))
+    (when (and (not (file-exists-p parent-directory))
+	       (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
+      (make-directory parent-directory t))))
+
+(add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
 
 
 (provide 'init-misc-defuns)
