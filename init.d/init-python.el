@@ -34,25 +34,30 @@
   (setq-default ediff-split-window-function
 		(quote split-window-vertically)))
 
-(use-package python
-  :ensure t
-  :defer t
-  :interpreter "python"
-  :bind (:map python-mode-map
-	      ("<backtab>" . python-back-indent)
-	      ("<f9>" . py-insert-debug))
-  :mode (("\\.py$" . python-mode)
-         ("\\.cpy$" . python-mode)
-         ("\\.vpy$" . python-mode))
-  :init
-  (setq python-shell-interpreter "ipython3 --simple-prompt -i"
-	python-shell-interpreter-args "--simple-prompt -i")
-  :config
-  (add-hook 'python-mode-hook 'flycheck-mode)
+;; (use-package python
+;;   :ensure t
+;;   :defer t
+;;   :interpreter "python"
+;;   :bind (:map python-mode-map
+;; 			  ("<backtab>" . python-back-indent)
+;; 			  ("<f9>" . py-insert-debug))
+;;   :mode (("\\.py$" . python-mode)
+;;          ("\\.cpy$" . python-mode)
+;;          ("\\.vpy$" . python-mode))
+;;   :init
+;;   (setq python-shell-interpreter "ipython"
+;; 		python-shell-interpreter-args "--simple-prompt -i")
+;;   :config
+;;   (add-hook 'python-mode-hook 'flycheck-mode)
 
-  (add-hook 'python-mode-hook
-	    (lambda ()
-	      (add-to-list 'flycheck-disabled-checkers 'python-pylint)))
+;;   (add-hook 'python-mode-hook
+;; 			(lambda ()
+;; 			  (add-to-list 'flycheck-disabled-checkers 'python-pylint)))
+
+(use-package elpy
+  :ensure t
+  :config
+  (elpy-enable)
 
   (define-skeleton python-insert-docstring
     "Insert a Python docstring."
@@ -91,7 +96,10 @@
   :bind (:map python-mode-map
 	      ("C-." . jedi:goto-definition)
 	      ("C-c r" . jedi:related-names)
-	      ("C-?" . jedi:show-doc)))
+	      ("C-?" . jedi:show-doc))
+  :config
+  (setq elpy-rpc-backend "jedi"))
+
 
 
 (provide 'init-python)

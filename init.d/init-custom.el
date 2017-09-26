@@ -22,13 +22,4 @@
  '(rainbow-delimiters-depth-8-face ((t (:foreground "black" :height 1.0))))
  '(rainbow-delimiters-unmatched-face ((t (:background "cyan" :height 1.0)))))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "/Users/stephenjenkins/.emacs.d/bookmarks")
- '(midnight-mode t)
- '(package-selected-packages
-   (quote
-    (counsel ivy ivy-mode swiper ido-completing-read+ fic-mode adoc-mode markdown-mode whitespace-cleanup-mode indent-guide which-key pass synosaurus thesaurus eshell-prompt-extras keychain-environment with-editor exec-path-from-shell jedi pyenv-mode-auto pyvenv company-anaconda anaconda-mode pip-requirements projectile helm-projectile helm-ag org-dashboard org-bullets mode-icons whole-line-or-region helpful help-fns+ wgrep-ag ag wgrep rpn-calc rainbow-delimiters volatile-highlights crux google-this avy drag-stuff beacon beginend vlf expand-region undo-tree dtrt-indent highlight-numbers yaml-mode textile-mode php-mode smarty-mode nov csv-nav csv-mode crontab-mode batch-mode arduino-mode elisp-slime-nav paredit flx-ido goto-chg golden-ratio magit-gh-pulls github-issues github-clone git-messenger fullframe git-timemachine gitconfig-mode gitignore-mode git-blamed magit gist frame-cmds helm-flycheck flycheck-pos-tip flycheck-color-mode-line dired+ all-the-icons-dired all-the-icons quick-preview dired-narrow dired-sort dired-launch dired-open dired-rainbow browse-at-remote dired-collapse deft buffer-move framemove company-shell bash-completion auto-complete aggressive-indent el-get helm-descbinds helm-swoop smart-tab company-jedi company-statistics company-quickhelp uptimes use-package load-dir dashboard cyberpunk-theme browse-kill-ring auto-compile))))
+(custom-set-variables)
