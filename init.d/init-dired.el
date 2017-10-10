@@ -11,6 +11,8 @@
 ;; 2017 08 29 cleanup title block and use-package settings
 ;; 2017 09 05 changes from EOS
 ;; 2017 09 07 added and commented out dired-du (slows down dired a lot!)
+;; 2017 10 10 added dired-subtree for expansion of directories within buffer
+
 
 ;;; Code:
 
@@ -88,12 +90,12 @@ It added extra strings at the front and back of the default dired buffer name."
     ;; Details toggling is bound to "(" in `dired-mode' by default
     (setq diredp-hide-details-initially-flag nil)
     :config
-      (setq dired-omit-verbose t)
-  ;; hide backup, autosave, *.*~ files
-  ;; omit mode can be toggled using `C-x M-o' in dired buffer
-  (add-hook 'dired-mode-hook #'dired-omit-mode)
+    (setq dired-omit-verbose t)
+    ;; hide backup, autosave, *.*~ files
+    ;; omit mode can be toggled using `C-x M-o' in dired buffer
+    (add-hook 'dired-mode-hook #'dired-omit-mode)
 
-  ;; Privilege indicator faces
+    ;; Privilege indicator faces
     (defun sej/dired-update-privilege-faces ()
       (set-face-attribute 'diredp-dir-priv nil
 			  :foreground "#7474FFFFFFFF"
@@ -175,6 +177,11 @@ It added extra strings at the front and back of the default dired buffer name."
       :init
       (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
+    (use-package dired-subtree
+      :config
+      (bind-keys :map dired-mode-map
+		 ("i" . dired-subtree-insert)
+		 (";" . dired-subtree-remove)))
 
     ))
 
