@@ -107,7 +107,7 @@
 (add-hook 'minibuffer-setup-hook #'turn-off-sej-mode)
 
 (defmacro bind-to-sej-map (key fn)
-  "Bind to KEY a function to the `sej-mode-map'.
+  "Bind to KEY (as FN) a function to the `sej-mode-map'.
 USAGE: (bind-to-sej-map \"f\" #'full-screen-center)."
   `(define-key sej-mode-map (kbd ,key) ,fn))
 
@@ -235,13 +235,18 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (global-set-key (kbd "M-t p") 'transpose-params)
 
 ;; wind move built in package (default bindins are S-<cursor>)
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings)) ;; Shift + direction
+;;(when (fboundp 'windmove-default-keybindings)
+;;  (windmove-default-keybindings)) ;; Shift + direction
 (winner-mode t)
-;;(define-key sej-mode-map (kbd "C-c <left>")  'windmove-left)
-;;(define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
-;;(define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
-;;(define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
+(define-key sej-mode-map (kbd "C-c <left>")  'windmove-left)
+(define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
+(define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
+(define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;; buffer-move package to swap buffers between windows
 ;; (defined in init-movement.el)
@@ -289,3 +294,5 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 (provide 'init+bindings)
 ;;; init+bindings.el ends here
+
+

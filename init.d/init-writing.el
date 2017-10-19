@@ -15,6 +15,9 @@
 
 ;;; Code:
 
+(use-package writegood-mode
+  :ensure t)
+
 ;; show vertical lines to guide indentation
 (use-package indent-guide
   :ensure t

@@ -69,7 +69,7 @@
 
 ;; marking text and clipboard settings
 (delete-selection-mode nil)
-(transient-mark-mode t)
+;;(transient-mark-mode t)
 (setq select-enable-clipboard t)
 
 ;; echo keystrokes ; no dialog boxes ; visable bell ; highlight parens
@@ -180,3 +180,4 @@
 
 (provide 'init+settings)
 ;;; init+settings.el ends here
+

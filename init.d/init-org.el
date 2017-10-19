@@ -8,7 +8,12 @@
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 08 07 add suggestions from Orgmode for GTD
 ;; 2017 08 30 map sej-mode-map & comments cleanup
+;; 2017 10 19 cleanup of capture & org-agenda files
+
 ;;; Code:
+
+(use-package writegood-mode
+  :ensure t)
 
 (use-package org
   :ensure t
@@ -29,14 +34,15 @@
   :bind (:map sej-mode-map ("<f1>" . org-mode)
 	      ("C-c l" . org-store-link)
 	      ("C-c c" . org-capture)
-	      ("C-c a" . org-agenda))
+	      ("C-c a" . org-agenda)
+	      ("S-<left>" . org-shiftleft)
+	      ("S-<right>" . org-shiftright))
   :config
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
     (setq org-directory "~/gdrive/todo"))
   (defconst org-file-inbox (concat org-directory "/inbox.org"))
   (defconst org-file-someday (concat org-directory "/someday.org"))
-  (defconst org-file-tickler (concat org-directory "/tickler.org"))
   (defconst org-file-gtd (concat org-directory "/gtd.org"))
   (defconst org-file-journal (concat org-directory "/journal.org"))
   (defconst org-file-notes (concat org-directory "/notes.org"))
@@ -58,18 +64,21 @@
 				 ("VERIFIED" . (:foreground "green" :weight bold))
 				 ("CANCELED" . (:foreground "grey" :weight bold))))
   (setq org-capture-templates
-	'(("t" "Todo [inbox]" entry (file+headline org-file-gtd  "Tasks") "* TODO %i%?")
-	  ("T" "Tickler" entry (file+headline org-file-tickler  "Tickler") "* %i%?\n %U")
-	  ("j" "Journal" entry (file+datetree org-file-journal "Journal")  "* %i%?\n %U")))
+	'(
+	  ("i" "Inbox" entry (file+headline org-file-inbox  "Inbox") "* %i%?\n %U")
+	  ("j" "Journal" entry (file+datetree org-file-journal "Journal")  "* %i%?\n %U")
+	  ("n" "Notes" entry (file+headline org-file-notes  "Notes") "* %i%?\n %U")
+	  ("s" "Someday" entry (file+headline org-file-someday  "Someday") "* %i%?\n %U")
+	  ("t" "Todo" entry (file+headline org-file-gtd  "Todo") "* TODO %i%?")
+	  ))
   (add-hook 'org-mode-hook (lambda () (flyspell-mode)))
   (add-hook 'org-mode-hook (lambda () (writegood-mode)))
   (define-key org-mode-map (kbd "C-M-\\") 'org-indent-region)
 
   ;; org-mode agenda options
-  (setq org-agenda-files (list org-file-inbox org-file-gtd org-file-tickler)
+  (setq org-agenda-files (list org-file-inbox org-file-journal org-file-notes org-file-someday org-file-gtd)
 	org-refile-targets '((org-file-gtd :maxlevel . 3)
-			     (org-file-someday :maxlevel . 1)
-			     (org-file-tickler :maxlevel . 2))
+			     (org-file-someday :maxlevel . 1))
 	org-agenda-window-setup (quote current-window) ;open agenda in current window
 	org-deadline-warning-days 7 ;warn me of any deadlines in next 7 days
 	org-agenda-span (quote fortnight) ;show me tasks scheduled or due in next fortnight
