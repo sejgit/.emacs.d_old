@@ -1,4 +1,4 @@
-;;; init-ido-ivy-helm.el --- Stephen's emacs init-ido.el
+;;; init-ido-ivy-helm.el --- Stephen's emacs init-ido-ivy-helm.el
 
 ;;; Commentary:
 ;; consolidated ido-ivy-helm settings for Emacs, have been picking & choosing from each lately

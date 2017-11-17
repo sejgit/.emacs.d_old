@@ -12,7 +12,7 @@
 ;; 2017 09 05 changes from EOS
 ;; 2017 09 07 added and commented out dired-du (slows down dired a lot!)
 ;; 2017 10 10 added dired-subtree for expansion of directories within buffer
-
+;; 2017 11 17 added neotree <f5> to toggle
 
 ;;; Code:
 
@@ -214,6 +214,16 @@ It added extra strings at the front and back of the default dired buffer name."
 ;; Prefer g-prefixed coreutils version of standard utilities when available
 (let ((gls (executable-find "gls")))
   (when gls (setq insert-directory-program gls)))
+
+(use-package neotree
+  :ensure t
+  :config
+  (setq neo-theme 'nerd)
+  (setq neo-toggle-window-keep-p t)
+  (setq neo-window-width 25)
+  (setq neo-window-fixed-size t)
+  (global-set-key [f5] 'neotree-toggle)
+  (global-set-key (kbd "s-t") 'neotree-toggle))
 
 (provide 'init-dired)
 ;;; init-dired.el ends here
