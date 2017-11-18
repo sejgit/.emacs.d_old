@@ -242,6 +242,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
 (define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
 (define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
+(define-key sej-mode-map (kbd "s-h")  'windmove-left)
+(define-key sej-mode-map (kbd "s-l") 'windmove-right)
+(define-key sej-mode-map (kbd "s-j")    'windmove-up)
+(define-key sej-mode-map (kbd "s-k")  'windmove-down)
 ;; Make windmove work in org-mode:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)

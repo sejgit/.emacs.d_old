@@ -19,6 +19,7 @@
 ;; buffer-move to swap buffers between windows
 (use-package buffer-move
   :ensure t
+  :defines sej-mode-map
   :defer t
   :bind (:map sej-mode-map
               ("<s-up>" . buf-move-up)

@@ -40,13 +40,20 @@
 ;; 2017 09 07 move modes for editing filetypes to init-misc-filetypes.el
 ;; 2017 09 20 move some packages to init-appearance.el or init-movement.el
 ;;            move which-key in from init-which-key.el and delete file
+;; 2017 11 17 modified which-key to add binds and side-window-right-bottom
+
 
 ;;; Code:
 
 (use-package which-key
   :ensure t
   :defer 5
-  :config (which-key-mode))
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-h C-m" . which-key-show-major-mode))
+  :config
+  (which-key-setup-side-window-right-bottom)
+  (which-key-mode))
 
 ;; undo tree mode to improve undo features remove C-/ in my keymap for use with dabbrev
 (use-package undo-tree
