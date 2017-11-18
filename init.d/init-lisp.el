@@ -9,6 +9,7 @@
 ;; 2017 08 30 clean up some comments & defers
 ;; 2017 09 20 move autocomplete from init-autocomplete.el & delete file
 ;;            move paredit defun from init-bindings-settings.el
+;; 2017 11 18 swap paredit for smartparens
 
 ;;; Code:
 
@@ -35,30 +36,11 @@
 (define-key emacs-lisp-mode-map (kbd "C-c d") 'toggle-debug-on-error)
 
 ;; Paredit for editing within lisp
-(use-package paredit
+(use-package smartparens
   :ensure t
   :defer t
-  :commands
-  paredit-mode
-  paredit-kill
-  :diminish
-  paredit-mode
   :config
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  (add-hook 'ielm-mode-hook #'paredit-mode)
-  (when (eq system-type 'darwin)
-    ;; C-left
-    (define-key paredit-mode-map (kbd "M-[")
-      'paredit-forward-barf-sexp)
-    ;; C-right
-    (define-key paredit-mode-map (kbd "M-]")
-      'paredit-forward-slurp-sexp)
-    ;; ESC-C-left
-    (define-key paredit-mode-map (kbd "ESC M-[")
-      'paredit-backward-slurp-sexp)
-    ;; ESC-C-right
-    (define-key paredit-mode-map (kbd "ESC M-]")
-      'paredit-backward-barf-sexp)))
+  (smartparens-global-mode t)  )
 
 ;; like rainbow-delimiters in elisp modes
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
