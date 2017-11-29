@@ -20,6 +20,7 @@
 ;; 2017 08 22 additions from EOS Emacs operating System by Lee Hinman
 ;; 2017 09 11 package load re-introduced
 ;; 2017 09 21 reordering per ideas from magnars
+;; 2017 11 29 package load removed with new use-package understanding
 
 ;;; Code:
 
@@ -121,154 +122,17 @@
       (add-hook 'after-make-frame-functions #'load-cyberpunk-theme)
     (load-theme 'cyberpunk t) )
 
-  ;; package list
-  (defvar package-list
-    '(use-package
-       aggressive-indent
-       auto-complete
-       bash-completion
-       company-shell
-       framemove
-       buffer-move
-       browse-kill-ring
-       company
-       company-quickhelp
-       company-statistics
-       smart-tab
-       dashboard
-       page-break-lines
-       deft
-       dired+
-       dired-collapse
-       async
-       browse-at-remote
-       dired-rainbow
-       dired-open
-       dired-launch
-       dired-sort
-       dired-narrow
-       async
-       quick-preview
-       all-the-icons
-       all-the-icons-dired
-       ;;elfeed
-       ;;elfeed-org
-       fic-mode
-       flymake
-       flycheck-color-mode-line
-       flycheck
-       flycheck-pos-tip
-       helm-flycheck
-       frame-cmds
-       gist
-       magit
-       git-blamed
-       gitignore-mode
-       gitconfig-mode
-       git-timemachine
-       fullframe
-       git-messenger
-       github-clone
-       github-issues
-       magit-gh-pulls
-       golden-ratio
-       goto-chg
-       ido
-       smex
-       ivy
-       counsel
-       swiper
-       helm
-       helm-swoop
-       helm-descbinds
-       paredit
-       eldoc
-       elisp-slime-nav
-       arduino-mode
-       batch-mode
-       conf-mode
-       crontab-mode
-       csv-mode
-       csv-nav
-       nov
-       php-mode
-       textile-mode
-       yaml-mode
-       highlight-numbers
-       dtrt-indent
-       undo-tree
-       expand-region
-       vlf
-       midnight
-       beginend
-       beacon
-       drag-stuff
-       avy
-       google-this
-       crux
-       volatile-highlights
-       rainbow-delimiters
-       saveplace
-       bookmark+
-       rpn-calc
-       wgrep
-       ag
-       wgrep-ag
-       help-fns+
-       helpful
-       whole-line-or-region
-       mode-icons
-       org
-       org-bullets
-       org-dashboard
-       projectile
-       helm-projectile
-       helm-ag
-       grep
-       pip-requirements
-       python-environment
-       ediff
-       python
-       anaconda-mode
-       pyvenv
-       jedi
-       exec-path-from-shell
-       with-editor
-       keychain-environment
-       eshell
-       eshell-prompt-extras
-       flyspell
-       thesaurus
-       synosaurus
-       autoinsert
-       tramp
-       pass
-       view
-       doc-view
-       which-key
-       indent-guide
-       page-break-lines
-       whitespace-cleanup-mode
-       markdown-mode
-       adoc-mode
-       skeleton
-       ))
-
-  ;; install the missing packages
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-install package)))
-
   ;; save histories
-  (require 'savehist)
-  (setq savehist-file (concat user-emacs-directory "savehist"))
-  (savehist-mode 1)
-  (setq savehist-save-minibuffer-history 1)
-  (setq savehist-additional-variables
-        '(kill-ring
-          search-ring
-          regexp-search-ring))
-  (setq-default save-place t)
+  (use-package savehist
+    :config
+    (setq savehist-file (concat user-emacs-directory "savehist"))
+    (savehist-mode 1)
+    (setq savehist-save-minibuffer-history 1)
+    (setq savehist-additional-variables
+	  '(kill-ring
+	    search-ring
+	    regexp-search-ring))
+    (setq-default save-place t)    )
 
   ;; recompile configs
   (defconst my-init-dir "~/.emacs.d/init.d")

@@ -24,6 +24,7 @@ archive/
 elpa/
 .DS_Store
 savehist
+url/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

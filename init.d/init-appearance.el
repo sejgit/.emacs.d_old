@@ -7,13 +7,12 @@
 ;; 2017 01 06 init SeJ moved from init-misc-pkgs.el
 ;;                                init-aggressive-indent.el
 ;;                                init-golden-ratio.el
-
+;; 2017 11 29 clean up use-package and add :hook
 
 ;;; Code:
 
 (use-package golden-ratio
   :ensure t
-  :defer 5
   :defines sej-mode-map
   :diminish golden-ratio-mode
   :bind (:map sej-mode-map
@@ -26,28 +25,25 @@
 ;; hightlight-numbers in a special way
 (use-package highlight-numbers
   :ensure t
-  :defer 10
-  :config
-  (add-hook 'prog-mode-hook #'highlight-numbers-mode))
+  :hook (prog-mode . highlight-numbers-mode))
 
 ;; dtrt-indent to automatically set the right indent for other people's files
 (use-package dtrt-indent
   :ensure t
-  :defer 10
-  :diminish t
+  :diminish
   :config
   ;; (setq dtrt-indent-active-mode-line-info "")
   )
 
 (use-package aggressive-indent
-  :defer 2
-  :config (progn (global-aggressive-indent-mode 1)
-		 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
+  :ensure t
+  :config
+  (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
 
 ;; Highlight the cursor whenever the window scrolls
 (use-package beacon
   :ensure t
-  :defer 5
   :diminish beacon-mode
   :config
   (beacon-mode 1))
@@ -55,7 +51,6 @@
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
   :ensure t
-  :defer 10
   :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
@@ -63,10 +58,9 @@
 ;; rainbow-delimiters-mode - multicoloured brackets
 (use-package rainbow-delimiters
   :ensure t
-  :defer 10
   :diminish rainbow-delimiters-mode
+  :hook (prog-mode . rainbow-delimiters-mode)
   :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   (custom-set-faces
    '(rainbow-delimiters-depth-1-face ((t (:foreground "red" :height 1.0))))
    '(rainbow-delimiters-depth-2-face ((t (:foreground "orange" :height 1.0))))
@@ -88,6 +82,7 @@
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here
+
 
 
 
