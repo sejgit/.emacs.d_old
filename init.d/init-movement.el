@@ -20,7 +20,6 @@
 (use-package buffer-move
   :ensure t
   :defines sej-mode-map
-  :defer t
   :bind (:map sej-mode-map
               ("<s-up>" . buf-move-up)
               ("<s-down>" . buf-move-down)
@@ -29,7 +28,6 @@
 
 (use-package goto-chg
   :ensure t
-  :defer t
   :defines sej-mode-map
   :bind (:map sej-mode-map
               ;;("C-." . goto-last-change)
@@ -44,7 +42,6 @@
 ;; redefine M-< and M-> for some modes
 (use-package beginend               ; smart M-< & M->
   :ensure t
-  :defer 10
   :config
   (beginend-global-mode)
   )
@@ -52,7 +49,6 @@
 ;; efficient moving through search terms
 (use-package avy
   :ensure t
-  :defer 10
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-<return>" . avy-goto-word-1)))
@@ -60,7 +56,6 @@
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
   :ensure t
-  :defer 10
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-a" . crux-move-beginning-of-line)))
@@ -68,7 +63,6 @@
 ;; Moves selected region around
 (use-package drag-stuff
   :ensure t
-  :defer 5
   :diminish drag-stuff-mode
   :defines sej-mode-map
   :bind (:map sej-mode-map
@@ -80,15 +74,8 @@
 ;; save the place in files
 (use-package saveplace
   :ensure t
-  :defer 10
   :config
   (setq-default save-place t))
-
-;; TODO extensions to standard library 'bookmark.el'
-;; (use-package bookmark+
-;;   :ensure t
-;;   :defer 10)
-
 
 (provide 'init-movement)
 ;;; init-movement.el ends here

@@ -6,9 +6,12 @@
 ;; 2017 01 10 init SeJ
 ;; 2017 01 17 comment out some irritating binds
 ;; 2017 08 29 map to sej-mode-map
+;; 2017 12 01 update to add :ensure
+
 ;;; Code:
 
 (use-package frame-cmds
+  :ensure t
   :defines sej-mode-map
   :if (display-graphic-p)
   :bind (:map sej-mode-map

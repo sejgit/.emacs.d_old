@@ -15,6 +15,7 @@
 
 ;; gist client
 (use-package gist
+  :ensure t
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
@@ -23,7 +24,6 @@
 
 ;; git on Emacs https://github.com/magit/magit
 (use-package magit
-  :defer t
   :ensure t
   :defines
   sej-mode-map
@@ -37,8 +37,8 @@
 	("C-M-<up>" . magit-section-up)
 	("q" . magit-quit-session))
   :config
-  ;; full screen magit-status
 
+  ;; full screen magit-status
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
     ad-do-it
@@ -58,18 +58,18 @@
 
 ;; M-x git-blamed-mode to turn on view with commits
 (use-package git-blamed
-  :defer t
-  :ensure t)
+  :ensure t
+  :after magit)
 
 ;; for editing gitignore files
 (use-package gitignore-mode
-  :defer t
-  :ensure t)
+  :ensure t
+  :after magit)
 
 ;; for editing gitconfig files
 (use-package gitconfig-mode
-  :defer t
-  :ensure t)
+  :ensure t
+  :after magit)
 
 ;; see your file over time
 ;; - First do M-x git-timemachine
@@ -86,20 +86,19 @@
 ;; Do NOT call git-timemachine-mode or git-timemachine-show-previous-revision
 ;; or other functions directly!
 (use-package git-timemachine
-  :defer t
   :ensure t
+  :after magit
   )
 
-;; force mgit to open in one window in the current frame when called
+;; force magit to open in one window in the current frame when called
 (use-package fullframe
-  :defer t
   :ensure t
+  :after magit
   :config
   (fullframe magit-status magit-mode-quit-window))
 
 ;; popup to show commit
 (use-package git-messenger
-  :defer t
   :ensure t
   :bind
   ;; Though see also vc-annotate's "n" & "p" bindings
@@ -109,18 +108,8 @@
 
 ;; easy way to clone a github M-x github-clone (respository directory)
 (use-package github-clone
-  :defer t
-  :ensure t)
-
-;; listing & editing issues M-x github-issues (user repo)
-(use-package github-issues
-  :defer t
-  :ensure t)
-
-;; for listing & managing pull requests https://github.com/sigma/magit-gh-pulls
-(use-package magit-gh-pulls
-  :defer t
-  :ensure t)
+  :ensure t
+  :commands github-clone)
 
 (defun my-vc-git-mode-line-string (orig-fn &rest args)
   "Replace Git in modeline with font-awesome git icon via ORIG-FN and ARGS."

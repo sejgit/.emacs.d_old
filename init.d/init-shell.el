@@ -11,29 +11,31 @@
 
 ;;; Code:
 (use-package shell-pop
+  :ensure t
   :bind (("C-t" . shell-pop))
+  :hook (shell-mode . ansi-color-for-comint-mode-on)
+  :defines shell-prompt-pattern
   :config
   ;;(setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
   (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
   (setq shell-pop-shell-type "terminal")
-  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
   (setq shell-pop-term-shell "/usr/local/bin/bash")
   ;; need to do this manually or not picked up by `shell-pop'
   (setq shell-prompt-pattern "^[^#%$>]*[#$%>]>? *" )
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
 (use-package bash-completion
-  :defer 2
+  :ensure t
   :commands bash-completion-dynamic-complete
+  :hook (shell-mode . compilation-shell-minor-mode)
   :defines explicit-shell-file-name
   :config
   (setq explicit-shell-file-name "bash")
   (setq comint-process-echoes t)
-  (setq bash-completion-process-timeout 0.5)
-  (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)  )
+  (setq bash-completion-process-timeout 0.5))
 
 (use-package company-shell
-  :defer 2)
+  :ensure t)
 
 ;; this allows GUI Emacs to inherit $PATH
 (use-package exec-path-from-shell
@@ -48,15 +50,13 @@
 ;; things that invoke $EDITOR will use the current Emacs
 (use-package with-editor
   :ensure t
-  :config
-  (add-hook 'shell-mode-hook  'with-editor-export-editor)
-  (add-hook 'eshell-mode-hook 'with-editor-export-editor))
+  :hook ((shell-mode . with-editor-export-editor)
+	 (eshell-mode . with-editor-export-editor)))
 
 ;; set up any SSH or GPG keychains that the Keychain tool has set up for us
 (use-package keychain-environment
   :ensure t
-  :config
-  (add-hook 'after-init-hook #'keychain-refresh-environment))
+  :hook (after-init . keychain-refresh-environment))
 
 ;; Emacs does not handle less well so use cat
 (setenv "PAGER" "cat")
@@ -74,10 +74,12 @@
       comint-prompt-read-only nil)
 
 (defun sej/shell-kill-buffer-sentinel (process event)
+  "Function to kill shell buffer."
   (when (memq (process-status process) '(exit signal))
     (kill-buffer)))
 
 (defun sej/kill-process-buffer-on-exit ()
+  "Function to kill buffer on exit."
   (set-process-sentinel (get-buffer-process (current-buffer))
                         #'sej/shell-kill-buffer-sentinel))
 
@@ -90,9 +92,7 @@
 
 (defadvice comint-previous-matching-input
     (around suppress-history-item-messages activate)
-  "Suppress the annoying 'History item : NNN' messages from shell history isearch.
-If this isn't enough, try the same thing with
-comint-replace-by-expanded-history-before-point."
+  "Suppress the annoying 'History item : NNN' messages from shell history isearch."
   (let ((old-message (symbol-function 'message)))
     (unwind-protect
         (progn (fset 'message 'ignore) ad-do-it)
@@ -107,10 +107,8 @@ comint-replace-by-expanded-history-before-point."
 
 ;;; Eshell settings
 
-;; setup-eshell
-
-;; function to be called when eshell-mode is entered
 (defun sej/setup-eshell ()
+  "Set-up for eshell function to be called when eshell-mode is entered."
   (interactive)
   ;; turn off semantic-mode in eshell buffers
   (semantic-mode -1)
@@ -119,13 +117,15 @@ comint-replace-by-expanded-history-before-point."
   (local-set-key (kbd "M-R") 'eshell-previous-matching-input)
   (local-set-key (kbd "M-r") 'helm-eshell-history))
 
-;; a nice helper to sudo-edit a file
+
 (defun sudoec (file)
+  "A nice helper to sudo-edit a file."
   (interactive)
   (find-file (concat "/sudo::" (expand-file-name file))))
 
 ;; eshell
 (use-package eshell
+  :ensure t
   :commands (eshell eshell-command)
   :defines sej-mode-map
   :bind (:map sej-mode-map
@@ -145,116 +145,112 @@ comint-replace-by-expanded-history-before-point."
   (defalias 'hff 'hexl-find-file)
   (defalias 'sec 'sudoec)
   (setenv "PAGER" "cat")
-  (use-package esh-opt
-    :ensure nil
-    :config
-    (use-package em-cmpl
-      :ensure nil)
-    (use-package em-prompt
-      :ensure nil)
-    (use-package em-term
-      :ensure nil)
+  (require 'esh-opt)
+  (require 'em-cmpl)
+  (require 'em-prompt)
+  (require 'em-term)
 
-    (setq eshell-cmpl-cycle-completions nil
-          ;; auto truncate after 12k lines
-          eshell-buffer-maximum-lines 12000
-          ;; history size
-          eshell-history-size 500
-          ;; buffer shorthand -> echo foo > #'buffer
-          eshell-buffer-shorthand t
-          ;; my prompt is easy enough to see
-          eshell-highlight-prompt nil
-          ;; treat 'echo' like shell echo
-          eshell-plain-echo-behavior t
-          ;; add -lh to the `ls' flags
-          eshell-ls-initial-args "-lh")
+  (setq eshell-cmpl-cycle-completions nil
+	;; auto truncate after 12k lines
+	eshell-buffer-maximum-lines 12000
+	;; history size
+	eshell-history-size 500
+	;; buffer shorthand -> echo foo > #'buffer
+	eshell-buffer-shorthand t
+	;; my prompt is easy enough to see
+	eshell-highlight-prompt nil
+	;; treat 'echo' like shell echo
+	eshell-plain-echo-behavior t
+	;; add -lh to the `ls' flags
+	eshell-ls-initial-args "-lh")
 
-    ;; Visual commands
-    (setq eshell-visual-commands '("vi" "screen" "top" "less" "more" "lynx"
-                                   "ncftp" "pine" "tin" "trn" "elm" "vim"
-                                   "nmtui" "alsamixer" "htop" "el" "elinks"
-                                   "ssh" "nethack" "dtop" "dstat"))
-    (setq eshell-visual-subcommands '(("git" "log" "diff" "show")
-                                      ("vagrant" "ssh")))
+  ;; Visual commands
+  (setq eshell-visual-commands '("vi" "screen" "top" "less" "more" "lynx"
+				 "ncftp" "pine" "tin" "trn" "elm" "vim"
+				 "nmtui" "alsamixer" "htop" "el" "elinks"
+				 "ssh" "nethack" "dtop" "dstat"))
+  (setq eshell-visual-subcommands '(("git" "log" "diff" "show")
+				    ("vagrant" "ssh")))
 
-    (defun sej/truncate-eshell-buffers ()
-      "Truncates all eshell buffers"
-      (interactive)
-      (save-current-buffer
-        (dolist (buffer (buffer-list t))
-          (set-buffer buffer)
-          (when (eq major-mode 'eshell-mode)
-            (eshell-truncate-buffer)))))
-
-    ;; After being idle for 5 seconds, truncate all the eshell-buffers if
-    ;; needed. If this needs to be canceled, you can run `(cancel-timer
-    ;; eos/eshell-truncate-timer)'
-    (setq sej/eshell-truncate-timer
-          (run-with-idle-timer 5 t #'sej/truncate-eshell-buffers))
-
-    (defun eshell/cds ()
-      "Change directory to the project's root."
-      (eshell/cd (locate-dominating-file default-directory ".git")))
-
-    (defalias 'eshell/l 'eshell/ls)
-    (defalias 'eshell/ll 'eshell/ls)
-
-    (defun eshell/ec (pattern)
-      (if (stringp pattern)
-          (find-file pattern)
-        (mapc #'find-file (mapcar #'expand-file-name pattern))))
-    (defalias 'e 'eshell/ec)
-    (defalias 'ee 'find-file-other-window)
-
-    (defun eshell/d (&rest args)
-      (dired (pop args) "."))
-
-    (defun eshell/clear ()
-      "Clear the eshell buffer"
-      (interactive)
-      (let ((eshell-buffer-maximum-lines 0))
-        (eshell-truncate-buffer)
-        (let ((inhibit-read-only t))
-          (erase-buffer)
-          (eshell-send-input)))))
-
-  (defun eshell/icat (&rest args)
-    "Display image(s)."
-    (let ((elems (eshell-flatten-list args)))
-      (while elems
-        (eshell-printn
-         (propertize " "
-                     'display (create-image (expand-file-name (car elems)))))
-        (setq elems (cdr elems))))
-    nil)
-
-  (add-hook 'eshell-mode-hook #'sej/setup-eshell)
-
-  ;; See eshell-prompt-function below
-  (setq eshell-prompt-regexp "^[^#$\n]* [#$] ")
-
-  ;; So the history vars are defined
-  (require 'em-hist)
-  (if (boundp 'eshell-save-history-on-exit)
-      ;; Don't ask, just save
-      (setq eshell-save-history-on-exit t))
-
-  ;; See: https://github.com/kaihaosw/eshell-prompt-extras
-  (use-package eshell-prompt-extras
-    :ensure t
-    :init
-    (progn
-      (setq eshell-highlight-prompt nil
-            epe-git-dirty-char " Ϟ"
-            ;; epe-git-dirty-char "*"
-            eshell-prompt-function 'epe-theme-dakrone)))
-
-  (defun eshell/magit ()
-    "Function to open magit-status for the current directory"
+  (defun sej/truncate-eshell-buffers ()
+    "Truncates all eshell buffers"
     (interactive)
-    (magit-status-internal default-directory)
-    nil))
+    (save-current-buffer
+      (dolist (buffer (buffer-list t))
+	(set-buffer buffer)
+	(when (eq major-mode 'eshell-mode)
+	  (eshell-truncate-buffer)))))
+
+  ;; After being idle for 5 seconds, truncate all the eshell-buffers if
+  ;; needed. If this needs to be canceled, you can run `(cancel-timer
+  ;; eos/eshell-truncate-timer)'
+  (setq sej/eshell-truncate-timer
+	(run-with-idle-timer 5 t #'sej/truncate-eshell-buffers))
+
+  (defun eshell/cds ()
+    "Change directory to the project's root."
+    (eshell/cd (locate-dominating-file default-directory ".git")))
+
+  (defalias 'eshell/l 'eshell/ls)
+  (defalias 'eshell/ll 'eshell/ls)
+
+  (defun eshell/ec (pattern)
+    (if (stringp pattern)
+	(find-file pattern)
+      (mapc #'find-file (mapcar #'expand-file-name pattern))))
+  (defalias 'e 'eshell/ec)
+  (defalias 'ee 'find-file-other-window)
+
+  (defun eshell/d (&rest args)
+    (dired (pop args) "."))
+
+  (defun eshell/clear ()
+    "Clear the eshell buffer"
+    (interactive)
+    (let ((eshell-buffer-maximum-lines 0))
+      (eshell-truncate-buffer)
+      (let ((inhibit-read-only t))
+	(erase-buffer)
+	(eshell-send-input)))))
+
+(defun eshell/icat (&rest args)
+  "Display image(s) (ARGS)."
+  (let ((elems (eshell-flatten-list args)))
+    (while elems
+      (eshell-printn
+       (propertize " "
+		   'display (create-image (expand-file-name (car elems)))))
+      (setq elems (cdr elems))))
+  nil)
+
+(add-hook 'eshell-mode-hook #'sej/setup-eshell)
+
+;; See eshell-prompt-function below
+(setq eshell-prompt-regexp "^[^#$\n]* [#$] ")
+
+;; So the history vars are defined
+(require 'em-hist)
+(if (boundp 'eshell-save-history-on-exit)
+    ;; Don't ask, just save
+    (setq eshell-save-history-on-exit t))
+
+;; See: https://github.com/kaihaosw/eshell-prompt-extras
+(use-package eshell-prompt-extras
+  :ensure t
+  :init
+  (progn
+    (setq eshell-highlight-prompt nil
+	  epe-git-dirty-char " Ϟ"
+	  ;; epe-git-dirty-char "*"
+	  eshell-prompt-function 'epe-theme-dakrone)))
+
+(defun eshell/magit ()
+  "Function to open magit-status for the current directory."
+  (interactive)
+  (magit-status-internal default-directory)
+  nil)
 
 
 (provide 'init-shell)
 ;;; init-shell.el ends here
+

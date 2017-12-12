@@ -95,6 +95,7 @@
 (use-package org-bullets
   :defer t
   :commands org-bullets-mode
+  :hook (org-mode . org-bullets-mode)
   :config (org-bullets-mode 1))
 
 (use-package org-dashboard

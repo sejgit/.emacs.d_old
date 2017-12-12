@@ -56,6 +56,7 @@
 
 (use-package elpy
   :ensure t
+  :defer t
   :config
   (elpy-enable)
 
@@ -64,30 +65,37 @@
     "This string is ignored!"
     "\"\"\"" - "\n\n    \"\"\"")
 
-  (define-key python-mode-map (kbd "s-\"") 'python-insert-docstring)
-  (use-package anaconda-mode
-    :config
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-  (use-package company-anaconda)
+  (define-key python-mode-map (kbd "s-\\") 'python-insert-docstring)
+
   (declare-function py-insert-debug netsight nil)
   (setq fill-column 79)
   (setq-default flycheck-flake8rc "~/.config/flake8rc")
   (setq python-check-command "flake8")
   (setq tab-width 4))
 
+(use-package anaconda-mode
+  :ensure t
+  :defer t
+  :hook ((python-mode . anaconda-mode)
+	 (python-mode . anaconda-eldoc-mode)))
+
+(use-package company-anaconda
+  :ensure t
+  :after anaconda-mode
+  :defer t)
+
+
 (use-package pyvenv
   :ensure t
   :defer t
-  :config
-  (add-hook 'pyvenv-post-activate-hooks 'pyvenv-restart-python))
+  :hook (pyvenv-post-activate . pyvenv-restart-python))
 
 (use-package jedi
   :ensure t
   :defer t
   :init
   (autoload 'jedi:setup "jedi" nil t)
-  (add-hook 'python-mode-hook 'jedi:setup)
+  :hook (python-mode . jedi:setup)
   (setq jedi:complete-on-dot t)
   :preface
   (declare-function jedi:goto-definition jedi nil)
@@ -99,8 +107,6 @@
 	      ("C-?" . jedi:show-doc))
   :config
   (setq elpy-rpc-backend "jedi"))
-
-
 
 (provide 'init-python)
 ;;; init-python.el ends here

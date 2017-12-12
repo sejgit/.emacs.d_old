@@ -21,16 +21,13 @@
 ;; show vertical lines to guide indentation
 (use-package indent-guide
   :ensure t
-  :defer 10
-  :config
-  (add-hook 'prog-mode-hook 'indent-guide-mode)
+  :hook (prog-mode . indent-guide-mode)
   :diminish
   indent-guide-mode)
 
 ;; display ^L page breaks as tidy horizontal lines
 (use-package page-break-lines
   :ensure t
-  :defer 10
   :config
   (setq global-page-break-lines-mode t)
   :diminish
@@ -39,7 +36,6 @@
 ;; intelligently call whitespace-cleanup on save
 (use-package whitespace-cleanup-mode
   :ensure t
-  :defer 10
   ;; intelligently call whitespace-cleanup on save
   :config
   (global-whitespace-cleanup-mode t))
@@ -47,7 +43,6 @@
 ;; markdown-mode used a lot on Github
 (use-package markdown-mode
   :ensure t
-  :defer t
   :functions writegood-mode
   :mode
   (("\\`README\\.md\\'" . gfm-mode)
@@ -75,7 +70,6 @@
 
 ;; skeletons are a kind of yasnippet but they don't mess with keybindings
 (use-package skeleton
-  :ensure nil
   :config
   (define-skeleton sej/org-header
     "Insert a standard header for org-mode files"
@@ -129,8 +123,7 @@
 
 ;; for inserting abbreviations
 (use-package abbrev
-  :ensure nil
-  :init (add-hook 'after-init-hook 'abbrev-mode)
+  :hook (after-init . abbrev-mode)
   :diminish abbrev-mode
   :config
   (define-abbrev-table

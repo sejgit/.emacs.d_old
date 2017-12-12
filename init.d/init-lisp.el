@@ -10,35 +10,35 @@
 ;; 2017 09 20 move autocomplete from init-autocomplete.el & delete file
 ;;            move paredit defun from init-bindings-settings.el
 ;; 2017 11 18 swap paredit for smartparens
+;; 2017 12 01 some mods for use-package & removal of autocomplete
 
 ;;; Code:
 
 ;; autocomplete
-(use-package auto-complete
-  :defer 2
-  :config
-  (ac-config-default)
-  (global-auto-complete-mode t)
-  )
+;; (use-package auto-complete
+;;   :defer t
+;;   :ensure t
+;;   :config
+;;   (ac-config-default)
+;;   (global-auto-complete-mode t)
+;;   )
 
-(defun ielm-auto-complete ()
-  "Enables `auto-complete' support in \\[ielm]."
-  (setq ac-sources '(ac-source-functions
-		     ac-source-variables
-		     ac-source-features
-		     ac-source-symbols
-		     ac-source-words-in-same-mode-buffers))
-  (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
-  (auto-complete-mode 1))
-(add-hook 'ielm-mode-hook 'ielm-auto-complete)
+;; (defun ielm-auto-complete ()
+;;   "Enables `auto-complete' support in \\[ielm]."
+;;   (setq ac-sources '(ac-source-functions
+;;		     ac-source-variables
+;;		     ac-source-features
+;;		     ac-source-symbols
+;;		     ac-source-words-in-same-mode-buffers))
+;;   (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
+;;   (auto-complete-mode 1))
+;; (add-hook 'ielm-mode-hook 'ielm-auto-complete)
 
 ;; toggle-debug-on-error
 (define-key emacs-lisp-mode-map (kbd "C-c d") 'toggle-debug-on-error)
 
 ;; Paredit for editing within lisp
 (use-package smartparens
-  :ensure t
-  :defer t
   :config
   (smartparens-global-mode t)  )
 
@@ -51,11 +51,11 @@
   :defer t
   :diminish
   eldoc-mode
+  :hook  ;; we use eldoc to show the signature of the function at point in the minibuffer
+  ((emacs-lisp-mode . eldoc-mode)
+   (ielm-mode-hook . eldoc-mode)
+   (lisp-interaction-mode-hook . eldoc-mode))
   :config
-  ;; we use eldoc to show the signature of the function at point in the minibuffer
-  (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
-  (add-hook 'ielm-mode-hook #'eldoc-mode)
-  (add-hook 'lisp-interaction-mode-hook #'eldoc-mode)
   (setq eldoc-idle-delay 0.1))
 
 ;; add a nice popup for ielm

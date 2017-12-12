@@ -82,6 +82,7 @@
 
 (use-package company-jedi
   :ensure t
+  :after company
   :config (add-to-list 'company-backends 'company-jedi))
 
 (use-package smart-tab

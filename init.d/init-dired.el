@@ -13,17 +13,49 @@
 ;; 2017 09 07 added and commented out dired-du (slows down dired a lot!)
 ;; 2017 10 10 added dired-subtree for expansion of directories within buffer
 ;; 2017 11 17 added neotree <f5> to toggle
+;; 2017 12 01 rearrange & cleanup with new use-package
 
 ;;; Code:
 
-(use-package dired
-  :ensure nil
-  :defer t
+;; (use-package dired-du
+;;   :ensure t
+;;   :config
+;;   (add-hook 'dired-mode-hook #'dired-du-mode))
+
+;; Set this variable to non-nil, Dired will try to guess a default
+;; target directory. This means: if there is a dired buffer
+;; displayed in the next window, use its current subdir, instead
+;; of the current subdir of this dired buffer. The target is used
+;; in the prompt for file copy, rename etc.
+;; Dired listing switches
+;;  -a : Do not ignore entries starting with .
+;;  -l : Use long listing format.
+;;  -G : Do not print group names like 'users'
+;;  -h : Human-readable sizes like 1K, 234M, ..
+;;  -v : Do natural sort .. so the file names starting with . will show up first.
+;;  -F : Classify filenames by appending '*' to executables,
+;;       '/' to directories, etc.
+(setq dired-listing-switches "-alGhvF --group-directories-first") ; default: "-al"
+
+(defun sej/dired-rename-buffer-name ()
+  "Rename the dired buffer name to distinguish it from file buffers.
+It added extra strings at the front and back of the default dired buffer name."
+  (let ((name (buffer-name)))
+    (if (not (string-match "/$" name))
+	(rename-buffer (concat "*Dired* " name "/") t))))
+
+(defun sej/dired-truncate-lines ()
+  "Used to toggle with hook."
+  (toggle-truncate-lines 1))
+
+
+(use-package dired+
+  :ensure t
+  :demand t
   :defines
   sej-mode-map
   global-auto-revert-non-file-buffers
   wdired-allow-to-change-permissions
-  :functions sej/dired-truncate-lines sej/dired-rename-buffer-name
   :bind (:map sej-mode-map
 	      ("H-j" . dired-jump)
 	      :map dired-mode-map
@@ -32,158 +64,137 @@
 	      ("l" . dired-up-directory)
 	      ("C-x C-q" . wdired-change-to-wdired-mode)
 	      ("M-!" . async-shell-command))
-  :commands (dired-toggle-read-only ; to toggle read-only state of any buffer
-             dired-get-filename) ; called by `dired-single'
+  ;; omit mode can be toggled using `C-x M-o' in dired buffer
+  :hook ((dired-mode . dired-omit-mode)
+	 (dired-mode . sej/dired-rename-buffer-name)
+	 (dired-mode . sej/dired-truncate-lines)
+	 (dired-mode . dired-async-mode)
+  (dired-mode . sej/dired-update-privilege-faces))
+:init
+(put 'dired-find-alternate-file 'disabled nil)
+(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies  'always)
+(setq dired-dwim-target t)
+;; Details toggling is bound to "(" in `dired-mode' by default
+(setq diredp-hide-details-initially-flag nil)
+
+:config
+(setq dired-omit-verbose t)
+;; hide backup, autosave, *.*~ files
+
+(setq global-auto-revert-non-file-buffers nil
+      ;; -F marks links with @
+      delete-by-moving-to-trash t
+      ;; Don't auto refresh dired
+      wdired-allow-to-change-permissions t)
+
+;; Privilege indicator faces
+(defun sej/dired-update-privilege-faces ()
+  "Set up the faces for privileged files."
+  (set-face-attribute 'diredp-dir-priv nil
+		      :foreground "#7474FFFFFFFF"
+		      :background (face-background 'default))
+  (set-face-attribute 'diredp-exec-priv nil
+		      :foreground "dodger blue"
+		      :background (face-background 'default))
+  (set-face-attribute 'diredp-other-priv nil
+		      :background (face-background 'default))
+  (set-face-attribute 'diredp-write-priv nil
+		      :foreground "#25258F8F2929"
+		      :background (face-background 'default))
+  (set-face-attribute 'diredp-read-priv nil
+		      :foreground "#999932325555"
+		      :background (face-background 'default))
+  (set-face-attribute 'diredp-no-priv nil
+		      :foreground "#2C2C2C2C2C2C"
+		      :background (face-background 'default))
+  (set-face-attribute 'diredp-rare-priv nil
+		      :foreground "Green"
+		      :background (face-background 'default))
+  (set-face-attribute 'diredp-link-priv nil
+		      :foreground "#00007373FFFF")))
+
+;; https://fuco1.github.io/2017-07-15-Collapse-unique-nested-paths-in-dired-with-dired-collapse-mode.html
+;; https://github.com/Fuco1/dired-hacks/blob/master/dired-collapse.el
+(use-package dired-collapse
+  :ensure t
+  :hook (dired-mode . dired-collapse-mode))
+
+(use-package browse-at-remote
+  :ensure t)
+
+;; dired rainbow
+(use-package dired-rainbow
+  :ensure t)
+
+;; dired open
+(use-package dired-open
+  :ensure t)
+
+(use-package dired-launch
+  :ensure t
+  :config (dired-launch-enable))
+
+(use-package dired-sort
+  :ensure t)
+
+;;narrow dired to match filter
+(use-package dired-narrow
+  :ensure t
+  :bind (:map dired-mode-map
+	      ("/" . dired-narrow)))
+
+;; use async everything in dired
+(use-package async
+  :ensure t
   :config
-  ;; (use-package dired-du
-  ;;   :ensure t
-  ;;   :config
-  ;;   (add-hook 'dired-mode-hook #'dired-du-mode))
-  
-  (use-package dired-aux
-    :ensure nil
-    :init
-    (use-package dired-async
-      :ensure async))
-  (put 'dired-find-alternate-file 'disabled nil)
-  (setq dired-recursive-deletes 'always)
-  (setq dired-recursive-copies  'always)
-  ;; Set this variable to non-nil, Dired will try to guess a default
-  ;; target directory. This means: if there is a dired buffer
-  ;; displayed in the next window, use its current subdir, instead
-  ;; of the current subdir of this dired buffer. The target is used
-  ;; in the prompt for file copy, rename etc.
-  (setq dired-dwim-target t)
-  (setq global-auto-revert-non-file-buffers nil
-	;; -F marks links with @
-	delete-by-moving-to-trash t
-	;; Don't auto refresh dired
-	wdired-allow-to-change-permissions t)
+  ;; (autoload 'dired-async-mode "dired-async.el" nil t)
+  (dired-async-mode 1))
 
-  ;; Dired listing switches
-  ;;  -a : Do not ignore entries starting with .
-  ;;  -l : Use long listing format.
-  ;;  -G : Do not print group names like 'users'
-  ;;  -h : Human-readable sizes like 1K, 234M, ..
-  ;;  -v : Do natural sort .. so the file names starting with . will show up first.
-  ;;  -F : Classify filenames by appending '*' to executables,
-  ;;       '/' to directories, etc.
-  (setq dired-listing-switches "-alGhvF --group-directories-first") ; default: "-al"
-
-  (defun sej/dired-rename-buffer-name ()
-    "Rename the dired buffer name to distinguish it from file buffers.
-It added extra strings at the front and back of the default dired buffer name."
-    (let ((name (buffer-name)))
-      (if (not (string-match "/$" name))
-	  (rename-buffer (concat "*Dired* " name "/") t))))
-
-  (defun sej/dired-truncate-lines ()
-    (toggle-truncate-lines 1))
-
-  (add-hook 'dired-mode-hook #'sej/dired-rename-buffer-name)
-  (add-hook 'dired-mode-hook #'sej/dired-truncate-lines)
-
-  (use-package dired+
-    :ensure t
-    :demand t
-    :init
-    ;; Details toggling is bound to "(" in `dired-mode' by default
-    (setq diredp-hide-details-initially-flag nil)
-    :config
-    (setq dired-omit-verbose t)
-    ;; hide backup, autosave, *.*~ files
-    ;; omit mode can be toggled using `C-x M-o' in dired buffer
-    (add-hook 'dired-mode-hook #'dired-omit-mode)
-
-    ;; Privilege indicator faces
-    (defun sej/dired-update-privilege-faces ()
-      (set-face-attribute 'diredp-dir-priv nil
-			  :foreground "#7474FFFFFFFF"
-			  :background (face-background 'default))
-      (set-face-attribute 'diredp-exec-priv nil
-			  :foreground "dodger blue"
-			  :background (face-background 'default))
-      (set-face-attribute 'diredp-other-priv nil
-			  :background (face-background 'default))
-      (set-face-attribute 'diredp-write-priv nil
-			  :foreground "#25258F8F2929"
-			  :background (face-background 'default))
-      (set-face-attribute 'diredp-read-priv nil
-			  :foreground "#999932325555"
-			  :background (face-background 'default))
-      (set-face-attribute 'diredp-no-priv nil
-			  :foreground "#2C2C2C2C2C2C"
-			  :background (face-background 'default))
-      (set-face-attribute 'diredp-rare-priv nil
-			  :foreground "Green"
-			  :background (face-background 'default))
-      (set-face-attribute 'diredp-link-priv nil
-			  :foreground "#00007373FFFF"))
-    (add-hook 'dired-mode-hook #'sej/dired-update-privilege-faces)
-
-    ;; https://fuco1.github.io/2017-07-15-Collapse-unique-nested-paths-in-dired-with-dired-collapse-mode.html
-    ;; https://github.com/Fuco1/dired-hacks/blob/master/dired-collapse.el
-    (use-package dired-collapse
-      :ensure t
-      :config
-      (progn
-	(add-hook 'dired-mode-hook #'dired-collapse-mode)))
-
-    (use-package browse-at-remote)
-
-    ;; dired rainbow
-    (use-package dired-rainbow
-      :ensure t)
-
-    ;; dired open
-    (use-package dired-open
-      :ensure t)
-
-    (use-package dired-launch
-      :ensure t
-      :config (dired-launch-enable))
-
-    (use-package dired-sort)
-
-    ;;narrow dired to match filter
-    (use-package dired-narrow
-      :ensure t
-      :bind (:map dired-mode-map
-		  ("/" . dired-narrow)))
-
-    ;; use async everything in dired
-    (use-package async
-      :ensure t
-      :config
-      ;; (autoload 'dired-async-mode "dired-async.el" nil t)
-      (dired-async-mode 1))
-
-    ;; Quick-preview provides a nice preview of the thing at point for files.
-    (use-package quick-preview
-      :ensure t
-      :defines sej-mode-map
-      :bind (:map sej-mode-map
-		  ("C-c q" . quick-preview-at-point)
-		  :map dired-mode-map
-		  ("Q" . quick-preview-at-point)))
+;; Quick-preview provides a nice preview of the thing at point for files.
+(use-package quick-preview
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-c q" . quick-preview-at-point)
+	      :map dired-mode-map
+	      ("Q" . quick-preview-at-point)))
 
 
-    ;; Icons in Dired buffers (and other buffers)
-    (use-package all-the-icons
-      :ensure t)
 
-    (use-package all-the-icons-dired
-      :ensure t
-      :init
-      (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+;; Icons in Dired buffers (and other buffers)
+(use-package all-the-icons
+  :ensure t
+  :if window-system)
 
-    (use-package dired-subtree
-      :config
-      (bind-keys :map dired-mode-map
-		 ("i" . dired-subtree-insert)
-		 (";" . dired-subtree-remove)))
+(use-package all-the-icons-dired
+  :ensure t
+  :if window-system
+  :hook (dired-mode . all-the-icons-dired-mode))
 
-    ))
+(use-package dired-subtree
+  :ensure t
+  :bind (:map dired-mode-map
+	      ("i" . dired-subtree-insert)
+	      (";" . dired-subtree-remove)))
+
+
+;; Prefer g-prefixed coreutils version of standard utilities when available
+(let ((gls (executable-find "gls")))
+  (when gls (setq insert-directory-program gls)))
+
+(use-package neotree
+  :ensure t
+  :bind (([f5] . neotree-toggle)
+	 ("s-t" . neotree-toggle))
+  :custom
+  (neo-theme 'nerd)
+  (neo-toggle-window-keep-p t)
+  (neo-window-width 25)
+  (neo-window-fixed-size t))
+
+(provide 'init-dired)
+;;; init-dired.el ends here
 
 
 ;; TIPS
@@ -208,25 +219,6 @@ It added extra strings at the front and back of the default dired buffer name."
 ;;     function which calls `wdired-change-to-wdired-mode' in `dired-mode'.
 
 ;; http://truongtx.me/2013/04/24/dired-as-default-file-manager-1-introduction
-
-
-
-;; Prefer g-prefixed coreutils version of standard utilities when available
-(let ((gls (executable-find "gls")))
-  (when gls (setq insert-directory-program gls)))
-
-(use-package neotree
-  :ensure t
-  :config
-  (setq neo-theme 'nerd)
-  (setq neo-toggle-window-keep-p t)
-  (setq neo-window-width 25)
-  (setq neo-window-fixed-size t)
-  (global-set-key [f5] 'neotree-toggle)
-  (global-set-key (kbd "s-t") 'neotree-toggle))
-
-(provide 'init-dired)
-;;; init-dired.el ends here
 
 
 

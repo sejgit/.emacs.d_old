@@ -13,20 +13,20 @@
 ;;; Code:
 
 ;; from https://gist.github.com/the-kenny/267162
-(defun copy-from-osx ()
-  "For copying from osx."
-  (shell-command-to-string "pbpaste"))
-
-(defun paste-to-osx (text &optional push)
-  "For copying to osx TEXT with optional PUSH."
-  (let ((process-connection-type nil))
-    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-      (process-send-string proc text)
-      (process-send-eof proc))))
-
 (when *is-a-mac*
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx))
+  (defun copy-from-osx ()
+    "For copying from osx."
+    (shell-command-to-string "pbpaste"))
+
+  (defun paste-to-osx (text &optional push)
+    "For copying to osx TEXT with optional PUSH."
+    (let ((process-connection-type nil))
+      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+	(process-send-string proc text)
+	(process-send-eof proc))))
+
+  (setq interprogram-cut-function 'paste-to-osx)
+  (setq interprogram-paste-function 'copy-from-osx))
 
 ;; as name suggests ; defined as C-c b in above keymappings
 (defun create-scratch-buffer nil
@@ -45,7 +45,7 @@
     ))
 
 
-;; copy the current line ; mapped to C-c C-k above
+;; copy the current line ; mapped to C-c C-k
 (defun copy-line (&optional arg)
   "Do a 'kill-line' but copy rather than kill.  This function will directly call 'kill-line', so see documentation of 'kill-line' for how to use it including prefix argument ARG and relevant variables.  This function works by temporarily making the buffer read-only, so I suggest setting 'kill-read-only-ok' to t."
   (interactive "P")

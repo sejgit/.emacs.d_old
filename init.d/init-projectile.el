@@ -13,18 +13,17 @@
 
 (use-package projectile
   :ensure t
-  :defer 10
   :defines sej-mode-map
   :commands projectile-mode
   :functions
   multi-compile-run
   helm-projectile-multi-compile-project
   :diminish projectile-mode
-  :config
-  (add-hook 'after-init-hook #'projectile-mode)
-  (bind-key "C-c p b" #'projectile-switch-to-buffer #'projectile-command-map)
-  (bind-key "C-c p K" #'projectile-kill-buffers #'projectile-command-map)
+  :hook (after-init . projectile-mode)
+  :bind (:map projectile-command-map (("C-c p b" . projectile-switch-to-buffer)
+				      ("C-c p K" . projectile-kill-buffers)))
 
+  :config
   ;; global ignores
   (add-to-list 'projectile-globally-ignored-files ".tern-port")
   (add-to-list 'projectile-globally-ignored-files "GTAGS")
@@ -33,22 +32,23 @@
   (add-to-list 'projectile-globally-ignored-files "GSYMS")
   (add-to-list 'projectile-globally-ignored-files ".DS_Store")
   ;; always ignore .class files
-  (add-to-list 'projectile-globally-ignored-file-suffixes ".class")
+  (add-to-list 'projectile-globally-ignored-file-suffixes ".class"))
+  
   (use-package helm-projectile
     :ensure t
-    :defer 10
+    :defer t
+    :after projectile
     :config
-    (use-package helm-ag
-      :ensure t
-      :demand)
-    (use-package grep) ;; required for helm-ag to work properly
     (setq projectile-completion-system 'helm)
     ;; no fuzziness for projectile-helm
     (setq helm-projectile-fuzzy-match nil)
-    (helm-projectile-on)
-    :config
-    ;; Add multi-compile to the mix for projects
-    ))
+    (helm-projectile-on))
+
+  (use-package helm-ag
+    :ensure t)
+  (use-package grep
+    :ensure t)
+
 
 (provide 'init-projectile)
 ;;; init-projectile.el ends here

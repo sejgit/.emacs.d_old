@@ -47,18 +47,19 @@
 
 (use-package which-key
   :ensure t
-  :defer 5
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-h C-m" . which-key-show-major-mode))
-  :config
-  (which-key-setup-side-window-right-bottom)
+  :init
+  (which-key-setup-minibuffer)
   (which-key-mode))
 
 ;; undo tree mode to improve undo features remove C-/ in my keymap for use with dabbrev
 (use-package undo-tree
   :ensure t
+  :defines sej-mode-map
   :diminish undo-tree-mode
+  :bind (:map sej-mode-map ("C-/" . undo-tree-undo))
   :config
   (global-undo-tree-mode)
   (setq undo-tree-visualizer-timestamps t))
@@ -66,7 +67,6 @@
 ;; expand selection region larger & smaller
 (use-package expand-region
   :ensure t
-  :defer t
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("s-=" . er/expand-region)
@@ -86,7 +86,6 @@
 ;; google-this
 (use-package google-this
   :ensure t
-  :defer 10
   :diminish google-this-mode
   :defines sej-mode-map
   :bind (:map sej-mode-map
@@ -98,12 +97,12 @@
 ;; quick RPN calculator for hackers
 (use-package rpn-calc
   :ensure t
-  :defer t)
+  :commands rpn-calc)
 
 ;; writable grep buffer and apply the changes to files
 (use-package wgrep
   :ensure t
-  :defer t
+  :defines *is-a-mac*
   :init
   (setq-default grep-highlight-matches t
 		grep-scroll-output t)
@@ -113,20 +112,21 @@
     (setq exec-path (append exec-path '("/usr/local/bin"))))
 
   (when (executable-find "ag")
-    (use-package ag)
-    (use-package wgrep-ag)
+    (use-package ag
+      :ensure t)
+    (use-package wgrep-ag
+      :ensure t)
     (setq-default ag-highlight-search t)
     (define-key sej-mode-map (kbd "M-?") 'ag-project)))
 
 ;; extentions to 'help-fns.el'
 (use-package help-fns+
   :ensure t
-  :defer 5)
+  :defer t)
 
 ;; helful is an improved help-fns & help-fns+
 (use-package helpful
   :ensure t
-  :defer 10
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ;;("C-h f" . helpful-function)
@@ -138,7 +138,6 @@
 ;; operate on current line if region undefined
 (use-package whole-line-or-region
   :ensure t
-  :defer 10
   :config
   (whole-line-or-region-global-mode t))
 

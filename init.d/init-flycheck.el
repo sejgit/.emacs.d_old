@@ -11,52 +11,42 @@
 ;; 2017 08 28 add some flycheck settings & helm-flycheck
 ;; 2017 08 29 map to sej-mode-hook
 ;; 2017 80 30 update some binds
+;; 2017 12 01 update for new use-package
+
 
 ;;; Code:
 
 (use-package flymake
   :ensure t
-  :defer t
   :defines sej-mode-map
-  :bind
-  (:map sej-mode-map
-	("H-[" . flymake-goto-prev-error)
-	("H-]" . flymake-goto-next-error))
-  :config
+  :hook (post-command . flymake-error-at-point)
+  :bind (:map sej-mode-map
+	      ("H-[" . flymake-goto-prev-error)
+	      ("H-]" . flymake-goto-next-error))
+  :init
   (defun flymake-error-at-point ()
     "Show the flymake error in the minibuffer when point is on an invalid line."
     (when (get-char-property (point) 'flymake-overlay)
       (let ((help (get-char-property (point) 'help-echo)))
-	(if help (message "%s" help)))))
-
-  (add-hook 'post-command-hook 'flymake-error-at-point)
-
-  (defun flymake-error-at-point ()
-    "Show the flymake error in the minibuffer when point is on an invalid line."
-    (when (get-char-property (point) 'flymake-overlay)
-      (let ((help (get-char-property (point) 'help-echo)))
-	(if help (message "%s" help)))))
-
-  (add-hook 'post-command-hook 'flymake-error-at-point))
+	(if help (message "%s" help))))))
 
 
 (use-package flycheck
   :ensure t
-  :defer 15
   :diminish flycheck-mode
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
-	("s-]" . flycheck-previous-error)
-	("s-[" . flycheck-next-error)
+	("s-[" . flycheck-previous-error)
+	("s-]" . flycheck-next-error)
 	("C-c f" . flycheck-list-errors))
   :config
   (defadvice flycheck-next-error (before wh/flycheck-next-error-push-mark activate)
     (push-mark))
   (global-flycheck-mode 1)
-  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+  
   (setq flycheck-indication-mode 'right-fringe
-        flycheck-check-syntax-automatically '(save mode-enabled))
+	flycheck-check-syntax-automatically '(save mode-enabled))
   (custom-set-faces
    '(flycheck-error ((((class color)) (:underline "Red"))))
    '(flycheck-warning ((((class color)) (:underline "Orange")))))
@@ -70,26 +60,24 @@
 				      :underline nil)
 		  (set-face-attribute 'flycheck-error nil
 				      :inherit 'error
-				      :underline nil))
-  (use-package flycheck-color-mode-line
-    :ensure t
-    :demand
-    :defer 15))
+				      :underline nil)))
+
+(use-package flycheck-color-mode-line
+  :ensure t
+  :hook (flycheck-mode . flycheck-color-mode-line-mode))
 
 (use-package flycheck-pos-tip
   :ensure t
-  :defer 15
   :commands flycheck-pos-tip-error-messages
   :defines flycheck-pos-tip-timeout
+  :hook (flycheck-mode . flycheck-pos-tip-mode)
   :config
-  (flycheck-pos-tip-mode)
   (setq flycheck-pos-tip-timeout 10
 	flycheck-display-errors-delay 0.5)
   (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 
 (use-package helm-flycheck
   :ensure t
-  :defer t
   :bind
   (:map sej-mode-map
 	("C-c s h" . helm-flycheck)

@@ -26,8 +26,7 @@
 	("<f8>" . ispell-word)
 	("C-<f8>" . flyspell-mode)
 	("M-<f8>" . flyspell-check-next-highlighted-word))
-  :init
-  (add-hook 'text-mode-hook 'flyspell-mode)
+  :hook (text-mode . flyspell-mode)
   :config
   (setq ispell-personal-dictionary "~/sej.ispell")
 
@@ -67,7 +66,6 @@
 ;; note see below for synosaurus setup
 (use-package thesaurus
   :ensure t
-  :defer 15
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-x t" . thesaurus-choose-synonym-and-replace))
@@ -78,15 +76,14 @@
 ;; note requires installation of wordnet
 (use-package synosaurus
   :ensure t
-  :defer 15
   :defines sej-mode-map
+  :hook (after-init . synosaurus-mode)
   :bind (:map sej-mode-map
 	      ("H-t" . synosaurus-lookup)
 	      ("C-c s l" . synosaurus-lookup)
 	      ("C-c s r" . synosaurus-choose-and-replace))
   :config
-  (setq-default synosaurus-backend 'synosaurus-backend-wordnet)
-  (add-hook 'after-init-hook #'synosaurus-mode))
+  (setq-default synosaurus-backend 'synosaurus-backend-wordnet))
 
 
 (provide 'init-spelling)

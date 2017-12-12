@@ -14,8 +14,6 @@
 ;;; Code:
 
 (use-package tramp
-  :ensure nil
-  :defer 7
   :commands
   tramp-default-method
   tramp-default-user

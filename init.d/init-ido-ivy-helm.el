@@ -12,7 +12,7 @@
 ;; 2017 08 30 comment out smex in favour of helm, map to sej-mode-map, comment
 ;; 2017 09 18 back to ido
 ;; 2017 09 19 combine ido helm swiper smex into init-ido-ivy-helm.el
-
+;; 2017 12 01 update for new use-package
 
 ;;; Code:
 
@@ -47,8 +47,10 @@
   :ensure t
   :config
   (ivy-mode 1))
+
 (use-package counsel
   :ensure t)
+
 (use-package swiper
   :ensure t
   :defines
@@ -77,7 +79,6 @@
 
 
 (use-package helm
-  :ensure nil
   :demand
   :defines sej-mode-map
   :diminish helm-mode
@@ -98,7 +99,6 @@
 
 (use-package helm-swoop
   :ensure t
-  :defer t
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("M-i" . helm-swoop)
@@ -123,12 +123,10 @@
 
 (use-package helm-descbinds
   :ensure t
-  :defer t
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-h b" . helm-descbinds))
   :init (fset 'describe-bindings 'helm-descbinds))
-
 
 
 (provide 'init-ido-ivy-helm)

@@ -9,13 +9,15 @@
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 08 29 diminish fic-ext-mode
 ;; 2017 09 11 change to fic-mode
+;; 2017 12 01 update for use-package
+
 
 ;;; Code:
 
 (use-package fic-mode
-  :defer 2
   :diminish fic-mode
-  :config
+  :functions add-something-to-mode-hooks
+  :init
   (defun add-something-to-mode-hooks (mode-list something)
     "helper function to add a callback to multiple hooks"
     (dolist (mode mode-list)

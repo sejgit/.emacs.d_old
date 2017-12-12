@@ -30,7 +30,6 @@
 ;; major mode for editing conf/ini/properties files
 (use-package conf-mode
   :ensure t
-  :defer t
   :diminish conf-mode
   :mode "\\.gitconfig$")
 
@@ -44,7 +43,6 @@
 ;; major mode for csv
 (use-package csv-mode
   :ensure t
-  :defer t
   :mode "\\.[Cc][Ss][Vv]\\'"
   :config
   (setq csv-separators '("," ";" "|" " ")))
@@ -52,30 +50,27 @@
 ;; navigate and edit CSV files
 (use-package csv-nav
   :ensure t
-  :defer t)
+  :after csv-mode)
 
 ;; nov-mode ;; nov.el for epub
 (use-package nov-mode
   :ensure nov
-  :defer t
   :mode "\\.epub\\'")
 
 ;; major mode for editing PHP code
 (use-package php-mode
   :ensure t
-  :defer t
   :config
-  (use-package smarty-mode))
+  (use-package smarty-mode
+    :ensure t))
 
 ;; textile markup editing major mode
 (use-package textile-mode
   :ensure t
-  :defer t
   :mode "\\.textile\\'")
 
 ;; YAML support
 (use-package yaml-mode
-  :defer t
   :ensure t
   :mode
   "\\.yml$"
