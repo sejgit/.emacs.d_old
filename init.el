@@ -171,6 +171,10 @@
   (declare-function sej-frame-resize-r (expand-file-name "init-frame-cmds" init-dir) nil)
   (when (display-graphic-p) (sej-frame-resize-r))
 
+  ;; Prefer g-prefixed coreutils version of standard utilities when available
+  (when (executable-find "gls") (setq insert-directory-program "gls"
+				      dired-use-ls-dired t))
+
   (load-cyberpunk-theme(selected-frame))
   ;;(switch-to-buffer "*dashboard*")
   (use-package uptimes)
