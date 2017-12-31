@@ -123,4 +123,4 @@
 
 
 (provide 'init-git)
-;;;init-git.el ends here
+;;; init-git.el ends here
