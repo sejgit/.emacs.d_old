@@ -50,6 +50,9 @@
     (kill-buffer)
     (jump-to-register :magit-fullscreen))
 
+  (defadvice magit-quit-window (after magit-restore-screen activate)
+    (jump-to-register :magit-fullscreen))
+
   (setq-default magit-diff-refine-hunk t)
   (fullframe magit-status magit-mode-quit-window)
   (add-hook 'git-commit-mode-hook 'goto-address-mode)
@@ -120,4 +123,4 @@
 
 
 (provide 'init-git)
-;;;init-git.el ends here
+;;; init-git.el ends here

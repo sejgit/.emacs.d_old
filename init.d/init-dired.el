@@ -180,8 +180,8 @@ It added extra strings at the front and back of the default dired buffer name."
 
 
 ;; Prefer g-prefixed coreutils version of standard utilities when available
-(let ((gls (executable-find "gls")))
-  (when gls (setq insert-directory-program gls)))
+(when (executable-find "gls") (setq insert-directory-program (executable-find "gls")
+				    dired-use-ls-dired t))
 
 (use-package neotree
   :ensure t
