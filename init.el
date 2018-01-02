@@ -93,7 +93,7 @@
 
   ;; list the packages you want
   (setq package-list
-	'(use-package diminish cyberpunk-theme load-dir))
+	'(use-package diminish cyberpunk-theme load-dir frame-cmds))
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
@@ -151,7 +151,7 @@
   (defconst my-init-dir "~/.emacs.d/init.d")
   (use-package auto-compile
     :ensure t
-    :init
+    :config
     (auto-compile-on-load-mode)
     (auto-compile-on-save-mode))
 
