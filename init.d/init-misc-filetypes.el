@@ -34,11 +34,11 @@
   :mode "\\.gitconfig$")
 
 
-;; editing of crontab scheduling files
-(use-package crontab-mode
-  :ensure t
-  :defer t
-  :mode "\\.?cron\\(tab\\)?\\'")
+;; ;; editing of crontab scheduling files
+;; (use-package crontab-mode
+;;   :ensure t
+;;   :defer t
+;;   :mode "\\.?cron\\(tab\\)?\\'")
 
 ;; major mode for csv
 (use-package csv-mode
