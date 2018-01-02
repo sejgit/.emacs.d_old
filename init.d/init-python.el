@@ -57,9 +57,11 @@
 (use-package elpy
   :ensure t
   :defer t
+  :commands elpy-enable
   :config
   (elpy-enable)
-
+  (elpy-use-ipython)
+  
   (define-skeleton python-insert-docstring
     "Insert a Python docstring."
     "This string is ignored!"
@@ -71,7 +73,7 @@
   (setq fill-column 79)
   (setq-default flycheck-flake8rc "~/.config/flake8rc")
   (setq python-check-command "flake8")
-  (setq tab-width 4))
+  (setq tab-width 2))
 
 (use-package anaconda-mode
   :ensure t
@@ -108,7 +110,10 @@
   :config
   (setq elpy-rpc-backend "jedi"))
 
+(use-package py-autopep8
+  :ensure t
+  :hook (elpy-mode py-autopep8-enable-on-save))
+
 (provide 'init-python)
 ;;; init-python.el ends here
-
 

@@ -8,8 +8,15 @@
 ;;                                init-aggressive-indent.el
 ;;                                init-golden-ratio.el
 ;; 2017 11 29 clean up use-package and add :hook
-
+;; 2017 12 26 add dimmer
 ;;; Code:
+
+(use-package dimmer
+  :ensure t
+  :defer 5
+  :config
+  (setq dimmer-percent 0.40)
+  (dimmer-activate))
 
 (use-package golden-ratio
   :ensure t

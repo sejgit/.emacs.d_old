@@ -26,6 +26,8 @@
 ;; 2017 09 18 add goto-line with temp line numbers
 ;; 2017 09 19 add transpose keybindings & others from magnar
 ;; 2017 09 20 make more pure keybindings & move others stuff out
+;; 2017 12 21 edits move movement bindings into init-movement
+;;                  TODO group buffer manipulatino together (sudo-edit, revert, etc...)
 
 ;;; Code:
 
@@ -126,6 +128,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; shorthand for interactive lambdas
 (defmacro λ (&rest body)
+  "Shorthand for interactive lambdas (BODY)."
   `(lambda ()
      (interactive)
      ,@body))
@@ -163,7 +166,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "<M-return>") 'eval-last-sexp)
 (define-key sej-mode-map (kbd "<s-return>") 'eval-buffer)
 (define-key sej-mode-map (kbd "s-b") 'helm-mini)
-(define-key sej-mode-map (kbd "s-d") 'duplicate-current-line-or-region)  ;;defined below
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
 (define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined just here for ref
@@ -200,7 +202,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "M-z") 'zap-to-char)
 (define-key sej-mode-map (kbd "s-z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
 (define-key sej-mode-map (kbd "C-M-d") 'backward-kill-word)
-(define-key sej-mode-map (kbd "C-c C-k") 'copy-line) ;; defined below
 
 ;;scroll window up/down by one line
 (define-key sej-mode-map (kbd "s-n") (kbd "C-u 1 C-v"))
@@ -213,9 +214,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; Align your code in a pretty way.
 (define-key sej-mode-map (kbd "C-x \\") 'align-regexp)
-
-;; Perform general cleanup.
-(define-key sej-mode-map (kbd "C-c n") 'cleanup-buffer)
 
 ;; File & buffer finding
 (define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
@@ -242,50 +240,20 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
 (define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
 (define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
-(define-key sej-mode-map (kbd "s-h")  'windmove-left)
-(define-key sej-mode-map (kbd "s-l") 'windmove-right)
-(define-key sej-mode-map (kbd "s-j")    'windmove-up)
-(define-key sej-mode-map (kbd "s-k")  'windmove-down)
+(define-key sej-mode-map (kbd "s-h")         'windmove-left)
+(define-key sej-mode-map (kbd "s-l")         'windmove-right)
+(define-key sej-mode-map (kbd "s-k")         'windmove-up)
+(define-key sej-mode-map (kbd "s-j")         'windmove-down)
 ;; Make windmove work in org-mode:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-;; buffer-move package to swap buffers between windows
-;; (defined in init-movement.el)
-(define-key sej-mode-map (kbd "<s-up>") 'buf-move-up)
-(define-key sej-mode-map (kbd "<s-down>") 'buf-move-down)
-(define-key sej-mode-map (kbd "<s-left>") 'buf-move-left)
-(define-key sej-mode-map (kbd "<s-right>") 'buf-move-right)
-
-;; goto-chg package
-;; (defined in init-movement.el)
-(define-key sej-mode-map (kbd "M-.") 'goto-last-change)
-(define-key sej-mode-map (kbd "C-M-.") 'goto-last-change)
-(define-key sej-mode-map (kbd "C-,") 'goto-last-change-reverse)
-
-;; avy efficient movement through beginning letters
-;; (defined in init-movement.el)
-(define-key sej-mode-map (kbd "C-<return>") 'avy-goto-word-1)
-
-;; crux package smart beginning of line movement
-;; (defined in init-movement.el)
-(define-key sej-mode-map (kbd "C-a") 'crux-move-beginning-of-line)
-
-;; drag-stuff package
-;; (defined in init-movement.el)
-(define-key sej-mode-map (kbd "M-<down>") 'drag-stuff-down)
-(define-key sej-mode-map (kbd "M-<up>") 'drag-stuff-up)
-
 ;; push and jump to mark functions
 ;; (defined in init-misc-defuns.el)
 (define-key sej-mode-map (kbd "C-`") 'push-mark-no-activate)
 (define-key sej-mode-map (kbd "M-`") 'jump-to-mark)
-
-;; cleanup-buffer function
-;; (defined in init-misc-defuns.el)
-(define-key sej-mode-map (kbd "M-c") 'cleanup-buffer)
 
 ;; function to edit the curent file as root
 ;; (defined in init-misc-defuns.el)
@@ -295,8 +263,79 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; (defined in init-misc-defuns.el)
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
 
+;; framemove will move frames when at limits of current frame
+(use-package framemove
+  :ensure t
+  :config
+  (setq framemove-hook-into-windmove t))
+
+;; buffer-move to swap buffers between windows
+(use-package buffer-move
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("<s-up>" . buf-move-up)
+	      ("<s-down>" . buf-move-down)
+	      ("<s-left>" . buf-move-left)
+	      ("<s-right>" . buf-move-right)))
+
+(use-package goto-chg
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ;;("C-." . goto-last-change)
+	      ;; M-. can conflict with etags tag search. But C-. can get overwritten
+	      ;; by flyspell-auto-correct-word. And goto-last-change needs a really fast key.
+	      ("M-." . goto-last-change)
+	      ;; ensure that even in worst case some goto-last-change is available
+	      ("C-M-." . goto-last-change)
+	      ;; added reverse below
+	      ("C-," . goto-last-change-reverse)))
+
+;; redefine M-< and M-> for some modes
+(use-package beginend               ; smart M-< & M->
+  :ensure t
+  :commands beginend-global-mode
+  :config
+  (beginend-global-mode)
+  )
+
+;; efficient moving through search terms
+(use-package avy
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-<return>" . avy-goto-word-1)))
+
+;; crux - smart moving to beginning of line or to beginning of text on line
+(use-package crux
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-a" . crux-move-beginning-of-line)
+	      ("C-k" . crux-smart-kill-line)
+	      ("C-c C-k" . crux-duplicate-current-line-or-region)
+	      ("s-d" . crux-duplicate-current-line-or-region)
+	      ("C-c n" . crux-cleanup-buffer-or-region)))
+
+;; Moves selected region around
+(use-package drag-stuff
+  :ensure t
+  :diminish drag-stuff-mode
+  :defines sej-mode-map
+  :commands drag-stuff-global-mode
+  :bind (:map sej-mode-map
+	      ("M-<down>" . drag-stuff-down)
+	      ("M-<up>" . drag-stuff-up))
+  :config
+  (drag-stuff-global-mode))
+
+;; save the place in files
+(use-package saveplace
+  :ensure t
+  :config
+  (setq-default save-place t))
 
 (provide 'init+bindings)
 ;;; init+bindings.el ends here
-
 

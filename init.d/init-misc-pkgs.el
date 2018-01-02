@@ -132,8 +132,7 @@
 	      ;;("C-h f" . helpful-function)
 	      ("C-h c" . helpful-command)
 	      ("C-h M" . helpful-macro)
-	      ("C-h v" . helpful-variable)
-	      ("C-h i" . helpful-at-point)))
+	      ("C-h v" . helpful-variable)))
 
 ;; operate on current line if region undefined
 (use-package whole-line-or-region

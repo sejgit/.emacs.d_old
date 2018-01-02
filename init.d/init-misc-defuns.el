@@ -9,6 +9,7 @@
 ;; 2017 09 08 fixed above for only mac
 ;; 2017 09 20 deleted unused defuns and renamed to init-misc-defuns.el
 ;;            move from init-bindings-settings.el
+;; 2017 12 21 comment out unused, use crux for some, reorder used at top
 
 ;;; Code:
 
@@ -44,119 +45,6 @@
     (emacs-lisp-mode)
     ))
 
-
-;; copy the current line ; mapped to C-c C-k
-(defun copy-line (&optional arg)
-  "Do a 'kill-line' but copy rather than kill.  This function will directly call 'kill-line', so see documentation of 'kill-line' for how to use it including prefix argument ARG and relevant variables.  This function works by temporarily making the buffer read-only, so I suggest setting 'kill-read-only-ok' to t."
-  (interactive "P")
-  (setq buffer-read-only t)
-  (kill-line arg)
-  (setq buffer-read-only nil)
-  (move-beginning-of-line 1))
-
-;; duplicate the current line or region defined ; mapped to s-d above
-(defun duplicate-current-line-or-region (arg)
-  "Duplicates the current line or region ARG times.
-If there's no region, the current line will be duplicated."
-  (interactive "p")
-  (if (region-active-p)
-      (let ((beg (region-beginning))
-	    (end (region-end)))
-	(duplicate-region arg beg end)
-	(one-shot-keybinding "d" (lambda() (interactive) (duplicate-region 1 beg end))))
-    (duplicate-current-line arg)
-    (one-shot-keybinding "d" 'duplicate-current-line)))
-
-(defun one-shot-keybinding (key command)
-  "One shot keybinding of KEY and COMMAND."
-  (set-transient-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (kbd key) command)
-     map) t))
-
-(defun replace-region-by (fn)
-  "Replace regiion by FN."
-  (let* ((beg (region-beginning))
-	 (end (region-end))
-	 (contents (buffer-substring beg end)))
-    (delete-region beg end)
-    (insert (funcall fn contents))))
-
-(defun duplicate-region (&optional num start end)
-  "Duplicates the region NUM times bounded by START and END.
-If no START and END is provided, the current 'region-beginning' and 'region-end' is used."
-  (interactive "p")
-  (save-excursion
-    (let* ((start (or start (region-beginning)))
-	   (end (or end (region-end)))
-	   (region (buffer-substring start end)))
-      (goto-char end)
-      (dotimes (i num)
-	(insert region)))))
-
-(defun duplicate-current-line (&optional num)
-  "Duplicate the current line NUM times."
-  (interactive "p")
-  (if (bound-and-true-p paredit-mode)
-      (paredit-duplicate-current-line)
-    (save-excursion
-      (when (eq (point-at-eol) (point-max))
-	(goto-char (point-max))
-	(newline)
-	(forward-char -1))
-      (duplicate-region num (point-at-bol) (1+ (point-at-eol))))))
-
-(defun paredit-duplicate-current-line ()
-  "Paredit duplicate current line."
-  (back-to-indentation)
-  (let (kill-ring kill-ring-yank-pointer)
-    (paredit-kill)
-    (yank)
-    (newline-and-indent)
-    (yank)))
-
-;; macro saving
-(defun save-macro (name)
-  "Save a macro.  Take a NAME as argument and save the last defined macro under this name at the end of your init file."
-  (interactive "SName of the macro :")
-  (kmacro-name-last-macro name)
-  (find-file user-init-file)
-  (goto-char (point-max))
-  (newline)
-  (insert-kbd-macro name)
-  (newline)
-  (switch-to-buffer nil))
-
-;; indentation and buffer cleanup
-(defun untabify-buffer ()
-  "Remove tabs from a buffer and replace with spaces."
-  (interactive)
-  (untabify (point-min) (point-max)))
-
-(defun indent-buffer ()
-  "Indent current buffer."
-  (interactive)
-  (indent-region (point-min) (point-max)))
-
-(defun cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer."
-  (interactive)
-  (indent-buffer)
-  (untabify-buffer)
-  (delete-trailing-whitespace))
-
-;; functions for push and jump to mark
-(defun push-mark-no-activate ()
-  "Pushes `point' to `mark-ring' and does not activate the region.  Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled."
-  (interactive)
-  (push-mark (point) t nil)
-  (message "Pushed mark to ring"))
-
-(defun jump-to-mark ()
-  "Jumps to the local mark, respecting the `mark-ring' order.  This is the same as using \\[set-mark-command] with the prefix argument."
-  (interactive)
-  (set-mark-command 1))
-
 ;; function to edit the curent file as root
 (defun sudo-edit (&optional arg)
   "Edit currently visited file as root.
@@ -169,7 +57,7 @@ buffer is not visiting a file."
 			 (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-;; line numbers when using goto-line s-l or M-g M-g or M-g g
+;; line numbers when using goto-line M-g M-g or M-g g
 (defun goto-line-with-feedback ()
   "Show line numbers temporarily, while prompting for the line number input."
   (interactive)
@@ -189,6 +77,31 @@ buffer is not visiting a file."
       (make-directory parent-directory t))))
 
 (add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
+
+
+;; macro saving
+(defun save-macro (name)
+  "Save a macro.  Take a NAME as argument and save the last defined macro under this name at the end of your init file."
+  (interactive "SName of the macro :")
+  (kmacro-name-last-macro name)
+  (find-file user-init-file)
+  (goto-char (point-max))
+  (newline)
+  (insert-kbd-macro name)
+  (newline)
+  (switch-to-buffer nil))
+
+;; functions for push and jump to mark
+(defun push-mark-no-activate ()
+  "Pushes `point' to `mark-ring' and does not activate the region.  Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled."
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+
+(defun jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.  This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
 
 
 (provide 'init-misc-defuns)
