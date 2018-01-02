@@ -47,12 +47,12 @@
 
 (use-package which-key
   :ensure t
+  :hook (after-init . which-key-mode)
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-h C-m" . which-key-show-major-mode))
-  :init
-  (which-key-setup-minibuffer)
-  (which-key-mode))
+  :config
+  (which-key-setup-minibuffer))
 
 ;; undo tree mode to improve undo features remove C-/ in my keymap for use with dabbrev
 (use-package undo-tree
