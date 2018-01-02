@@ -10,6 +10,7 @@
 
 (use-package dashboard
   :ensure t
+  :after (projectile)
   :config
   (setq dashboard-banner-logo-title "SeJ Dashboard")
   ;; Set the banner
