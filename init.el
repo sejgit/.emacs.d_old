@@ -21,6 +21,9 @@
 ;; 2017 09 11 package load re-introduced
 ;; 2017 09 21 reordering per ideas from magnars
 ;; 2017 11 29 package load removed with new use-package understanding
+;; 2018 01 02 TODO package install put back in
+;;            TODO make settings generic to individual
+;;            TODO better docs for what needs installed on base computer
 
 ;;; Code:
 
@@ -88,13 +91,23 @@
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (setq load-prefer-newer t)
 
+  ;; list the packages you want
+  (setq package-list
+	'(use-package diminish cyberpunk-theme load-dir))
+
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
   (package-initialize)
 
+  ;; fetch the list of packages available
   (unless package-archive-contents
     (package-refresh-contents))
 
+  ;; install the missing packages
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package)))
+  
   (eval-when-compile
     (require 'use-package)
     (setq use-package-always-ensure t)
