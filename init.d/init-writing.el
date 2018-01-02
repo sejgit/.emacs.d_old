@@ -123,6 +123,7 @@
 
 ;; for inserting abbreviations
 (use-package abbrev
+  :ensure nil
   :hook (after-init . abbrev-mode)
   :diminish abbrev-mode
   :config
