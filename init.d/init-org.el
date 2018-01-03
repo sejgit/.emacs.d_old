@@ -16,7 +16,7 @@
   :ensure t)
 
 (use-package org
-  :ensure t
+  :ensure nil
   :defines
   sej-mode-map
   org-capture-bookmark
