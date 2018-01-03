@@ -21,7 +21,7 @@
 ;; 2017 09 11 package load re-introduced
 ;; 2017 09 21 reordering per ideas from magnars
 ;; 2017 11 29 package load removed with new use-package understanding
-;; 2018 01 02 TODO package install put back in
+;; 2018 01 02 limited initial package install put in
 ;;            TODO make settings generic to individual
 ;;            TODO better docs for what needs installed on base computer
 
