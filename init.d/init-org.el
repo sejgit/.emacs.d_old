@@ -1,4 +1,4 @@
-;;; init.org --- Stephen's emacs init.org.el file
+;;; init-org --- Stephen's emacs init.org.el file
 ;;; Commentary:
 ;; org-mode settings
 
@@ -16,7 +16,7 @@
   :ensure t)
 
 (use-package org
-  :ensure nil
+  :ensure t
   :defines
   sej-mode-map
   org-capture-bookmark
@@ -37,6 +37,7 @@
 	      ("C-c a" . org-agenda)
 	      ("S-<left>" . org-shiftleft)
 	      ("S-<right>" . org-shiftright))
+  :init (package-initialize)
   :config
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
