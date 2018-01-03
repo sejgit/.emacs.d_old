@@ -92,8 +92,8 @@
   (setq load-prefer-newer t)
 
   ;; list the packages you want
-  (setq package-list
-	'(use-package diminish cyberpunk-theme load-dir frame-cmds))
+  (defvar package-list
+    '(use-package diminish cyberpunk-theme load-dir frame-cmds))
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
