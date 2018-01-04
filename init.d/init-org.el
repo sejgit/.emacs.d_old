@@ -17,6 +17,7 @@
 
 (use-package org
   :ensure t
+  :defer 10
   :defines
   sej-mode-map
   org-capture-bookmark
@@ -37,8 +38,8 @@
 	      ("C-c a" . org-agenda)
 	      ("S-<left>" . org-shiftleft)
 	      ("S-<right>" . org-shiftright))
-  :init (package-initialize)
   :config
+  (package-initialize)
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
     (setq org-directory "~/gdrive/todo"))
