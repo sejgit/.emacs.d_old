@@ -17,12 +17,7 @@
 (use-package fic-mode
   :diminish fic-mode
   :functions add-something-to-mode-hooks
-  :init
-  (defun add-something-to-mode-hooks (mode-list something)
-    "helper function to add a callback to multiple hooks"
-    (dolist (mode mode-list)
-      (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
-  (add-something-to-mode-hooks '( c++ tcl emacs-lisp arduino python text markdown latex) 'fic-mode))
+  :hook (org-mode c++-mode tcl-mode emacs-lisp-mode arduino-mode python-mode text-mode markdown-mode latex-mode))
 
 (provide 'init-fic-ext)
 ;;; init-fic-ext.el ends here

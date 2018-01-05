@@ -25,6 +25,7 @@ archive/
 elpa/
 .DS_Store
 savehist
+history
 url/
 
 # Byte-compiled / optimized / DLL files

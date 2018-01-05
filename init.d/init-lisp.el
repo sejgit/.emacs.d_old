@@ -78,9 +78,8 @@
 ;; turn on elisp-slime-nav if available so M-. works to jump to function definitions
 (use-package elisp-slime-nav
   :ensure t
-  :defer t
   :diminish elisp-slime-nav-mode
-  :config (add-hook 'emacs-lisp-mode-hook #'elisp-slime-nav-mode))
+  :hook (emacs-lisp-mode . elisp-slime-nav-mode))
 
 (provide 'init-lisp)
 ;;; init-lisp.el ends here

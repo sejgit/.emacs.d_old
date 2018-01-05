@@ -22,9 +22,11 @@
 
 ;; arduino-mode
 (use-package arduino-mode
+  :ensure t
   :mode "\\.ino$")
 
 (use-package batch-mode
+  :ensure t
   :mode "\\.bat\\'")
 
 ;; major mode for editing conf/ini/properties files
@@ -34,7 +36,7 @@
   :mode "\\.gitconfig$")
 
 
-;; ;; editing of crontab scheduling files
+;; ;; editing of crontab scheduling files (removed as seems not on melpa)
 ;; (use-package crontab-mode
 ;;   :ensure t
 ;;   :defer t

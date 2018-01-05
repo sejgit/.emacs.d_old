@@ -147,9 +147,7 @@ It added extra strings at the front and back of the default dired buffer name."
 ;; use async everything in dired
 (use-package async
   :ensure t
-  :config
-  ;; (autoload 'dired-async-mode "dired-async.el" nil t)
-  (dired-async-mode 1))
+  :hook (dired-mode . dired-async-mode)) 
 
 ;; Quick-preview provides a nice preview of the thing at point for files.
 (use-package quick-preview

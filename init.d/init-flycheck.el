@@ -68,7 +68,6 @@
 
 (use-package flycheck-pos-tip
   :ensure t
-  :commands flycheck-pos-tip-error-messages
   :defines flycheck-pos-tip-timeout
   :hook (flycheck-mode . flycheck-pos-tip-mode)
   :config

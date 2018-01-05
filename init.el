@@ -24,6 +24,7 @@
 ;; 2018 01 02 limited initial package install put in
 ;;            TODO make settings generic to individual
 ;;            TODO better docs for what needs installed on base computer
+;;            TODO ag pass projectile common-tools?(gls)
 
 ;;; Code:
 
@@ -33,9 +34,6 @@
 
 (defvar emacs-start-time (current-time)
   "Time Emacs was started.")
-
-;; define a const for mac behaviour
-(defconst *is-a-mac* (eq system-type 'darwin))
 
 ;; Turn off mouse interface early in startup to avoid momentary display
 (if (fboundp 'menu-bar-mode) (menu-bar-mode t))
@@ -93,7 +91,7 @@
 
   ;; list the packages you want
   (defvar package-list
-    '(use-package diminish cyberpunk-theme load-dir frame-cmds))
+    '(diminish use-package))
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
@@ -107,20 +105,18 @@
   (dolist (package package-list)
     (unless (package-installed-p package)
       (package-install package)))
-  
-  (eval-when-compile
-    (require 'use-package)
-    (setq use-package-always-ensure t)
-    )
+
+  ;; set-up use-package
+  (require 'use-package)
   (require 'cl)
   (require 'diminish)
   (require 'bind-key)
   (require 'cl-lib)
 
-  ;; Lame, server has bad autoloads :(
+  ;; Lame, server has bad autoloads
   (require 'server nil t)
   (use-package server
-    ;;  :if window-system
+    :if window-system
     :init
     (when (not (server-running-p server-name))
       (server-start)))
@@ -130,10 +126,39 @@
     '(defun enriched-decode-display-prop (start end &optional param)
        (list start end)))
 
-  ;; load preferred theme at startup
+  ;; recompile configs
+  (defconst my-init-dir "~/.emacs.d/init.d")
+  (use-package auto-compile
+    :ensure t
+    :config
+    (auto-compile-on-load-mode)
+    (auto-compile-on-save-mode))
+
+  ;; themes
+  (defun load-cyberpunk-theme (frame)
+    "Load cyberpunk theme in current FRAME."
+    (select-frame frame)
+    (load-theme 'cyberpunk t))
+
+  (use-package cyberpunk-theme
+    :ensure t
+    :config
+    (load-cyberpunk-theme(selected-frame)))
+
+  ;; so theme works with daemon server
   (if (daemonp)
       (add-hook 'after-make-frame-functions #'load-cyberpunk-theme)
     (load-theme 'cyberpunk t) )
+
+  (switch-to-buffer "*dashboard*")
+
+  ;; load-dir init.d
+  (random t)
+  (require 'load-dir)
+  (setq force-load-messages t)
+  (setq load-dir-debug nil)
+  (setq load-dir-recursive nil)
+  (load-dir-one my-init-dir)
 
   ;; save histories
   (use-package savehist
@@ -147,54 +172,12 @@
 	    regexp-search-ring))
     (setq-default save-place t)    )
 
-  ;; recompile configs
-  (defconst my-init-dir "~/.emacs.d/init.d")
-  (use-package auto-compile
-    :ensure t
-    :config
-    (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode))
-
-  ;; themes
-  (use-package cyberpunk-theme
-    :ensure t
-    :config
-    (defun load-cyberpunk-theme (frame)
-      "Load cyberpunk theme in current FRAME."
-      (select-frame frame)
-      (load-theme 'cyberpunk t)
-      ;;(set-frame-size-according-to-resolution)
-      (switch-to-buffer "*dashboard*")))
-
-  ;; init.d
-  (random t)
-  (use-package load-dir
-    :ensure t
-    :defines
-    load-dir-debug
-    load-dir-recursive
-    :functions load-dir-one
-    :init
-    (setq force-load-messages t)
-    (setq load-dir-debug nil)
-    (setq load-dir-recursive nil)
-    :config
-    (load-dir-one my-init-dir))
-
-  (declare-function sej-frame-resize-r (expand-file-name "init-frame-cmds" init-dir) nil)
-  (when (display-graphic-p) (sej-frame-resize-r))
-
-  ;; Prefer g-prefixed coreutils version of standard utilities when available
-  (when (executable-find "gls") (setq insert-directory-program "gls"
-				      dired-use-ls-dired t))
-
-  (load-cyberpunk-theme(selected-frame))
-  ;;(switch-to-buffer "*dashboard*")
-  (use-package uptimes)
+  (use-package uptimes
+    :ensure t)
 
   (setq debug-on-error nil)
   (setq debug-on-quit nil)
-  )
+  ) ;; end of let file wrapper
 
 (provide 'init)
 ;;; init.el ends here

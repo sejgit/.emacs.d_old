@@ -19,8 +19,6 @@
 (use-package flyspell
   :defines
   sej-mode-map
-  :functions
-  flyspell-goto-next-error
   :bind
   (:map sej-mode-map
 	("<f8>" . ispell-word)
@@ -77,7 +75,7 @@
 (use-package synosaurus
   :ensure t
   :defines sej-mode-map
-  :hook (after-init . synosaurus-mode)
+  :hook (text-mode . synosaurus-mode)
   :bind (:map sej-mode-map
 	      ("H-t" . synosaurus-lookup)
 	      ("C-c s l" . synosaurus-lookup)

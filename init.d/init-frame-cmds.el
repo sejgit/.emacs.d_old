@@ -14,6 +14,7 @@
   :ensure t
   :defines sej-mode-map
   :if (display-graphic-p)
+  :hook (after-init . sej-frame-resize-r)
   :bind (:map sej-mode-map
 	      ("C-c s <left>" . sej-frame-resize-l)
 	      ("C-c s <right>" . sej-frame-resize-r)

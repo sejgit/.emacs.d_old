@@ -13,16 +13,8 @@
 
 (use-package projectile
   :ensure t
-  :defines sej-mode-map
-  :commands projectile-mode
-  :functions
-  multi-compile-run
-  helm-projectile-multi-compile-project
   :diminish projectile-mode
   :hook (after-init . projectile-mode)
-  :bind (:map projectile-command-map (("C-c p b" . projectile-switch-to-buffer)
-				      ("C-c p K" . projectile-kill-buffers)))
-
   :config
   ;; global ignores
   (add-to-list 'projectile-globally-ignored-files ".tern-port")
@@ -36,7 +28,6 @@
   
   (use-package helm-projectile
     :ensure t
-    :defer t
     :after projectile
     :config
     (setq projectile-completion-system 'helm)
@@ -46,6 +37,7 @@
 
   (use-package helm-ag
     :ensure t)
+
   (use-package grep
     :ensure t)
 

@@ -39,29 +39,28 @@
 ;;   :defer t
 ;;   :interpreter "python"
 ;;   :bind (:map python-mode-map
-;; 			  ("<backtab>" . python-back-indent)
-;; 			  ("<f9>" . py-insert-debug))
+;;			  ("<backtab>" . python-back-indent)
+;;			  ("<f9>" . py-insert-debug))
 ;;   :mode (("\\.py$" . python-mode)
 ;;          ("\\.cpy$" . python-mode)
 ;;          ("\\.vpy$" . python-mode))
 ;;   :init
 ;;   (setq python-shell-interpreter "ipython"
-;; 		python-shell-interpreter-args "--simple-prompt -i")
+;;		python-shell-interpreter-args "--simple-prompt -i")
 ;;   :config
 ;;   (add-hook 'python-mode-hook 'flycheck-mode)
 
 ;;   (add-hook 'python-mode-hook
-;; 			(lambda ()
-;; 			  (add-to-list 'flycheck-disabled-checkers 'python-pylint)))
+;;			(lambda ()
+;;			  (add-to-list 'flycheck-disabled-checkers 'python-pylint)))
 
 (use-package elpy
   :ensure t
   :defer t
-  :commands elpy-enable
   :config
   (elpy-enable)
   (elpy-use-ipython)
-  
+
   (define-skeleton python-insert-docstring
     "Insert a Python docstring."
     "This string is ignored!"
@@ -79,13 +78,14 @@
   :ensure t
   :defer t
   :hook ((python-mode . anaconda-mode)
-	 (python-mode . anaconda-eldoc-mode)))
+	 (python-mode . anaconda-eldoc-mode)
+	 (elpy-mode . anaconda-mode)
+	 (elpy-mode . anaconda-eldoc-mode)))
 
 (use-package company-anaconda
   :ensure t
   :after anaconda-mode
   :defer t)
-
 
 (use-package pyvenv
   :ensure t
@@ -95,10 +95,8 @@
 (use-package jedi
   :ensure t
   :defer t
-  :init
-  (autoload 'jedi:setup "jedi" nil t)
-  :hook (python-mode . jedi:setup)
-  (setq jedi:complete-on-dot t)
+  :hook ((python-mode . jedi:setup)
+	 (elpy-mode . jedi:setup))
   :preface
   (declare-function jedi:goto-definition jedi nil)
   (declare-function jedi:related-names jedi nil)
@@ -108,12 +106,13 @@
 	      ("C-c r" . jedi:related-names)
 	      ("C-?" . jedi:show-doc))
   :config
+  (autoload 'jedi:setup "jedi" nil t)
+  (setq jedi:complete-on-dot t)
   (setq elpy-rpc-backend "jedi"))
 
 (use-package py-autopep8
   :ensure t
-  :hook (elpy-mode py-autopep8-enable-on-save))
+  :hook (elpy-mode . py-autopep8-enable-on-save))
 
 (provide 'init-python)
 ;;; init-python.el ends here
-

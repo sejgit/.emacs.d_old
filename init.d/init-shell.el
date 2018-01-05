@@ -26,7 +26,6 @@
 
 (use-package bash-completion
   :ensure t
-  :commands bash-completion-dynamic-complete
   :hook (shell-mode . compilation-shell-minor-mode)
   :defines explicit-shell-file-name
   :config
@@ -35,7 +34,8 @@
   (setq bash-completion-process-timeout 0.5))
 
 (use-package company-shell
-  :ensure t)
+  :ensure t
+  :hook (shell-mode))
 
 ;; this allows GUI Emacs to inherit $PATH
 (use-package exec-path-from-shell
@@ -74,14 +74,14 @@
       comint-prompt-read-only nil)
 
 (defun sej/shell-kill-buffer-sentinel (process event)
-  "Function to kill shell buffer."
+  "Function to kill shell buffer upon (PROCESS EVENT)."
   (when (memq (process-status process) '(exit signal))
     (kill-buffer)))
 
 (defun sej/kill-process-buffer-on-exit ()
   "Function to kill buffer on exit."
   (set-process-sentinel (get-buffer-process (current-buffer))
-                        #'sej/shell-kill-buffer-sentinel))
+			#'sej/shell-kill-buffer-sentinel))
 
 (dolist (hook '(ielm-mode-hook term-exec-hook comint-exec-hook))
   (add-hook hook 'sej/kill-process-buffer-on-exit))
@@ -95,7 +95,7 @@
   "Suppress the annoying 'History item : NNN' messages from shell history isearch."
   (let ((old-message (symbol-function 'message)))
     (unwind-protect
-        (progn (fset 'message 'ignore) ad-do-it)
+	(progn (fset 'message 'ignore) ad-do-it)
       (fset 'message old-message))))
 
 (add-hook 'shell-mode-hook #'set-scroll-conservatively)
@@ -108,7 +108,7 @@
 ;;; Eshell settings
 
 (defun sej/setup-eshell ()
-  "Set-up for eshell function to be called when eshell-mode is entered."
+  "Set-up for eshell function to be called when 'eshell-mode' is entered."
   (interactive)
   ;; turn off semantic-mode in eshell buffers
   (semantic-mode -1)
@@ -119,7 +119,7 @@
 
 
 (defun sudoec (file)
-  "A nice helper to sudo-edit a file."
+  "A nice helper to sudo-edit a (FILE)."
   (interactive)
   (find-file (concat "/sudo::" (expand-file-name file))))
 
@@ -133,11 +133,11 @@
   :init
   (require 'em-smart)
   (setq eshell-glob-case-insensitive nil
-        eshell-error-if-no-glob nil
-        eshell-scroll-to-bottom-on-input nil
-        eshell-where-to-jump 'begin
-        eshell-review-quick-commands nil
-        eshell-smart-space-goes-to-end t)
+	eshell-error-if-no-glob nil
+	eshell-scroll-to-bottom-on-input nil
+	eshell-where-to-jump 'begin
+	eshell-review-quick-commands nil
+	eshell-smart-space-goes-to-end t)
   ;; Initialize "smart" mode
   ;;(add-hook 'eshell-mode-hook #'eshell-smart-initialize)
   :config
@@ -253,4 +253,3 @@
 
 (provide 'init-shell)
 ;;; init-shell.el ends here
-

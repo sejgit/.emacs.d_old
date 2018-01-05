@@ -13,13 +13,15 @@
 
 ;;; Code:
 
-(define-key sej-mode-map (kbd "s-r") 'jump-to-register)
-(dolist (r `((?i (file . ,"~/.emacs.d/init.el"))
+;; this is defined in init+bindings.el (kbd "s-r") 'jump-to-register
+(dolist (r `(
 	     (?b (file . ,"~/.emacs.d/init.d/init-bindings-settings.el"))
+	     (?d (file . ,"~/.emacs.d/init.d/"))
+	     (?i (file . ,"~/.emacs.d/init.el"))
 	     (?m (file . ,"~/.emacs.d/init.d/init-misc-pkgs.el"))
-	     (?r (file . ,"~/.emacs.d/init.d/init-registers.el"))))
+	     (?r (file . ,"~/.emacs.d/init.d/init-registers.el"))
+	     ))
   (set-register (car r) (cadr r)))
 
 (provide 'init-registers)
 ;;; init-registers.el ends here
-

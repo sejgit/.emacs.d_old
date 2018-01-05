@@ -45,8 +45,7 @@
 
 (use-package ivy
   :ensure t
-  :config
-  (ivy-mode 1))
+  :hook (after-init . ivy-mode))
 
 (use-package counsel
   :ensure t)
@@ -74,19 +73,18 @@
   :config
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
-  (setq ivy-display-style 'fancy)
-  (ivy-mode 1))
+  (setq ivy-display-style 'fancy))
 
 
 (use-package helm
-  :demand
+  :ensure t
+  :hook (after-init . helm-mode)
   :defines sej-mode-map
   :diminish helm-mode
   :bind
   (:map sej-mode-map
 	("C-M-z" . helm-resume)
 	;;("C-x C-f" . helm-find-files)
-	("C-x C-r" . helm-mini)
 	("C-x o" . helm-occur)
 	("M-y" . helm-show-kill-ring)
 	("C-h a" . helm-apropos)

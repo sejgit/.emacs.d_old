@@ -12,9 +12,11 @@
 ;;; Code:
 (defvar esk-js-mode-hook nil)
 (defun run-esk-js-mode-hook ()
+  "Make a function to run js hooks."
   (run-hooks 'esk-js-mode-hook))
 
 (defmacro esk-configure-javascript (name)
+  "Javascript configuration using (NAME)."
   (let ((sym (intern name))
         (mode (intern (concat name "-mode")))
         (hook (intern (concat name "-mode-hook")))
@@ -36,6 +38,7 @@
                  (define-key ,keymap (kbd ",") 'self-insert-command))))))
 
 (defun pretty-functions ()
+  "Pretty JS functions."
   (font-lock-add-keywords
    nil `(("\\(function *\\)("
           (0 (progn (compose-region (match-beginning 1)

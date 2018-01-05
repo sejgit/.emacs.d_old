@@ -15,17 +15,15 @@
   :ensure t
   :defer 5
   :config
-  (setq dimmer-percent 0.40)
-  (dimmer-activate))
+  (setq dimmer-percent 0.20)
+  (dimmer-mode))
 
 (use-package golden-ratio
   :ensure t
+  :hook (after-init . golden-ratio-mode)
   :defines sej-mode-map
   :diminish golden-ratio-mode
-  :bind (:map sej-mode-map
-	      ("M-'" . next-multiframe-window))
   :config
-  (golden-ratio-mode 1)
   (setq golden-ratio-auto-scale t)
   (add-to-list 'golden-ratio-extra-commands 'next-multiframe-window))
 
@@ -44,8 +42,8 @@
 
 (use-package aggressive-indent
   :ensure t
+  :hook (after-init . global-aggressive-indent-mode)
   :config
-  (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
 
 ;; Highlight the cursor whenever the window scrolls
@@ -83,7 +81,10 @@
 ;; show icons for modes
 (use-package mode-icons
   :ensure t
+  :defines
+  mode-icons-desaturate-inactive
   :config
+  (setq mode-icons-desaturate-inactive nil)
   (mode-icons-mode))
 
 

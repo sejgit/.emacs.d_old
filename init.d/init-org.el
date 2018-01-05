@@ -12,12 +12,8 @@
 
 ;;; Code:
 
-(use-package writegood-mode
-  :ensure t)
-
 (use-package org
   :ensure t
-  :defer 10
   :defines
   sej-mode-map
   org-capture-bookmark
@@ -29,8 +25,6 @@
   org-agenda-todo-ignore-scheduled
   org-agenda-sorting-strategy
   org-agenda-skip-deadline-prewarning-if-scheduled
-  :functions
-  writegood-mode
   :mode ("\\.org$" . org-mode)
   :bind (:map sej-mode-map ("<f1>" . org-mode)
 	      ("C-c l" . org-store-link)
@@ -39,7 +33,6 @@
 	      ("S-<left>" . org-shiftleft)
 	      ("S-<right>" . org-shiftright))
   :config
-  (package-initialize)
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
     (setq org-directory "~/gdrive/todo"))
@@ -96,7 +89,6 @@
 
 (use-package org-bullets
   :defer t
-  :commands org-bullets-mode
   :hook (org-mode . org-bullets-mode)
   :config (org-bullets-mode 1))
 

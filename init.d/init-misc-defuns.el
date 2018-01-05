@@ -14,7 +14,7 @@
 ;;; Code:
 
 ;; from https://gist.github.com/the-kenny/267162
-(when *is-a-mac*
+(when (eq system-type 'darwin)
   (defun copy-from-osx ()
     "For copying from osx."
     (shell-command-to-string "pbpaste"))
@@ -45,7 +45,7 @@
     (emacs-lisp-mode)
     ))
 
-;; function to edit the curent file as root
+;; function to edit the curent file as root. attached to C-x C-r in bindings
 (defun sudo-edit (&optional arg)
   "Edit currently visited file as root.
 With a prefix ARG prompt for a file to visit.

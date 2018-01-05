@@ -11,13 +11,13 @@
 
 (use-package autoinsert
   :ensure t
+  :hook (find-file . auto-insert)
   :defines
   auto-insert-query
   auto-insert-directory
   :init
   (setq auto-insert-directory "~/.emacs.d/templates/")
   (setq auto-insert-query nil)
-  (add-hook 'find-file-hook 'auto-insert)
   (auto-insert-mode 1)
   :config
   (define-auto-insert ".*\\.py[3]?$" "template.py")

@@ -9,9 +9,6 @@
 ;;; Code:
 
 (use-package view
-  :functions  (View-goto-line-last
-	       doc-view-next-line-or-next-page
-	       doc-view-previous-line-or-previous-page)
   :bind (:map view-mode-map (("e" . 'View-scroll-half-page-forward)
 			     ("u" . 'View-scroll-half-page-backward)
 

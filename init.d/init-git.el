@@ -25,9 +25,7 @@
 ;; git on Emacs https://github.com/magit/magit
 (use-package magit
   :ensure t
-  :defines
-  sej-mode-map
-  *is-a-mac*
+  :defines sej-mode-map
   :bind
   (:map sej-mode-map
 	([(meta f12)] . magit-status)
@@ -56,7 +54,7 @@
   (setq-default magit-diff-refine-hunk t)
   (fullframe magit-status magit-mode-quit-window)
   (add-hook 'git-commit-mode-hook 'goto-address-mode)
-  (when *is-a-mac*
+  (when (eq system-type 'darwin)
     (add-hook 'magit-mode-hook (lambda () (local-unset-key [(meta h)])))))
 
 ;; M-x git-blamed-mode to turn on view with commits

@@ -13,9 +13,9 @@
 ;;            remove zenburn-theme ::used from pragmatic Emacs
 ;;            change from req-package to use-package
 ;; 2017 01 10 add swiper to M-s from pragmatic Emacs
-;; 	      add crux to move to biginning of line intelligently
-;; 	      add avy for efficient movement through search
-;; 	      move swiper to own file & add ivy-dired-recent-dirs()
+;;	      add crux to move to biginning of line intelligently
+;;	      add avy for efficient movement through search
+;;	      move swiper to own file & add ivy-dired-recent-dirs()
 ;; 2017 01 16 add drag-stuff to move highlighted region around
 ;;            add beacon mode to highlight cursor when moved
 ;; 2017 03 30 move magit & pyenv-mode-auto to init-python.el
@@ -74,14 +74,14 @@
 
 ;; vlf lets you handle very large files for viewing
 (use-package vlf-setup
-  :ensure vlf)
+  :ensure vlf
+  :commands (vlf vlf-occur-load vlf-ediff-files))
 
 ;; midnight mode to clear buffers at midnight
 (use-package midnight
   :ensure t
   :config
-  (customize-set-variable 'midnight-mode t)
-  )
+  (customize-set-variable 'midnight-mode t))
 
 ;; google-this
 (use-package google-this
@@ -94,20 +94,14 @@
   :config
   (google-this-mode 1))
 
-;; quick RPN calculator for hackers
-(use-package rpn-calc
-  :ensure t
-  :commands rpn-calc)
-
 ;; writable grep buffer and apply the changes to files
 (use-package wgrep
   :ensure t
-  :defines *is-a-mac*
   :init
   (setq-default grep-highlight-matches t
 		grep-scroll-output t)
   :config
-  (when *is-a-mac*
+  (when (eq system-type 'darwin)
     (setq-default locate-command "which")
     (setq exec-path (append exec-path '("/usr/local/bin"))))
 
@@ -142,12 +136,3 @@
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here
-
-
-
-
-
-
-
-
-

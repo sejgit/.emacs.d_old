@@ -10,7 +10,7 @@
 
 (use-package dashboard
   :ensure t
-  :after (projectile)
+  :demand
   :config
   (setq dashboard-banner-logo-title "SeJ Dashboard")
   ;; Set the banner
@@ -20,17 +20,20 @@
   ;; 'logo which displays an alternative emacs logo
   ;; 1, 2 or 3 which displays one of the text banners
   ;; "path/to/your/image.png which displays whatever image you would prefer
-
-  (use-package page-break-lines
-    :ensure t)
   (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents  . 15)
 			  (bookmarks . 15)
 			  (projects . 5)
-			  (agenda . 5)
 			  (registers . 5)))
   (dashboard-insert-startupify-lists))
 
+;; display ^L page breaks as tidy horizontal lines
+(use-package page-break-lines
+  :ensure t
+  :demand t
+  :config
+  (setq global-page-break-lines-mode t)
+  )
+
 (provide 'init-dashboard)
 ;;; init-dashboard.el ends here
-

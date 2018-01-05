@@ -12,8 +12,8 @@
 ;; 2017 01 30 add sudo-edit function (C-x C-r) to edit file as sudo
 ;; 2017 03 29 add truncate lines setting
 ;; 2017 05 09 add copy-line C-c C-k
-;; 	      add some neat keybindings from emacs-starter-kit
-;; 	      rename file to init-bindings-settings.el
+;;	      add some neat keybindings from emacs-starter-kit
+;;	      rename file to init-bindings-settings.el
 ;; 2017 05 12 adds from purcell/emacs.d
 ;; 2017 05 21 add delete to trash can
 ;; 2017 05 25 add imenu binding
@@ -42,26 +42,25 @@
 ;; Right Windows key
 ;; Menu/App key
 
-(defconst *is-a-mac* (eq system-type 'darwin))
 
-(if *is-a-mac*
+(if (eq system-type 'darwin)
     (with-no-warnings
       (progn
-        (setq mac-command-modifier 'meta)
-        (setq mac-option-modifier 'super)
-        (setq mac-control-modifier 'control)
-        (setq ns-function-modifier 'hyper)
-        ;; keybinding to toggle full screen mode
-        (global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
-        )
+	(setq mac-command-modifier 'meta)
+	(setq mac-option-modifier 'super)
+	(setq mac-control-modifier 'control)
+	(setq ns-function-modifier 'hyper)
+	;; keybinding to toggle full screen mode
+	(global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
+	)
       (progn
-        (setq w32-pass-lwindow-to-system nil)
-        (setq w32-lwindow-modifier 'super)
-        (setq w32-pass-rwindow-to-system nil)
-        (setq w32-rwindow-modifier 'super)
-        (setq w32-pass-apps-to-system nil)
-        (setq w32-apps-modifier 'hyper)
-        )))
+	(setq w32-pass-lwindow-to-system nil)
+	(setq w32-lwindow-modifier 'super)
+	(setq w32-pass-rwindow-to-system nil)
+	(setq w32-rwindow-modifier 'super)
+	(setq w32-pass-apps-to-system nil)
+	(setq w32-apps-modifier 'hyper)
+	)))
 
 ;; Below is taken from stackexchange (Emacs)
 ;; Main use is to have my key bindings have the highest priority
@@ -120,10 +119,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
   (interactive "kUnset key from sej-mode-map: ")
   (define-key sej-mode-map (kbd (key-description key)) nil)
   (message "%s" (format "Unbound %s key from the %s."
-                        (propertize (key-description key)
-                                    'face 'font-lock-function-name-face)
-                        (propertize "sej-mode-map"
-                                    'face 'font-lock-function-name-face))))
+			(propertize (key-description key)
+				    'face 'font-lock-function-name-face)
+			(propertize "sej-mode-map"
+				    'face 'font-lock-function-name-face))))
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
 ;; shorthand for interactive lambdas
@@ -158,6 +157,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "H-m") 'menu-bar-mode)
 (define-key sej-mode-map (kbd "H-h") 'ns-do-hide-emacs)
 (define-key sej-mode-map (kbd "H-H") 'ns-do-hide-others)
+(define-key sej-mode-map (kbd "s-r") 'jump-to-register)
+
 ;;(global-set-key (kbd "H-e") 'mu4e) ; not used for the moment
 ;;(global-set-key (kbd "M-`") 'ns-next-frame)
 
@@ -181,6 +182,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-;") 'comment-dwim)
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
+(define-key sej-mode-map (kbd "M-'") 'next-multiframe-window)
 
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
@@ -259,6 +261,9 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; (defined in init-misc-defuns.el)
 (define-key sej-mode-map (kbd "C-x C-r") 'sudo-edit)
 
+;; number lines with rectangle defined in init-writing.el
+(define-key sej-mode-map (kbd "C-x r N") 'number-rectangle)
+
 ;; line numbers when using goto-line s-l or M-g M-g or M-g g
 ;; (defined in init-misc-defuns.el)
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
@@ -295,7 +300,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; redefine M-< and M-> for some modes
 (use-package beginend               ; smart M-< & M->
   :ensure t
-  :commands beginend-global-mode
   :config
   (beginend-global-mode)
   )
@@ -323,7 +327,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
   :ensure t
   :diminish drag-stuff-mode
   :defines sej-mode-map
-  :commands drag-stuff-global-mode
   :bind (:map sej-mode-map
 	      ("M-<down>" . drag-stuff-down)
 	      ("M-<up>" . drag-stuff-up))
@@ -338,4 +341,3 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 (provide 'init+bindings)
 ;;; init+bindings.el ends here
-
