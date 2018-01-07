@@ -271,18 +271,15 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
   :ensure t
+  :defer 5
   :config
+  (windmove-default-keybindings)
   (setq framemove-hook-into-windmove t))
 
 ;; buffer-move to swap buffers between windows
 (use-package buffer-move
-  :ensure t
-  :defines sej-mode-map
-  :bind (:map sej-mode-map
-	      ("<s-up>" . buf-move-up)
-	      ("<s-down>" . buf-move-down)
-	      ("<s-left>" . buf-move-left)
-	      ("<s-right>" . buf-move-right)))
+  :defer 5
+  :ensure t)
 
 (use-package goto-chg
   :ensure t
@@ -300,6 +297,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; redefine M-< and M-> for some modes
 (use-package beginend               ; smart M-< & M->
   :ensure t
+  :defer 2
   :config
   (beginend-global-mode)
   )
@@ -336,6 +334,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; save the place in files
 (use-package saveplace
   :ensure t
+  :defer 5
   :config
   (setq-default save-place t))
 

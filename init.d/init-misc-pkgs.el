@@ -80,6 +80,7 @@
 ;; midnight mode to clear buffers at midnight
 (use-package midnight
   :ensure t
+  :defer 60
   :config
   (customize-set-variable 'midnight-mode t))
 
@@ -97,6 +98,7 @@
 ;; writable grep buffer and apply the changes to files
 (use-package wgrep
   :ensure t
+  :defer 5
   :init
   (setq-default grep-highlight-matches t
 		grep-scroll-output t)
@@ -116,6 +118,7 @@
 ;; extentions to 'help-fns.el'
 (use-package help-fns+
   :ensure t
+  :defer 5
   :defer t)
 
 ;; helful is an improved help-fns & help-fns+
@@ -131,6 +134,7 @@
 ;; operate on current line if region undefined
 (use-package whole-line-or-region
   :ensure t
+  :defer 5
   :config
   (whole-line-or-region-global-mode t))
 

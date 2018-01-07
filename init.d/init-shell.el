@@ -130,7 +130,7 @@
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("H-e" . eshell))
-  :init
+  :config
   (require 'em-smart)
   (setq eshell-glob-case-insensitive nil
 	eshell-error-if-no-glob nil
@@ -140,7 +140,6 @@
 	eshell-smart-space-goes-to-end t)
   ;; Initialize "smart" mode
   ;;(add-hook 'eshell-mode-hook #'eshell-smart-initialize)
-  :config
   (defalias 'emacs 'find-file)
   (defalias 'hff 'hexl-find-file)
   (defalias 'sec 'sudoec)
@@ -211,44 +210,44 @@
       (eshell-truncate-buffer)
       (let ((inhibit-read-only t))
 	(erase-buffer)
-	(eshell-send-input)))))
+	(eshell-send-input))))
 
-(defun eshell/icat (&rest args)
-  "Display image(s) (ARGS)."
-  (let ((elems (eshell-flatten-list args)))
-    (while elems
-      (eshell-printn
-       (propertize " "
-		   'display (create-image (expand-file-name (car elems)))))
-      (setq elems (cdr elems))))
-  nil)
+  (defun eshell/icat (&rest args)
+    "Display image(s) (ARGS)."
+    (let ((elems (eshell-flatten-list args)))
+      (while elems
+	(eshell-printn
+	 (propertize " "
+		     'display (create-image (expand-file-name (car elems)))))
+	(setq elems (cdr elems))))
+    nil)
 
-(add-hook 'eshell-mode-hook #'sej/setup-eshell)
+  (add-hook 'eshell-mode-hook #'sej/setup-eshell)
 
-;; See eshell-prompt-function below
-(setq eshell-prompt-regexp "^[^#$\n]* [#$] ")
+  ;; See eshell-prompt-function below
+  (setq eshell-prompt-regexp "^[^#$\n]* [#$] ")
 
-;; So the history vars are defined
-(require 'em-hist)
-(if (boundp 'eshell-save-history-on-exit)
-    ;; Don't ask, just save
-    (setq eshell-save-history-on-exit t))
+  ;; So the history vars are defined
+  (require 'em-hist)
+  (if (boundp 'eshell-save-history-on-exit)
+      ;; Don't ask, just save
+      (setq eshell-save-history-on-exit t))
 
-;; See: https://github.com/kaihaosw/eshell-prompt-extras
-(use-package eshell-prompt-extras
-  :ensure t
-  :init
-  (progn
-    (setq eshell-highlight-prompt nil
-	  epe-git-dirty-char " Ϟ"
-	  ;; epe-git-dirty-char "*"
-	  eshell-prompt-function 'epe-theme-dakrone)))
+  ;; See: https://github.com/kaihaosw/eshell-prompt-extras
+  (use-package eshell-prompt-extras
+    :ensure t
+    :init
+    (progn
+      (setq eshell-highlight-prompt nil
+	    epe-git-dirty-char " Ϟ"
+	    ;; epe-git-dirty-char "*"
+	    eshell-prompt-function 'epe-theme-dakrone)))
 
-(defun eshell/magit ()
-  "Function to open magit-status for the current directory."
-  (interactive)
-  (magit-status-internal default-directory)
-  nil)
+  (defun eshell/magit ()
+    "Function to open magit-status for the current directory."
+    (interactive)
+    (magit-status-internal default-directory)
+    nil))
 
 
 (provide 'init-shell)

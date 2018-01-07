@@ -55,7 +55,14 @@
   (fullframe magit-status magit-mode-quit-window)
   (add-hook 'git-commit-mode-hook 'goto-address-mode)
   (when (eq system-type 'darwin)
-    (add-hook 'magit-mode-hook (lambda () (local-unset-key [(meta h)])))))
+    (add-hook 'magit-mode-hook (lambda () (local-unset-key [(meta h)]))))
+
+  (defun my-vc-git-mode-line-string (orig-fn &rest args)
+    "Replace Git in modeline with font-awesome git icon via ORIG-FN and ARGS."
+    (let ((str (apply orig-fn args)))
+      (concat [#xF1D3] ":" (substring-no-properties str 4))))
+
+  (advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)  )
 
 ;; M-x git-blamed-mode to turn on view with commits
 (use-package git-blamed
@@ -111,14 +118,6 @@
 (use-package github-clone
   :ensure t
   :commands github-clone)
-
-(defun my-vc-git-mode-line-string (orig-fn &rest args)
-  "Replace Git in modeline with font-awesome git icon via ORIG-FN and ARGS."
-  (let ((str (apply orig-fn args)))
-    (concat [#xF1D3] ":" (substring-no-properties str 4))))
-
-(advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)
-
 
 (provide 'init-git)
 ;;; init-git.el ends here

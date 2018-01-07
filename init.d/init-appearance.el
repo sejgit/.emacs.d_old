@@ -35,6 +35,7 @@
 ;; dtrt-indent to automatically set the right indent for other people's files
 (use-package dtrt-indent
   :ensure t
+  :defer 2
   :diminish
   :config
   ;; (setq dtrt-indent-active-mode-line-info "")
@@ -49,6 +50,7 @@
 ;; Highlight the cursor whenever the window scrolls
 (use-package beacon
   :ensure t
+  :defer 5
   :diminish beacon-mode
   :config
   (beacon-mode 1))
@@ -56,6 +58,7 @@
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
   :ensure t
+  :defer 5
   :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
@@ -90,13 +93,3 @@
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here
-
-
-
-
-
-
-
-
-
-

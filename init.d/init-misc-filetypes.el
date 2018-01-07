@@ -62,9 +62,10 @@
 ;; major mode for editing PHP code
 (use-package php-mode
   :ensure t
-  :config
-  (use-package smarty-mode
-    :ensure t))
+  :mode (("\\.module$" . php-mode)
+	 ("\\.inc$" . php-mode)
+	 ("\\.install$" . php-mode)
+	 ("\\.engine$" . php-mode)))
 
 ;; textile markup editing major mode
 (use-package textile-mode
@@ -75,18 +76,8 @@
 (use-package yaml-mode
   :ensure t
   :mode
-  "\\.yml$"
-  "\\.yaml$"
-  )
+  (("\\.yml$" . yaml-mode)
+   ("\\.yaml$" . yaml-mode)))
 
 (provide 'init-misc-filetypes)
 ;;; init-misc-filetypes.el ends here
-
-
-
-
-
-
-
-
-
