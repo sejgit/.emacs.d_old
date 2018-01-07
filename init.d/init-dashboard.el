@@ -10,7 +10,9 @@
 
 (use-package dashboard
   :ensure t
-  :demand
+  :hook (after-init)
+  :after projectile
+  :require page-break-lines
   :config
   (setq dashboard-banner-logo-title "SeJ Dashboard")
   ;; Set the banner
@@ -30,7 +32,6 @@
 ;; display ^L page breaks as tidy horizontal lines
 (use-package page-break-lines
   :ensure t
-  :demand t
   :config
   (setq global-page-break-lines-mode t)
   )
