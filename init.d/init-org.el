@@ -26,10 +26,15 @@
   org-agenda-sorting-strategy
   org-agenda-skip-deadline-prewarning-if-scheduled
   :mode ("\\.org$" . org-mode)
-  :bind (:map sej-mode-map ("<f1>" . org-mode)
+  :hook ((org-mode . flyspell-mode)
+	 (org-mode . writegood-mode))
+  :bind (:map sej-mode-map
+	      ("<f1>" . org-mode)
 	      ("C-c l" . org-store-link)
 	      ("C-c c" . org-capture)
 	      ("C-c a" . org-agenda)
+	      :map org-mode-map
+	      ("C-M-\\" . org-indent-region)
 	      ("S-<left>" . org-shiftleft)
 	      ("S-<right>" . org-shiftright))
   :config
@@ -66,9 +71,7 @@
 	  ("s" "Someday" entry (file+headline org-file-someday  "Someday") "* %i%?\n %U")
 	  ("t" "Todo" entry (file+headline org-file-gtd  "Todo") "* TODO %i%?")
 	  ))
-  (add-hook 'org-mode-hook (lambda () (flyspell-mode)))
-  (add-hook 'org-mode-hook (lambda () (writegood-mode)))
-  (define-key org-mode-map (kbd "C-M-\\") 'org-indent-region)
+
 
   ;; org-mode agenda options
   (setq org-agenda-files (list org-file-inbox org-file-journal org-file-notes org-file-someday org-file-gtd)
@@ -85,15 +88,16 @@
 	  (todo priority-down category-keep)
 	  (tags priority-down category-keep)
 	  (search category-keep))))
+
   )
 
 (use-package org-bullets
-  :defer t
+  :ensure t
   :hook (org-mode . org-bullets-mode)
   :config (org-bullets-mode 1))
 
 (use-package org-dashboard
-  :defer t
+  :ensure t
   :commands org-dashboard-display)
 
 (provide 'init-org)

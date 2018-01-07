@@ -13,6 +13,8 @@
 
 (use-package elfeed
   :ensure t
+  :defer t
+  :declares sej-mode-map
   :functions
   elfeed-search-untag-all-unread
   elfeed-db-load
@@ -20,7 +22,10 @@
   elfeed-db-save
   elfeed-expose
   elfeed-search-toggle-all
-  :bind (:map elfeed-search-mode-map
+  :commands elfeed
+  :bind (:map sej-mode-map
+	      ("C-x w" . elfeed)
+	      :map elfeed-search-mode-map
 	      ("q" . bjm/elfeed-save-db-and-bury)
 	      ("Q" . bjm/elfeed-save-db-and-bury)
 	      ("m" . elfeed-toggle-star)
@@ -57,13 +62,13 @@
 
 (use-package elfeed-goodies
   :ensure t
-  :after elfeed
+  :hook (elfeed-init . elfeed-goodies)
   :config
   (elfeed-goodies/setup))
 
 (use-package elfeed-org
   :ensure t
-  :after elfeed
+  :hook (elfeed-init . elfeed-org)
   :config (elfeed-org)
   (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
   )
