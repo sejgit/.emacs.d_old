@@ -15,9 +15,11 @@
 ;;; Code:
 
 (use-package fic-mode
+  :ensure t
   :diminish fic-mode
   :functions add-something-to-mode-hooks
   :hook (org-mode c++-mode tcl-mode emacs-lisp-mode arduino-mode python-mode text-mode markdown-mode latex-mode))
 
 (provide 'init-fic-ext)
 ;;; init-fic-ext.el ends here
+
