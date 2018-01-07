@@ -14,7 +14,7 @@
 (use-package elfeed
   :ensure t
   :defer t
-  :declares sej-mode-map
+  :defines sej-mode-map
   :functions
   elfeed-search-untag-all-unread
   elfeed-db-load
