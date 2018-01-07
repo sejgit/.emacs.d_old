@@ -12,7 +12,6 @@
   :ensure t
   :hook (after-init)
   :after projectile
-  :require page-break-lines
   :config
   (setq dashboard-banner-logo-title "SeJ Dashboard")
   ;; Set the banner
