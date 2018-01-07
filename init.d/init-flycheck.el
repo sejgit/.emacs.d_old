@@ -33,18 +33,18 @@
 
 (use-package flycheck
   :ensure t
-  :diminish flycheck-mode
   :defines sej-mode-map
+  :hook (after-init . global-flycheck-mode)
   :bind
   (:map sej-mode-map
 	("s-[" . flycheck-previous-error)
 	("s-]" . flycheck-next-error)
 	("C-c f" . flycheck-list-errors))
   :config
+  (global-flycheck-mode 1)
   (defadvice flycheck-next-error (before wh/flycheck-next-error-push-mark activate)
     (push-mark))
-  (global-flycheck-mode 1)
-  
+
   (setq flycheck-indication-mode 'right-fringe
 	flycheck-check-syntax-automatically '(save mode-enabled))
   (custom-set-faces
@@ -55,7 +55,7 @@
   (setq flycheck-python-flake8-executable "flake8")
   (setq flycheck-flake8-maximum-line-length 79)
   (setq flycheck-highlighting-mode 'lines)
-  (progn 	  (set-face-attribute 'flycheck-warning nil
+  (progn	  (set-face-attribute 'flycheck-warning nil
 				      :inherit 'warning
 				      :underline nil)
 		  (set-face-attribute 'flycheck-error nil
@@ -68,7 +68,7 @@
 
 (use-package flycheck-pos-tip
   :ensure t
-  :defines flycheck-pos-tip-timeout
+  :defines (flycheck-pos-tip-timeout flycheck-pos-tip-error-messages)
   :hook (flycheck-mode . flycheck-pos-tip-mode)
   :config
   (setq flycheck-pos-tip-timeout 10
@@ -84,5 +84,3 @@
 
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here
-
-
