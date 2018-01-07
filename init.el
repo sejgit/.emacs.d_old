@@ -91,7 +91,7 @@
 
   ;; list the packages you want
   (defvar package-list
-    '(diminish use-package))
+    '(diminish use-package load-dir))
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
