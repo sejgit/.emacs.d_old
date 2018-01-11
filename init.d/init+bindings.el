@@ -164,8 +164,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
-(define-key sej-mode-map (kbd "<M-return>") 'eval-last-sexp)
-(define-key sej-mode-map (kbd "<s-return>") 'eval-buffer)
+(define-key sej-mode-map (kbd "<s-return>") 'eval-last-sexp)
+(define-key sej-mode-map (kbd "<H-return>") 'eval-buffer)
 (define-key sej-mode-map (kbd "s-b") 'helm-mini)
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
 (define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
