@@ -206,8 +206,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-M-d") 'backward-kill-word)
 
 ;;scroll window up/down by one line
-(define-key sej-mode-map (kbd "s-n") (kbd "C-u 1 C-v"))
-(define-key sej-mode-map (kbd "s-p") (kbd "C-u 1 M-v"))
+(define-key sej-mode-map (kbd "M-n") (kbd "C-u 1 C-v"))
+(define-key sej-mode-map (kbd "M-p") (kbd "C-u 1 M-v"))
 (define-key sej-mode-map (kbd "M-SPC") 'cycle-spacing)
 
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
@@ -223,8 +223,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "s-y") 'bury-buffer)
 (define-key sej-mode-map (kbd "C-c r") 'revert-buffer)
 (define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
-(define-key sej-mode-map (kbd "M-n") 'bs-cycle-next)
-(define-key sej-mode-map (kbd "M-p") 'bs-cycle-previous)
+(define-key sej-mode-map (kbd "s-n") 'bs-cycle-next)
+(define-key sej-mode-map (kbd "s-p") 'bs-cycle-previous)
 (define-key sej-mode-map (kbd "C-c b") 'create-scratch-buffer) ; defined below
 
 ;; Transpose stuff with M-t

@@ -28,7 +28,7 @@
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
-	([(meta f12)] . magit-status)
+	("<f12>" . magit-status)
 	("C-x g" . magit-status)
 	("C-x M-g" . magit-dispatch-popup)
 	:map magit-status-mode-map

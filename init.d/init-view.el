@@ -10,6 +10,7 @@
 ;;; Code:
 
 (use-package view
+  :defines (View-scrool-half-page-forward View-scrool-half-page-backward)
   :bind (:map view-mode-map (("e" . 'View-scroll-half-page-forward)
 			     ("u" . 'View-scroll-half-page-backward)
 
