@@ -59,9 +59,9 @@
   :ensure t
   :defines sej-mode-map
   :diminish undo-tree-mode
+  :hook (after-init . global-undo-tree-mode)
   :bind (:map sej-mode-map ("C-/" . undo-tree-undo))
   :config
-  (global-undo-tree-mode)
   (setq undo-tree-visualizer-timestamps t))
 
 ;; expand selection region larger & smaller
