@@ -9,6 +9,9 @@
 ;; 2017 12 01 update to add :ensure
 
 ;;; Code:
+(use-package frame-fns
+  :load-path "lisp/frame-fns")
+
 
 (use-package frame-cmds
   :load-path "lisp/frame-cmds"
