@@ -50,7 +50,7 @@ It added extra strings at the front and back of the default dired buffer name."
 
 
 (use-package dired+
-  :ensure t
+  :load-path "lisp/dired+"
   :demand t
   :defines
   sej-mode-map
@@ -69,50 +69,50 @@ It added extra strings at the front and back of the default dired buffer name."
 	 (dired-mode . sej/dired-rename-buffer-name)
 	 (dired-mode . sej/dired-truncate-lines)
 	 (dired-mode . dired-async-mode)
-  (dired-mode . sej/dired-update-privilege-faces))
-:init
-(put 'dired-find-alternate-file 'disabled nil)
-(setq dired-recursive-deletes 'always)
-(setq dired-recursive-copies  'always)
-(setq dired-dwim-target t)
-;; Details toggling is bound to "(" in `dired-mode' by default
-(setq diredp-hide-details-initially-flag nil)
+	 (dired-mode . sej/dired-update-privilege-faces))
+  :init
+  (put 'dired-find-alternate-file 'disabled nil)
+  (setq dired-recursive-deletes 'always)
+  (setq dired-recursive-copies  'always)
+  (setq dired-dwim-target t)
+  ;; Details toggling is bound to "(" in `dired-mode' by default
+  (setq diredp-hide-details-initially-flag nil)
 
-:config
-(setq dired-omit-verbose t)
-;; hide backup, autosave, *.*~ files
+  :config
+  (setq dired-omit-verbose t)
+  ;; hide backup, autosave, *.*~ files
 
-(setq global-auto-revert-non-file-buffers nil
-      ;; -F marks links with @
-      delete-by-moving-to-trash t
-      ;; Don't auto refresh dired
-      wdired-allow-to-change-permissions t)
+  (setq global-auto-revert-non-file-buffers nil
+	;; -F marks links with @
+	delete-by-moving-to-trash t
+	;; Don't auto refresh dired
+	wdired-allow-to-change-permissions t)
 
-;; Privilege indicator faces
-(defun sej/dired-update-privilege-faces ()
-  "Set up the faces for privileged files."
-  (set-face-attribute 'diredp-dir-priv nil
-		      :foreground "#7474FFFFFFFF"
-		      :background (face-background 'default))
-  (set-face-attribute 'diredp-exec-priv nil
-		      :foreground "dodger blue"
-		      :background (face-background 'default))
-  (set-face-attribute 'diredp-other-priv nil
-		      :background (face-background 'default))
-  (set-face-attribute 'diredp-write-priv nil
-		      :foreground "#25258F8F2929"
-		      :background (face-background 'default))
-  (set-face-attribute 'diredp-read-priv nil
-		      :foreground "#999932325555"
-		      :background (face-background 'default))
-  (set-face-attribute 'diredp-no-priv nil
-		      :foreground "#2C2C2C2C2C2C"
-		      :background (face-background 'default))
-  (set-face-attribute 'diredp-rare-priv nil
-		      :foreground "Green"
-		      :background (face-background 'default))
-  (set-face-attribute 'diredp-link-priv nil
-		      :foreground "#00007373FFFF")))
+  ;; Privilege indicator faces
+  (defun sej/dired-update-privilege-faces ()
+    "Set up the faces for privileged files."
+    (set-face-attribute 'diredp-dir-priv nil
+			:foreground "#7474FFFFFFFF"
+			:background (face-background 'default))
+    (set-face-attribute 'diredp-exec-priv nil
+			:foreground "dodger blue"
+			:background (face-background 'default))
+    (set-face-attribute 'diredp-other-priv nil
+			:background (face-background 'default))
+    (set-face-attribute 'diredp-write-priv nil
+			:foreground "#25258F8F2929"
+			:background (face-background 'default))
+    (set-face-attribute 'diredp-read-priv nil
+			:foreground "#999932325555"
+			:background (face-background 'default))
+    (set-face-attribute 'diredp-no-priv nil
+			:foreground "#2C2C2C2C2C2C"
+			:background (face-background 'default))
+    (set-face-attribute 'diredp-rare-priv nil
+			:foreground "Green"
+			:background (face-background 'default))
+    (set-face-attribute 'diredp-link-priv nil
+			:foreground "#00007373FFFF")))
 
 ;; https://fuco1.github.io/2017-07-15-Collapse-unique-nested-paths-in-dired-with-dired-collapse-mode.html
 ;; https://github.com/Fuco1/dired-hacks/blob/master/dired-collapse.el
@@ -147,7 +147,7 @@ It added extra strings at the front and back of the default dired buffer name."
 ;; use async everything in dired
 (use-package async
   :ensure t
-  :hook (dired-mode . dired-async-mode)) 
+  :hook (dired-mode . dired-async-mode))
 
 ;; Quick-preview provides a nice preview of the thing at point for files.
 (use-package quick-preview
@@ -217,9 +217,3 @@ It added extra strings at the front and back of the default dired buffer name."
 ;;     function which calls `wdired-change-to-wdired-mode' in `dired-mode'.
 
 ;; http://truongtx.me/2013/04/24/dired-as-default-file-manager-1-introduction
-
-
-
-
-
-
