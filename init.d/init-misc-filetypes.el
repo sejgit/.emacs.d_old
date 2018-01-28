@@ -26,7 +26,7 @@
   :mode "\\.ino$")
 
 (use-package batch-mode
-  :ensure t
+  :load-path "lisp/batch-mode"
   :mode "\\.bat\\'")
 
 ;; major mode for editing conf/ini/properties files
