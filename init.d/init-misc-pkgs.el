@@ -62,7 +62,10 @@
   :hook (after-init . global-undo-tree-mode)
   :bind (:map sej-mode-map ("C-/" . undo-tree-undo))
   :config
-  (setq undo-tree-visualizer-timestamps t))
+  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-history-directory-alist
+	(quote (("" . "~/.local/emacs/undo_hist")))))
 
 ;; expand selection region larger & smaller
 (use-package expand-region
