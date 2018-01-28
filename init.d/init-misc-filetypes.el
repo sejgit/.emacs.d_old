@@ -31,7 +31,7 @@
 
 ;; major mode for editing conf/ini/properties files
 (use-package conf-mode
-  :ensure t
+  :load-path "lisp/csv-mode"
   :diminish conf-mode
   :mode "\\.gitconfig$")
 
