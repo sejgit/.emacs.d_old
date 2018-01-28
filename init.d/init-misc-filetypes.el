@@ -44,7 +44,7 @@
 
 ;; major mode for csv
 (use-package csv-mode
-  :ensure t
+  :load-path "lisp/csv-nav"
   :mode "\\.[Cc][Ss][Vv]\\'"
   :config
   (setq csv-separators '("," ";" "|" " ")))
