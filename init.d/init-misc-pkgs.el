@@ -118,12 +118,6 @@
     (setq-default ag-highlight-search t)
     (define-key sej-mode-map (kbd "M-?") 'ag-project)))
 
-;; extentions to 'help-fns.el'
-(use-package help-fns+
-  :ensure t
-  :defer 5
-  :defer t)
-
 ;; helful is an improved help-fns & help-fns+
 (use-package helpful
   :ensure t
