@@ -11,7 +11,7 @@
 ;;; Code:
 
 (use-package frame-cmds
-  :ensure t
+  :load-path "lisp/frame-cmds"
   :defines sej-mode-map
   :if (display-graphic-p)
   :hook (after-init . sej-frame-resize-r)
@@ -191,7 +191,7 @@
 ;;
 ;;    `font-too-small', `font-size'.
 ;;
-;;  
+;;
 ;;  ***** NOTE: The following EMACS PRIMITIVE has been ADVISED HERE:
 ;;
 ;;  `delete-window' - If only one window in frame, `delete-frame'.
