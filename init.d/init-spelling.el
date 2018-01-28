@@ -63,7 +63,6 @@
 ;; thesaurus set-up requires apikey
 ;; note see below for synosaurus setup
 (use-package thesaurus
-  :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("C-x t" . thesaurus-choose-synonym-and-replace))
