@@ -270,7 +270,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
-  :ensure t
+  :load-path "lisp/framemove"
   :defer 5
   :config
   (windmove-default-keybindings)
