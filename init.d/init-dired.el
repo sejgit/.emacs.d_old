@@ -136,7 +136,7 @@ It added extra strings at the front and back of the default dired buffer name."
   :config (dired-launch-enable))
 
 (use-package dired-sort
-  :ensure t)
+  :load-path "lisp/dired-sort")
 
 ;;narrow dired to match filter
 (use-package dired-narrow
