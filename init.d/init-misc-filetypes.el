@@ -31,7 +31,7 @@
 
 ;; major mode for editing conf/ini/properties files
 (use-package conf-mode
-  :load-path "lisp/csv-mode"
+  :ensure t
   :diminish conf-mode
   :mode "\\.gitconfig$")
 
@@ -44,14 +44,14 @@
 
 ;; major mode for csv
 (use-package csv-mode
-  :load-path "lisp/csv-nav"
+  :load-path "lisp/csv-mode"
   :mode "\\.[Cc][Ss][Vv]\\'"
   :config
   (setq csv-separators '("," ";" "|" " ")))
 
 ;; navigate and edit CSV files
 (use-package csv-nav
-  :ensure t
+  :load-path "lisp/csv-nav"
   :after csv-mode)
 
 ;; nov-mode ;; nov.el for epub
