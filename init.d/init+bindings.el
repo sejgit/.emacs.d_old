@@ -225,7 +225,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
 (define-key sej-mode-map (kbd "s-n") 'bs-cycle-next)
 (define-key sej-mode-map (kbd "s-p") 'bs-cycle-previous)
-(define-key sej-mode-map (kbd "C-c b") 'create-scratch-buffer) ; defined below
+(define-key sej-mode-map (kbd "C-c b") 'sej/create-scratch-buffer) ; defined below
 
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
@@ -259,14 +259,14 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; function to edit the curent file as root
 ;; (defined in init-misc-defuns.el)
-(define-key sej-mode-map (kbd "C-x C-r") 'sudo-edit)
+(define-key sej-mode-map (kbd "C-x C-r") 'sej/sudo-edit)
 
 ;; number lines with rectangle defined in init-writing.el
 (define-key sej-mode-map (kbd "C-x r N") 'number-rectangle)
 
 ;; line numbers when using goto-line s-l or M-g M-g or M-g g
 ;; (defined in init-misc-defuns.el)
-(global-set-key [remap goto-line] 'goto-line-with-feedback)
+(global-set-key [remap goto-line] 'sej/goto-line-with-feedback)
 
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
