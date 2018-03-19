@@ -28,6 +28,8 @@
 ;; 2017 09 20 make more pure keybindings & move others stuff out
 ;; 2017 12 21 edits move movement bindings into init-movement
 ;;                  TODO group buffer manipulatino together (sudo-edit, revert, etc...)
+;; 2018 03 19 some cleanup & mods
+
 
 ;;; Code:
 
@@ -157,7 +159,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "H-m") 'menu-bar-mode)
 (define-key sej-mode-map (kbd "H-h") 'ns-do-hide-emacs)
 (define-key sej-mode-map (kbd "H-H") 'ns-do-hide-others)
-(define-key sej-mode-map (kbd "s-r") 'jump-to-register)
 
 ;;(global-set-key (kbd "H-e") 'mu4e) ; not used for the moment
 ;;(global-set-key (kbd "M-`") 'ns-next-frame)
@@ -166,7 +167,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; some lisp stuff from Getting Started with Emacs Lisp
 (define-key sej-mode-map (kbd "<s-return>") 'eval-last-sexp)
 (define-key sej-mode-map (kbd "<H-return>") 'eval-buffer)
-(define-key sej-mode-map (kbd "s-b") 'helm-mini)
+(define-key sej-mode-map (kbd "s-r") 'jump-to-register)
+(define-key sej-mode-map (kbd "s-b") 'helm-mini) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
 (define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined just here for ref
@@ -177,12 +179,12 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; general keybindings
 (define-key global-map (kbd "C-h C-h") nil)
 (define-key sej-mode-map (kbd "C-h C-h") nil)
-(define-key sej-mode-map (kbd "M-'") 'other-window)
+;;(define-key sej-mode-map (kbd "M-'") 'other-window)
+(define-key sej-mode-map (kbd "M-'") 'next-multiframe-window)
 (define-key sej-mode-map (kbd "C-j") 'newline-and-indent)
 (define-key sej-mode-map (kbd "C-;") 'comment-dwim)
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
-(define-key sej-mode-map (kbd "M-'") 'next-multiframe-window)
 
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
@@ -226,6 +228,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "s-n") 'bs-cycle-next)
 (define-key sej-mode-map (kbd "s-p") 'bs-cycle-previous)
 (define-key sej-mode-map (kbd "C-c b") 'sej/create-scratch-buffer) ; defined below
+(define-key sej-mode-map (kbd "C-c s s") 'sej/create-scratch-buffer) ; defined below
 
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
@@ -254,8 +257,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; push and jump to mark functions
 ;; (defined in init-misc-defuns.el)
-(define-key sej-mode-map (kbd "C-`") 'push-mark-no-activate)
-(define-key sej-mode-map (kbd "M-`") 'jump-to-mark)
+(define-key sej-mode-map (kbd "C-`") 'sej/push-mark-no-activate)
+(define-key sej-mode-map (kbd "M-`") 'sej/jump-to-mark)
 
 ;; function to edit the curent file as root
 ;; (defined in init-misc-defuns.el)

@@ -13,8 +13,128 @@
 ;; 2017 09 18 back to ido
 ;; 2017 09 19 combine ido helm swiper smex into init-ido-ivy-helm.el
 ;; 2017 12 01 update for new use-package
+;; 2018 03 17 update focused on helm
 
 ;;; Code:
+
+(use-package helm
+  :ensure t
+  :hook ((after-init . helm-mode)
+	 (eshell-mode . (lambda ()
+			  (define-key eshell-mode-map (kbd "TAB")     #'helm-esh-pcomplete)
+			  (define-key eshell-mode-map (kbd "C-c C-l") #'helm-eshell-history)))
+	 )
+  :defines (sej-mode-map projectile-mode-map org-mode-map)
+  :diminish helm-mode
+  :bind (:map sej-mode-map
+	      ("C-c h" . helm-command-prefix)
+	      ("C-M-z" . helm-resume)
+	      ("C-x C-f" . helm-find-files)
+	      ("C-x C-r" . helm-recentf)
+	      ;;("C-x o" . helm-occur)
+	      ("M-y" . helm-show-kill-ring)
+	      ("C-h i" . helm-info-emacs)
+	      ("C-h a" . helm-apropos)
+	      ;;   ("C-h m" . helm-man-woman)
+	      ("C-h SPC" . helm-all-mark-rings)
+	      ("C-x b" . helm-mini)
+	      ("s-b" . helm-mini)
+	      ("C-x C-b" . helm-buffers-list)
+	      ("M-x" . helm-M-x)
+	      ("C-x r l" . helm-source-filtered-bookmarks)
+	      ("M-s s" . helm-ag)
+	      :map helm-map
+	      ("<tab>" . helm-execute-persistent-action)
+	      ("C-i" . helm-execute-persistent-action)
+	      ("C-z" . helm-select-action)
+	      )
+  :config
+  (require 'helm-config)
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
+
+  (setq helm-split-window-inside-p           t ; open helm buffer inside current window, not occupy whole other window
+	helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+	helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+	helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+	helm-ff-file-name-history-use-recentf t
+	helm-echo-input-in-header-line t)
+  )
+
+
+(use-package helm-swoop
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("M-i" . helm-swoop)
+	      ("M-I" . helm-swoop-back-to-last-point)
+	      ;;("M-s /" . helm-multi-swoop)
+	      ("C-x M-i" . helm-multi-swoop-all)
+	      :map isearch-mode-map
+	      ("M-i" . helm-swoop-from-isearch)
+	      :map helm-swoop-map
+	      ("C-p" . helm-previous-line)
+	      ("C-n" . helm-next-line)
+	      ("M-i" . helm-multi-swoop-all-from-helm-swoop)
+	      ("M-m" . helm-multi-swoop-current-mode-from-helm-swoop)
+	      :map helm-multi-swoop-map
+	      ("C-p" . helm-previous-line)
+	      ("C-n" . helm-next-line)
+	      )
+  :config
+  ;; When doing isearch, hand the word over to helm-swoop
+  ;;(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+  ;; From helm-swoop to helm-multi-swoop-all
+  ;;(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+  ;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
+  ;;(define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
+
+  ;; Save buffer when helm-multi-swoop-edit complete
+  (setq helm-multi-swoop-edit-save t
+	;; If this value is t, split window inside the current window
+	helm-swoop-split-with-multiple-windows nil
+	;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+	helm-swoop-split-direction 'split-window-vertically
+	;; If you prefer fuzzy matching
+	helm-swoop-use-fuzzy-match t
+	;; don't auto select the thing at point
+	helm-swoop-pre-input-function (lambda () "" )
+	;; Always use the previous search for helm. Remember C-<backspace> will delete entire line
+	helm-swoop-pre-input-function
+	(lambda () (if (boundp 'helm-swoop-pattern)
+		       helm-swoop-pattern ""))
+
+	))
+
+
+(use-package helm-descbinds
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-h b" . helm-descbinds))
+  :init (fset 'describe-bindings 'helm-descbinds))
+
+(use-package helm-ag
+  :ensure t)
+
+(use-package helm-projectile
+  :ensure t
+  :after projectile
+  :bind (:map projectile-mode-map
+	      ("C-c p /" . (lambda ()
+			     (interactive)
+			     (helm-ag (projectile-project-root))))
+	      )
+  :config
+  (setq projectile-completion-system 'helm)
+  ;; no fuzziness for projectile-helm
+  (setq helm-projectile-fuzzy-match nil)
+  (helm-projectile-on))
+
+
+(provide 'init-ido-ivy-helm)
+;;; init-ido-ivy-helm.el ends here
+
 
 ;; (use-package ido
 ;;   :ensure t
@@ -26,109 +146,51 @@
 ;;   (ido-mode t)
 ;;   (ido-everywhere t)
 ;;   (setq ido-enable-flex-matching nil
-;; 	ido-use-virtual-buffers t
-;; 	ido-enable-prefix nil
+;;	ido-use-virtual-buffers t
+;;	ido-enable-prefix nil
 ;;         ido-use-filename-at-point 'guess
 ;;         ido-max-prospects 10
-;; 	ido-create-new-buffer 'always
-;; 	ido-ignore-extensions t
-;; 	ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf")))
+;;	ido-create-new-buffer 'always
+;;	ido-ignore-extensions t
+;;	ido-file-extensions-order '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf")))
 
 ;; ;; beter finding of M-x
 ;; (use-package smex
 ;;   :bind (;; ("M-x" . smex)
-;; 	 ("M-X" . smex-major-mode-commands))
+;;	 ("M-X" . smex-major-mode-commands))
 ;;   :config
 ;;   (setq smex-auto-update 60)
 ;;   (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory)))
 
 
-(use-package ivy
-  :ensure t
-  :hook (after-init . ivy-mode))
+;; (use-package ivy
+;;   :ensure t
+;;   :hook (after-init . ivy-mode))
 
-(use-package counsel
-  :ensure t)
+;; (use-package counsel
+;;   :ensure t)
 
-(use-package swiper
-  :ensure t
-  :defines
-  sej-mode-map
-  ivy-use-virtual-buffers
-  ivy-count-format
-  ivy-display-style
-  :bind
-  (:map sej-mode-map
-	("C-s" . swiper)
-	("C-c C-s" . isearch-forward)
-	;;("C-x C-r" . counsel-recentf)
-	("M-x" . counsel-M-x)
-	("C-x C-f" . counsel-find-file)
-	("C-c g" . counsel-git)
-	("C-c j" . counsel-git-grep)
-	("C-c k" . counsel-ag)
-	("H-a" . counsel-ag)
-	;;("C-x l" . counsel-locate)
-	("C-c C-r" . ivy-resume))
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq ivy-display-style 'fancy))
-
-
-(use-package helm
-  :ensure t
-  :hook (after-init . helm-mode)
-  :defines sej-mode-map
-  :diminish helm-mode
-  :bind
-  (:map sej-mode-map
-	("C-M-z" . helm-resume)
-	;;("C-x C-f" . helm-find-files)
-	("C-x o" . helm-occur)
-	("M-y" . helm-show-kill-ring)
-	("C-h a" . helm-apropos)
-	;;   ("C-h m" . helm-man-woman)
-	("C-h SPC" . helm-all-mark-rings)
-	;;("M-x" . helm-M-x)
-	("C-x C-b" . helm-buffers-list)
-	("C-x b" . helm-mini)
-	))
-
-(use-package helm-swoop
-  :ensure t
-  :defines sej-mode-map
-  :bind (:map sej-mode-map
-	      ("M-i" . helm-swoop)
-	      ("M-I" . helm-swoop-back-to-last-point)
-	      ("C-c M-i" . helm-multi-swoop))
-  :config
-  ;; When doing isearch, hand the word over to helm-swoop
-  (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
-  ;; From helm-swoop to helm-multi-swoop-all
-  (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
-  ;; Save buffer when helm-multi-swoop-edit complete
-  (setq helm-multi-swoop-edit-save t
-        ;; If this value is t, split window inside the current window
-        helm-swoop-split-with-multiple-windows t
-        ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-        helm-swoop-split-direction 'split-window-vertically
-        ;; don't auto select the thing at point
-        helm-swoop-pre-input-function (lambda () "")
-        ;; If nil, you can slightly boost invoke speed in exchange for text
-        ;; color. If I want pretty I'll use helm-occur since it keeps colors
-        helm-swoop-speed-or-color nil))
-
-(use-package helm-descbinds
-  :ensure t
-  :defines sej-mode-map
-  :bind (:map sej-mode-map
-	      ("C-h b" . helm-descbinds))
-  :init (fset 'describe-bindings 'helm-descbinds))
-
-
-(provide 'init-ido-ivy-helm)
-;;; init-ido-ivy-helm.el ends here
-
-
-
+;; (use-package swiper
+;;   :ensure t
+;;   :defines
+;;   sej-mode-map
+;;   ivy-use-virtual-buffers
+;;   ivy-count-format
+;;   ivy-display-style
+;;   :bind
+;;   (:map sej-mode-map
+;;	("C-s" . swiper)
+;;	("C-c C-s" . isearch-forward)
+;;	;;("C-x C-r" . counsel-recentf)
+;;	("M-x" . counsel-M-x)
+;;	("C-x C-f" . counsel-find-file)
+;;	("C-c g" . counsel-git)
+;;	("C-c j" . counsel-git-grep)
+;;	("C-c k" . counsel-ag)
+;;	("H-a" . counsel-ag)
+;;	;;("C-x l" . counsel-locate)
+;;	("C-c C-r" . ivy-resume))
+;;   :config
+;;   (setq ivy-use-virtual-buffers t)
+;;   (setq ivy-count-format "(%d/%d) ")
+;;   (setq ivy-display-style 'fancy))

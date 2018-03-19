@@ -36,7 +36,9 @@
 	      :map org-mode-map
 	      ("C-M-\\" . org-indent-region)
 	      ("S-<left>" . org-shiftleft)
-	      ("S-<right>" . org-shiftright))
+	      ("S-<right>" . org-shiftright)
+	      ("C-x c o h" . helm-org-headlines)
+)
   :config
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
