@@ -58,7 +58,10 @@
 	helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
 	helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
 	helm-ff-file-name-history-use-recentf t
-	helm-echo-input-in-header-line t)
+	helm-echo-input-in-header-line t
+	helm-M-x-fuzzy-match t)
+
+  (helm-autoresize-mode t)
   )
 
 
@@ -128,7 +131,7 @@
   :config
   (setq projectile-completion-system 'helm)
   ;; no fuzziness for projectile-helm
-  (setq helm-projectile-fuzzy-match nil)
+  (setq helm-projectile-fuzzy-match t)
   (helm-projectile-on))
 
 

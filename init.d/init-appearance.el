@@ -9,13 +9,15 @@
 ;;                                init-golden-ratio.el
 ;; 2017 11 29 clean up use-package and add :hook
 ;; 2017 12 26 add dimmer
+;; 2018 03 19 dimmer percent to fraction
+
 ;;; Code:
 
 (use-package dimmer
   :ensure t
   :defer 5
   :config
-  (setq dimmer-percent 0.20)
+  (setq dimmer-fraction 0.20)
   (dimmer-mode))
 
 (use-package golden-ratio
@@ -25,7 +27,13 @@
   :diminish golden-ratio-mode
   :config
   (setq golden-ratio-auto-scale t)
-  (add-to-list 'golden-ratio-extra-commands 'next-multiframe-window))
+  (add-to-list 'golden-ratio-extra-commands 'next-multiframe-window)
+
+    (defun sej/helm-alive-p ()
+    (if (boundp 'helm-alive-p)
+	(symbol-value 'helm-alive-p)))
+
+  (add-to-list 'golden-ratio-inhibit-functions 'sej/helm-alive-p) )
 
 ;; hightlight-numbers in a special way
 (use-package highlight-numbers

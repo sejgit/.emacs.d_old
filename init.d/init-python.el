@@ -59,7 +59,6 @@
   :defer t
   :config
   (elpy-enable)
-  (elpy-use-ipython)
 
   (define-skeleton python-insert-docstring
     "Insert a Python docstring."

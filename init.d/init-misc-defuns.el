@@ -49,7 +49,7 @@
 
 ;; from my (sashua) to insert function from source
 (defun sej/org-insert-defun (function)
-  "Inserts an Org source block with the definition for FUNCTION."
+  "Insert an Org source block with the definition for FUNCTION."
   (interactive (find-function-read))
   (let* ((buffer-point (condition-case nil (find-definition-noselect function nil) (error nil)))
 	 (new-buf (car buffer-point))
@@ -109,7 +109,7 @@ buffer is not visiting a file."
   "Ask to make directory for file if it does not exist."
   (let ((parent-directory (file-name-directory buffer-file-name)))
     (when (and (not (file-exists-p parent-directory))
-	       (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
+	       (y-or-n-p? (format "Directory `%s' does not exist! Create it?" parent-directory)))
       (make-directory parent-directory t))))
 
 (add-to-list 'find-file-not-found-functions 'sej/create-non-existent-directory)
