@@ -37,6 +37,7 @@
 	      ("C-h a" . helm-apropos)
 	      ;;   ("C-h m" . helm-man-woman)
 	      ("C-h SPC" . helm-all-mark-rings)
+	      ("H-SPC" . helm-all-mark-rings)
 	      ("C-x b" . helm-mini)
 	      ("s-b" . helm-mini)
 	      ("C-x C-b" . helm-buffers-list)
@@ -47,6 +48,7 @@
 	      ("<tab>" . helm-execute-persistent-action)
 	      ("C-i" . helm-execute-persistent-action)
 	      ("C-z" . helm-select-action)
+	      ("s-f" . helm-multi-files)
 	      )
   :config
   (require 'helm-config)
@@ -59,9 +61,14 @@
 	helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
 	helm-ff-file-name-history-use-recentf t
 	helm-echo-input-in-header-line t
-	helm-M-x-fuzzy-match t)
+	helm-M-x-fuzzy-match t
+	helm-buffers-fuzzy-matching t
+	helm-recentf-fuzzy-match t
+	helm-apropos-fuzzy-match t
+	helm-lisp-fuzzy-completion t)
 
   (helm-autoresize-mode t)
+
   )
 
 
