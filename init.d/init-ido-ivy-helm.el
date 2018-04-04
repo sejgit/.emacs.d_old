@@ -14,6 +14,7 @@
 ;; 2017 09 19 combine ido helm swiper smex into init-ido-ivy-helm.el
 ;; 2017 12 01 update for new use-package
 ;; 2018 03 17 update focused on helm
+;; 2018 03 21 some shortcut adds from http://tuhdo.github.io/helm-intro.html
 
 ;;; Code:
 
@@ -24,7 +25,7 @@
 			  (define-key eshell-mode-map (kbd "TAB")     #'helm-esh-pcomplete)
 			  (define-key eshell-mode-map (kbd "C-c C-l") #'helm-eshell-history)))
 	 )
-  :defines (sej-mode-map projectile-mode-map org-mode-map)
+  :defines (sej-mode-map projectile-mode-map org-mode-map helm-command-map)
   :diminish helm-mode
   :bind (:map sej-mode-map
 	      ("C-c h" . helm-command-prefix)
@@ -44,11 +45,12 @@
 	      ("M-x" . helm-M-x)
 	      ("C-x r l" . helm-source-filtered-bookmarks)
 	      ("M-s s" . helm-ag)
-	      :map helm-map
+	      :map helm-command-map
 	      ("<tab>" . helm-execute-persistent-action)
 	      ("C-i" . helm-execute-persistent-action)
 	      ("C-z" . helm-select-action)
 	      ("s-f" . helm-multi-files)
+	      ("x" . helm-register)
 	      )
   :config
   (require 'helm-config)

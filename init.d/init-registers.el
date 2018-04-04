@@ -10,10 +10,13 @@
 ;;; ChangeLog:
 ;; 2017 05 09 init copied from Part of the Emacs Starter Kit
 ;; 2017 08 30 add s-r to sej-mode-map
+;; 2018 03 21 added comments refering to register save and helm
 
 ;;; Code:
 
 ;; this is defined in init+bindings.el (kbd "s-r") 'jump-to-register
+;; use C-x r s (or x)  to save to register
+;; use helm register C-c h C-x r i   or C-c h x (shortcut added in my init-ido-ivy-helm.el)
 (dolist (r `(
 	     (?b (file . ,"~/.emacs.d/init.d/init-bindings-settings.el"))
 	     (?d (file . ,"~/.emacs.d/init.d/"))

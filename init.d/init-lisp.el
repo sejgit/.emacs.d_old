@@ -11,6 +11,7 @@
 ;;            move paredit defun from init-bindings-settings.el
 ;; 2017 11 18 swap paredit for smartparens
 ;; 2017 12 01 some mods for use-package & removal of autocomplete
+;; 2018 04 04 adding abo-abo's lispy package for specifically better reading of lisp
 
 ;;; Code:
 
@@ -81,6 +82,15 @@
   :ensure t
   :diminish elisp-slime-nav-mode
   :hook (emacs-lisp-mode . elisp-slime-nav-mode))
+
+(use-package lispy
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("s-8" . lispy-multiline)
+	      ("s-*" . lispy-oneline)))
+
+
 
 (provide 'init-lisp)
 ;;; init-lisp.el ends here
