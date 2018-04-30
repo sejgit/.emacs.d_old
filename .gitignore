@@ -1,32 +1,32 @@
-# emacs stuff
-*.elc
-abbrev_defs
-init-custom.el
-company-statistics-cache.el
-ac-comphist.dat
+# sej emacs stuff
+archive/
+elpa/
 el-get/
-#elpa/
+eshell/
+projectile-bookmarks.eld
+.python-environments/
+server/
+url/
+vendor/
+ac-comphist.dat
+abbrev_defs
+bookmarks
+company-statistics-cache.el
+.DS_Store
+*.elc
+elfeed.org
+history
 ido.last
+init-custom.el
+network-security.data
 places
 recentf
-projectile-bookmarks.eld
-network-security-data
+savehist
 .smex-items
 smex-items
 tramp
-network-security.data
 .uptimes.el
-.python-environments/
-eshell/
-bookmarks
-elfeed.org
-server/
-archive/
-elpa/
 .DS_Store
-savehist
-history
-url/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

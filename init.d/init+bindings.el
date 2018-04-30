@@ -29,7 +29,7 @@
 ;; 2017 12 21 edits move movement bindings into init-movement
 ;;                  TODO group buffer manipulatino together (sudo-edit, revert, etc...)
 ;; 2018 03 19 some cleanup & mods
-
+;; 2018 04 30 global mark and cua-copy-to-global-mark and cua-cut-to-global-mark
 
 ;;; Code:
 
@@ -270,6 +270,24 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; line numbers when using goto-line s-l or M-g M-g or M-g g
 ;; (defined in init-misc-defuns.el)
 (global-set-key [remap goto-line] 'sej/goto-line-with-feedback)
+
+
+;; cualess-global-mark and copy or cut to this global mark
+;; usefull to set and then copy multiple items to the same place
+;; found in emacsen and https://www.reddit.com/r/emacs/comments/8ekz0u/how_to_pastethencopy/
+(setq cua-enable-cua-keys nil)
+(global-set-key (kbd "C-S-SPC") (defun cualess-global-mark ()
+				  (interactive)
+				  (cua-mode 1)
+				  (call-interactively 'cua-toggle-global-mark)))
+(defadvice cua--deactivate-global-mark (after cua--deactivate-global-mark-and-cua-mode activate)
+  (cua-mode 0))
+(setq cua-global-mark-keep-visible nil)
+(global-set-key (kbd "M-W") 'cua-copy-to-global-mark)
+(global-set-key (kbd "C-S-w") 'cua-cut-to-global-mark)
+
+
+
 
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
