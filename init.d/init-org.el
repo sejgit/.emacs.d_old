@@ -38,7 +38,7 @@
 	      ("S-<left>" . org-shiftleft)
 	      ("S-<right>" . org-shiftright)
 	      ("C-x c o h" . helm-org-headlines)
-)
+	      )
   :config
   (if (string-equal system-type "windows-nt")
       (setq org-directory "C:/Users/NZ891R/gdrive/todo")
@@ -49,12 +49,10 @@
   (defconst org-file-journal (concat org-directory "/journal.org"))
   (defconst org-file-notes (concat org-directory "/notes.org"))
   (setq org-default-notes-file org-file-notes
-	org-tags-column 50
 	org-capture-bookmark t
 	org-refile-use-outline-path 'file
 	org-startup-folded 'showeverything
 	org-log-done 'note
-	org-tags-column 75
 	org-log-done t
 	org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")
 			    (sequence "DELIGATE(D)" "CHECK(C)" "|" "VERIFIED(V)")
