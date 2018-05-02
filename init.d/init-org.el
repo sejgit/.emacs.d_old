@@ -1,7 +1,7 @@
 ;;; init-org --- Stephen's emacs init.org.el file
 ;;; Commentary:
 ;; org-mode settings
-
+;;
 ;;;ChangeLog
 ;; 2016 12 16
 ;; 2017 01 06 change from req-package to use-package
@@ -9,7 +9,9 @@
 ;; 2017 08 07 add suggestions from Orgmode for GTD
 ;; 2017 08 30 map sej-mode-map & comments cleanup
 ;; 2017 10 19 cleanup of capture & org-agenda files
-
+;; 2018 04 01 org babel settings
+;; 2018 04 02 add poporg for editing comments in org-mode popup window
+;;
 ;;; Code:
 
 (use-package org
@@ -62,7 +64,24 @@
 				 ("DONE" . (:foreground "green" :weight bold))
 				 ("DELIGATE" . (:foreground "blue" :weight bold))
 				 ("VERIFIED" . (:foreground "green" :weight bold))
-				 ("CANCELED" . (:foreground "grey" :weight bold))))
+				 ("CANCELED" . (:foreground "grey" :weight bold)))
+	org-confirm-babel-evaluate nil
+	)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t) (emacs-lisp . t) (python . t) (latex . t) (calc . t) (C . t)))
+  (define-skeleton org-skeleton
+    "Header info for a emacs-org file."
+    "Title: "
+    "#+TITLE:" str " \n"
+    "#+DATE:" '(org-date-from-calendar) " \n"
+    "#+AUTHOR: Stephen Jenkins\n"
+    "#+email: stephenearljenkins@gmail.com\n"
+    "#+INFOJS_OPT: \n"
+    "#+BABEL: :session *C* :cache yes :results output graphics :exports both :tangle yes \n"
+    "-----\n\n")
+  (global-set-key [C-S-f4] 'org-skeleton)
+
   (setq org-capture-templates
 	'(
 	  ("i" "Inbox" entry (file+headline org-file-inbox  "Inbox") "* %i%?\n %U")
@@ -99,6 +118,11 @@
 (use-package org-dashboard
   :ensure t
   :commands org-dashboard-display)
+
+(use-package poporg
+  :ensure t
+  :bind (:map sej-mode-map)
+  ("C-c s o" . poporg-dwim))
 
 (provide 'init-org)
 ;;; init-org.el ends here
