@@ -8,6 +8,7 @@ projectile-bookmarks.eld
 server/
 url/
 vendor/
+anaconda-mode/
 ac-comphist.dat
 abbrev_defs
 bookmarks
