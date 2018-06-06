@@ -1,8 +1,8 @@
 ;;; init-git.el --- Git related configuration
-
+;;
 ;;; Commentary:
 ;; git related configuration for Emacs
-
+;;
 ;;; ChangeLog:
 ;; 2017 05 14 init SeJ from purcell/.emacs.d
 ;; 2017 06 12 add font-awesome git icon
@@ -10,9 +10,10 @@
 ;; 2017 08 30 deleted a few packages & documented the rest
 ;; 2017 09 18 add full screen for magit-status and return to previous on quit
 ;; 2017 09 20 move init-gist.el to here & delete file
-
+;; 2018 04 02 add magit-repository-directories for magit-list-repositories
+;;
 ;;; Code:
-
+;;
 ;; gist client
 (use-package gist
   :ensure t
@@ -35,6 +36,9 @@
 	("C-M-<up>" . magit-section-up)
 	("q" . magit-quit-session))
   :config
+
+  ;; set directories to search for magit-list-repositories
+  (setq magit-repository-directories '(("~/" . 3)))
 
   ;; full screen magit-status
   (defadvice magit-status (around magit-fullscreen activate)
@@ -78,6 +82,14 @@
 (use-package gitconfig-mode
   :ensure t
   :after magit)
+
+(use-package diff-hl
+  :ensure t
+  :hook (dired-mode . diff-hl-dired-mode)
+  :config
+  (global-diff-hl-mode))
+
+
 
 ;; see your file over time
 ;; - First do M-x git-timemachine

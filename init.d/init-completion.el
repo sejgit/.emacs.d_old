@@ -31,13 +31,13 @@
 (use-package company
   :ensure t
   :diminish company-mode
+  :demand
   :defines
   sej-mode-map
   company-dabbrev-ignore-case
   company-dabbrev-downcase
   company-dabbrev-code-modes
   company-dabbrev-code-ignore-case
-
   :hook (after-init . global-company-mode)
 
   :bind (:map sej-mode-map
@@ -58,7 +58,7 @@
 
   :config (setq global-company-mode t
 		;; do or don't automatically start completion after <idle time>
-		company-idle-delay 0.1
+		company-idle-delay 0.3
 		company-show-numbers t
 		;; at least 3 letters need to be there though
 		company-minimum-prefix-length 3
@@ -72,6 +72,7 @@
 
 (use-package company-quickhelp
   :ensure t
+  :after (company)
   :hook (company-mode . company-quickhelp-mode)
   :config (setq company-quickhelp-delay 2))
 
@@ -100,7 +101,3 @@
 
 (provide 'init-completion)
 ;;; init-completion.el ends here
-
-
-
-

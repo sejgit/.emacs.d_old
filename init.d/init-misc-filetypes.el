@@ -5,6 +5,7 @@
 
 ;;; ChangeLog:
 ;; 2017 09 07 init SeJ moved simple modes from init-misc.pkgs & others to its own file
+;; 2018 06 06 added JSON & web-mode etc from dotemacs/emacs.org at master · vidjuheffex/dotemacs
 
 ;;; Table of contents
 ;; arduino-mode
@@ -17,6 +18,8 @@
 ;; php-mode
 ;; textile-mode
 ;; yaml-mode
+;; JSON-mode
+;; web-mode with company-web emmet-mode rainbow-mode
 
 ;;; Code:
 
@@ -102,6 +105,54 @@
   :mode
   (("\\.yml$" . yaml-mode)
    ("\\.yaml$" . yaml-mode)))
+
+;;JSON
+(use-package json-mode
+  :ensure t
+  :mode (("\\.json\\'" . json-mode)
+	 ("\\manifest.webapp\\'" . json-mode )
+	 ("\\.tern-project\\'" . json-mode)))
+
+(use-package web-mode
+  :ensure t
+  :mode (("\\.phtml\\'" . web-mode)
+	 ("\\.tpl\\.php\\'" . web-mode)
+	 ("\\.blade\\.php\\'" . web-mode)
+	 ("\\.jsp\\'" . web-mode)
+	 ("\\.as[cp]x\\'" . web-mode)
+	 ("\\.erb\\'" . web-mode)
+	 ("\\.html?\\'" . web-mode)
+	 ("\\.ejs\\'" . web-mode)
+	 ("\\.php\\'" . web-mode)
+	 ("\\.mustache\\'" . web-mode)
+	 ("/\\(views\\|html\\|theme\\|templates\\)/.*\\.php\\'" . web-mode))
+  :init
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
+  (setq web-mode-attr-value-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-enable-auto-closing t)
+  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-enable-comment-keywords t)
+  (setq web-mode-enable-current-element-highlight t))
+
+(use-package company-web
+  :ensure t
+  :hook (web-mode . (lambda ()
+		      (add-to-list 'company-backends 'company-web-html)
+		      (add-to-list 'company-backends 'company-web-jade)
+		      (add-to-list 'company-backends 'company-web-slim))))
+
+(use-package emmet-mode
+  :ensure t
+  :hook (web-mode sgml-mode html-mode css-mode))
+
+(use-package rainbow-mode
+  :ensure t
+  :pin gnu
+  :hook css-mode)
 
 (provide 'init-misc-filetypes)
 ;;; init-misc-filetypes.el ends here

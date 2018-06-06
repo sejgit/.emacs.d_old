@@ -12,6 +12,7 @@
 ;; 2017 05 19 add mastering Emacs python debugging with compile
 ;; 2017 08 25 add from EOS insert-doc-string
 ;; 2017 08 30 map to sej-mode-map, ensure/defer, cleanup documentation
+;; 2018 06 06 add company-jedi (not sure of interactions)
 
 ;;; Code:
 
@@ -94,6 +95,8 @@
 (use-package jedi
   :ensure t
   :defer t
+  :defines
+  elpy-rpc-backend
   :hook ((python-mode . jedi:setup)
 	 (elpy-mode . jedi:setup))
   :preface
@@ -108,6 +111,11 @@
   (autoload 'jedi:setup "jedi" nil t)
   (setq jedi:complete-on-dot t)
   (setq elpy-rpc-backend "jedi"))
+
+(use-package company-jedi
+  :ensure t
+  :init
+  (add-hook 'python-mode-hook (add-to-list 'company-backends 'company-jedi)))
 
 (use-package py-autopep8
   :ensure t

@@ -12,6 +12,7 @@
 ;;            numbering rectangles, writing/viewing helpers, highlighting indentation
 ;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode from init-misc-pkgs.el
 ;; 2017 09 07 move YAML mode to init-misc-filetypes.el
+;; 2018 06 06 some markdown modes
 
 ;;; Code:
 
@@ -41,6 +42,7 @@
 (use-package markdown-mode
   :ensure t
   :functions writegood-mode
+  :commands (markdown-mode gfm-mode)
   :mode
   (("\\`README\\.md\\'" . gfm-mode)
    ("github\\.com.*\\.txt\\'" . gfm-mode)
@@ -50,7 +52,8 @@
   (setq markdown-enable-wiki-links t
 	markdown-italic-underscore t
 	markdown-make-gfm-checkboxes-buttons t
-	markdown-gfm-additional-languages '("sh"))
+	markdown-gfm-additional-languages '("sh")
+	markdown-header-scaling t)
   (add-hook 'markdown-mode-hook
 	    (lambda ()
 	      (visual-line-mode t)

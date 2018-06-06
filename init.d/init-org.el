@@ -14,8 +14,14 @@
 ;;
 ;;; Code:
 
+(use-package olivetti
+  :ensure t
+  :config
+  (setq olivetti-body-width 80))
+
 (use-package org
   :ensure t
+  :after olivetti
   :defines
   sej-mode-map
   org-capture-bookmark
@@ -27,6 +33,9 @@
   org-agenda-todo-ignore-scheduled
   org-agenda-sorting-strategy
   org-agenda-skip-deadline-prewarning-if-scheduled
+  :functions
+  sej/org-capture-get-src-block-string
+  which-function
   :mode ("\\.org$" . org-mode)
   :hook ((org-mode . flyspell-mode)
 	 (org-mode . writegood-mode))
@@ -50,10 +59,10 @@
   (defconst org-file-gtd (concat org-directory "/gtd.org"))
   (defconst org-file-journal (concat org-directory "/journal.org"))
   (defconst org-file-notes (concat org-directory "/notes.org"))
+  (defconst org-file-code (concat org-directory "/snippets.org"))
   (setq org-default-notes-file org-file-notes
 	org-capture-bookmark t
 	org-refile-use-outline-path 'file
-	org-startup-folded 'showeverything
 	org-log-done 'note
 	org-log-done t
 	org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")
@@ -66,6 +75,10 @@
 				 ("VERIFIED" . (:foreground "green" :weight bold))
 				 ("CANCELED" . (:foreground "grey" :weight bold)))
 	org-confirm-babel-evaluate nil
+	org-src-fontify-natively t
+	org-src-tab-acts-natively t
+	org-src-window-setup 'current-window
+	org-startup-folded nil
 	)
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -84,13 +97,15 @@
 
   (setq org-capture-templates
 	'(
+	  ("m" "CorrectMold" entry (file+olp+datetree "~/gdrive/ColourSensor/journal.org" "Journal") "* %i%?\n %U")
 	  ("i" "Inbox" entry (file+headline org-file-inbox  "Inbox") "* %i%?\n %U")
 	  ("j" "Journal" entry (file+datetree org-file-journal "Journal")  "* %i%?\n %U")
 	  ("n" "Notes" entry (file+headline org-file-notes  "Notes") "* %i%?\n %U")
 	  ("s" "Someday" entry (file+headline org-file-someday  "Someday") "* %i%?\n %U")
 	  ("t" "Todo" entry (file+headline org-file-gtd  "Todo") "* TODO %i%?")
+	  ("c" "code snippet" entry (file+headline org-file-code "code snippets")
+	   "* %?\n%(my/org-capture-code-snippet \"%F\")")
 	  ))
-
 
   ;; org-mode agenda options
   (setq org-agenda-files (list org-file-inbox org-file-journal org-file-notes org-file-someday org-file-gtd)
@@ -108,6 +123,34 @@
 	  (tags priority-down category-keep)
 	  (search category-keep))))
 
+  (defun sej/org-capture-get-src-block-string (major-mode)
+    "Given a major mode symbol, return the associated org-src block
+string that will enable syntax highlighting for that language
+
+E.g. tuareg-mode will return 'ocaml', python-mode 'python', etc..."
+
+    (let ((mm (intern (replace-regexp-in-string "-mode" "" (format "%s" major-mode)))))
+      (or (car (rassoc mm org-src-lang-modes)) (format "%s" mm))))
+
+  (defun sej/org-capture-code-snippet (f)
+    (with-current-buffer (find-buffer-visiting f)
+      (let ((code-snippet (buffer-substring-no-properties (mark) (- (point) 1)))
+	    (func-name (which-function))
+	    (file-name (buffer-file-name))
+	    (line-number (line-number-at-pos (region-beginning)))
+	    (org-src-mode (sej/org-capture-get-src-block-string major-mode)))
+	(format
+	 "file:%s::%s
+In ~%s~:
+#+BEGIN_SRC %s
+%s
+#+END_SRC"
+	 file-name
+	 line-number
+	 func-name
+	 org-src-mode
+	 code-snippet))))
+
   )
 
 (use-package org-bullets
@@ -123,6 +166,11 @@
   :ensure t
   :bind (:map sej-mode-map)
   ("C-c s o" . poporg-dwim))
+
+(use-package toc-org
+  :ensure t
+  :after org
+  :hook (org-mode . toc-org-enable))
 
 (provide 'init-org)
 ;;; init-org.el ends here

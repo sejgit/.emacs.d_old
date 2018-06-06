@@ -29,6 +29,7 @@
   :diminish helm-mode
   :bind (:map sej-mode-map
 	      ("C-c h" . helm-command-prefix)
+	      ("C-x b" . helm-mini)
 	      ("C-M-z" . helm-resume)
 	      ("C-x C-f" . helm-find-files)
 	      ("C-x C-r" . helm-recentf)
@@ -39,7 +40,6 @@
 	      ;;   ("C-h m" . helm-man-woman)
 	      ("C-h SPC" . helm-all-mark-rings)
 	      ("H-SPC" . helm-all-mark-rings)
-	      ("C-x b" . helm-mini)
 	      ("s-b" . helm-mini)
 	      ("C-x C-b" . helm-buffers-list)
 	      ("M-x" . helm-M-x)
@@ -61,13 +61,19 @@
 	helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
 	helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
 	helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-	helm-ff-file-name-history-use-recentf t
 	helm-echo-input-in-header-line t
+	helm-mode-fuzzy-match t
+	helm-ff-file-name-history-use-recentf t
 	helm-M-x-fuzzy-match t
 	helm-buffers-fuzzy-matching t
 	helm-recentf-fuzzy-match t
+	helm-lisp-fuzzy-completion t
 	helm-apropos-fuzzy-match t
-	helm-lisp-fuzzy-completion t)
+	helm-completion-in-region-fuzzy-match t
+	helm-echo-input-in-header-line t
+	helm-follow-mode-persistent t
+	helm-split-window-inside-p t
+	)
 
   (helm-autoresize-mode t)
 
@@ -75,12 +81,13 @@
 
 
 (use-package helm-swoop
+  :after (helm)
   :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
 	      ("M-i" . helm-swoop)
 	      ("M-I" . helm-swoop-back-to-last-point)
-	      ;;("M-s /" . helm-multi-swoop)
+	      ("C-c M-i /" . helm-multi-swoop)
 	      ("C-x M-i" . helm-multi-swoop-all)
 	      :map isearch-mode-map
 	      ("M-i" . helm-swoop-from-isearch)
@@ -117,9 +124,20 @@
 		       helm-swoop-pattern ""))
 
 	))
+(use-package smex
+  :ensure t)
 
+(use-package helm-smex
+  :after (helm smex)
+  :ensure t
+  :init
+  (setq helm-smex-show-bindings t)
+  :bind(([remap execute-extended-command] . helm-smex)
+	("M-X" . helm-smex-major-mode-commands))
+  )
 
 (use-package helm-descbinds
+  :after (helm)
   :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
@@ -127,11 +145,12 @@
   :init (fset 'describe-bindings 'helm-descbinds))
 
 (use-package helm-ag
+  :after (helm)
   :ensure t)
 
 (use-package helm-projectile
   :ensure t
-  :after projectile
+  :after (projectile helm)
   :bind (:map projectile-mode-map
 	      ("C-c p /" . (lambda ()
 			     (interactive)
@@ -143,6 +162,26 @@
   (setq helm-projectile-fuzzy-match t)
   (helm-projectile-on))
 
+(use-package flx
+  :ensure t)
+
+(use-package helm-flx
+  :ensure t
+  :after (helm)
+  :config
+  (helm-flx-mode +1))
+
+(use-package helm-fuzzier
+  :ensure t
+  :after (helm)
+  :config
+  (helm-fuzzier-mode +1))
+
+(use-package helm-dash
+  :ensure t
+  :init
+  (setq helm-dash-browser-func 'eww)
+  :after (helm))
 
 (provide 'init-ido-ivy-helm)
 ;;; init-ido-ivy-helm.el ends here

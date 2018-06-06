@@ -18,14 +18,13 @@
 (defmacro esk-configure-javascript (name)
   "Javascript configuration using (NAME)."
   (let ((sym (intern name))
-        (mode (intern (concat name "-mode")))
-        (hook (intern (concat name "-mode-hook")))
-        (keymap (intern (concat name "-mode-map")))
-        (indent (intern (concat name "-indent-level"))))
+	(mode (intern (concat name "-mode")))
+	(hook (intern (concat name "-mode-hook")))
+	(keymap (intern (concat name "-mode-map")))
+	(indent (intern (concat name "-indent-level"))))
     `(progn
        (autoload ',mode ,name ,(concat "Start " name "-mode") t)
        (add-to-list 'auto-mode-alist '("\\.js$" . ,mode))
-       (add-to-list 'auto-mode-alist '("\\.json$" . ,mode))
        (add-hook ',hook 'moz-minor-mode)
        (add-hook ',hook 'esk-paredit-nonlisp)
        (add-hook ',hook 'run-coding-hook)
@@ -33,17 +32,17 @@
        (setq ,indent 2)
 
        (eval-after-load ',sym
-         '(progn (define-key ,keymap "{" 'paredit-open-curly)
-                 (define-key ,keymap "}" 'paredit-close-curly-and-newline)
-                 (define-key ,keymap (kbd ",") 'self-insert-command))))))
+	 '(progn (define-key ,keymap "{" 'paredit-open-curly)
+		 (define-key ,keymap "}" 'paredit-close-curly-and-newline)
+		 (define-key ,keymap (kbd ",") 'self-insert-command))))))
 
 (defun pretty-functions ()
   "Pretty JS functions."
   (font-lock-add-keywords
    nil `(("\\(function *\\)("
-          (0 (progn (compose-region (match-beginning 1)
-                                    (match-end 1) "ƒ")
-                    nil))))))
+	  (0 (progn (compose-region (match-beginning 1)
+				    (match-end 1) "ƒ")
+		    nil))))))
 (add-hook 'esk-js-mode-hook 'pretty-functions)
 
 (if (< (string-to-number emacs-version) 23.2)
