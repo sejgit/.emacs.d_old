@@ -99,9 +99,9 @@ buffer is not visiting a file."
   (interactive)
   (unwind-protect
       (progn
-	(linum-mode 1)
+	(display-line-numbers-mode 1)
 	(with-no-warnings (goto-line (read-number "Goto line: "))))
-    (linum-mode -1)))
+    (display-line-numbers-mode -1)))
 
 ;; Offer to create parent directories if they do not exist
 ;; http://iqbalansari.github.io/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/

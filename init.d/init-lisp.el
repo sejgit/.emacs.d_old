@@ -11,31 +11,11 @@
 ;;            move paredit defun from init-bindings-settings.el
 ;; 2017 11 18 swap paredit for smartparens
 ;; 2017 12 01 some mods for use-package & removal of autocomplete
-;; 2018 04 04 adding abo-abo's lispy package for specifically better reading of lisp
+;; 2018 04 04 adding abo-abo's lispy package for specifically better reading of LISP
+
 
 ;;; Code:
 
-;; autocomplete
-;; (use-package auto-complete
-;;   :defer t
-;;   :ensure t
-;;   :config
-;;   (ac-config-default)
-;;   (global-auto-complete-mode t)
-;;   )
-
-;; (defun ielm-auto-complete ()
-;;   "Enables `auto-complete' support in \\[ielm]."
-;;   (setq ac-sources '(ac-source-functions
-;;		     ac-source-variables
-;;		     ac-source-features
-;;		     ac-source-symbols
-;;		     ac-source-words-in-same-mode-buffers))
-;;   (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
-;;   (auto-complete-mode 1))
-;; (add-hook 'ielm-mode-hook 'ielm-auto-complete)
-
-;; toggle-debug-on-error
 (define-key emacs-lisp-mode-map (kbd "C-c d") 'toggle-debug-on-error)
 
 ;; Paredit for editing within lisp
@@ -89,7 +69,6 @@
   :bind (:map sej-mode-map
 	      ("s-8" . lispy-multiline)
 	      ("s-*" . lispy-oneline)))
-
 
 
 (provide 'init-lisp)
