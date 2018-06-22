@@ -41,9 +41,18 @@
 ;; 2017 09 20 move some packages to init-appearance.el or init-movement.el
 ;;            move which-key in from init-which-key.el and delete file
 ;; 2017 11 17 modified which-key to add binds and side-window-right-bottom
+;; 2018 06 22 move from fic-mode to hl-todo-mode delete file init-fic-ext.el
 
 
 ;;; Code:
+
+(use-package hl-todo
+  :ensure t
+  :hook (after-init . global-hl-todo-mode)
+  :bind (:map hl-todo-mode-map
+	      ("H-p" . hl-todo-previous)
+	      ("H-n" . hl-todo-next)
+	      ("H-o" . hl-todo-occur)))
 
 (use-package which-key
   :ensure t

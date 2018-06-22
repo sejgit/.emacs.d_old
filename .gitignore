@@ -9,6 +9,7 @@ server/
 url/
 vendor/
 anaconda-mode/
+image-dired/
 ac-comphist.dat
 abbrev_defs
 bookmarks
