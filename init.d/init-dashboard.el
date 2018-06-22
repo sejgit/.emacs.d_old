@@ -13,7 +13,6 @@
   :hook (after-init . dashboard-insert-startupify-lists)
   ;;:after projectile
   :config
-  (setq dashboard-banner-logo-title "SeJ Dashboard")
   ;; Set the banner
   (setq dashboard-startup-banner 'official)
   ;; Value can be
