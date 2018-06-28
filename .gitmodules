@@ -1,0 +1,3 @@
+[submodule "lisp/magit-todos"]
+	path = lisp/magit-todos
+	url = https://github.com/alphapapa/magit-todos

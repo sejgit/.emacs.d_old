@@ -89,8 +89,6 @@
   :config
   (global-diff-hl-mode))
 
-
-
 ;; see your file over time
 ;; - First do M-x git-timemachine
 ;; Use the following keys to navigate historic version of the file
@@ -130,6 +128,11 @@
 (use-package github-clone
   :ensure t
   :commands github-clone)
+
+(use-package magit-todos
+  :load-path "lisp/"
+  :config
+  (magit-tools-mode))
 
 (provide 'init-git)
 ;;; init-git.el ends here
