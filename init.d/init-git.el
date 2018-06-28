@@ -14,7 +14,7 @@
 ;; 2018 06 28 add magit-todos
 ;;
 ;;; Code:
-;;
+;; HOLD FIXME
 ;; gist client
 (use-package gist
   :ensure t
@@ -136,10 +136,9 @@
 
 ;; TODO move to Melpa when it arrives to list-packages
 (use-package magit-todos
-  :load-path "lisp/magit-todos"
+  :quelpa (magit-todos :fetcher github :repo "alphapapa/magit-todos")
   :after (a anaphora async dash f hl-todo magit pcre2el s)
-  :config
-  (magit-todos-mode))
+  :config (magit-todos-mode))
 
 (use-package a
   :ensure t)

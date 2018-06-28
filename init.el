@@ -25,6 +25,7 @@
 ;;            TODO make settings generic to individual
 ;;            TODO better docs for what needs installed on base computer
 ;;            TODO ag pass projectile common-tools?(gls)
+;; 2018 06 26 add quelpa quelpa-use-package to first installed packages
 
 ;;; Code:
 
@@ -91,7 +92,7 @@
 
   ;; list the packages you want
   (defvar package-list
-    '(diminish use-package load-dir))
+    '(diminish use-package load-dir quelpa quelpa-use-package))
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
@@ -108,6 +109,7 @@
 
   ;; set-up use-package
   (require 'use-package)
+  (require 'quelpa-use-package)
   (require 'cl)
   (require 'diminish)
   (require 'bind-key)
