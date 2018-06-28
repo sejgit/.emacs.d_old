@@ -11,6 +11,7 @@
 ;; 2017 09 18 add full screen for magit-status and return to previous on quit
 ;; 2017 09 20 move init-gist.el to here & delete file
 ;; 2018 04 02 add magit-repository-directories for magit-list-repositories
+;; 2018 06 28 add magit-todos
 ;;
 ;;; Code:
 ;;
@@ -26,7 +27,12 @@
 ;; git on Emacs https://github.com/magit/magit
 (use-package magit
   :ensure t
-  :defines sej-mode-map
+  :defines
+  sej-mode-map
+  :functions
+  magit-tools-mode
+  my-vc-git-mode-line-string
+  vc-git-mode-line-string
   :bind
   (:map sej-mode-map
 	("<f12>" . magit-status)
@@ -36,6 +42,12 @@
 	("C-M-<up>" . magit-section-up)
 	("q" . magit-quit-session))
   :config
+
+  ;; force magit to open in one window in the current frame when called
+  (use-package fullframe
+    :ensure t
+    :config
+    (fullframe magit-status magit-mode-quit-window))
 
   ;; set directories to search for magit-list-repositories
   (setq magit-repository-directories '(("~/" . 3)))
@@ -108,13 +120,6 @@
   :after magit
   )
 
-;; force magit to open in one window in the current frame when called
-(use-package fullframe
-  :ensure t
-  :after magit
-  :config
-  (fullframe magit-status magit-mode-quit-window))
-
 ;; popup to show commit
 (use-package git-messenger
   :ensure t
@@ -129,10 +134,19 @@
   :ensure t
   :commands github-clone)
 
+;; TODO move to Melpa when it arrives to list-packages
 (use-package magit-todos
-  :load-path "lisp/"
+  :load-path "lisp/magit-todos"
+  :after (a anaphora async dash f hl-todo magit pcre2el s)
   :config
-  (magit-tools-mode))
+  (magit-todos-mode))
+
+(use-package a
+  :ensure t)
+(use-package anaphora
+  :ensure t)
+(use-package pcre2el
+  :ensure t)
 
 (provide 'init-git)
 ;;; init-git.el ends here
