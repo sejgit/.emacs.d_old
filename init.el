@@ -22,10 +22,11 @@
 ;; 2017 09 21 reordering per ideas from magnars
 ;; 2017 11 29 package load removed with new use-package understanding
 ;; 2018 01 02 limited initial package install put in
-;;            TODO: make settings generic to individual
+;;            TODO: make settings generic to individual like user-full-name etc
 ;;            TODO: better docs for what needs installed on base computer
-;;            TODO: ag pass projectile common-tools?(gls)
+;;            TODO: ag pass projectile common-tools?(gls) (see above)
 ;; 2018 06 26 add quelpa quelpa-use-package to first installed packages
+;; 2018 07 03 add require for above
 
 ;;; Code:
 
@@ -108,10 +109,11 @@
       (package-install package)))
 
   ;; set-up use-package
+  (require 'diminish)
   (require 'use-package)
+  (require 'quelpa)
   (require 'quelpa-use-package)
   (require 'cl)
-  (require 'diminish)
   (require 'bind-key)
   (require 'cl-lib)
 
