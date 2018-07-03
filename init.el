@@ -22,9 +22,9 @@
 ;; 2017 09 21 reordering per ideas from magnars
 ;; 2017 11 29 package load removed with new use-package understanding
 ;; 2018 01 02 limited initial package install put in
-;;            TODO make settings generic to individual
-;;            TODO better docs for what needs installed on base computer
-;;            TODO ag pass projectile common-tools?(gls)
+;;            TODO: make settings generic to individual
+;;            TODO: better docs for what needs installed on base computer
+;;            TODO: ag pass projectile common-tools?(gls)
 ;; 2018 06 26 add quelpa quelpa-use-package to first installed packages
 
 ;;; Code:
@@ -198,4 +198,3 @@
 ;; These are the last lines of my init.el. They will load any *.el files in the ~/.emacs.d/users/user-login-name/ folder.
 
 ;; Anything specific for that machine goes there.
-
