@@ -142,6 +142,7 @@
   :config
   (setq magit-todos-recursive t
 	magit-todos-depth 100)
+  ;; (setq magit-todos-require-colon t)  -- default - change to nil to catch all
   (magit-todos-mode))
 
 (use-package a
