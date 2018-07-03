@@ -137,15 +137,19 @@
 ;; TODO move to Melpa when it arrives to list-packages
 (use-package magit-todos
   :quelpa (magit-todos :fetcher github :repo "alphapapa/magit-todos")
-  :after (a anaphora async dash f hl-todo magit pcre2el s)
+  :after (a anaphora async dash f hl-todo pcre2el s)
   :config (magit-todos-mode))
 
 (use-package a
   :ensure t)
 (use-package anaphora
   :ensure t)
+(use-package async)
+(use-package dash)
+(use-package f)
 (use-package pcre2el
   :ensure t)
+(use-package s)
 
 (provide 'init-git)
 ;;; init-git.el ends here

@@ -42,7 +42,7 @@
 ;;            move which-key in from init-which-key.el and delete file
 ;; 2017 11 17 modified which-key to add binds and side-window-right-bottom
 ;; 2018 06 22 move from fic-mode to hl-todo-mode delete file init-fic-ext.el
-
+;; 2018 07 02 add osx-dictionary to get definitions using built in osx dictionary
 
 ;;; Code:
 
@@ -143,6 +143,15 @@
   :defer 5
   :config
   (whole-line-or-region-global-mode t))
+
+;;use osx dictionary when possible
+(use-package osx-dictionary
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+	      ("C-c d" . osx-dictionary-word-at-point)
+	      ("C-c i" . osx-dictionary-search-input)))
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here

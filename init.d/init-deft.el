@@ -10,6 +10,7 @@
 
 ;;; Code:
 (use-package deft
+  :ensure t
   :defines sej-mode-map deft-text-mode
   :bind (:map sej-mode-map
 	      ("<f7>" . deft)
@@ -31,4 +32,3 @@
 
 (provide 'init-deft)
 ;;; init-deft.el ends here
-
