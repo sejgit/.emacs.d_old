@@ -6,6 +6,8 @@
 ;; 2016 12 16 init sej
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 11 30 updates to dashboard-items
+;; 2018 07 12 update projects items
+
 ;;; Code:
 
 (use-package dashboard
@@ -23,7 +25,7 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents  . 15)
 			  (bookmarks . 15)
-			  (projects . 5)
+			  (projects . 15)
 			  (registers . 5)))
   (dashboard-insert-startupify-lists))
 
