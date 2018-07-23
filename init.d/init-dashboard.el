@@ -7,13 +7,11 @@
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 11 30 updates to dashboard-items
 ;; 2018 07 12 update projects items
-
+;; 2018 07 22 remove hook as part of startup
 ;;; Code:
 
 (use-package dashboard
   :ensure t
-  :hook (after-init . dashboard-insert-startupify-lists)
-  ;;:after projectile
   :config
   ;; Set the banner
   (setq dashboard-startup-banner 'official)
@@ -22,12 +20,12 @@
   ;; 'logo which displays an alternative emacs logo
   ;; 1, 2 or 3 which displays one of the text banners
   ;; "path/to/your/image.png which displays whatever image you would prefer
-  (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents  . 15)
 			  (bookmarks . 15)
 			  (projects . 15)
 			  (registers . 5)))
-  (dashboard-insert-startupify-lists))
+  (dashboard-setup-startup-hook)
+  )
 
 ;; display ^L page breaks as tidy horizontal lines
 (use-package page-break-lines
