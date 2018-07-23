@@ -11,6 +11,7 @@
 ;; 2017 10 19 cleanup of capture & org-agenda files
 ;; 2018 04 01 org babel settings
 ;; 2018 04 02 add poporg for editing comments in org-mode popup window
+;; 2018 07 22 correct mold project documents moved for journal.org
 ;;
 ;;; Code:
 
@@ -97,7 +98,7 @@
 
   (setq org-capture-templates
 	'(
-	  ("m" "CorrectMold" entry (file+olp+datetree "~/gdrive/ColourSensor/journal.org" "Journal") "* %i%?\n %U")
+	  ("m" "CorrectMold" entry (file+olp+datetree "~/gdrive/ColourSensor/ProjectDocuments/journal.org" "Journal") "* %i%?\n %U")
 	  ("i" "Inbox" entry (file+headline org-file-inbox  "Inbox") "* %i%?\n %U")
 	  ("j" "Journal" entry (file+datetree org-file-journal "Journal")  "* %i%?\n %U")
 	  ("n" "Notes" entry (file+headline org-file-notes  "Notes") "* %i%?\n %U")
