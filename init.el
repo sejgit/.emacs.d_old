@@ -22,11 +22,9 @@
 ;; 2017 09 21 reordering per ideas from magnars
 ;; 2017 11 29 package load removed with new use-package understanding
 ;; 2018 01 02 limited initial package install put in
-;;            TODO: make settings generic to individual like user-full-name etc
-;;            TODO: better docs for what needs installed on base computer
-;;            TODO: ag pass projectile common-tools?(gls) (see above)
 ;; 2018 06 26 add quelpa quelpa-use-package to first installed packages
 ;; 2018 07 03 add require for above
+;; 2018 08 02 moved around todos & loaddir & others
 
 ;;; Code:
 
@@ -138,15 +136,14 @@
     (auto-compile-on-load-mode)
     (auto-compile-on-save-mode))
 
-  ;; themes
-  (defun load-cyberpunk-theme (frame)
-    "Load cyberpunk theme in current FRAME."
-    (select-frame frame)
-    (load-theme 'cyberpunk t))
 
   (use-package cyberpunk-theme
     :ensure t
     :config
+    (defun load-cyberpunk-theme (frame)
+      "Load cyberpunk theme in current FRAME."
+      (select-frame frame)
+      (load-theme 'cyberpunk t))
     (load-cyberpunk-theme(selected-frame)))
 
   ;; so theme works with daemon server
@@ -157,15 +154,26 @@
   (switch-to-buffer "*dashboard*")
 
   ;; load-dir init.d
-  (random t)
-  (require 'load-dir)
-  (setq force-load-messages t)
-  (setq load-dir-debug nil)
-  (setq load-dir-recursive nil)
-  (load-dir-one my-init-dir)
+  (use-package load-dir
+    :ensure t
+    :config
+    (random t)
+    (setq force-load-messages t)
+    (setq load-dir-debug nil)
+    (setq load-dir-recursive nil)
+    (load-dir-one my-init-dir))
+
+  ;; old version below
+  ;; (random t)
+  ;; (require 'load-dir)
+  ;; (setq force-load-messages t)
+  ;; (setq load-dir-debug nil)
+  ;; (setq load-dir-recursive nil)
+  ;; (load-dir-one my-init-dir)
 
   ;; save histories
   (use-package savehist
+    :ensure nil
     :config
     (setq savehist-file (concat user-emacs-directory "savehist"))
     (savehist-mode 1)
@@ -186,8 +194,9 @@
 (provide 'init)
 ;;; init.el ends here
 
+;;  TODO: better docs for what needs installed on base computer ag pass projectile common-tools?(gls)
 
-;;; ideas for later maybe
+;; TODO: make settings generic to individual like user-full-name etc (see below for details)
 
 ;; Need different settings for different machines?
 ;; ;; Settings for currently logged in user

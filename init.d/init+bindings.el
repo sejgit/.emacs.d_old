@@ -27,7 +27,6 @@
 ;; 2017 09 19 add transpose keybindings & others from magnar
 ;; 2017 09 20 make more pure keybindings & move others stuff out
 ;; 2017 12 21 edits move movement bindings into init-movement
-;;                  TODO: group buffer manipulatino together (sudo-edit, revert, etc...)
 ;; 2018 03 19 some cleanup & mods
 ;; 2018 04 30 global mark and cua-copy-to-global-mark and cua-cut-to-global-mark
 ;; 2018 06 22 remove H-o for org mode to make room for hl-todo-occur

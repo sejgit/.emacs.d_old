@@ -27,12 +27,11 @@
 ;; git on Emacs https://github.com/magit/magit
 (use-package magit
   :ensure t
-  :defines
-  sej-mode-map
+  :defines  sej-mode-map
   :functions
-  magit-tools-mode
-  my-vc-git-mode-line-string
-  vc-git-mode-line-string
+  (magit-tools-mode
+   my-vc-git-mode-line-string
+   vc-git-mode-line-string)
   :bind
   (:map sej-mode-map
 	("<f12>" . magit-status)
@@ -134,27 +133,28 @@
   :ensure t
   :commands github-clone)
 
-;; TODO: move to Melpa when it arrives to list-packages
+;; ;; DONE: move to Melpa when it arrives to list-packages
 (use-package magit-todos
-  :quelpa (magit-todos :fetcher github :repo "alphapapa/magit-todos")
-  :after (a anaphora async dash f hl-todo pcre2el s)
+  ;;   :quelpa (magit-todos :fetcher github :repo "alphapapa/magit-todos")
+  ;;   :after (a anaphora async dash f hl-todo pcre2el s)
   :hook (magit-mode . magit-todos-mode)
+  :defines magit-todos-recursive
   :config
   (setq magit-todos-recursive t
 	magit-todos-depth 100)
-  ;; (setq magit-todos-require-colon t)  -- default - change to nil to catch all
+  ;;   ;; (setq magit-todos-require-colon t)  -- default - change to nil to catch all
   (magit-todos-mode))
 
-(use-package a
-  :ensure t)
-(use-package anaphora
-  :ensure t)
-(use-package async)
-(use-package dash)
-(use-package f)
-(use-package pcre2el
-  :ensure t)
-(use-package s)
+  ;; (use-package a
+  ;;   :ensure t)
+  ;; (use-package anaphora
+  ;;   :ensure t)
+  ;; (use-package async)
+  ;; (use-package dash)
+  ;; (use-package f)
+  ;; (use-package pcre2el
+  ;;   :ensure t)
+  ;; (use-package s)
 
-(provide 'init-git)
+  (provide 'init-git)
 ;;; init-git.el ends here
