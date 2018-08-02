@@ -23,6 +23,7 @@
   dashboard-mode
   :bind (:map sej-mode-map
 	      ("C-c s d" . sej/dashboard-goto-buffer))
+
   :config
   ;; Set the banner
   (setq dashboard-startup-banner 'official)
