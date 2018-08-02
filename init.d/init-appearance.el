@@ -10,8 +10,18 @@
 ;; 2017 11 29 clean up use-package and add :hook
 ;; 2017 12 26 add dimmer
 ;; 2018 03 19 dimmer percent to fraction
-
+;; 2018 07 22 try out eyeliner
 ;;; Code:
+
+(use-package eyeliner
+  :quelpa (eyeliner :fetcher github :repo "dustinlacewell/eyeliner")
+  :requires (dash magit spaceline all-the-icons)
+  :config
+  (require 'eyeliner)
+  (eyeliner/install))
+
+(use-package spaceline
+  :ensure t)
 
 (use-package dimmer
   :ensure t

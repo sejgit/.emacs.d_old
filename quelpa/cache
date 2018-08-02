@@ -1,1 +1,1 @@
-((magit-todos :fetcher github :repo "alphapapa/magit-todos"))
+((eyeliner :fetcher github :repo "dustinlacewell/eyeliner") (magit-todos :fetcher github :repo "alphapapa/magit-todos"))

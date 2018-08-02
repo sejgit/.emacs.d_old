@@ -8,6 +8,8 @@
 ;; 2017 11 30 updates to dashboard-items
 ;; 2018 07 12 update projects items
 ;; 2018 07 22 remove hook as part of startup
+;; 2018 08 02 fixed crashing & added initial-buffer-choice for use in emacsclient
+
 ;;; Code:
 
 (use-package dashboard
@@ -20,11 +22,22 @@
   ;; 'logo which displays an alternative emacs logo
   ;; 1, 2 or 3 which displays one of the text banners
   ;; "path/to/your/image.png which displays whatever image you would prefer
-  (setq dashboard-items '((recents  . 15)
+
+  (setq dashboard-items '((recents . 15)
 			  (bookmarks . 15)
 			  (projects . 15)
 			  (registers . 5)))
+
+  ;; To display today’s agenda items on the dashboard, add agenda to dashboard-items:
+
+  ;; (add-to-list 'dashboard-items '(agenda) t)
+  ;; To show agenda for the upcoming seven days set the variable show-week-agenda-p to t.
+
+  ;; (setq show-week-agenda-p t)
+  ;; Note that setting list-size for the agenda list is intentionally ignored; all agenda items for the current day will be displayed.
+
   (dashboard-setup-startup-hook)
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   )
 
 ;; display ^L page breaks as tidy horizontal lines
