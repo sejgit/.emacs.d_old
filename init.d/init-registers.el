@@ -20,11 +20,11 @@
 ;; use C-x r s (or x)  to save to register
 ;; use helm register C-c h C-x r i   or C-c h x (shortcut added in my init-ido-ivy-helm.el)
 (dolist (r `(
-	     (?b (file . "~/.emacs.d/init.d/init-bindings-settings.el"))
-	     (?d (file . "~/.emacs.d/init.d/"))
-	     (?i (file . "~/.emacs.d/init.el"))
-	     (?m (file . "~/.emacs.d/init.d/init-misc-pkgs.el"))
-	     (?r (file . "~/.emacs.d/init.d/init-registers.el"))
+	     (?b '(file . "~/.emacs.d/init.d/init-bindings-settings.el"))
+	     (?d '(file . "~/.emacs.d/init.d/"))
+	     (?i '(file . "~/.emacs.d/init.el"))
+	     (?m '(file . "~/.emacs.d/init.d/init-misc-pkgs.el"))
+	     (?r '(file . "~/.emacs.d/init.d/init-registers.el"))
 	     ))
   (set-register (car r) (cadr r)))
 
