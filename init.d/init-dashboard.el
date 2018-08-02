@@ -8,12 +8,19 @@
 ;; 2017 11 30 updates to dashboard-items
 ;; 2018 07 12 update projects items
 ;; 2018 07 22 remove hook as part of startup
-;; 2018 08 02 fixed crashing & added initial-buffer-choice for use in emacsclient
+;; 2018 08 02 fixed crashing (I hope)
+;;            added initial-buffer-choice for use in emacsclient
+;;            added bind & hook
 
 ;;; Code:
 
 (use-package dashboard
   :ensure t
+  :hook (after-init . sej/dashboard-goto-buffer)
+  :defines sej-mode-map
+  :commands dashboard-refresh-buffer
+  :bind (:map sej-mode-map
+	      ("C-c s d" . sej/dashboard-goto-buffer))
   :config
   ;; Set the banner
   (setq dashboard-startup-banner 'official)
@@ -37,6 +44,13 @@
   ;; Note that setting list-size for the agenda list is intentionally ignored; all agenda items for the current day will be displayed.
 
   (dashboard-setup-startup-hook)
+
+  (defun sej/dashboard-goto-buffer nil
+    "Change to the *dashboard* buffer."
+    (interactive)
+    (switch-to-buffer "*dashboard*")
+    (dashboard-refresh-buffer))
+
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   )
 
