@@ -19,6 +19,8 @@
   :hook (after-init . sej/dashboard-goto-buffer)
   :defines sej-mode-map
   :commands dashboard-refresh-buffer
+  dashboard-insert-startupify-lists
+  dashboard-mode
   :bind (:map sej-mode-map
 	      ("C-c s d" . sej/dashboard-goto-buffer))
   :config
@@ -49,6 +51,8 @@
     "Change to the *dashboard* buffer."
     (interactive)
     (switch-to-buffer "*dashboard*")
+    (dashboard-insert-startupify-lists)
+    (dashboard-mode)
     (dashboard-refresh-buffer))
 
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
