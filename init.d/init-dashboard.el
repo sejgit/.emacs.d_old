@@ -36,7 +36,9 @@
   (setq dashboard-items '((recents . 15)
 			  (bookmarks . 15)
 			  (projects . 15)
-			  (registers . 5)))
+			  (registers . 5)
+			  ))
+
 
   ;; To display today’s agenda items on the dashboard, add agenda to dashboard-items:
 
