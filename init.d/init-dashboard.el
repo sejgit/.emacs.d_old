@@ -16,13 +16,10 @@
 
 (use-package dashboard
   :ensure t
-  :hook (after-init . sej/dashboard-goto-buffer)
   :defines sej-mode-map
-  :commands dashboard-refresh-buffer
-  dashboard-insert-startupify-lists
-  dashboard-mode
+  :hook (after-init . dashboard-refresh-buffer)
   :bind (:map sej-mode-map
-	      ("C-c s d" . sej/dashboard-goto-buffer))
+	      ("C-c s d" . dashboard-refresh-buffer))
 
   :config
   ;; Set the banner
@@ -49,14 +46,6 @@
   ;; Note that setting list-size for the agenda list is intentionally ignored; all agenda items for the current day will be displayed.
 
   (dashboard-setup-startup-hook)
-
-  (defun sej/dashboard-goto-buffer nil
-    "Change to the *dashboard* buffer."
-    (interactive)
-    (switch-to-buffer "*dashboard*")
-    (dashboard-insert-startupify-lists)
-    (dashboard-mode)
-    (dashboard-refresh-buffer))
 
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   )
