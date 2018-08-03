@@ -20,7 +20,6 @@
   :hook (after-init . dashboard-refresh-buffer)
   :bind (:map sej-mode-map
 	      ("C-c s d" . dashboard-refresh-buffer))
-
   :config
   ;; Set the banner
   (setq dashboard-startup-banner 'official)
