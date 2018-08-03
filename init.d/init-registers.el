@@ -25,7 +25,6 @@
 (set-register ?m '(file . "~/.emacs.d/init.d/init-misc-pkgs.el"))
 (set-register ?r '(file . "~/.emacs.d/init.d/init-registers.el"))
 
-
 (provide 'init-registers)
 
 ;;; init-registers.el ends here
