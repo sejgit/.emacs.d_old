@@ -19,7 +19,7 @@
   :defines sej-mode-map
   :hook (after-init . dashboard-refresh-buffer)
   :bind (:map sej-mode-map
-	      ("C-c s d" . sej/daboard-fix-registers))
+	      ("C-c s d" . dashboard-refresh-buffer))
   :config
   ;; Set the banner
   (setq dashboard-startup-banner 'official)
@@ -34,25 +34,6 @@
 			  (projects . 15)
 			  (registers . 5)
 			  ))
-
-  (defun remove-nth-element (nth list)
-    (if (zerop nth) (cdr list)
-      (let ((last (nthcdr (1- nth) list)))
-	(setcdr last (cddr last))
-	list)))
-
-  (defun sej/dashboard-fix-registers nil
-    "My fix to cleanse the register-alist of magit-fullscreen return info"
-    (interactive)
-    (let ((count (safe-length register-alist)))
-      (while (>= count 0)
-	(if (equal :magit-fullscreen (-first-item (nth count register-alist)))
-	    (setq register-alist (remove-nth-element count register-alist))
-	  )
-	(setq count (- count 1))
-	))
-    (dashboard-refresh-buffer)
-    )
 
   ;; To display today’s agenda items on the dashboard, add agenda to dashboard-items:
 

@@ -61,10 +61,29 @@
     "Restores the previous window configuration and kills the magit buffer"
     (interactive)
     (kill-buffer)
-    (jump-to-register :magit-fullscreen))
+    (jump-to-register :magit-fullscreen)
+    (sej/dashboard-fix-registers))
 
   (defadvice magit-quit-window (after magit-restore-screen activate)
-    (jump-to-register :magit-fullscreen))
+    (jump-to-register :magit-fullscreen)
+    (sej/dashboard-fix-registers))
+
+  (defun sej/remove-nth-element (nth list)
+    (if (zerop nth) (cdr list)
+      (let ((last (nthcdr (1- nth) list)))
+	(setcdr last (cddr last))
+	list)))
+
+  (defun sej/dashboard-fix-registers nil
+    "My fix to cleanse the register-alist of magit-fullscreen return info"
+    (interactive)
+    (let ((count (safe-length register-alist)))
+      (while (>= count 0)
+	(if (equal :magit-fullscreen (-first-item (nth count register-alist)))
+	    (setq register-alist (sej/remove-nth-element count register-alist))
+	  )
+	(setq count (- count 1)))))
+
 
   (setq-default magit-diff-refine-hunk t)
   (fullframe magit-status magit-mode-quit-window)
