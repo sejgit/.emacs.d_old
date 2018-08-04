@@ -35,6 +35,23 @@
 			  (registers . 5)
 			  ))
 
+  (defun remove-nth-element (nth list)
+    (if (zerop nth) (cdr list)
+      (let ((last (nthcdr (1- nth) list)))
+	(setcdr last (cddr last))
+	list)))
+
+  (defun sej/dashboard-fix-registers nil
+    "My fix to clense the register-alist of magit-fullscreen return info"
+    (interactive)
+    (setq count (safe-length register-alist))
+    (while (>= count 0)
+      (if (equal :magit-fullscreen (-first-item (nth count register-alist)))
+	  (setq register-alist (remove-nth-element count register-alist))
+	)
+      (setq count (- count 1))
+      )
+    )
 
   ;; To display today’s agenda items on the dashboard, add agenda to dashboard-items:
 
