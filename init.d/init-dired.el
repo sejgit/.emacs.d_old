@@ -14,6 +14,7 @@
 ;; 2017 10 10 added dired-subtree for expansion of directories within buffer
 ;; 2017 11 17 added neotree <f5> to toggle
 ;; 2017 12 01 rearrange & cleanup with new use-package
+;; 2018 08 06 diminish all-the-icons-dired-mode
 
 ;;; Code:
 
@@ -167,6 +168,7 @@ It added extra strings at the front and back of the default dired buffer name."
 
 (use-package all-the-icons-dired
   :ensure t
+  :diminish
   :if window-system
   :hook (dired-mode . all-the-icons-dired-mode))
 
