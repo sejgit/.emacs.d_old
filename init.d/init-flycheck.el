@@ -12,7 +12,7 @@
 ;; 2017 08 29 map to sej-mode-hook
 ;; 2017 80 30 update some binds
 ;; 2017 12 01 update for new use-package
-
+;; 2018 08 06 helm-flycheck keymap changes
 
 ;;; Code:
 
@@ -80,7 +80,8 @@
   :bind
   (:map sej-mode-map
 	("C-c s h" . helm-flycheck)
-	("s-h" . helm-flycheck)))
+	("s-f" . helm-flycheck)
+	("H-f" . helm-flycheck)))
 
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here

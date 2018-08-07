@@ -95,7 +95,7 @@
    '(rainbow-delimiters-depth-5-face ((t (:foreground "blue" :height 1.0))))
    '(rainbow-delimiters-depth-6-face ((t (:foreground "violet" :height 1.0))))
    '(rainbow-delimiters-depth-7-face ((t (:foreground "purple" :height 1.0))))
-   '(rainbow-delimiters-depth-8-face ((t (:foreground "black" :height 1.0))))
+   '(rainbow-delimiters-depth-8-face ((t (:foreground "gray" :height 1.0))))
    '(rainbow-delimiters-unmatched-face ((t (:background "cyan" :height 1.0))))
    ))
 

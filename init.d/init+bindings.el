@@ -30,6 +30,7 @@
 ;; 2018 03 19 some cleanup & mods
 ;; 2018 04 30 global mark and cua-copy-to-global-mark and cua-cut-to-global-mark
 ;; 2018 06 22 remove H-o for org mode to make room for hl-todo-occur
+;; 2018 08 06 H-a from counsel-ag to helm-ag
 
 ;;; Code:
 
@@ -151,7 +152,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
   )
 
 ;; use hyper (alt on osx) for mode type bindings
-(define-key sej-mode-map (kbd "H-a") 'counsel-ag)
+(define-key sej-mode-map (kbd "H-a") 'helm-ag)
 (define-key sej-mode-map (kbd "<f1>") 'org-mode)
 (define-key sej-mode-map (kbd "H-s") 'shell)
 (define-key sej-mode-map (kbd "<f2>") 'shell)
