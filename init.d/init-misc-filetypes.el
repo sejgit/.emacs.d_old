@@ -6,6 +6,7 @@
 ;;; ChangeLog:
 ;; 2017 09 07 init SeJ moved simple modes from init-misc.pkgs & others to its own file
 ;; 2018 06 06 added JSON & web-mode etc from dotemacs/emacs.org at master · vidjuheffex/dotemacs
+;; 2018 08 06 deleted init-js and added here js2-mode
 
 ;;; Table of contents
 ;; arduino-mode
@@ -19,7 +20,9 @@
 ;; textile-mode
 ;; yaml-mode
 ;; JSON-mode
+;; js2-mode for javascript
 ;; web-mode with company-web emmet-mode rainbow-mode
+
 
 ;;; Code:
 
@@ -106,15 +109,21 @@
   (("\\.yml$" . yaml-mode)
    ("\\.yaml$" . yaml-mode)))
 
-;;JSON
+;; JSON
 (use-package json-mode
   :ensure t
   :mode (("\\.json\\'" . json-mode)
 	 ("\\manifest.webapp\\'" . json-mode )
 	 ("\\.tern-project\\'" . json-mode)))
 
+;; javascript
+(use-package js2-mode
+  :ensure t
+  :mode ("\\.js\\'" . js2-mode))
+
 (use-package web-mode
   :ensure t
+  :defines web-mode-enable-comment-keywords
   :mode (("\\.phtml\\'" . web-mode)
 	 ("\\.tpl\\.php\\'" . web-mode)
 	 ("\\.blade\\.php\\'" . web-mode)
