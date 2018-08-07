@@ -110,16 +110,19 @@
    ("\\.yaml$" . yaml-mode)))
 
 ;; JSON
-(use-package json-mode
-  :ensure t
-  :mode (("\\.json\\'" . json-mode)
-	 ("\\manifest.webapp\\'" . json-mode )
-	 ("\\.tern-project\\'" . json-mode)))
+;; (use-package json-mode
+;;   :ensure t
+;;   :mode (("\\.json\\'" . json-mode)
+;;	 ("\\manifest.webapp\\'" . json-mode )
+;;       ("\\.tern-project\\'" . json-mode)))
 
 ;; javascript
 (use-package js2-mode
   :ensure t
-  :mode ("\\.js\\'" . js2-mode))
+  :mode (("\\.js\\'" . js2-mode)
+	 ("\\.json\\'" . js2-mode)
+	 ("\\manifest.webapp\\'" . js2-mode )
+	 ("\\.tern-project\\'" . js2-mode)))
 
 (use-package web-mode
   :ensure t
