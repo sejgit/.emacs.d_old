@@ -44,8 +44,12 @@
 ;; 2018 06 22 move from fic-mode to hl-todo-mode delete file init-fic-ext.el
 ;; 2018 07 02 add osx-dictionary to get definitions using built in osx dictionary
 ;; 2018 08 06 add paredit for use in js2 & json modes
+;; 2018 08 07 add try to allow 'trying' a package
 
 ;;; Code:
+
+(use-package try
+  :ensure t)
 
 (use-package paredit
   :ensure t)

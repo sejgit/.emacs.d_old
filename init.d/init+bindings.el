@@ -31,6 +31,7 @@
 ;; 2018 04 30 global mark and cua-copy-to-global-mark and cua-cut-to-global-mark
 ;; 2018 06 22 remove H-o for org mode to make room for hl-todo-occur
 ;; 2018 08 06 H-a from counsel-ag to helm-ag
+;; 2018 08 07 re-institute winner-mode std keybindings
 
 ;;; Code:
 
@@ -238,13 +239,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (global-set-key (kbd "M-t p") 'transpose-params)
 
 ;; wind move built in package (default bindins are S-<cursor>)
-;;(when (fboundp 'windmove-default-keybindings)
 ;;  (windmove-default-keybindings)) ;; Shift + direction
-(winner-mode t)
-(define-key sej-mode-map (kbd "C-c <left>")  'windmove-left)
-(define-key sej-mode-map (kbd "C-c <right>") 'windmove-right)
-(define-key sej-mode-map (kbd "C-c <up>")    'windmove-up)
-(define-key sej-mode-map (kbd "C-c <down>")  'windmove-down)
+;; winner-mode is to undo & redo windows with C-c left and C-c right
+(when (fboundp 'winner-mode)
+  (winner-mode t))
 (define-key sej-mode-map (kbd "s-h")         'windmove-left)
 (define-key sej-mode-map (kbd "s-l")         'windmove-right)
 (define-key sej-mode-map (kbd "s-k")         'windmove-up)
