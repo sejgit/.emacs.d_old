@@ -32,7 +32,7 @@
 ;; 2018 06 22 remove H-o for org mode to make room for hl-todo-occur
 ;; 2018 08 06 H-a from counsel-ag to helm-ag
 ;; 2018 08 07 re-institute winner-mode std keybindings
-
+;;            replace avy with ace-jump-mode
 ;;; Code:
 
 ;; set keys for Apple keyboard, for emacs in OS X
@@ -323,11 +323,23 @@ USAGE: (unbind-from-modi-map \"key f\")."
   )
 
 ;; efficient moving through search terms
-(use-package avy
+;; (use-package avy
+;;   :ensure t
+;;   :defines sej-mode-map
+;;   :bind (:map sej-mode-map
+;;	      ("C-<return>" . avy-goto-word-1)))
+
+;; efficient moving around screen
+(use-package ace-jump-mode
   :ensure t
-  :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("C-<return>" . avy-goto-word-1)))
+	      ("C-c SPC" . ace-jump-word-mode)
+	      ("C-u C-c SPC" . ace-jump-char-mode)
+	      ("C-u C-u C-c SPC" . ace-jump-line-mode)
+	      ("C-<return>" . ace-jump-word-mode)
+	      ("C-S-<return>" . ace-jump-mode-pop-mark))
+  :config
+  (ace-jump-mode-enable-mark-sync))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
