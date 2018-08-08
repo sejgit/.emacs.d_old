@@ -34,6 +34,8 @@
 ;; 2018 08 07 re-institute winner-mode std keybindings
 ;;            replace avy with ace-jump-mode
 ;;            M-o for ace-window
+;;            M-u for string-inflection
+;;            added simpleclip for better clipboard integration
 
 
 ;;; Code:
@@ -339,7 +341,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 	      ("C-c SPC" . ace-jump-word-mode)
 	      ("C-u C-c SPC" . ace-jump-char-mode)
 	      ("C-u C-u C-c SPC" . ace-jump-line-mode)
-	      ("C-<return>" . ace-jump-word-mode)
+	      ("C-<return>" . ace-jump-char-mode)
 	      ("C-S-<return>" . ace-jump-mode-pop-mark))
   :config
   (ace-jump-mode-enable-mark-sync))
@@ -360,6 +362,22 @@ USAGE: (unbind-from-modi-map \"key f\")."
 	      ("C-c C-k" . crux-duplicate-current-line-or-region)
 	      ("s-d" . crux-duplicate-current-line-or-region)
 	      ("C-c n" . crux-cleanup-buffer-or-region)))
+
+;; underscore -> upcase -> camelcase conversion
+(use-package string-inflection
+  :ensure t
+  :bind (:map sej-mode-map
+	      ("M-u" . my-string-inflection-all-cycle)))
+
+;; simplified access to the system clipboard in Emacs
+(use-package simpleclip
+  :ensure t
+  :hook (after-init . simpleclip-mode)
+  :bind (:map sej-mode-map
+	      ("s-x" . simpleclip-cut)
+	      ("s-c" . simpleclip-copy)
+	      ("s-v" . simpleclip-paste)
+	      ("M-v" . simpleclip-paste))) ;; this last one will help integration with Flycut
 
 ;; Moves selected region around
 (use-package drag-stuff

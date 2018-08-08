@@ -7,6 +7,7 @@
 ;; 2017 09 07 init SeJ moved simple modes from init-misc.pkgs & others to its own file
 ;; 2018 06 06 added JSON & web-mode etc from dotemacs/emacs.org at master · vidjuheffex/dotemacs
 ;; 2018 08 06 deleted init-js and added here js2-mode
+;; 2018 08 07 fix rainbow-mode
 
 ;;; Table of contents
 ;; arduino-mode
@@ -163,8 +164,9 @@
 
 (use-package rainbow-mode
   :ensure t
+  :defer 0.1
   :pin gnu
-  :hook css-mode)
+  :hook (after-init . rainbow-mode))
 
 (provide 'init-misc-filetypes)
 ;;; init-misc-filetypes.el ends here
