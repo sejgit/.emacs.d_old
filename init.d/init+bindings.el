@@ -33,6 +33,9 @@
 ;; 2018 08 06 H-a from counsel-ag to helm-ag
 ;; 2018 08 07 re-institute winner-mode std keybindings
 ;;            replace avy with ace-jump-mode
+;;            M-o for ace-window
+
+
 ;;; Code:
 
 ;; set keys for Apple keyboard, for emacs in OS X
@@ -340,6 +343,12 @@ USAGE: (unbind-from-modi-map \"key f\")."
 	      ("C-S-<return>" . ace-jump-mode-pop-mark))
   :config
   (ace-jump-mode-enable-mark-sync))
+
+;; for selecting a window to switch to
+(use-package ace-window
+  :ensure t
+  :bind (:map sej-mode-map
+	      ("M-o" . ace-window)))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
