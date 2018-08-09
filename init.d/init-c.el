@@ -8,6 +8,9 @@
 
 ;;; Code:
 
+
+(require 'cc-mode)
+
 ;; Flycheck supports C, so we switch it on
 (add-hook 'c-mode-common-hook #'flycheck-mode)
 
