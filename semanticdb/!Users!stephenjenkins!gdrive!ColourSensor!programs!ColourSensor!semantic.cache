@@ -1,0 +1,293 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode arduino-mode
+      :tags 
+        '( ("Wire.h" include (:system-flag t) nil [436 453])
+            ("Adafruit_ADS1015.h" include (:system-flag t) nil [454 483])
+            ("Adafruit_MCP23017.h" include (:system-flag t) nil [484 514])
+            ("mcp1" variable (:type ("Adafruit_MCP23017" type (:type "class") nil nil)) nil [555 578])
+            ("ads1" function
+               (:prototype-flag t
+                :type ("Adafruit_ADS1015" type (:type "class") nil nil))
+                nil [579 605])
+            ("LEFTWHITE" variable (:constant-flag t) nil [661 670])
+            ("RIGHTYELLOW" variable (:constant-flag t) nil [681 692])
+            ("ON" variable (:constant-flag t) nil [703 705])
+            ("OFF" variable (:constant-flag t) nil [716 719])
+            ("POWERUP" variable (:constant-flag t) nil [730 737])
+            ("CALIBRATION" variable (:constant-flag t) nil [748 759])
+            ("PRODUCTION" variable (:constant-flag t) nil [770 780])
+            ("SETCSENSOR" variable (:constant-flag t) nil [791 801])
+            ("MASTERVERIFY" variable (:constant-flag t) nil [812 824])
+            ("INCORRECTVERIFY" variable (:constant-flag t) nil [835 850])
+            ("BUZZVOLUME" variable (:constant-flag t) nil [887 897])
+            ("BUTTONPIN1" variable (:constant-flag t) nil [942 952])
+            ("BUTTONPIN2" variable (:constant-flag t) nil [963 973])
+            ("BUTTONPIN3" variable (:constant-flag t) nil [984 994])
+            ("BUTTONPIN4" variable (:constant-flag t) nil [1006 1016])
+            ("MASTERPARTPROXPIN" variable (:constant-flag t) nil [1028 1045])
+            ("COLOURPIN" variable (:constant-flag t) nil [1057 1066])
+            ("YELLOWFIXPIN" variable (:constant-flag t) nil [1078 1090])
+            ("WHITEFIXPIN" variable (:constant-flag t) nil [1102 1113])
+            ("COLSETPIN" variable (:constant-flag t) nil [1125 1134])
+            ("PARTPRESENTPROXPIN" variable (:constant-flag t) nil [1145 1163])
+            ("BUZZPIN" variable (:constant-flag t) nil [1174 1181])
+            ("buttonindicator1" variable
+               (:dereference 1
+                :default-value "{22, 24, 26, 28}"
+                :type "int")
+                nil [1226 1268])
+            ("buttonindicator2" variable
+               (:dereference 1
+                :default-value "{23, 25, 27, 29}"
+                :type "int")
+                nil [1311 1353])
+            ("buttonindicator3" variable
+               (:dereference 1
+                :default-value "{32, 34, 36, 38}"
+                :type "int")
+                nil [1398 1440])
+            ("buttonindicator4" variable
+               (:dereference 1
+                :default-value "{33, 35, 37, 39}"
+                :type "int")
+                nil [1486 1528])
+            ("RYELL" variable (:constant-flag t) nil [1570 1575])
+            ("GYELL" variable (:constant-flag t) nil [1586 1591])
+            ("BYELL" variable (:constant-flag t) nil [1602 1607])
+            ("yellow" variable
+               (:dereference 1
+                :default-value "{RYELL, GYELL, BYELL}"
+                :type "int")
+                nil [1612 1649])
+            ("RWHITE" variable (:constant-flag t) nil [1672 1678])
+            ("GWHITE" variable (:constant-flag t) nil [1689 1695])
+            ("BWHITE" variable (:constant-flag t) nil [1706 1712])
+            ("white" variable
+               (:dereference 1
+                :default-value "{RWHITE, GWHITE, BWHITE}"
+                :type "int")
+                nil [1715 1754])
+            ("RGREEN" variable (:constant-flag t) nil [1777 1783])
+            ("GGREEN" variable (:constant-flag t) nil [1796 1802])
+            ("BGREEN" variable (:constant-flag t) nil [1813 1819])
+            ("green" variable
+               (:dereference 1
+                :default-value "{RGREEN, GGREEN, BGREEN}"
+                :type "int")
+                nil [1824 1863])
+            ("RRED" variable (:constant-flag t) nil [1884 1888])
+            ("GRED" variable (:constant-flag t) nil [1899 1903])
+            ("BRED" variable (:constant-flag t) nil [1916 1920])
+            ("red" variable
+               (:dereference 1
+                :default-value "{RRED, GRED, BRED}"
+                :type "int")
+                nil [1925 1956])
+            ("RPURPLE" variable (:constant-flag t) nil [1980 1987])
+            ("GPURPLE" variable (:constant-flag t) nil [1998 2005])
+            ("BPURPLE" variable (:constant-flag t) nil [2018 2025])
+            ("purple" variable
+               (:dereference 1
+                :default-value "{RPURPLE, GPURPLE, BPURPLE}"
+                :type "int")
+                nil [2028 2071])
+            ("RBLUE" variable (:constant-flag t) nil [2093 2098])
+            ("GBLUE" variable (:constant-flag t) nil [2111 2116])
+            ("BBLUE" variable (:constant-flag t) nil [2129 2134])
+            ("blue" variable
+               (:dereference 1
+                :default-value "{RBLUE, GBLUE, BBLUE}"
+                :type "int")
+                nil [2137 2172])
+            ("RCYAN" variable (:constant-flag t) nil [2194 2199])
+            ("GCYAN" variable (:constant-flag t) nil [2212 2217])
+            ("BCYAN" variable (:constant-flag t) nil [2228 2233])
+            ("cyan" variable
+               (:dereference 1
+                :default-value "{RCYAN, GCYAN, BCYAN}"
+                :type "int")
+                nil [2236 2271])
+            ("MODESWITCHTIME" variable (:constant-flag t) nil [2297 2311])
+            ("LIGHTOFFTIME" variable (:constant-flag t) nil [2325 2337])
+            ("BUZZCHIRP" variable (:constant-flag t) nil [2351 2360])
+            ("STROBETIME" variable (:constant-flag t) nil [2373 2383])
+            ("BOUNCETIME" variable (:constant-flag t) nil [2396 2406])
+            ("time" variable
+               (:default-value "0"
+                :type "long")
+                nil [2437 2451])
+            ("tlbtimeold" variable
+               (:default-value "0"
+                :type "long")
+                nil [2452 2472])
+            ("blinktimeold" variable
+               (:default-value "0"
+                :type "long")
+                nil [2473 2495])
+            ("buzztimeold" variable
+               (:default-value "0"
+                :type "long")
+                nil [2496 2517])
+            ("trbtimeold" variable
+               (:default-value "0"
+                :type "long")
+                nil [2518 2538])
+            ("lighttimeold" variable
+               (:default-value "0"
+                :type "long")
+                nil [2539 2561])
+            ("brbtimeold" variable
+               (:default-value "0"
+                :type "long")
+                nil [2562 2582])
+            ("blbtimeold" variable
+               (:default-value "0"
+                :type "long")
+                nil [2583 2603])
+            ("oldtime" variable
+               (:default-value "0"
+                :type "long")
+                nil [2604 2621])
+            ("strobe1" variable
+               (:default-value "0"
+                :type "long")
+                nil [2622 2639])
+            ("testmodetime" variable
+               (:default-value "0"
+                :type "long")
+                nil [2640 2662])
+            ("buzzer1" variable
+               (:default-value "0"
+                :type "long")
+                nil [2663 2680])
+            ("calibrating" variable
+               (:default-value "0"
+                :type "int")
+                nil [2683 2703])
+            ("colourmode" variable
+               (:default-value "0"
+                :type "int")
+                nil [2704 2723])
+            ("chirpcount" variable
+               (:default-value "0"
+                :type "int")
+                nil [2724 2743])
+            ("reset" variable
+               (:default-value "0"
+                :type "int")
+                nil [2744 2758])
+            ("mode" variable (:type "int") nil [2759 2768])
+            ("modeold" variable (:type "int") nil [2769 2781])
+            ("calibrationmode" variable (:type "int") nil [2782 2802])
+            ("calibrationmodeold" variable (:type "int") nil [2803 2826])
+            ("replace" variable (:type "int") nil [2827 2839])
+            ("replaceold" variable (:type "int") nil [2840 2855])
+            ("testmode" variable (:type "int") nil [2856 2869])
+            ("error" variable (:type "int") nil [2870 2880])
+            ("wiringerror" variable (:type "int") nil [2881 2897])
+            ("wiringerrorold" variable (:type "int") nil [2898 2917])
+            ("fixtureleft" variable (:type "int") nil [2918 2934])
+            ("fixtureright" variable (:type "int") nil [2935 2952])
+            ("partpresentanalog" variable (:type "int") nil [2953 2975])
+            ("partpresent" variable (:type "int") nil [2976 2992])
+            ("masterpresent" variable (:type "int") nil [2993 3011])
+            ("colourok" variable (:type "int") nil [3012 3025])
+            ("button1" variable (:type "int") nil [3026 3038])
+            ("button2" variable (:type "int") nil [3039 3051])
+            ("button3" variable (:type "int") nil [3052 3064])
+            ("button4" variable (:type "int") nil [3065 3077])
+            ("buttonstatus" variable (:type "int") nil [3078 3095])
+            ("buttonstatusold" variable (:type "int") nil [3096 3116])
+            ("strobe" variable (:type "int") nil [3117 3128])
+            ("buttoncolour" variable (:type "int") nil [3129 3146])
+            ("oldbuzzer" variable (:type "int") nil [3147 3161])
+            ("buzzer" variable (:type "int") nil [3162 3173])
+            ("serialstatus" variable (:type "int") nil [3174 3191])
+            ("serialold" variable (:type "int") nil [3192 3206])
+            ("okreplace" variable (:type "int") nil [3207 3221])
+            ("inRange" function
+               (:arguments 
+                  ( ("val" variable (:type "int") (reparse-symbol arg-sub-list) [3297 3305])
+                    ("minimum" variable (:type "int") (reparse-symbol arg-sub-list) [3306 3318])
+                    ("maximum" variable (:type "int") (reparse-symbol arg-sub-list) [3319 3331]))                  
+                :type "bool")
+                nil [3284 3384])
+            ("ButtonIndicator" function
+               (:arguments 
+                  ( ("button" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [3450 3463])
+                    ("colour" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [3464 3477])
+                    ("highlow" variable (:type "int") (reparse-symbol arg-sub-list) [3478 3490]))                  
+                :type "void")
+                nil [3429 3641])
+            ("setup" function (:type "void") nil [3666 5133])
+            ("loop" function (:type "void") nil [5162 21114]))          
+      :file "ColourSensor.ino"
+      :pointmax 21115
+      :fsize 21114
+      :lastmodtime '(23400 38750 0 0)
+      :unmatched-syntax '((number 601 . 603))
+      :lexical-table 
+        '(("CALIBRATION" . ((number "2" 760 . 761)))
+          ("BUTTONPIN2" . ((number "9" 974 . 975)))
+          ("MASTERPARTPROXPIN" . ((number "12" 1046 . 1048)))
+          ("GWHITE" . ((number "0" 1696 . 1697)))
+          ("BRED" . ((number "255" 1921 . 1924)))
+          ("GPURPLE" . ((number "255" 2006 . 2009)))
+          ("GBLUE" . ((number "255" 2117 . 2120)))
+          ("BCYAN" . ((number "0" 2234 . 2235)))
+          ("SETCSENSOR" . ((number "1" 802 . 803)))
+          ("BUTTONPIN3" . ((number "10" 995 . 997)))
+          ("BGREEN" . ((number "255" 1820 . 1823)))
+          ("BUZZVOLUME" . ((number "160" 898 . 901)))
+          ("BUTTONPIN4" . ((number "11" 1017 . 1019)))
+          ("WHITEFIXPIN" . ((number "15" 1114 . 1116)))
+          ("RGREEN" . ((number "255" 1784 . 1787)))
+          ("GCYAN" . ((number "0" 2218 . 2219)))
+          ("BUZZCHIRP" . ((number "250" 2361 . 2364)))
+          ("ON" . ((number "1" 706 . 707)))
+          ("OFF" . ((number "0" 720 . 721)))
+          ("YELLOWFIXPIN" . ((number "14" 1091 . 1093)))
+          ("BYELL" . ((number "255" 1608 . 1611)))
+          ("RRED" . ((number "0" 1889 . 1890)))
+          ("STROBETIME" . ((number "500" 2384 . 2387)))
+          ("COLOURPIN" . ((number "13" 1067 . 1069)))
+          ("MASTERVERIFY" . ((number "2" 825 . 826)))
+          ("GYELL" . ((number "0" 1592 . 1593)))
+          ("GRED" . ((number "255" 1904 . 1907)))
+          ("COLSETPIN" . ((number "0" 1135 . 1136)))
+          ("BWHITE" . ((number "0" 1713 . 1714)))
+          ("GGREEN" . ((number "0" 1803 . 1804)))
+          ("RBLUE" . ((number "255" 2099 . 2102)))
+          ("INCORRECTVERIFY" . ((number "3" 851 . 852)))
+          ("RWHITE" . ((number "0" 1679 . 1680)))
+          ("BPURPLE" . ((number "0" 2026 . 2027)))
+          ("RIGHTYELLOW" . ((number "2" 693 . 694)))
+          ("PARTPRESENTPROXPIN" . ((number "0" 1164 . 1165)))
+          ("RCYAN" . ((number "255" 2200 . 2203)))
+          ("POWERUP" . ((number "1" 738 . 739)))
+          ("BOUNCETIME" . ((number "1000" 2407 . 2411)))
+          ("BUZZPIN" . ((number "9" 1182 . 1183)))
+          ("RPURPLE" . ((number "0" 1988 . 1989)))
+          ("BBLUE" . ((number "0" 2135 . 2136)))
+          ("MODESWITCHTIME" . ((number "3000" 2312 . 2316)))
+          ("LEFTWHITE" . ((number "1" 671 . 672)))
+          ("PRODUCTION" . ((number "3" 781 . 782)))
+          ("BUTTONPIN1" . ((number "8" 953 . 954)))
+          ("RYELL" . ((number "0" 1576 . 1577)))
+          ("LIGHTOFFTIME" . ((number "1000" 2338 . 2342)))
+          )
+))
+  :file "!Users!stephenjenkins!gdrive!ColourSensor!programs!ColourSensor!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

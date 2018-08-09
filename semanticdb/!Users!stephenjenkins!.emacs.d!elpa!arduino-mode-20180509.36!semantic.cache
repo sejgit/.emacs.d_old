@@ -1,0 +1,87 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("cc-mode" include nil nil [1245 1263])
+            ("spinner" include nil nil [1264 1282])
+            ("term" include nil nil [1391 1406])
+            ("cc-menus" include nil nil [1369 1388])
+            ("cc-fonts" include nil nil [1347 1366])
+            ("cc-langs" include nil nil [1325 1344])
+            ("cl-lib" include nil nil [1305 1322])
+            ("c-add-language" code nil nil [1454 1492])
+            ("arduino-mode" customgroup (:user-visible-flag t) nil [1495 1594])
+            ("arduino-mode-home" variable (:default-value "~/Arduino") nil [1596 1709])
+            ("c-lang-defconst" code nil nil [1711 2525])
+            ("c-lang-defconst" code nil nil [2527 2748])
+            ("c-lang-defconst" code nil nil [2750 4233])
+            ("c-lang-defconst" code nil nil [4235 4493])
+            ("arduino" customgroup (:user-visible-flag t) nil [4495 4567])
+            ("arduino-font-lock-extra-types" variable nil nil [4569 4791])
+            ("arduino-executable" variable (:default-value "arduino") nil [4793 4908])
+            ("arduino-spinner-type" variable (:default-value (quote progress-bar)) nil [4910 5142])
+            ("arduino-font-lock-keywords-1" variable
+               (:constant-flag t
+                :default-value (c-lang-const c-matchers-1 arduino))
+                nil [5144 5262])
+            ("arduino-font-lock-keywords-2" variable
+               (:constant-flag t
+                :default-value (c-lang-const c-matchers-2 arduino))
+                nil [5264 5386])
+            ("arduino-font-lock-keywords-3" variable
+               (:constant-flag t
+                :default-value (c-lang-const c-matchers-3 arduino))
+                nil [5388 5514])
+            ("arduino-font-lock-keywords" variable (:default-value arduino-font-lock-keywords-3) nil [5516 5634])
+            ("arduino-mode-syntax-table" variable nil nil [5636 5721])
+            ("or" code nil nil [5723 5858])
+            ("arduino-mode-abbrev-table" variable nil nil [5860 5951])
+            ("c-define-abbrev-table" code nil nil [5953 6280])
+            ("arduino-mode-map" variable (:default-value (let ((map (c-make-inherited-keymap))) (define-key map (kbd "C-c C-c") (quote arduino-upload)) (define-key map (kbd "C-c C-v") (quote arduino-verify)) (define-key map (kbd "C-c C-m") (quote arduino-serial-monitor)) (define-key map (kbd "C-c C-x") (quote arduino-open-with-arduino)) map)) nil [6282 6629])
+            ("easy-menu-define" code nil nil [6631 6757])
+            ("easy-menu-add-item" code nil nil [6759 6863])
+            ("easy-menu-add-item" code nil nil [6864 6936])
+            ("easy-menu-add-item" code nil nil [6937 7020])
+            ("easy-menu-add-item" code nil nil [7021 7104])
+            ("easy-menu-add-item" code nil nil [7105 7210])
+            ("easy-menu-add-item" code nil nil [7211 7310])
+            ("arduino-upload-process-buf" variable nil nil [7312 7351])
+            ("arduino-upload" function (:user-visible-flag t) nil [7353 8562])
+            ("arduino-verify-process-buf" variable nil nil [8564 8603])
+            ("arduino-verify" function (:user-visible-flag t) nil [8605 9724])
+            ("arduino-open-process-buf" variable nil nil [9726 9763])
+            ("arduino-open-with-arduino" function (:user-visible-flag t) nil [9765 10840])
+            ("arduino-install-boards" function
+               (:user-visible-flag t
+                :arguments ("board"))
+                nil [10999 11408])
+            ("arduino-install-library" function
+               (:user-visible-flag t
+                :arguments ("library"))
+                nil [11410 11829])
+            ("term" include nil nil [11831 11846])
+            ("arduino-serial-monitor" function
+               (:user-visible-flag t
+                :arguments ("port" "speed"))
+                nil [11847 12123])
+            ("arduino-sketch-new" function
+               (:user-visible-flag t
+                :arguments ("sketch"))
+                nil [12140 12405])
+            ("arduino-generate-include-path-file" function (:user-visible-flag t) nil [12489 12980])
+            ("define-derived-mode" code nil nil [12998 13826])
+            ("add-to-list" code nil nil [13843 13903])
+            ("add-to-list" code nil nil [13919 13979])
+            ("arduino-mode" package nil nil [13982 14005]))          
+      :file "arduino-mode.el"
+      :pointmax 14036
+      :fsize 14035
+      :lastmodtime '(23394 65453 438494 798000)
+      :unmatched-syntax '((close-paren 1492 . 1493) (symbol 1410 . 1426) (open-paren 1409 . 1410) (close-paren 1406 . 1407) (symbol 1285 . 1302) (open-paren 1284 . 1285))))
+  :file "!Users!stephenjenkins!.emacs.d!elpa!arduino-mode-20180509.36!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

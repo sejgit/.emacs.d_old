@@ -1,0 +1,31 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("use-package" code nil nil [736 1650])
+            ("use-package" code nil nil [1652 1727])
+            ("use-package" code nil nil [1781 1862])
+            ("use-package" code nil nil [2056 2189])
+            ("use-package" code nil nil [2222 2289])
+            ("use-package" code nil nil [2322 2379])
+            ("use-package" code nil nil [2416 2568])
+            ("use-package" code nil nil [2607 2669])
+            ("use-package" code nil nil [2687 2786])
+            ("use-package" code nil nil [2979 3150])
+            ("use-package" code nil nil [3152 4030])
+            ("use-package" code nil nil [4032 4276])
+            ("use-package" code nil nil [4278 4362])
+            ("use-package" code nil nil [4364 4462])
+            ("init-misc-filetypes" package nil nil [4464 4494]))          
+      :file "init-misc-filetypes.el"
+      :pointmax 4532
+      :fsize 4532
+      :lastmodtime '(23404 52434 223894 671000)
+      :unmatched-syntax nil))
+  :file "!Users!stephenjenkins!.emacs.d!init.d!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
