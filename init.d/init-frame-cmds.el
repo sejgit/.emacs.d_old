@@ -26,10 +26,10 @@
 	      ;;("M-<down>" . move-frame-down)
 	      ;;("M-<left>" . move-frame-left)
 	      ;;("M-<right>" . move-frame-right)
-	      ("M-S-v" . move-frame-to-screen-top)      ; like `M-v'
-	      ("C-S-v" . move-frame-to-screen-bottom)   ; like `C-v'
-	      ("C-M-<down>" . enlarge-frame)
-	      ("C-M-<right>" . enlarge-frame-horizontally)
+	      ;;("M-S-v" . move-frame-to-screen-top)      ; like `M-v'
+	      ;;("C-S-v" . move-frame-to-screen-bottom)   ; like `C-v'
+	      ;;("C-M-<down>" . enlarge-frame)
+	      ;;("C-M-<right>" . enlarge-frame-horizontally)
 	      ;;("C-M-<up>" . shrink-frame)
 	      ("C-C-<left>" . shrink-frame-horizontally))
   :config
