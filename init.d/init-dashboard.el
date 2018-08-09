@@ -22,7 +22,7 @@
 	      ("C-c s d" . dashboard-refresh-buffer))
   :config
   ;; Set the banner
-  (setq dashboard-startup-banner 'official)
+  (setq dashboard-startup-banner nil)
   ;; Value can be
   ;; 'official which displays the official emacs logo
   ;; 'logo which displays an alternative emacs logo

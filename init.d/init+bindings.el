@@ -376,8 +376,11 @@ USAGE: (unbind-from-modi-map \"key f\")."
   :bind (:map sej-mode-map
 	      ("s-x" . simpleclip-cut)
 	      ("s-c" . simpleclip-copy)
-	      ("s-v" . simpleclip-paste)
-	      ("M-v" . simpleclip-paste))) ;; this last one will help integration with Flycut
+	      ("s-v" . scroll-down-command)
+	      ("C-S-v" . scroll-down-command)
+	      ("H-v" . scroll-down-command)
+	      ("M-v" . simpleclip-paste)
+	      )) ;; this last one will help integration with Flycut
 
 ;; Moves selected region around
 (use-package drag-stuff
