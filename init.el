@@ -25,6 +25,7 @@
 ;; 2018 06 26 add quelpa quelpa-use-package to first installed packages
 ;; 2018 07 03 add require for above
 ;; 2018 08 02 moved around todos & loaddir & others
+;; 2018 08 13 clean-up some vars
 
 ;;; Code:
 
@@ -51,8 +52,9 @@
 (setq user-full-name "Stephen Jenkins")
 (setq user-mail-address "stephenearljenkins@gmail.com")
 
-(defvar init-dir
-  (expand-file-name "init.d" user-emacs-directory))
+(defvar init-dir)
+(setq init-dir
+      (expand-file-name "init.d" user-emacs-directory))
 
 (let ((minver "24.1"))
   (when (version<= emacs-version minver)
@@ -85,7 +87,6 @@
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-  ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (setq load-prefer-newer t)
 
@@ -129,7 +130,6 @@
        (list start end)))
 
   ;; recompile configs
-  (defconst my-init-dir "~/.emacs.d/init.d")
   (use-package auto-compile
     :ensure t
     :config
@@ -161,15 +161,7 @@
     (setq force-load-messages t)
     (setq load-dir-debug nil)
     (setq load-dir-recursive nil)
-    (load-dir-one my-init-dir))
-
-  ;; old version below
-  ;; (random t)
-  ;; (require 'load-dir)
-  ;; (setq force-load-messages t)
-  ;; (setq load-dir-debug nil)
-  ;; (setq load-dir-recursive nil)
-  ;; (load-dir-one my-init-dir)
+    (load-dir-one init-dir))
 
   ;; save histories
   (use-package savehist

@@ -32,8 +32,8 @@
   :ensure t
   :mode "\\.ino$"
   :config
-  ;;
-  )
+  (setq arduino-mode-home "/Users/stephenjenkins/Projects/sej/Arduino")
+  (setq arduino-executable "/Applications/Arduino.app/Contents/MacOS/Arduino"))
 
 (use-package batch-mode
   :load-path "lisp/batch-mode"
@@ -44,13 +44,6 @@
   :ensure t
   :diminish conf-mode
   :mode "\\.gitconfig$")
-
-
-;; ;; editing of crontab scheduling files (removed as seems not on melpa)
-;; (use-package crontab-mode
-;;   :ensure t
-;;   :defer t
-;;   :mode "\\.?cron\\(tab\\)?\\'")
 
 ;; major mode for csv
 (use-package csv-mode
