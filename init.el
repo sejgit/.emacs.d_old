@@ -52,7 +52,6 @@
   (when (file-exists-p secret.el)
     (load secret.el)))
 
-<<<<<<< HEAD
 ;; directories for windows setup
 (cond
  ((string-equal system-type "windows-nt") ; running on windows
@@ -80,9 +79,7 @@
     ;;(setq init-dir "~/emax")
     )))
 
-=======
 (defvar init-dir)
->>>>>>> 5fea42cc7da33968fd0dcd7f3e4b9e80ae202a75
 (setq init-dir
       (expand-file-name "init.d" user-emacs-directory))
 
