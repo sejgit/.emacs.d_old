@@ -25,6 +25,7 @@
 ;; 2018 06 26 add quelpa quelpa-use-package to first installed packages
 ;; 2018 07 03 add require for above
 ;; 2018 08 02 moved around todos & loaddir & others
+;; 2018 08 15 adds for windows set-up
 
 ;;; Code:
 
@@ -46,13 +47,39 @@
 ;; reduce garbage collection
 (setq gc-cons-threshold (* 50 1024 1024))
 
-;; Bootstrap config
-;; whoami
-(setq user-full-name "Stephen Jenkins")
-(setq user-mail-address "stephenearljenkins@gmail.com")
+(let ((secret.el (expand-file-name "secret.el" "~/.ssh/")))
+  (when (file-exists-p secret.el)
+    (load secret.el)))
 
-(defvar init-dir
-  (expand-file-name "init.d" user-emacs-directory))
+;; directories for windows setup
+(cond
+ ((string-equal system-type "windows-nt") ; running on windows
+  (progn
+    (defvar emax-root (concat (expand-file-name "~") "/emax"))
+    (defvar emax-bin (concat emax-root "/bin"))
+    (defvar emax-bin64 (concat emax-root "/bin64"))
+    (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
+    (defvar emax-lisp (concat emax-root "/lisp"))
+
+    (setq exec-path (cons emax-bin exec-path))
+    (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
+
+    (setq exec-path (cons emax-bin64 exec-path))
+    (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
+
+    (setq exec-path (cons emax-mingw64 exec-path))
+    (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
+
+    (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
+
+    (dolist (dir '("~/emax/" "~/emax/bin/" "~/emax/bin64/" "~/emax/mingw64/bin/" "~/emax/lisp/"))
+      (add-to-list 'load-path dir))
+    ;;(setq user-emacs-directory "~/emax")
+    ;;(setq init-dir "~/emax")
+    )))
+
+(setq init-dir
+      (expand-file-name "init.d" user-emacs-directory))
 
 (let ((minver "24.1"))
   (when (version<= emacs-version minver)
@@ -81,17 +108,31 @@
   (add-to-list 'load-path init-dir)
   (setq custom-file (expand-file-name "init-custom.el" init-dir))
   (load custom-file 'noerror)
+  
+  (set-language-environment 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
 
   (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+  ;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  ;;(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  ;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (setq load-prefer-newer t)
 
-  ;; list the packages you want
-  (defvar package-list
-    '(diminish use-package load-dir quelpa quelpa-use-package))
+  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                      (not (gnutls-available-p))))
+	 (proto (if no-ssl "http" "https")))
+    ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+    ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+    (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+    (when (< emacs-major-version 24)
+      ;; For important compatibility libraries like cl-lib
+      (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
+
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
@@ -101,12 +142,17 @@
   (unless package-archive-contents
     (package-refresh-contents))
 
+  ;; list the packages you want
+  (defvar package-list
+    '(delight diminish use-package load-dir quelpa quelpa-use-package))
+
   ;; install the missing packages
   (dolist (package package-list)
     (unless (package-installed-p package)
       (package-install package)))
 
   ;; set-up use-package
+  (require 'delight)
   (require 'diminish)
   (require 'use-package)
   (require 'quelpa)
@@ -114,6 +160,11 @@
   (require 'cl)
   (require 'bind-key)
   (require 'cl-lib)
+
+  ;; Use latest Org
+  (use-package org
+    ;;:pin org
+    :ensure org-plus-contrib)
 
   ;; Lame, server has bad autoloads
   (require 'server nil t)
@@ -127,15 +178,6 @@
   (eval-after-load "enriched"
     '(defun enriched-decode-display-prop (start end &optional param)
        (list start end)))
-
-  ;; recompile configs
-  (defconst my-init-dir "~/.emacs.d/init.d")
-  (use-package auto-compile
-    :ensure t
-    :config
-    (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode))
-
 
   (use-package cyberpunk-theme
     :ensure t
@@ -153,6 +195,30 @@
 
   (switch-to-buffer "*dashboard*")
 
+  ;; load files from init.d
+  ;; check OS type
+  (cond
+   ((string-equal system-type "windows-nt") ; Microsoft Windows
+    (progn
+      (message "Microsoft Windows")
+      ;; Tangle configuration
+      ;; (org-babel-load-file (expand-file-name "~/emax/emax.org" user-emacs-directory))
+      ;;(garbage-collect))
+
+      (load-library "xahk-mode")
+      ;;(load (expand-file-name "init+bindings.el" init-dir))
+      ;;(load (expand-file-name "init+settings.el" init-dir))
+      ;;(load (expand-file-name "init-appearance.el" init-dir))    
+      ))
+   ((string-equal system-type "darwin") ; Mac OS X
+    (progn
+      (message "Mac OS X")
+      ))
+   ((string-equal system-type "gnu/linux") ; linux
+    (progn
+      (message "Linux")
+      )))
+
   ;; load-dir init.d
   (use-package load-dir
     :ensure t
@@ -161,16 +227,9 @@
     (setq force-load-messages t)
     (setq load-dir-debug nil)
     (setq load-dir-recursive nil)
-    (load-dir-one my-init-dir))
+    (load-dir-one init-dir))
 
-  ;; old version below
-  ;; (random t)
-  ;; (require 'load-dir)
-  ;; (setq force-load-messages t)
-  ;; (setq load-dir-debug nil)
-  ;; (setq load-dir-recursive nil)
-  ;; (load-dir-one my-init-dir)
-
+  
   ;; save histories
   (use-package savehist
     :ensure nil
@@ -189,10 +248,13 @@
 
   (setq debug-on-error nil)
   (setq debug-on-quit nil)
+  
   ) ;; end of let file wrapper
 
 (provide 'init)
 ;;; init.el ends here
+
+
 
 ;;  TODO: better docs for what needs installed on base computer ag pass projectile common-tools?(gls)
 
