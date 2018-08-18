@@ -25,6 +25,7 @@
 ;; 2018 06 26 add quelpa quelpa-use-package to first installed packages
 ;; 2018 07 03 add require for above
 ;; 2018 08 02 moved around todos & loaddir & others
+;; 2018 08 13 clean-up some vars
 ;; 2018 08 15 adds for windows set-up
 
 ;;; Code:
@@ -51,6 +52,7 @@
   (when (file-exists-p secret.el)
     (load secret.el)))
 
+<<<<<<< HEAD
 ;; directories for windows setup
 (cond
  ((string-equal system-type "windows-nt") ; running on windows
@@ -78,6 +80,9 @@
     ;;(setq init-dir "~/emax")
     )))
 
+=======
+(defvar init-dir)
+>>>>>>> 5fea42cc7da33968fd0dcd7f3e4b9e80ae202a75
 (setq init-dir
       (expand-file-name "init.d" user-emacs-directory))
 
@@ -116,10 +121,10 @@
   (prefer-coding-system 'utf-8)
 
   (require 'package)
-  ;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  ;;(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-  ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-  ;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+
   (setq load-prefer-newer t)
 
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
