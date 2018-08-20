@@ -110,7 +110,7 @@
   (add-to-list 'load-path init-dir)
   (setq custom-file (expand-file-name "init-custom.el" init-dir))
   (load custom-file 'noerror)
-  
+
   (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
@@ -125,7 +125,7 @@
   (setq load-prefer-newer t)
 
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                      (not (gnutls-available-p))))
+		      (not (gnutls-available-p))))
 	 (proto (if no-ssl "http" "https")))
     ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
     (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
@@ -172,6 +172,7 @@
   (require 'server nil t)
   (use-package server
     :if window-system
+    :functions server-running-p
     :init
     (when (not (server-running-p server-name))
       (server-start)))
@@ -182,6 +183,7 @@
        (list start end)))
 
   (use-package cyberpunk-theme
+    :functions load-cyberpunk-theme
     :ensure t
     :config
     (defun load-cyberpunk-theme (frame)
@@ -210,7 +212,7 @@
       (load-library "xahk-mode")
       ;;(load (expand-file-name "init+bindings.el" init-dir))
       ;;(load (expand-file-name "init+settings.el" init-dir))
-      ;;(load (expand-file-name "init-appearance.el" init-dir))    
+      ;;(load (expand-file-name "init-appearance.el" init-dir))
       ))
    ((string-equal system-type "darwin") ; Mac OS X
     (progn
@@ -224,6 +226,7 @@
   ;; load-dir init.d
   (use-package load-dir
     :ensure t
+    :functions load-dir-one
     :config
     (random t)
     (setq force-load-messages t)
@@ -231,7 +234,7 @@
     (setq load-dir-recursive nil)
     (load-dir-one init-dir))
 
-  
+
   ;; save histories
   (use-package savehist
     :ensure nil
@@ -250,7 +253,7 @@
 
   (setq debug-on-error nil)
   (setq debug-on-quit nil)
-  
+
   ) ;; end of let file wrapper
 
 (provide 'init)
