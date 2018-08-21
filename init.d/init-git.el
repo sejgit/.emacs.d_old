@@ -154,6 +154,7 @@
 
 ;; ;; DONE: move to Melpa when it arrives to list-packages
 (use-package magit-todos
+  :ensure t
   ;;   :quelpa (magit-todos :fetcher github :repo "alphapapa/magit-todos")
   ;;   :after (a anaphora async dash f hl-todo pcre2el s)
   :hook (magit-mode . magit-todos-mode)

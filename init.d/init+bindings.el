@@ -51,25 +51,37 @@
 ;; Right Windows key
 ;; Menu/App key
 
-
-(if (eq system-type 'darwin)
-    (with-no-warnings
-      (progn
-	(setq mac-command-modifier 'meta)
-	(setq mac-option-modifier 'super)
-	(setq mac-control-modifier 'control)
-	(setq ns-function-modifier 'hyper)
-	;; keybinding to toggle full screen mode
-	(global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
-	)
-      (progn
-	(setq w32-pass-lwindow-to-system nil)
-	(setq w32-lwindow-modifier 'super)
-	(setq w32-pass-rwindow-to-system nil)
-	(setq w32-rwindow-modifier 'super)
-	(setq w32-pass-apps-to-system nil)
-	(setq w32-apps-modifier 'hyper)
-	)))
+;; check OS type
+(cond
+ ((string-equal system-type "windows-nt") ; Microsoft Windows
+  (progn
+    (message "Microsoft Windows")
+    (setq
+     w32-pass-lwindow-to-system nil
+     w32-lwindow-modifier 'super
+     w32-pass-rwindow-to-system nil
+     w32-rwindow-modifier 'hyper
+     w32-pass-apps-to-system nil
+     w32-apps-modifier 'super
+     w32-pass-alt-to-system nil
+     w32-scroll-lock-modifier 'hyper)
+    ))
+ ((string-equal system-type "darwin") ; Mac OS X
+  (progn
+    (message "Mac OS X")
+    ;; load-dir init.d
+    (setq mac-command-modifier 'meta)
+    (setq mac-option-modifier 'super)
+    (setq mac-control-modifier 'control)
+    (setq ns-function-modifier 'hyper)
+    ;; keybinding to toggle full screen mode
+    (global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
+    ))
+ ((string-equal system-type "gnu/linux") ; linux
+  (progn
+    (message "Linux")
+    ;; load-dir init.d
+    )))
 
 ;; Below is taken from stackexchange (Emacs)
 ;; Main use is to have my key bindings have the highest priority
@@ -191,7 +203,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-;") 'comment-dwim)
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
-(define-key sej-mode-map (kbd "C-s") 'counsel-grep-or-swiper)
+(define-key sej-mode-map (kbd "C-s") 'swiper)
 
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)

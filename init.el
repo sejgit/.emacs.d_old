@@ -52,42 +52,10 @@
   (when (file-exists-p secret.el)
     (load secret.el)))
 
-;; directories for windows setup
-(cond
- ((string-equal system-type "windows-nt") ; running on windows
-  (progn
-    (defvar emax-root (concat (expand-file-name "~") "/emax"))
-    (defvar emax-bin (concat emax-root "/bin"))
-    (defvar emax-bin64 (concat emax-root "/bin64"))
-    (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
-    (defvar emax-lisp (concat emax-root "/lisp"))
-
-    (setq exec-path (cons emax-bin exec-path))
-    (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
-
-    (setq exec-path (cons emax-bin64 exec-path))
-    (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
-
-    (setq exec-path (cons emax-mingw64 exec-path))
-    (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
-
-    (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
-
-    (dolist (dir '("~/emax/" "~/emax/bin/" "~/emax/bin64/" "~/emax/mingw64/bin/" "~/emax/lisp/"))
-      (add-to-list 'load-path dir))
-    ;;(setq user-emacs-directory "~/emax")
-    ;;(setq init-dir "~/emax")
-    )))
-
 (defvar init-dir)
 (setq init-dir
       (expand-file-name "init.d" user-emacs-directory))
-
-(let ((minver "24.1"))
-  (when (version<= emacs-version minver)
-    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
-(when (version<= emacs-version "24.4")
-  (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; wrap init in this to reduce file access times
 (let ((file-name-handler-alist nil))
@@ -123,18 +91,6 @@
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
   (setq load-prefer-newer t)
-
-  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-		      (not (gnutls-available-p))))
-	 (proto (if no-ssl "http" "https")))
-    ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-    ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-    (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-    (when (< emacs-major-version 24)
-      ;; For important compatibility libraries like cl-lib
-      (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
-
 
   ;; Fire up package.el
   (setq package-enable-at-startup nil)
@@ -205,34 +161,64 @@
    ((string-equal system-type "windows-nt") ; Microsoft Windows
     (progn
       (message "Microsoft Windows")
-      ;; Tangle configuration
-      ;; (org-babel-load-file (expand-file-name "~/emax/emax.org" user-emacs-directory))
-      ;;(garbage-collect))
-
       (load-library "xahk-mode")
-      ;;(load (expand-file-name "init+bindings.el" init-dir))
-      ;;(load (expand-file-name "init+settings.el" init-dir))
-      ;;(load (expand-file-name "init-appearance.el" init-dir))
+      (load (expand-file-name "init+bindings.el" init-dir))
+      (load (expand-file-name "init+settings.el" init-dir))
+      (load (expand-file-name "init-appearance.el" init-dir))
+      ;;(load (expand-file-name "init-c.el" init-dir))
+      (load (expand-file-name "init-completion.el" init-dir))
+      ;;(load (expand-file-name "init-custom.el" init-dir))
+      (load (expand-file-name "init-dashboard.el" init-dir))
+      ;;(load (expand-file-name "init-deft.el" init-dir))
+      (load (expand-file-name "init-dired.el" init-dir))
+      ;;(load (expand-file-name "init-elfeed.el" init-dir))
+      (load (expand-file-name "init-flycheck.el" init-dir))
+      (load (expand-file-name "init-frame-cmds.el" init-dir))
+      (load (expand-file-name "init-git.el" init-dir))
+      (load (expand-file-name "init-ido-ivy-helm.el" init-dir))
+      (load (expand-file-name "init-lisp.el" init-dir))
+      ;;(load (expand-file-name "init-misc-defuns.el" init-dir))
+      (load (expand-file-name "init-misc-filetypes.el" init-dir))
+      (load (expand-file-name "init-misc-pkgs" init-dir))
+      (load (expand-file-name "init-org.el" init-dir))
+      (load (expand-file-name "init-projectile.el" init-dir))
+      ;;(load (expand-file-name "init-python.el" init-dir))
+      (load (expand-file-name "init-registers.el" init-dir))
+      ;;(load (expand-file-name "init-shell.el" init-dir))
+      (load (expand-file-name "init-spelling.el" init-dir))
+      (load (expand-file-name "init-templates.el" init-dir))
+      ;;(load (expand-file-name "init-tramp.el" init-dir))
+      (load (expand-file-name "init-view.el" init-dir))
+      (load (expand-file-name "init-writing.el" init-dir))
       ))
    ((string-equal system-type "darwin") ; Mac OS X
     (progn
       (message "Mac OS X")
+      ;; load-dir init.d
+      (use-package load-dir
+	:ensure t
+	:functions load-dir-one
+	:config
+	(random t)
+	(setq force-load-messages t)
+	(setq load-dir-debug nil)
+	(setq load-dir-recursive nil)
+	(load-dir-one init-dir))
       ))
    ((string-equal system-type "gnu/linux") ; linux
     (progn
       (message "Linux")
+      ;; load-dir init.d
+      (use-package load-dir
+	:ensure t
+	:functions load-dir-one
+	:config
+	(random t)
+	(setq force-load-messages t)
+	(setq load-dir-debug nil)
+	(setq load-dir-recursive nil)
+	(load-dir-one init-dir))
       )))
-
-  ;; load-dir init.d
-  (use-package load-dir
-    :ensure t
-    :functions load-dir-one
-    :config
-    (random t)
-    (setq force-load-messages t)
-    (setq load-dir-debug nil)
-    (setq load-dir-recursive nil)
-    (load-dir-one init-dir))
 
 
   ;; save histories
