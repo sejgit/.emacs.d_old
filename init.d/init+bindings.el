@@ -65,6 +65,10 @@
      w32-apps-modifier 'super
      w32-pass-alt-to-system nil
      w32-scroll-lock-modifier 'hyper)
+    (setenv "PATH"
+	    (mapconcat
+	     #'identity exec-path path-separator))
+    (add-to-list 'exec-path "c:/msys64/mingw64/bin")
     ))
  ((string-equal system-type "darwin") ; Mac OS X
   (progn
