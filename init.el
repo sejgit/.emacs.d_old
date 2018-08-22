@@ -48,15 +48,6 @@
 ;; reduce garbage collection
 (setq gc-cons-threshold (* 50 1024 1024))
 
-(let ((secret.el (expand-file-name "secret.el" "~/.ssh/")))
-  (when (file-exists-p secret.el)
-    (load secret.el)))
-
-(defvar init-dir)
-(setq init-dir
-      (expand-file-name "init.d" user-emacs-directory))
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
 ;; wrap init in this to reduce file access times
 (let ((file-name-handler-alist nil))
 
@@ -75,7 +66,18 @@
   ;; remove irritating 'got redefined' messages
   (setq ad-redefinition-action 'accept)
 
+  ;; place to hold specific & secret stuff
+  (let ((secret.el (expand-file-name "secret.el" "~/.ssh/")))
+    (when (file-exists-p secret.el)
+      (load secret.el)))
+
+  ;; set-up the init-directory
+  (defvar init-dir)
+  (setq init-dir
+	(expand-file-name "init.d" user-emacs-directory))
   (add-to-list 'load-path init-dir)
+  (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
   (setq custom-file (expand-file-name "init-custom.el" init-dir))
   (load custom-file 'noerror)
 
@@ -138,6 +140,15 @@
     '(defun enriched-decode-display-prop (start end &optional param)
        (list start end)))
 
+  ;; benchmarking see results with below two commands
+  ;; benchmark-init/show-durations-tabulated
+  ;; benchmark-init/show-durations-tree
+  (use-package benchmark-init
+    :ensure t
+    :config
+    ;; To disable collection of benchmark data after init is done.
+    (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
   (use-package cyberpunk-theme
     :functions load-cyberpunk-theme
     :ensure t
@@ -155,13 +166,92 @@
 
   (switch-to-buffer "*dashboard*")
 
+  ;; The EMACS environment variable being set to the binary path of emacs.
+  (setenv "EMACS"
+	  (file-truename (expand-file-name invocation-name invocation-directory)))
+
+  ;; Works in the same way as os.path.join in python
+  (defun sej/join-paths (root &rest dirs)
+    (let ((result root))
+      (cl-loop for dir in dirs do
+	       (setq result (concat (file-name-as-directory result) dir)))
+      result))
+
+  ;; projects directory setting
+  (defvar sej/projects-directory
+    (sej/join-paths (substitute-in-file-name "$HOME") "Projects"))
+
+  ;; for future use
+  (defvar sej/gpg-key)
+
+  ;; The packages in this section provide no functionality on their own,
+  ;; but provide support for writing custom elisp.
+  (use-package s
+    :ensure t
+    :demand t)
+
+  (use-package dash
+    :ensure t
+    :demand t
+    :config
+    (progn
+      (dash-enable-font-lock)))
+
+  (use-package gh
+    :ensure t
+    :demand t)
+
+  (use-package request
+    :ensure t
+    :defer t)
+
+  (defun sej/download-to-buffer (uri)
+    (interactive (list (read-string "Enter uri: ")))
+    (require 'request)
+    (request uri
+	     :parser 'buffer-string
+	     :success (cl-function
+		       (lambda (&key data &allow-other-keys)
+			 (let ((created-buffer (get-buffer-create uri)))
+			   (with-current-buffer created-buffer
+			     (insert data))
+			   (switch-to-buffer created-buffer))))))
+
+  (defun sej/get-executables-at-path (filepath)
+    (when (and (file-exists-p filepath) (f-directory? filepath))
+      (--filter (let ((fullpath (imalison:join-paths filepath it)))
+		  (and (file-executable-p fullpath)
+		       (not (f-directory? fullpath))))
+		(directory-files filepath))))
+
+  (defun sej/get-executables-on-path ()
+    (mapcan 'sej/get-executables-at-path (eshell-parse-colon-path (getenv "PATH"))))
+
+  (defun sej/edit-script ()
+    (interactive)
+    (find-file (executable-find
+		(ido-completing-read "Select a script to edit: "
+				     (sej/get-executables-on-path)))))
+
   ;; load files from init.d
   ;; check OS type
   (cond
    ((string-equal system-type "windows-nt") ; Microsoft Windows
     (progn
       (message "Microsoft Windows")
+      ;;see if we can get some speed improvements
+      (use-package auto-compile
+	:ensure t
+	:demand t
+	:config
+	(progn
+	  (auto-compile-on-load-mode)
+	  (auto-compile-on-save-mode)))
+
+      ;; load AutoHotkey mode
       (load-library "xahk-mode")
+
+      ;; load the init files we want in windows land
       (load (expand-file-name "init+bindings.el" init-dir))
       (load (expand-file-name "init+settings.el" init-dir))
       (load (expand-file-name "init-appearance.el" init-dir))
