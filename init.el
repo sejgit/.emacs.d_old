@@ -205,6 +205,16 @@
     :ensure t
     :defer t)
 
+  (defun eshell-parse-colon-path (path-env)
+    "Split string with `parse-colon-path'.
+Prepend remote identification of `default-directory', if any."
+    (let ((remote (file-remote-p default-directory)))
+      (if remote
+	  (mapcar
+	   (lambda (x) (concat remote x))
+	   (parse-colon-path path-env))
+	(parse-colon-path path-env))))
+
   (defun sej/download-to-buffer (uri)
     (interactive (list (read-string "Enter uri: ")))
     (require 'request)

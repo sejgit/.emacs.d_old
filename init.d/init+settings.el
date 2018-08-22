@@ -12,8 +12,8 @@
 ;; 2017 01 30 add sudo-edit function (C-x C-r) to edit file as sudo
 ;; 2017 03 29 add truncate lines setting
 ;; 2017 05 09 add copy-line C-c C-k
-;; 	      add some neat keybindings from emacs-starter-kit
-;; 	      rename file to init-bindings-settings.el
+;;	      add some neat keybindings from emacs-starter-kit
+;;	      rename file to init-bindings-settings.el
 ;; 2017 05 12 adds from purcell/emacs.d
 ;; 2017 05 21 add delete to trash can
 ;; 2017 05 25 add imenu binding
@@ -86,7 +86,7 @@
 (defun electric-indent-ignore-mode (char)
   "Ignore electric indentation for 'python-mode'.  CHAR is input character."
   (if (or (equal major-mode 'python-mode)
-          (equal major-mode 'yaml-mode))
+	  (equal major-mode 'yaml-mode))
       'no-indent
     nil))
 (add-hook 'electric-indent-functions 'electric-indent-ignore-mode)
@@ -96,7 +96,7 @@
 (setq line-move-visual t)
 
 (setq-default backup-directory-alist
-              '(("." . ".saves")))    ; don't litter my fs tree
+	      '(("." . ".saves")))    ; don't litter my fs tree
 
 (setq vc-make-backup-files t
       backup-by-copying t      ; don't clobber symlinks
@@ -113,7 +113,7 @@
 ;; remove kill buffer with live process prompt
 (setq kill-buffer-query-functions
       (remq 'process-kill-buffer-query-function
-            kill-buffer-query-functions))
+	    kill-buffer-query-functions))
 
 (setq-default kill-read-only-ok t)
 
@@ -140,7 +140,7 @@
   "Bury the *scratch* buffer, but never kill it."
   (let ((buffer-to-kill (ad-get-arg 0)))
     (if (equal buffer-to-kill "*scratch*")
-        (bury-buffer)
+	(bury-buffer)
       ad-do-it)))
 
 ;; UTF-8 please
@@ -164,6 +164,13 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+;; scratch buffer
+(setq initial-scratch-message "")
+
+;; this makes forward-word & backward-word understand snake & camel case
+(setq c-subword-mode t)
+(global-subword-mode)
+
 ;; When popping the mark, continue popping until the cursor actually moves
 ;; Also, if the last command was a copy - skip past all the expand-region cruft.
 (defadvice pop-to-mark-command (around ensure-new-position activate)
@@ -180,4 +187,3 @@
 
 (provide 'init+settings)
 ;;; init+settings.el ends here
-
