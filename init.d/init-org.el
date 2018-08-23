@@ -103,7 +103,7 @@
 	  ("j" "Journal" entry (file+datetree org-file-journal "Journal")  "* %i%?\n %U")
 	  ("n" "Notes" entry (file+headline org-file-notes  "Notes") "* %i%?\n %U")
 	  ("s" "Someday" entry (file+headline org-file-someday  "Someday") "* %i%?\n %U")
-	  ("t" "Todo" entry (file+headline org-file-gtd  "Todo") "* TODO %i%?")
+	  ;;("t" "Todo" entry (file+headline org-file-gtd  "Todo") "* TODO %i%?")
 	  ("c" "code snippet" entry (file+headline org-file-code "code snippets")
 	   "* %?\n%(my/org-capture-code-snippet \"%F\")")
 	  ))
@@ -165,13 +165,22 @@ In ~%s~:
 
 (use-package poporg
   :ensure t
-  :bind (:map sej-mode-map)
-  ("C-c s o" . poporg-dwim))
+  :bind (:map sej-mode-map
+	      ("C-c s o" . poporg-dwim)))
 
 (use-package toc-org
   :ensure t
   :after org
   :hook (org-mode . toc-org-enable))
+
+(use-package org-projectile-helm
+  :ensure t
+  :bind (:map sej-mode-map
+	      ("C-c s c" . org-projectile-capture-for-current-project))
+  :config
+  (progn
+    (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+    (push (org-projectile-project-todo-entry) org-capture-templates)))
 
 (provide 'init-org)
 ;;; init-org.el ends here

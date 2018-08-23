@@ -28,17 +28,17 @@
   ;; always ignore .class files
   (add-to-list 'projectile-globally-ignored-file-suffixes ".class"))
 
-;; (use-package helm-projectile
-;;   :ensure t
-;;   :after projectile
-;;   :config
-;;   (setq projectile-completion-system 'helm)
-;;   ;; no fuzziness for projectile-helm
-;;   (setq helm-projectile-fuzzy-match nil)
-;;   (helm-projectile-on))
+(use-package helm-projectile
+  :ensure t
+  :after projectile
+  :config
+  (setq projectile-completion-system 'helm)
+  ;; no fuzziness for projectile-helm
+  (setq helm-projectile-fuzzy-match nil)
+  (helm-projectile-on))
 
-;; (use-package helm-ag
-;;   :ensure t)
+(use-package helm-ag
+  :ensure t)
 
 (use-package grep
   :ensure t)

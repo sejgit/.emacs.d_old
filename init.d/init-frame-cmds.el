@@ -7,6 +7,7 @@
 ;; 2017 01 17 comment out some irritating binds
 ;; 2017 08 29 map to sej-mode-map
 ;; 2017 12 01 update to add :ensure
+;; 2018 08 23 update sizes of frames for win-10
 
 ;;; Code:
 (use-package frame-fns
@@ -38,10 +39,10 @@
   (defun sej-frame-resize-l ()
     "set frame full height and 86 columns wide and position at screen left"
     (interactive)
-    (set-frame-width (selected-frame) 86)
+    (set-frame-width (selected-frame) 94)
     (set-frame-position (selected-frame) 0 10)
     (maximize-frame-vertically)
-    (shrink-frame 4)
+    (shrink-frame 2)
     )
 
   ;;set frame full height and 86 columns wide
@@ -49,10 +50,10 @@
   (defun sej-frame-resize-r ()
     "set frame full height and 86 columns wide and position at screen right"
     (interactive)
-    (set-frame-width (selected-frame) 86)
+    (set-frame-width (selected-frame) 94)
     (set-frame-position (selected-frame) (- (display-pixel-width) (frame-pixel-width)) 10)
     (maximize-frame-vertically)
-    (shrink-frame 4)
+    (shrink-frame 2)
     )
 
   ;;set frame full height and 86 columns wide
