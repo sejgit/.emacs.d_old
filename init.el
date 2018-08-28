@@ -135,6 +135,12 @@
     (when (not (server-running-p server-name))
       (server-start)))
 
+  ;; set up edit-server
+  (use-package edit-server
+    :ensure t
+    :config
+    (edit-server-start))
+
   ;; Remove security vulnerability
   (eval-after-load "enriched"
     '(defun enriched-decode-display-prop (start end &optional param)
@@ -176,10 +182,6 @@
       (cl-loop for dir in dirs do
 	       (setq result (concat (file-name-as-directory result) dir)))
       result))
-
-  ;; projects directory setting
-  (defvar sej/projects-directory
-    (sej/join-paths (substitute-in-file-name "$HOME") "Projects"))
 
   ;; for future use
   (defvar sej/gpg-key)
