@@ -27,7 +27,7 @@
 ;; 2018 08 02 moved around todos & loaddir & others
 ;; 2018 08 13 clean-up some vars
 ;; 2018 08 15 adds for windows set-up
-
+;; 2018 09 04 udate for initial frame
 ;;; Code:
 
 ;; debugger on
@@ -196,8 +196,7 @@
     :ensure t
     :demand t
     :config
-    (progn
-      (dash-enable-font-lock)))
+    (dash-enable-font-lock))
 
   (use-package gh
     :ensure t
@@ -338,6 +337,10 @@ Prepend remote identification of `default-directory', if any."
 
   (use-package uptimes
     :ensure t)
+
+  ;; if window-system and init-frame-cmds.el has been loaded then move frame
+  (when (and (window-system) (fboundp 'sej/frame-resize-r))
+    (sej/frame-resize-r))
 
   (setq debug-on-error nil)
   (setq debug-on-quit nil)
