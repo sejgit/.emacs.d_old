@@ -11,7 +11,18 @@
 ;; 2017 12 26 add dimmer
 ;; 2018 03 19 dimmer percent to fraction
 ;; 2018 07 22 try out eyeliner
+;; 2018 09 24 some chai tips w/ ethan-wspace added
+
 ;;; Code:
+
+(use-package ethan-wspace
+  :ensure t
+  :demand t
+  :commands global-ethan-wspace-mode
+  :config
+  (global-ethan-wspace-mode 1)
+  :bind ("C-c w" . ethan-wspace-clean-all)
+  :diminish ethan-wspace-mode)
 
 (use-package eyeliner
   :quelpa (eyeliner :fetcher github :repo "dustinlacewell/eyeliner")
@@ -41,7 +52,7 @@
 
     (defun sej/helm-alive-p ()
     (if (boundp 'helm-alive-p)
-	(symbol-value 'helm-alive-p)))
+  (symbol-value 'helm-alive-p)))
 
   (add-to-list 'golden-ratio-inhibit-functions 'sej/helm-alive-p) )
 

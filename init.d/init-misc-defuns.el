@@ -13,7 +13,7 @@
 ;; 2018 01 31 add jcs now sej/insert-url from safari
 ;;            add my now sej/org-insert-defun
 ;;            make my functions consistent with sej/
-
+;; 2018 09 24 add executable functions from ohai
 
 ;;; Code:
 
@@ -27,8 +27,8 @@
     "For copying to osx TEXT with optional PUSH."
     (let ((process-connection-type nil))
       (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-	(process-send-string proc text)
-	(process-send-eof proc))))
+        (process-send-string proc text)
+        (process-send-eof proc))))
 
   (setq interprogram-cut-function 'paste-to-osx)
   (setq interprogram-paste-function 'copy-from-osx)
@@ -43,40 +43,22 @@
   (defun sej/retrieve-url ()
     "Retrieve the URL of the current Safari page as a string."
     (org-trim (shell-command-to-string
-	       "osascript -e 'tell application \"Safari\" to return URL of document 1'")))
+               "osascript -e 'tell application \"Safari\" to return URL of document 1'")))
 
   )
-
-;; from my (sashua) to insert function from source
-(defun sej/org-insert-defun (function)
-  "Insert an Org source block with the definition for FUNCTION."
-  (interactive (find-function-read))
-  (let* ((buffer-point (condition-case nil (find-definition-noselect function nil) (error nil)))
-	 (new-buf (car buffer-point))
-	 (new-point (cdr buffer-point))
-	 definition)
-    (if buffer-point
-	(with-current-buffer new-buf ;; Try to get original definition
-	  (save-excursion
-	    (goto-char new-point)
-	    (setq definition (buffer-substring-no-properties (point) (save-excursion (end-of-defun) (point))))))
-      ;; Fallback: Print function definition
-      (setq definition (concat (prin1-to-string (symbol-function function)) "\n")))
-    (insert "#+begin_src emacs-lisp\n" definition "#+end_src\n")))
-
 
 ;; as name suggests ; defined as C-c b in above keymappings
 (defun sej/create-scratch-buffer nil
   "Create a new scratch buffer to work in (could be *scratch* - *scratchX*)."
   (interactive)
   (let ((n 0)
-	bufname)
+        bufname)
     (while (progn
-	     (setq bufname (concat "*scratch"
-				   (if (= n 0) "" (int-to-string n))
-				   "*"))
-	     (setq n (1+ n))
-	     (get-buffer bufname)))
+             (setq bufname (concat "*scratch"
+                                   (if (= n 0) "" (int-to-string n))
+                                   "*"))
+             (setq n (1+ n))
+             (get-buffer bufname)))
     (switch-to-buffer (get-buffer-create bufname))
     (emacs-lisp-mode)
     ))
@@ -90,7 +72,7 @@ buffer is not visiting a file."
   (interactive "P")
   (if (or arg (not buffer-file-name))
       (find-file (concat "/sudo:root@localhost:"
-			 (ido-read-file-name "Find file(as root): ")))
+       (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; line numbers when using goto-line M-g M-g or M-g g
@@ -99,8 +81,8 @@ buffer is not visiting a file."
   (interactive)
   (unwind-protect
       (progn
-	(display-line-numbers-mode 1)
-	(with-no-warnings (goto-line (read-number "Goto line: "))))
+  (display-line-numbers-mode 1)
+  (with-no-warnings (goto-line (read-number "Goto line: "))))
     (display-line-numbers-mode -1)))
 
 ;; Offer to create parent directories if they do not exist
@@ -109,7 +91,7 @@ buffer is not visiting a file."
   "Ask to make directory for file if it does not exist."
   (let ((parent-directory (file-name-directory buffer-file-name)))
     (when (and (not (file-exists-p parent-directory))
-	       (y-or-n-p? (format "Directory `%s' does not exist! Create it?" parent-directory)))
+         (y-or-n-p? (format "Directory `%s' does not exist! Create it?" parent-directory)))
       (make-directory parent-directory t))))
 
 (add-to-list 'find-file-not-found-functions 'sej/create-non-existent-directory)
@@ -139,6 +121,32 @@ buffer is not visiting a file."
   (interactive)
   (set-mark-command 1))
 
+;; executable functions from ohai and modified for my uses
+(defun sej/exec (command)
+  "Run a shell command and return its output as a string, whitespace trimmed."
+  (s-trim (shell-command-to-string command)))
+
+(defun sej/exec-with-rc (command &rest args)
+  "Run a shell command and return a list containing two values: its return
+code and its whitespace trimmed output."
+  (with-temp-buffer
+    (list (apply 'call-process command nil (current-buffer) nil args)
+          (s-trim (buffer-string)))))
+
+(defun sej/is-exec (command)
+  "Returns true if `command' is an executable on the system search path."
+  (f-executable? (s-trim (shell-command-to-string (s-concat "which " command)))))
+
+(defun sej/resolve-exec (command)
+  "If `command' is an executable on the system search path, return its absolute path.
+Otherwise, return nil."
+  (-let [path (s-trim (shell-command-to-string (s-concat "which " command)))]
+    (when (f-executable? path) path)))
+
+(defun sej/exec-if-exec (command args)
+  "If `command' satisfies `sej/is-exec', run it with `args' and return its
+output as per `sej/exec'. Otherwise, return nil."
+  (when (sej/is-exec command) (sej/exec (s-concat command " " args))))
 
 (provide 'init-misc-defuns)
 ;;; init-misc-defuns.el ends here

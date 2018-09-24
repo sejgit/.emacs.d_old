@@ -21,9 +21,9 @@
   sej-mode-map
   :bind
   (:map sej-mode-map
-	("<f8>" . ispell-word)
-	("C-<f8>" . flyspell-mode)
-	("M-<f8>" . flyspell-check-next-highlighted-word))
+        ("<f8>" . ispell-word)
+        ("C-<f8>" . flyspell-mode)
+        ("M-<f8>" . flyspell-check-next-highlighted-word))
   :hook (text-mode . flyspell-mode)
   :config
   (setq ispell-personal-dictionary "~/sej.ispell")
@@ -33,15 +33,15 @@
   (when (executable-find "aspell")
     (setq ispell-program-name (executable-find "aspell")) ;; "/usr/local/bin/aspell"
     (setq ispell-extra-args
-	  (list "--sug-mode=ultra" ;; ultra|fast|normal|bad-spellers
-		"--lang=en_CA"
-		"--ignore=4")))
+          (list "--sug-mode=ultra" ;; ultra|fast|normal|bad-spellers
+                "--lang=en_CA"
+                "--ignore=4")))
 
   ;; hunspell
   (when (executable-find "hunspell")
     (setq ispell-program-name (executable-find "hunspell"))
     (setq ispell-extra-args '("-d en_CA"
-			      "-p ~/.flydict")))
+                              "-p ~/.flydict")))
 
   (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
   (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
@@ -49,8 +49,8 @@
   (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 
   (setq ispell-dictionary-alist '(("british" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil  ("-d" "en_GB-ise") nil utf-8)
-				  ("canadian" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil  ("-d" "en_CA") nil utf-8)
-				  ("american" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "en_US") nil utf-8)))
+                                  ("canadian" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil  ("-d" "en_CA") nil utf-8)
+                                  ("american" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "en_US") nil utf-8)))
 
   (defun flyspell-check-next-highlighed-word ()
     "Custom function to spell check next highlighted word"
@@ -63,9 +63,10 @@
 ;; thesaurus set-up requires apikey
 ;; note see below for synosaurus setup
 (use-package thesaurus
+  :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("C-x t" . thesaurus-choose-synonym-and-replace))
+              ("C-x t" . thesaurus-choose-synonym-and-replace))
   :config
   (thesaurus-set-bhl-api-key-from-file "~/.ssh/BigHugeLabs.apikey.txt"))
 
@@ -76,9 +77,9 @@
   :defines sej-mode-map
   :hook (text-mode . synosaurus-mode)
   :bind (:map sej-mode-map
-	      ("H-t" . synosaurus-lookup)
-	      ("C-c s l" . synosaurus-lookup)
-	      ("C-c s r" . synosaurus-choose-and-replace))
+              ("H-t" . synosaurus-lookup)
+              ("C-c s l" . synosaurus-lookup)
+              ("C-c s r" . synosaurus-choose-and-replace))
   :config
   (setq-default synosaurus-backend 'synosaurus-backend-wordnet))
 

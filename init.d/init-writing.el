@@ -8,11 +8,14 @@
 ;; 2017 01 06 change from req-package to use-package
 ;; 2017 04 04 remove ensure went global ; defer not required for mode,bind,int
 ;; 2017 08 25 add auto-fill-mode from EOS
-;; 2017 09 04 change to init-writing.el & add yaml, elasticsearch, skeleton, abbrev, thesaurus
+;; 2017 09 04 change to init-writing.el & add yaml, elasticsearch, skeleton,
+;;              abbrev, thesaurus
 ;;            numbering rectangles, writing/viewing helpers, highlighting indentation
-;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode from init-misc-pkgs.el
+;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode
+;;              from init-misc-pkgs.el
 ;; 2017 09 07 move YAML mode to init-misc-filetypes.el
 ;; 2018 06 06 some markdown modes
+;; 2018 09 24 comment out whitespace-cleanup-mode due to use of ethan-wspace
 
 ;;; Code:
 
@@ -32,11 +35,11 @@
   indent-guide-mode)
 
 ;; intelligently call whitespace-cleanup on save
-(use-package whitespace-cleanup-mode
-  :ensure t
-  :hook (before-save . whitespace-cleanup)
-  :config
-  (global-whitespace-cleanup-mode t))
+;; (use-package whitespace-cleanup-mode
+;;   :ensure t
+;;   :hook (before-save . whitespace-cleanup)
+;;   :config
+;;   (global-whitespace-cleanup-mode t))
 
 ;; markdown-mode used a lot on Github
 (use-package markdown-mode
@@ -50,16 +53,16 @@
    ("\\.markdown\\'"    . markdown-mode))
   :config
   (setq markdown-enable-wiki-links t
-	markdown-italic-underscore t
-	markdown-make-gfm-checkboxes-buttons t
-	markdown-gfm-additional-languages '("sh")
-	markdown-header-scaling t)
+        markdown-italic-underscore t
+        markdown-make-gfm-checkboxes-buttons t
+        markdown-gfm-additional-languages '("sh")
+        markdown-header-scaling t)
   (add-hook 'markdown-mode-hook
-	    (lambda ()
-	      (visual-line-mode t)
-	      (writegood-mode t)
-	      (flyspell-mode t)
-	      (auto-fill-mode t)))
+            (lambda ()
+              (visual-line-mode t)
+              (writegood-mode t)
+              (flyspell-mode t)
+              (auto-fill-mode t)))
   (setq markdown-command "pandoc --smart -f markdown -t html"))
 
 ;; Elasticsearch uses asciidoc everywhere for documentation
@@ -132,9 +135,9 @@
   "Delete text in the region-rectangle, then number it from (START to END with FORMAT-STRING FROM)."
   (interactive
    (list (region-beginning) (region-end)
-	 (read-string "Number rectangle: "
-		      (if (looking-back "^ *" nil nil) "%d. " "%d"))
-	 (read-number "From: " 1)))
+         (read-string "Number rectangle: "
+                      (if (looking-back "^ *" nil nil) "%d. " "%d"))
+         (read-number "From: " 1)))
   (save-excursion
     (goto-char start)
     (setq start (point-marker))
@@ -143,14 +146,14 @@
     (delete-rectangle start end)
     (goto-char start)
     (loop with column = (current-column)
-	  while (and (<= (point) end) (not (eobp)))
-	  for i from from   do
-	  (move-to-column column t)
-	  (insert (format format-string i))
-	  (forward-line 1)))
+          while (and (<= (point) end) (not (eobp)))
+          for i from from   do
+          (move-to-column column t)
+          (insert (format format-string i))
+          (forward-line 1)))
   (goto-char start))
 
-;; (define-key sej-mode-map (kbd "C-x r N") 'number-rectangle)
+(define-key sej-mode-map (kbd "C-c s n") 'number-rectangle)
 
 
 (provide 'init-writing)

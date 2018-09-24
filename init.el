@@ -66,7 +66,10 @@
   ;; remove irritating 'got redefined' messages
   (setq ad-redefinition-action 'accept)
 
-  ;; place to hold specific & secret stuff
+  ;; figure out current hostname
+  (setq hostname (replace-regexp-in-string "\\(^[[:space:]\n]*\\|[[:space:]\n]*$\\)" "" (with-output-to-string (call-process "hostname" nil standard-output))))
+
+  ;; place to hold specific & secret stuff (redefine above if we want)
   (let ((secret.el (expand-file-name "secret.el" "~/.ssh/")))
     (when (file-exists-p secret.el)
       (load secret.el)))
@@ -74,7 +77,7 @@
   ;; set-up the init-directory
   (defvar init-dir)
   (setq init-dir
-	(expand-file-name "init.d" user-emacs-directory))
+        (expand-file-name "init.d" user-emacs-directory))
   (add-to-list 'load-path init-dir)
   (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -87,10 +90,21 @@
   (set-terminal-coding-system 'utf-8)
   (prefer-coding-system 'utf-8)
 
+  ;; `(online?)` is a function that tries to detect whether you are online.
+  ;; We want to refresh our package list on Emacs start if we are.
+  (require 'cl)
+  (defun online? ()
+    (if (and (functionp 'network-interface-list) (network-interface-list))
+        (some (lambda (iface) (unless (equal "lo" (car iface))
+                                (member 'up (first (last
+                                                    (network-interface-info
+                                                     (car iface)))))))
+              (network-interface-list)) t))
+
   (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
   (setq load-prefer-newer t)
 
@@ -99,27 +113,27 @@
   (package-initialize)
 
   ;; fetch the list of packages available
-  (unless package-archive-contents
-    (package-refresh-contents))
+  (when (online?)
+    (unless package-archive-contents
+      (package-refresh-contents)))
 
-  ;; list the packages you want
-  (defvar package-list
-    '(delight diminish use-package load-dir quelpa quelpa-use-package))
+  ;; `Paradox' is an enhanced interface for package management, which also
+  ;; provides some helpful utility functions we're going to be using
+  ;; extensively. Thus, the first thing we do is install it if it's not there
+  ;; already.
+  (when (not (package-installed-p 'paradox))
+    (package-install 'paradox))
 
-  ;; install the missing packages
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-install package)))
-
-  ;; set-up use-package
-  (require 'delight)
-  (require 'diminish)
+  (paradox-require 'use-package)
   (require 'use-package)
-  (require 'quelpa)
-  (require 'quelpa-use-package)
-  (require 'cl)
-  (require 'bind-key)
-  (require 'cl-lib)
+  (setq use-package-always-ensure t)
+
+
+  (use-package delight)
+  (use-package diminish)
+  (use-package quelpa)
+  (use-package quelpa-use-package)
+  (use-package load-dir)
 
   ;; Use latest Org
   (use-package org
@@ -174,75 +188,14 @@
 
   ;; The EMACS environment variable being set to the binary path of emacs.
   (setenv "EMACS"
-	  (file-truename (expand-file-name invocation-name invocation-directory)))
-
-  ;; Works in the same way as os.path.join in python
-  (defun sej/join-paths (root &rest dirs)
-    (let ((result root))
-      (cl-loop for dir in dirs do
-	       (setq result (concat (file-name-as-directory result) dir)))
-      result))
-
-  ;; for future use
-  (defvar sej/gpg-key)
+          (file-truename (expand-file-name invocation-name invocation-directory)))
 
   ;; The packages in this section provide no functionality on their own,
   ;; but provide support for writing custom elisp.
-  (use-package s
-    :ensure t
-    :demand t)
-
+  (use-package f)
+  (use-package s)
   (use-package dash
-    :ensure t
-    :demand t
-    :config
-    (dash-enable-font-lock))
-
-  (use-package gh
-    :ensure t
-    :demand t)
-
-  (use-package request
-    :ensure t
-    :defer t)
-
-  (defun eshell-parse-colon-path (path-env)
-    "Split string with `parse-colon-path'.
-Prepend remote identification of `default-directory', if any."
-    (let ((remote (file-remote-p default-directory)))
-      (if remote
-	  (mapcar
-	   (lambda (x) (concat remote x))
-	   (parse-colon-path path-env))
-	(parse-colon-path path-env))))
-
-  (defun sej/download-to-buffer (uri)
-    (interactive (list (read-string "Enter uri: ")))
-    (require 'request)
-    (request uri
-	     :parser 'buffer-string
-	     :success (cl-function
-		       (lambda (&key data &allow-other-keys)
-			 (let ((created-buffer (get-buffer-create uri)))
-			   (with-current-buffer created-buffer
-			     (insert data))
-			   (switch-to-buffer created-buffer))))))
-
-  (defun sej/get-executables-at-path (filepath)
-    (when (and (file-exists-p filepath) (f-directory? filepath))
-      (--filter (let ((fullpath (imalison:join-paths filepath it)))
-		  (and (file-executable-p fullpath)
-		       (not (f-directory? fullpath))))
-		(directory-files filepath))))
-
-  (defun sej/get-executables-on-path ()
-    (mapcan 'sej/get-executables-at-path (eshell-parse-colon-path (getenv "PATH"))))
-
-  (defun sej/edit-script ()
-    (interactive)
-    (find-file (executable-find
-		(ido-completing-read "Select a script to edit: "
-				     (sej/get-executables-on-path)))))
+    :config (dash-enable-font-lock))
 
   ;; load files from init.d
   ;; check OS type
@@ -252,12 +205,16 @@ Prepend remote identification of `default-directory', if any."
       (message "Microsoft Windows")
       ;;see if we can get some speed improvements
       (use-package auto-compile
-	:ensure t
-	:demand t
-	:config
-	(progn
-	  (auto-compile-on-load-mode)
-	  (auto-compile-on-save-mode)))
+        :ensure t
+        :demand t
+        :config
+        (progn
+          (auto-compile-on-load-mode)
+          (auto-compile-on-save-mode)))
+
+      ;; set exec-path for latex installation
+      ;;(setq exec-path (concat (getenv "PATH") ";" "C:/Users/NZ891R/AppData/Local/Programs/MiKTeX 2.9/miktex/bin/x64"))
+      (setq exec-path (append exec-path '("C:/Users/NZ891R/AppData/Local/Programs/MiKTeX 2.9/miktex/bin/x64")) )
 
       ;; load AutoHotkey mode
       (load-library "xahk-mode")
@@ -266,26 +223,25 @@ Prepend remote identification of `default-directory', if any."
       (load (expand-file-name "init+bindings.el" init-dir))
       (load (expand-file-name "init+settings.el" init-dir))
       (load (expand-file-name "init-appearance.el" init-dir))
-      ;;(load (expand-file-name "init-c.el" init-dir))
+      (load (expand-file-name "init-c.el" init-dir))
       (load (expand-file-name "init-completion.el" init-dir))
-      ;;(load (expand-file-name "init-custom.el" init-dir))
+      (load (expand-file-name "init-custom.el" init-dir))
       (load (expand-file-name "init-dashboard.el" init-dir))
       ;;(load (expand-file-name "init-deft.el" init-dir))
       (load (expand-file-name "init-dired.el" init-dir))
-      ;;(load (expand-file-name "init-elfeed.el" init-dir))
       (load (expand-file-name "init-flycheck.el" init-dir))
       (load (expand-file-name "init-frame-cmds.el" init-dir))
       (load (expand-file-name "init-git.el" init-dir))
       (load (expand-file-name "init-ido-ivy-helm.el" init-dir))
       (load (expand-file-name "init-lisp.el" init-dir))
-      ;;(load (expand-file-name "init-misc-defuns.el" init-dir))
+      (load (expand-file-name "init-misc-defuns.el" init-dir))
       (load (expand-file-name "init-misc-filetypes.el" init-dir))
       (load (expand-file-name "init-misc-pkgs" init-dir))
       (load (expand-file-name "init-org.el" init-dir))
       (load (expand-file-name "init-projectile.el" init-dir))
-      ;;(load (expand-file-name "init-python.el" init-dir))
+      (load (expand-file-name "init-python.el" init-dir))
       (load (expand-file-name "init-registers.el" init-dir))
-      ;;(load (expand-file-name "init-shell.el" init-dir))
+      (load (expand-file-name "init-shell.el" init-dir))
       (load (expand-file-name "init-spelling.el" init-dir))
       (load (expand-file-name "init-templates.el" init-dir))
       ;;(load (expand-file-name "init-tramp.el" init-dir))
@@ -297,28 +253,28 @@ Prepend remote identification of `default-directory', if any."
       (message "Mac OS X")
       ;; load-dir init.d
       (use-package load-dir
-	:ensure t
-	:functions load-dir-one
-	:config
-	(random t)
-	(setq force-load-messages t)
-	(setq load-dir-debug nil)
-	(setq load-dir-recursive nil)
-	(load-dir-one init-dir))
+        :ensure t
+        :functions load-dir-one
+        :config
+        (random t)
+        (setq force-load-messages t)
+        (setq load-dir-debug nil)
+        (setq load-dir-recursive nil)
+        (load-dir-one init-dir))
       ))
    ((string-equal system-type "gnu/linux") ; linux
     (progn
       (message "Linux")
       ;; load-dir init.d
       (use-package load-dir
-	:ensure t
-	:functions load-dir-one
-	:config
-	(random t)
-	(setq force-load-messages t)
-	(setq load-dir-debug nil)
-	(setq load-dir-recursive nil)
-	(load-dir-one init-dir))
+        :ensure t
+        :functions load-dir-one
+        :config
+        (random t)
+        (setq force-load-messages t)
+        (setq load-dir-debug nil)
+        (setq load-dir-recursive nil)
+        (load-dir-one init-dir))
       )))
 
 
@@ -330,9 +286,9 @@ Prepend remote identification of `default-directory', if any."
     (savehist-mode 1)
     (setq savehist-save-minibuffer-history 1)
     (setq savehist-additional-variables
-	  '(kill-ring
-	    search-ring
-	    regexp-search-ring))
+          '(kill-ring
+            search-ring
+            regexp-search-ring))
     (setq-default save-place t)    )
 
   (use-package uptimes

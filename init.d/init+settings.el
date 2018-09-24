@@ -12,8 +12,8 @@
 ;; 2017 01 30 add sudo-edit function (C-x C-r) to edit file as sudo
 ;; 2017 03 29 add truncate lines setting
 ;; 2017 05 09 add copy-line C-c C-k
-;;	      add some neat keybindings from emacs-starter-kit
-;;	      rename file to init-bindings-settings.el
+;;        add some neat keybindings from emacs-starter-kit
+;;        rename file to init-bindings-settings.el
 ;; 2017 05 12 adds from purcell/emacs.d
 ;; 2017 05 21 add delete to trash can
 ;; 2017 05 25 add imenu binding
@@ -26,13 +26,40 @@
 ;; 2017 09 18 add goto-line with temp line numbers
 ;; 2017 09 19 add transpose keybindings & others from magnar
 ;; 2017 09 20 make more pure settings & move others stuff out
+;; 2017 09 24 some ohai tips
 
 ;;; Code:
 
-;; indentation & fill column
-(setq tab-width 2
-      indent-tabs-mode nil
-      fill-column 80)
+;; indentation & CodeStyle
+(setq-default tab-width 2
+              indent-tabs-mode nil
+              fill-column 80)
+;; Javascript
+(setq-default js2-basic-offset 2)
+;; JSON
+(setq-default js-indent-level 2)
+;; Coffeescript
+(setq coffee-tab-width 2)
+;; Typescript
+(setq typescript-indent-level 2
+      typescript-expr-indent-offset 2)
+;; Python
+(setq-default py-indent-offset 2)
+;; XML
+(setq-default nxml-child-indent 2)
+;; C
+(setq-default c-basic-offset 2)
+;; HTML etc with web-mode
+(setq-default web-mode-markup-indent-offset 2
+              web-mode-css-indent-offset 2
+              web-mode-code-indent-offset 2
+              web-mode-style-padding 2
+              web-mode-script-padding 2)
+
+;; Set the default formatting styles for various C based modes
+(setq c-default-style
+      '((awk-mode . "awk")
+        (other . "java")))
 
 ;; Save a list of recent files visited. (open recent file with C-x f)
 (recentf-mode 1)
@@ -49,6 +76,8 @@
 (setq-default indicate-empty-lines t)
 (setq-default indicate-buffer-boundaries t)
 (setq-default show-trailing-whitespace nil)
+(setq-default mode-require-final-newline nil)
+(setq-default require-final-newline nil)
 
 ;;keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
@@ -86,7 +115,7 @@
 (defun electric-indent-ignore-mode (char)
   "Ignore electric indentation for 'python-mode'.  CHAR is input character."
   (if (or (equal major-mode 'python-mode)
-	  (equal major-mode 'yaml-mode))
+          (equal major-mode 'yaml-mode))
       'no-indent
     nil))
 (add-hook 'electric-indent-functions 'electric-indent-ignore-mode)
@@ -96,7 +125,7 @@
 (setq line-move-visual t)
 
 (setq-default backup-directory-alist
-	      '(("." . ".saves")))    ; don't litter my fs tree
+        '(("." . ".saves")))    ; don't litter my fs tree
 
 (setq vc-make-backup-files t
       backup-by-copying t      ; don't clobber symlinks
@@ -113,7 +142,7 @@
 ;; remove kill buffer with live process prompt
 (setq kill-buffer-query-functions
       (remq 'process-kill-buffer-query-function
-	    kill-buffer-query-functions))
+      kill-buffer-query-functions))
 
 (setq-default kill-read-only-ok t)
 
@@ -135,13 +164,6 @@
 (setq uniquify-separator " • ")
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
-
-(defadvice kill-buffer (around kill-buffer-around-advice activate)
-  "Bury the *scratch* buffer, but never kill it."
-  (let ((buffer-to-kill (ad-get-arg 0)))
-    (if (equal buffer-to-kill "*scratch*")
-	(bury-buffer)
-      ad-do-it)))
 
 ;; UTF-8 please
 (setq locale-coding-system 'utf-8) ; pretty
@@ -166,6 +188,13 @@
 
 ;; scratch buffer
 (setq initial-scratch-message "")
+
+(defadvice kill-buffer (around kill-buffer-around-advice activate)
+  "Bury the *scratch* buffer, but never kill it."
+  (let ((buffer-to-kill (ad-get-arg 0)))
+    (if (equal buffer-to-kill "*scratch*")
+        (bury-buffer)
+      ad-do-it)))
 
 ;; this makes forward-word & backward-word understand snake & camel case
 (setq c-subword-mode t)
