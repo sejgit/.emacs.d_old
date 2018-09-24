@@ -1,5 +1,5 @@
 # sej emacs stuff
-projectile-cache
+projectile.cache
 semanticdb/
 archive/
 elpa/
