@@ -24,15 +24,15 @@
   :bind ("C-c w" . ethan-wspace-clean-all)
   :diminish ethan-wspace-mode)
 
-;; (use-package eyeliner
-;;   :quelpa (eyeliner :fetcher github :repo "dustinlacewell/eyeliner")
-;;   :requires (dash magit spaceline all-the-icons)
-;;   :config
-;;   (require 'eyeliner)
-;;   (eyeliner/install))
+(use-package eyeliner
+  :quelpa (eyeliner :fetcher github :repo "dustinlacewell/eyeliner")
+  :requires (dash magit spaceline all-the-icons)
+  :config
+  (require 'eyeliner)
+  (eyeliner/install))
 
-;; (use-package spaceline
-;;   :ensure t)
+(use-package spaceline
+  :ensure t)
 
 (use-package dimmer
   :ensure t

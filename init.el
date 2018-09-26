@@ -126,14 +126,16 @@
 
   (paradox-require 'use-package)
   (require 'use-package)
-  (setq use-package-always-ensure t)
-
-
-  (use-package delight)
-  (use-package diminish)
-  (use-package quelpa)
-  (use-package quelpa-use-package)
-  (use-package load-dir)
+  (use-package delight
+    :ensure t)
+  (use-package diminish
+    :ensure t)
+  (use-package quelpa
+    :ensure t)
+  (use-package quelpa-use-package
+    :ensure t)
+  (use-package load-dir
+    :ensure t)
 
   ;; Use latest Org
   (use-package org
