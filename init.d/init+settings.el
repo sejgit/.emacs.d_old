@@ -91,8 +91,6 @@
 ;; ignore case when searching
 (setq-default case-fold-search 1)
 
-;; require final newlines in files when they are saved
-(setq require-final-newline 1)
 ;; add a new line when going to the next line
 (setq next-line-add-newlines t)
 

@@ -148,5 +148,10 @@ Otherwise, return nil."
 output as per `sej/exec'. Otherwise, return nil."
   (when (sej/is-exec command) (sej/exec (s-concat command " " args))))
 
+;; sej/indent-buffer bound to C-c <tab>
+(defun sej/indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
 (provide 'init-misc-defuns)
 ;;; init-misc-defuns.el ends here

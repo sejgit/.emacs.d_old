@@ -144,10 +144,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
   (interactive "kUnset key from sej-mode-map: ")
   (define-key sej-mode-map (kbd (key-description key)) nil)
   (message "%s" (format "Unbound %s key from the %s."
-      (propertize (key-description key)
-            'face 'font-lock-function-name-face)
-      (propertize "sej-mode-map"
-            'face 'font-lock-function-name-face))))
+                        (propertize (key-description key)
+                                    'face 'font-lock-function-name-face)
+                        (propertize "sej-mode-map"
+                                    'face 'font-lock-function-name-face))))
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
 ;; shorthand for interactive lambdas
@@ -253,6 +253,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "s-p") 'bs-cycle-previous)
 (define-key sej-mode-map (kbd "C-c b") 'sej/create-scratch-buffer) ; defined below
 (define-key sej-mode-map (kbd "C-c s s") 'sej/create-scratch-buffer) ; defined below
+(define-key sej-mode-map (kbd "C-c <tab>") 'sej/indent-buffer) ; defined below
 
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
@@ -283,7 +284,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; function to edit the curent file as root
 ;; (defined in init-misc-defuns.el)
-(define-key sej-mode-map (kbd "C-x C-r") 'sej/sudo-edit)
+(define-key sej-mode-map (kbd "C-c C-s") 'sej/sudo-edit)
 
 ;; number lines with rectangle defined in init-writing.el
 (define-key sej-mode-map (kbd "C-x r N") 'number-rectangle)
@@ -298,9 +299,9 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; found in emacsen and https://www.reddit.com/r/emacs/comments/8ekz0u/how_to_pastethencopy/
 (setq cua-enable-cua-keys nil)
 (global-set-key (kbd "C-S-SPC") (defun cualess-global-mark ()
-          (interactive)
-          (cua-mode 1)
-          (call-interactively 'cua-toggle-global-mark)))
+                                  (interactive)
+                                  (cua-mode 1)
+                                  (call-interactively 'cua-toggle-global-mark)))
 (defadvice cua--deactivate-global-mark (after cua--deactivate-global-mark-and-cua-mode activate)
   (cua-mode 0))
 (setq cua-global-mark-keep-visible nil)
@@ -327,14 +328,12 @@ USAGE: (unbind-from-modi-map \"key f\")."
   :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
-        ;;("C-." . goto-last-change)
-        ;; M-. can conflict with etags tag search. But C-. can get overwritten
-        ;; by flyspell-auto-correct-word. And goto-last-change needs a really fast key.
-        ("M-." . goto-last-change)
-        ;; ensure that even in worst case some goto-last-change is available
-        ("C-M-." . goto-last-change)
-        ;; added reverse below
-        ("C-," . goto-last-change-reverse)))
+              ;;("C-." . goto-last-change)
+              ;; M-. can conflict with etags tag search. But C-. can get overwritten
+              ;; by flyspell-auto-correct-word. And goto-last-change needs a really fast key.
+              ("M-." . goto-last-change)
+              ;; added reverse below
+              ("C-," . goto-last-change-reverse)))
 
 ;; redefine M-< and M-> for some modes
 (use-package beginend               ; smart M-< & M->
@@ -355,11 +354,11 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (use-package ace-jump-mode
   :ensure t
   :bind (:map sej-mode-map
-        ("C-c SPC" . ace-jump-word-mode)
-        ("C-u C-c SPC" . ace-jump-char-mode)
-        ("C-u C-u C-c SPC" . ace-jump-line-mode)
-        ("C-<return>" . ace-jump-char-mode)
-        ("C-S-<return>" . ace-jump-mode-pop-mark))
+              ("C-c SPC" . ace-jump-word-mode)
+              ("C-u C-c SPC" . ace-jump-char-mode)
+              ("C-u C-u C-c SPC" . ace-jump-line-mode)
+              ("C-<return>" . ace-jump-char-mode)
+              ("C-S-<return>" . ace-jump-mode-pop-mark))
   :config
   (ace-jump-mode-enable-mark-sync))
 
@@ -367,37 +366,37 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (use-package ace-window
   :ensure t
   :bind (:map sej-mode-map
-        ("M-o" . ace-window)))
+              ("M-o" . ace-window)))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
   :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
-        ("C-a" . crux-move-beginning-of-line)
-        ("C-k" . crux-smart-kill-line)
-        ("C-c C-k" . crux-duplicate-current-line-or-region)
-        ("s-d" . crux-duplicate-current-line-or-region)
-        ("C-c n" . crux-cleanup-buffer-or-region)))
+              ("C-a" . crux-move-beginning-of-line)
+              ("C-k" . crux-smart-kill-line)
+              ("C-c C-k" . crux-duplicate-current-line-or-region)
+              ("s-d" . crux-duplicate-current-line-or-region)
+              ("C-c n" . crux-cleanup-buffer-or-region)))
 
 ;; underscore -> upcase -> camelcase conversion
 (use-package string-inflection
   :ensure t
   :bind (:map sej-mode-map
-        ("M-u" . my-string-inflection-all-cycle)))
+              ("M-u" . my-string-inflection-all-cycle)))
 
 ;; simplified access to the system clipboard in Emacs
 (use-package simpleclip
   :ensure t
   :hook (after-init . simpleclip-mode)
   :bind (:map sej-mode-map
-        ("s-x" . simpleclip-cut)
-        ("s-c" . simpleclip-copy)
-        ("s-v" . scroll-down-command)
-        ("C-S-v" . scroll-down-command)
-        ("H-v" . scroll-down-command)
-        ("M-v" . simpleclip-paste)
-        )) ;; this last one will help integration with Flycut
+              ("s-x" . simpleclip-cut)
+              ("s-c" . simpleclip-copy)
+              ("s-v" . scroll-down-command)
+              ("C-S-v" . scroll-down-command)
+              ("H-v" . scroll-down-command)
+              ("M-v" . simpleclip-paste)
+              )) ;; this last one will help integration with Flycut
 
 ;; Moves selected region around
 (use-package drag-stuff
@@ -405,8 +404,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
   :diminish drag-stuff-mode
   :defines sej-mode-map
   :bind (:map sej-mode-map
-        ("M-<down>" . drag-stuff-down)
-        ("M-<up>" . drag-stuff-up))
+              ("M-<down>" . drag-stuff-down)
+              ("M-<up>" . drag-stuff-up))
   :config
   (drag-stuff-global-mode))
 
