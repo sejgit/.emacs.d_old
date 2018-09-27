@@ -179,7 +179,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
   (global-unset-key (kbd (format "M-%d" n)))
   )
 
-;; use hyper (alt on osx) for mode type bindings
+;; use hyper (fn on osx) for mode type bindings
 (define-key sej-mode-map (kbd "H-a") 'helm-ag)
 (define-key sej-mode-map (kbd "<f1>") 'org-mode)
 (define-key sej-mode-map (kbd "H-s") 'shell)
@@ -189,7 +189,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "H-H") 'ns-do-hide-others)
 
 ;;(global-set-key (kbd "H-e") 'mu4e) ; not used for the moment
-;;(global-set-key (kbd "M-`") 'ns-next-frame)
 
 ;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
@@ -233,13 +232,13 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 ;; Zap to char
 (define-key sej-mode-map (kbd "M-z") 'zap-to-char)
-(define-key sej-mode-map (kbd "s-z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
+(define-key sej-mode-map (kbd "s-z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char))) ;
 (define-key sej-mode-map (kbd "C-M-d") 'backward-kill-word)
 
 ;;scroll window up/down by one line
 (define-key sej-mode-map (kbd "M-n") (kbd "C-u 1 C-v"))
 (define-key sej-mode-map (kbd "M-p") (kbd "C-u 1 M-v"))
-(define-key sej-mode-map (kbd "M-SPC") 'cycle-spacing)
+(define-key sej-mode-map (kbd "A-SPC") 'cycle-spacing)
 
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
 (define-key sej-mode-map (kbd "C-x C-m") 'execute-extended-command)
