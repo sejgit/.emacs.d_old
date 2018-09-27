@@ -37,6 +37,7 @@
 ;;            M-u for string-inflection
 ;;            added simpleclip for better clipboard integration
 ;; 2018 09 24 changed RET behaviour to add newline-and-indent
+;; 2018 09 26 change modifier keys for mac used in conjuction with karabiner & mac settings
 
 ;;; Code:
 
@@ -73,11 +74,15 @@
  ((string-equal system-type "darwin") ; Mac OS X
   (progn
     (message "Mac OS X")
-    ;; load-dir init.d
-    (setq mac-command-modifier 'meta)
-    (setq mac-option-modifier 'super)
-    (setq mac-control-modifier 'control)
+    ;; set up the keyboard for right is osx normal
+    ;; left side is Hyper Super Alt Meta
+    (setq ns-right-command-modifier 'none)
+    (setq ns-right-option-modifier 'none)
     (setq ns-function-modifier 'hyper)
+    (setq ns-control-modifier 'control)
+    (setq ns-right-control-modifier 'super)
+    (setq ns-option-modifier 'alt)
+    (setq ns-command-modifier 'meta)
     ;; keybinding to toggle full screen mode
     (global-set-key (kbd "M-<f11>") 'toggle-frame-fullscreen)
     ))
