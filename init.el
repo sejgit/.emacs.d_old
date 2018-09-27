@@ -28,6 +28,8 @@
 ;; 2018 08 13 clean-up some vars
 ;; 2018 08 15 adds for windows set-up
 ;; 2018 09 04 udate for initial frame
+;; 2018 09 27 remove server for pc based
+
 ;;; Code:
 
 ;; debugger on
@@ -142,17 +144,18 @@
     ;;:pin org
     :ensure org-plus-contrib)
 
-  ;; Lame, server has bad autoloads
-  (require 'server nil t)
   (use-package server
-    :if window-system
+    :unless (memq window-system '(w32 pc nil))
     :functions server-running-p
     :init
+    ;; Lame, server has bad autoloads
+    (require 'server nil t)
     (when (not (server-running-p server-name))
       (server-start)))
 
   ;; set up edit-server
   (use-package edit-server
+    :unless (memq window-system '(w32 pc nil))
     :ensure t
     :config
     (edit-server-start))

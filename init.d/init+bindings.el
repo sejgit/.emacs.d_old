@@ -57,14 +57,15 @@
  ((string-equal system-type "windows-nt") ; Microsoft Windows
   (progn
     (message "Microsoft Windows")
+    ;; usig tab as hyper, left contol as super, leave window alone, alt as meta
     (setq
-     w32-pass-lwindow-to-system nil
-     w32-lwindow-modifier 'super
+     w32-pass-lwindow-to-system t
+     ;;w32-lwindow-modifier 'alt
      w32-pass-rwindow-to-system nil
-     w32-rwindow-modifier 'hyper
-     w32-pass-apps-to-system nil
+     w32-rwindow-modifier 'alt
      w32-apps-modifier 'super
      w32-pass-alt-to-system nil
+     w32-alt-is-meta t
      w32-scroll-lock-modifier 'hyper)
     (setenv "PATH"
             (mapconcat
