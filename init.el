@@ -311,17 +311,3 @@
 
 
 ;;  TODO: better docs for what needs installed on base computer ag pass projectile common-tools?(gls)
-
-;; TODO: make settings generic to individual like user-full-name etc (see below for details)
-
-;; Need different settings for different machines?
-;; ;; Settings for currently logged in user
-;; (setq user-settings-dir
-;;       (concat user-emacs-directory "users/" user-login-name))
-
-;; ;; Conclude init by setting up specifics for the current user
-;; (when (file-exists-p user-settings-dir)
-;;   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
-;; These are the last lines of my init.el. They will load any *.el files in the ~/.emacs.d/users/user-login-name/ folder.
-
-;; Anything specific for that machine goes there.
