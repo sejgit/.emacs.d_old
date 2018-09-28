@@ -42,22 +42,25 @@
 ;;; Code:
 
 ;; set keys for Apple keyboard, for emacs in OS X
-;; make cmd key do Meta
-;; make opt key do Super
-;; make Control key do Control
+;; caps lock is control (through karabiner)
 ;; make Fn key do Hyper
+;; make LControl key do RControl (karabiner) & Super (emacs)
+;; make opt/alt key do alt
+;; make cmd key do Meta
 
-;; make PC keyboard's Win key or other to type Super or Hyper, for emacs running on Windows.
-;; Left Windows key
-;; Right Windows key
-;; Menu/App key
+;; make PC keyboard's
+;; tab do hyper (scroll lock to hyper using external autokey)
+;; Left control key do super (assigned to apps using external autokey)
+;; Left Windows key kept for windows due to win10 taking many keys
+;; Alt key is meta
+;; Rwin is alt (not used in current laptop)
+;; RAlt key ends up with M-s combo (assigned to apps through external autokey)
 
 ;; check OS type
 (cond
  ((string-equal system-type "windows-nt") ; Microsoft Windows
   (progn
     (message "Microsoft Windows")
-    ;; usig tab as hyper, left contol as super, leave window alone, alt as meta
     (setq
      w32-pass-lwindow-to-system t
      ;;w32-lwindow-modifier 'alt
