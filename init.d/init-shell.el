@@ -8,95 +8,17 @@
 ;; 2017 08 25 add exec-path-from-shell from EOS
 ;; 2017 09 06 change name to init-shell
 ;; 2017 09 20 move bash from init-bash.el to here & delete file
+;; 2018 09 27 clean-up
 
 ;;; Code:
-(use-package shell-pop
-  :ensure t
-  :bind (("C-t" . shell-pop))
-  :hook (shell-mode . ansi-color-for-comint-mode-on)
-  :defines shell-prompt-pattern
-  :config
-  ;;(setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
-  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-  (setq shell-pop-shell-type "terminal")
-  (setq shell-pop-term-shell "/usr/local/bin/bash")
-  ;; need to do this manually or not picked up by `shell-pop'
-  (setq shell-prompt-pattern "^[^#%$>]*[#$%>]>? *" )
-  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
-
-(use-package bash-completion
-  :ensure t
-  :hook (shell-mode . compilation-shell-minor-mode)
-  :defines explicit-shell-file-name
-  :config
-  (setq explicit-shell-file-name "bash")
-  (setq comint-process-echoes t)
-  (setq bash-completion-process-timeout 0.5))
-
-(use-package company-shell
-  :ensure t
-  :hook (shell-mode))
-
-;; this allows GUI Emacs to inherit $PATH
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
-    (add-to-list 'exec-path-from-shell-variables var))
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
 
 
-;; things that invoke $EDITOR will use the current Emacs
-(use-package with-editor
-  :ensure t
-  :hook ((shell-mode . with-editor-export-editor)
-	 (eshell-mode . with-editor-export-editor)))
-
-;; set up any SSH or GPG keychains that the Keychain tool has set up for us
-(use-package keychain-environment
-  :ensure t
-  :hook (after-init . keychain-refresh-environment))
-
-;; Emacs does not handle less well so use cat
-(setenv "PAGER" "cat")
-
-(setq comint-scroll-to-bottom-on-input t ;; always insert at the bottom
-      ;; always add output at the bottom
-      comint-scroll-to-bottom-on-output nil
-      ;; scroll to show max possible output
-      comint-scroll-show-maximum-output t
-      ;; no duplicates in command history
-      comint-input-ignoredups t
-      ;; insert space/slash after file completion
-      comint-completion-addsuffix t
-      ;; if this is t, it breaks shell-command
-      comint-prompt-read-only nil)
-
-(defun sej/shell-kill-buffer-sentinel (process event)
-  "Function to kill shell buffer upon (PROCESS EVENT)."
-  (when (memq (process-status process) '(exit signal))
-    (kill-buffer)))
-
-(defun sej/kill-process-buffer-on-exit ()
-  "Function to kill buffer on exit."
-  (set-process-sentinel (get-buffer-process (current-buffer))
-			#'sej/shell-kill-buffer-sentinel))
-
-(dolist (hook '(ielm-mode-hook term-exec-hook comint-exec-hook))
-  (add-hook hook 'sej/kill-process-buffer-on-exit))
-
-(defun set-scroll-conservatively ()
-  "Add to shell-mode-hook to prevent jump-scrolling on newlines in shell buffers."
-  (set (make-local-variable 'scroll-conservatively) 10))
-
-(defadvice comint-previous-matching-input
-    (around suppress-history-item-messages activate)
-  "Suppress the annoying 'History item : NNN' messages from shell history isearch."
-  (let ((old-message (symbol-function 'message)))
-    (unwind-protect
-	(progn (fset 'message 'ignore) ad-do-it)
-      (fset 'message old-message))))
+;; Visual commands
+(setq eshell-visual-commands '("screen" "htop" "less" "more" "ncftp" "elm"
+				                       "nmtui" "alsamixer" "htop" "el" "nano"
+				                       "ssh" "nethack" "dstat"))
+(setq eshell-visual-subcommands '(("git" "log" "diff" "show")
+				                          ("vagrant" "ssh")))
 
 (add-hook 'shell-mode-hook #'set-scroll-conservatively)
 ;; truncate buffers continuously
@@ -104,8 +26,8 @@
 ;; interpret and use ansi color codes in shell output windows
 (add-hook 'shell-mode-hook #'ansi-color-for-comint-mode-on)
 
-
 ;;; Eshell settings
+(add-hook 'eshell-mode-hook #'sej/setup-eshell)
 
 (defun sej/setup-eshell ()
   "Set-up for eshell function to be called when 'eshell-mode' is entered."
@@ -129,7 +51,8 @@
   :commands (eshell eshell-command)
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	            ("H-e" . eshell))
+	            ("H-e" . eshell)
+              ("C-c e" . eshell))
   :config
   (require 'em-smart)
   (setq eshell-glob-case-insensitive nil
@@ -162,14 +85,6 @@
 	      eshell-plain-echo-behavior t
 	      ;; add -lh to the `ls' flags
 	      eshell-ls-initial-args "-lh")
-
-  ;; Visual commands
-  (setq eshell-visual-commands '("vi" "screen" "htop" "less" "more" "lynx"
-				                         "ncftp" "pine" "tin" "trn" "elm" "vim"
-				                         "nmtui" "alsamixer" "htop" "el" "elinks"
-				                         "ssh" "nethack" "dtop" "dstat"))
-  (setq eshell-visual-subcommands '(("git" "log" "diff" "show")
-				                            ("vagrant" "ssh")))
 
   (defun sej/truncate-eshell-buffers ()
     "Truncates all eshell buffers"
@@ -222,8 +137,6 @@
 	      (setq elems (cdr elems))))
     nil)
 
-  (add-hook 'eshell-mode-hook #'sej/setup-eshell)
-
   ;; See eshell-prompt-function below
   (setq eshell-prompt-regexp "^[^#$\n]* [#$] ")
 
@@ -248,6 +161,90 @@
     (interactive)
     (magit-status-internal default-directory)
     nil))
+
+(use-package shell-pop
+  :ensure t
+  :bind (("C-t" . shell-pop))
+  :hook (shell-mode . ansi-color-for-comint-mode-on)
+  :defines shell-prompt-pattern
+  :config
+  ;;(setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
+  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+  (setq shell-pop-shell-type "terminal")
+  (setq shell-pop-term-shell "/usr/local/bin/bash")
+  ;; need to do this manually or not picked up by `shell-pop'
+  (setq shell-prompt-pattern "^[^#%$>]*[#$%>]>? *" )
+  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
+
+(use-package bash-completion
+  :ensure t
+  :hook (shell-mode . compilation-shell-minor-mode)
+  :defines explicit-shell-file-name
+  :config
+  (setq explicit-shell-file-name "bash")
+  (setq comint-process-echoes t)
+  (setq bash-completion-process-timeout 0.5))
+
+;; this allows GUI Emacs to inherit $PATH
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
+
+;; things that invoke $EDITOR will use the current Emacs
+(use-package with-editor
+  :ensure t
+  :hook ((shell-mode . with-editor-export-editor)
+	       (eshell-mode . with-editor-export-editor)))
+
+;; set up any SSH or GPG keychains that the Keychain tool has set up for us
+(use-package keychain-environment
+  :ensure t
+  :hook (after-init . keychain-refresh-environment))
+
+;; Emacs does not handle less well so use cat
+(setenv "PAGER" "cat")
+
+(setq comint-scroll-to-bottom-on-input t ;; always insert at the bottom
+      ;; always add output at the bottom
+      comint-scroll-to-bottom-on-output nil
+      ;; scroll to show max possible output
+      comint-scroll-show-maximum-output t
+      ;; no duplicates in command history
+      comint-input-ignoredups t
+      ;; insert space/slash after file completion
+      comint-completion-addsuffix t
+      ;; if this is t, it breaks shell-command
+      comint-prompt-read-only nil)
+
+(defun sej/shell-kill-buffer-sentinel (process event)
+  "Function to kill shell buffer upon (PROCESS EVENT)."
+  (when (memq (process-status process) '(exit signal))
+    (kill-buffer)))
+
+(defun sej/kill-process-buffer-on-exit ()
+  "Function to kill buffer on exit."
+  (set-process-sentinel (get-buffer-process (current-buffer))
+			                  #'sej/shell-kill-buffer-sentinel))
+
+(dolist (hook '(ielm-mode-hook term-exec-hook comint-exec-hook))
+  (add-hook hook 'sej/kill-process-buffer-on-exit))
+
+(defun set-scroll-conservatively ()
+  "Add to shell-mode-hook to prevent jump-scrolling on newlines in shell buffers."
+  (set (make-local-variable 'scroll-conservatively) 10))
+
+(defadvice comint-previous-matching-input
+    (around suppress-history-item-messages activate)
+  "Suppress the annoying 'History item : NNN' messages from shell history isearch."
+  (let ((old-message (symbol-function 'message)))
+    (unwind-protect
+	      (progn (fset 'message 'ignore) ad-do-it)
+      (fset 'message old-message))))
 
 
 (provide 'init-shell)
