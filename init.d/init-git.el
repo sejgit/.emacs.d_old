@@ -12,7 +12,8 @@
 ;; 2017 09 20 move init-gist.el to here & delete file
 ;; 2018 04 02 add magit-repository-directories for magit-list-repositories
 ;; 2018 06 28 add magit-todos
-;;
+;; 2018 09 27 some ahai tips  add git-gutter-fringe
+
 ;;; Code:
 
 ;; gist client
@@ -21,8 +22,8 @@
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
-	("C-M-g" . gist-list)
-	("H-g" . gist-list)))
+	      ("C-M-g" . gist-list)
+	      ("H-g" . gist-list)))
 
 ;; git on Emacs https://github.com/magit/magit
 (use-package magit
@@ -161,20 +162,16 @@
   :defines magit-todos-recursive
   :config
   (setq magit-todos-recursive t
-	magit-todos-depth 100)
+	      magit-todos-depth 100)
   ;;   ;; (setq magit-todos-require-colon t)  -- default - change to nil to catch all
   (magit-todos-mode))
 
-  ;; (use-package a
-  ;;   :ensure t)
-  ;; (use-package anaphora
-  ;;   :ensure t)
-  ;; (use-package async)
-  ;; (use-package dash)
-  ;; (use-package f)
-  ;; (use-package pcre2el
-  ;;   :ensure t)
-  ;; (use-package s)
+;; Mark uncommitted changes in the fringe.
+(use-package git-gutter-fringe
+  :ensure t
+  :config
+  (global-git-gutter-mode t)
+  :diminish git-gutter-mode)
 
-  (provide 'init-git)
+(provide 'init-git)
 ;;; init-git.el ends here

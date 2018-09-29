@@ -37,16 +37,17 @@
   :hook (after-init . global-flycheck-mode)
   :bind
   (:map sej-mode-map
-	("s-[" . flycheck-previous-error)
-	("s-]" . flycheck-next-error)
-	("C-c f" . flycheck-list-errors))
+	      ("s-[" . flycheck-previous-error)
+	      ("s-]" . flycheck-next-error)
+	      ("C-c f" . flycheck-list-errors)
+        ("s-f" . flycheck-list-errors)        )
   :config
   (global-flycheck-mode 1)
   (defadvice flycheck-next-error (before wh/flycheck-next-error-push-mark activate)
     (push-mark))
 
   (setq flycheck-indication-mode 'right-fringe
-	flycheck-check-syntax-automatically '(save mode-enabled))
+	      flycheck-check-syntax-automatically '(save mode-enabled))
   (custom-set-faces
    '(flycheck-error ((((class color)) (:underline "Red"))))
    '(flycheck-warning ((((class color)) (:underline "Orange")))))
@@ -56,11 +57,11 @@
   (setq flycheck-flake8-maximum-line-length 79)
   (setq flycheck-highlighting-mode 'lines)
   (progn	  (set-face-attribute 'flycheck-warning nil
-				      :inherit 'warning
-				      :underline nil)
-		  (set-face-attribute 'flycheck-error nil
-				      :inherit 'error
-				      :underline nil)))
+				                        :inherit 'warning
+				                        :underline nil)
+		        (set-face-attribute 'flycheck-error nil
+				                        :inherit 'error
+				                        :underline nil)))
 
 (use-package flycheck-color-mode-line
   :ensure t
@@ -79,9 +80,8 @@
   :ensure t
   :bind
   (:map sej-mode-map
-	("C-c s h" . helm-flycheck)
-	("s-f" . helm-flycheck)
-	("H-f" . helm-flycheck)))
+	      ("C-c s h" . helm-flycheck)
+	      ("H-f" . helm-flycheck)))
 
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here

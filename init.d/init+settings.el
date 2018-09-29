@@ -95,9 +95,16 @@
 (setq next-line-add-newlines t)
 
 ;; marking text and clipboard settings
-(delete-selection-mode nil)
+(setq-default delete-selection-mode nil)
 ;;(transient-mark-mode t)
 (setq select-enable-clipboard t)
+
+;; Automatically update unmodified buffers whose files have changed.
+(global-auto-revert-mode 1)
+
+;; Make compilation buffers scroll to follow the output, but stop scrolling
+;; at the first error.
+(setq compilation-scroll-output 'first-error)
 
 ;; echo keystrokes ; no dialog boxes ; visable bell ; highlight parens
 (setq echo-keystrokes 0.1)

@@ -191,18 +191,23 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "H-m") 'menu-bar-mode)
 (define-key sej-mode-map (kbd "H-h") 'ns-do-hide-emacs)
 (define-key sej-mode-map (kbd "H-H") 'ns-do-hide-others)
-
-;;(global-set-key (kbd "H-e") 'mu4e) ; not used for the moment
+(define-key sej-mode-map (kbd "H-e") 'eshell)
+(define-key sej-mode-map (kbd "H-f") 'helm-flycheck) ;;defined just here for ref
 
 ;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
 (define-key sej-mode-map (kbd "<s-return>") 'eval-last-sexp)
 (define-key sej-mode-map (kbd "<H-return>") 'eval-buffer)
+(define-key sej-mode-map (kbd "<A-return>") 'eval-buffer) ;; H-ret issues with mac
 (define-key sej-mode-map (kbd "s-r") 'jump-to-register)
 (define-key sej-mode-map (kbd "s-b") 'helm-mini) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
 (define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined just here for ref
+(define-key sej-mode-map (kbd "s-[") 'flycheck-previous-error) ;; defined just here for ref
+(define-key sej-mode-map (kbd "s-]") 'flycheck-next-error) ;; defined just here for ref
+(define-key sej-mode-map (kbd "s-f") 'flycheck-list-errors) ;; defined just here for ref
+
 ;; toggle two most recent buffers
 (fset 'quick-switch-buffer [?\C-x ?b return])
 (define-key sej-mode-map (kbd "s-o") 'quick-switch-buffer)
@@ -210,7 +215,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; general keybindings
 (define-key global-map (kbd "C-h C-h") nil)
 (define-key sej-mode-map (kbd "C-h C-h") nil)
-;;(define-key sej-mode-map (kbd "M-'") 'other-window)
+
 (define-key sej-mode-map (kbd "M-'") 'next-multiframe-window)
 (define-key sej-mode-map (kbd "C-j") 'newline-and-indent)
 (define-key sej-mode-map (kbd "C-;") 'comment-dwim)
@@ -240,8 +245,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-M-d") 'backward-kill-word)
 
 ;;scroll window up/down by one line
-(define-key sej-mode-map (kbd "M-n") (kbd "C-u 1 C-v"))
-(define-key sej-mode-map (kbd "M-p") (kbd "C-u 1 M-v"))
+(define-key sej-mode-map (kbd "A-n") (lambda () (interactive) (scroll-up 1)))
+(define-key sej-mode-map (kbd "A-p") (lambda () (interactive) (scroll-down 1)))
 (define-key sej-mode-map (kbd "A-SPC") 'cycle-spacing)
 
 ;;added tips from steve drunken blog 10 specific ways to improve productivity
@@ -374,7 +379,8 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (use-package ace-window
   :ensure t
   :bind (:map sej-mode-map
-              ("M-o" . ace-window)))
+              ("M-o" . ace-window)
+              ("C-x M-o" . ace-swap-window)))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux
@@ -400,10 +406,10 @@ USAGE: (unbind-from-modi-map \"key f\")."
   :bind (:map sej-mode-map
               ("s-x" . simpleclip-cut)
               ("s-c" . simpleclip-copy)
-              ("s-v" . scroll-down-command)
+              ("s-v" . simpleclip-paste)
               ("C-S-v" . scroll-down-command)
               ("H-v" . scroll-down-command)
-              ("M-v" . simpleclip-paste)
+              ("M-v" . scroll-down-command)
               )) ;; this last one will help integration with Flycut
 
 ;; Moves selected region around
