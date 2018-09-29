@@ -12,7 +12,7 @@
 ;; 2017 09 20 move init-gist.el to here & delete file
 ;; 2018 04 02 add magit-repository-directories for magit-list-repositories
 ;; 2018 06 28 add magit-todos
-;; 2018 09 27 some ahai tips  add git-gutter-fringe
+;; 2018 09 27 some ahai tips  add git-gutter
 
 ;;; Code:
 
@@ -114,12 +114,6 @@
   :ensure t
   :after magit)
 
-(use-package diff-hl
-  :ensure t
-  :hook (dired-mode . diff-hl-dired-mode)
-  :config
-  (global-diff-hl-mode))
-
 ;; see your file over time
 ;; - First do M-x git-timemachine
 ;; Use the following keys to navigate historic version of the file
@@ -166,8 +160,14 @@
   ;;   ;; (setq magit-todos-require-colon t)  -- default - change to nil to catch all
   (magit-todos-mode))
 
-;; Mark uncommitted changes in the fringe.
-(use-package git-gutter-fringe
+(use-package diff-hl
+  :ensure t
+  :hook (dired-mode . diff-hl-dired-mode)
+  :config
+  (global-diff-hl-mode))
+
+;; Mark uncommitted changes
+(use-package git-gutter
   :ensure t
   :config
   (global-git-gutter-mode t)
