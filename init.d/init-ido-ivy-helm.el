@@ -21,63 +21,63 @@
 (use-package helm
   :ensure t
   :hook ((after-init . helm-mode)
-	 (eshell-mode . (lambda ()
-			  (define-key eshell-mode-map (kbd "TAB")     #'helm-esh-pcomplete)
-			  (define-key eshell-mode-map (kbd "C-c C-l") #'helm-eshell-history)))
-	 )
+	       (eshell-mode . (lambda ()
+			                    (define-key eshell-mode-map (kbd "TAB")     #'helm-esh-pcomplete)
+			                    (define-key eshell-mode-map (kbd "C-c C-l") #'helm-eshell-history)))
+	       )
   :defines (sej-mode-map projectile-mode-map org-mode-map helm-command-map)
   :diminish helm-mode
   :bind (:map sej-mode-map
-	      ("C-c h" . helm-command-prefix)
-	      ("C-x b" . helm-mini)
-	      ("C-M-z" . helm-resume)
-	      ("C-x C-f" . helm-find-files)
-	      ("C-x C-r" . helm-recentf)
-	      ;;("C-x o" . helm-occur)
-	      ("M-y" . helm-show-kill-ring)
-	      ("C-h i" . helm-info-emacs)
-	      ("C-h a" . helm-apropos)
-	      ;;   ("C-h m" . helm-man-woman)
-	      ("C-h SPC" . helm-all-mark-rings)
-	      ("H-SPC" . helm-all-mark-rings)
-	      ("s-b" . helm-mini)
-	      ("C-x C-b" . helm-buffers-list)
-	      ("M-x" . helm-M-x)
-	      ("C-x r l" . helm-source-filtered-bookmarks)
-	      ("M-s s" . helm-ag)
-	      :map helm-command-map
-	      ("<tab>" . helm-execute-persistent-action)
-	      ("C-i" . helm-execute-persistent-action)
-	      ("C-z" . helm-select-action)
-	      ("s-f" . helm-multi-files)
-	      ("x" . helm-register)
-	      )
+	            ("M-x" . helm-M-x)
+	            ("C-x C-f" . helm-find-files)
+	            ("C-x C-r" . helm-recentf)
+	            ("C-x C-b" . helm-buffers-list)
+	            ("C-x b" . helm-mini)
+	            ("C-c h" . helm-command-prefix)
+	            ("C-M-z" . helm-resume)
+	            ;;("C-x o" . helm-occur)
+	            ("M-y" . helm-show-kill-ring)
+	            ("C-h i" . helm-info-emacs)
+	            ("C-h a" . helm-apropos)
+	            ;;   ("C-h m" . helm-man-woman)
+	            ("C-h SPC" . helm-all-mark-rings)
+	            ("H-SPC" . helm-all-mark-rings)
+	            ("s-b" . helm-mini)
+	            ("C-x r l" . helm-source-filtered-bookmarks)
+	            ("M-s s" . helm-ag)
+	            :map helm-command-map
+	            ("<tab>" . helm-execute-persistent-action)
+	            ("C-i" . helm-execute-persistent-action)
+	            ("C-z" . helm-select-action)
+	            ("s-f" . helm-multi-files)
+	            ("C-t" . helm-imenu)
+	            ("A-x" . helm-register)
+	            )
   :config
   (require 'helm-config)
+  (require 'helm)
+  (helm-mode 1)
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
 
   (setq helm-split-window-inside-p           t ; open helm buffer inside current window, not occupy whole other window
-	helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-	helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-	helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-	helm-echo-input-in-header-line t
-	helm-mode-fuzzy-match t
-	helm-ff-file-name-history-use-recentf t
-	helm-M-x-fuzzy-match t
-	helm-buffers-fuzzy-matching t
-	helm-recentf-fuzzy-match t
-	helm-lisp-fuzzy-completion t
-	helm-apropos-fuzzy-match t
-	helm-completion-in-region-fuzzy-match t
-	helm-echo-input-in-header-line t
-	helm-follow-mode-persistent t
-	helm-split-window-inside-p t
-	)
-
-  (helm-autoresize-mode t)
-
-  )
+	      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+	      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+	      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+	      helm-echo-input-in-header-line t
+	      helm-mode-fuzzy-match t
+	      helm-ff-file-name-history-use-recentf t
+	      helm-M-x-fuzzy-match t
+	      helm-buffers-fuzzy-matching t
+	      helm-recentf-fuzzy-match t
+	      helm-lisp-fuzzy-completion t
+	      helm-apropos-fuzzy-match t
+	      helm-completion-in-region-fuzzy-match t
+	      helm-echo-input-in-header-line t
+	      helm-follow-mode-persistent t
+	      helm-split-window-inside-p t
+	      )
+  (helm-autoresize-mode t))
 
 
 (use-package helm-swoop
@@ -85,21 +85,21 @@
   :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("M-i" . helm-swoop)
-	      ("M-I" . helm-swoop-back-to-last-point)
-	      ("C-c M-i /" . helm-multi-swoop)
-	      ("C-x M-i" . helm-multi-swoop-all)
-	      :map isearch-mode-map
-	      ("M-i" . helm-swoop-from-isearch)
-	      :map helm-swoop-map
-	      ("C-p" . helm-previous-line)
-	      ("C-n" . helm-next-line)
-	      ("M-i" . helm-multi-swoop-all-from-helm-swoop)
-	      ("M-m" . helm-multi-swoop-current-mode-from-helm-swoop)
-	      :map helm-multi-swoop-map
-	      ("C-p" . helm-previous-line)
-	      ("C-n" . helm-next-line)
-	      )
+	            ("M-i" . helm-swoop)
+	            ("M-I" . helm-swoop-back-to-last-point)
+	            ("C-c M-i /" . helm-multi-swoop)
+	            ("C-x M-i" . helm-multi-swoop-all)
+	            :map isearch-mode-map
+	            ("M-i" . helm-swoop-from-isearch)
+	            :map helm-swoop-map
+	            ("C-p" . helm-previous-line)
+	            ("C-n" . helm-next-line)
+	            ("M-i" . helm-multi-swoop-all-from-helm-swoop)
+	            ("M-m" . helm-multi-swoop-current-mode-from-helm-swoop)
+	            :map helm-multi-swoop-map
+	            ("C-p" . helm-previous-line)
+	            ("C-n" . helm-next-line)
+	            )
   :config
   ;; When doing isearch, hand the word over to helm-swoop
   ;;(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
@@ -110,20 +110,21 @@
 
   ;; Save buffer when helm-multi-swoop-edit complete
   (setq helm-multi-swoop-edit-save t
-	;; If this value is t, split window inside the current window
-	helm-swoop-split-with-multiple-windows nil
-	;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-	helm-swoop-split-direction 'split-window-vertically
-	;; If you prefer fuzzy matching
-	helm-swoop-use-fuzzy-match t
-	;; don't auto select the thing at point
-	helm-swoop-pre-input-function (lambda () "" )
-	;; Always use the previous search for helm. Remember C-<backspace> will delete entire line
-	helm-swoop-pre-input-function
-	(lambda () (if (boundp 'helm-swoop-pattern)
-		       helm-swoop-pattern ""))
+	      ;; If this value is t, split window inside the current window
+	      helm-swoop-split-with-multiple-windows nil
+	      ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+	      helm-swoop-split-direction 'split-window-vertically
+	      ;; If you prefer fuzzy matching
+	      helm-swoop-use-fuzzy-match t
+	      ;; don't auto select the thing at point
+	      helm-swoop-pre-input-function (lambda () "" )
+	      ;; Always use the previous search for helm. Remember C-<backspace> will delete entire line
+	      helm-swoop-pre-input-function
+	      (lambda () (if (boundp 'helm-swoop-pattern)
+		                   helm-swoop-pattern ""))
 
-	))
+	      ))
+
 (use-package smex
   :ensure t)
 
@@ -152,10 +153,13 @@
   :ensure t
   :after (projectile helm)
   :bind (:map projectile-mode-map
-	      ("C-c p /" . (lambda ()
-			     (interactive)
-			     (helm-ag (projectile-project-root))))
-	      )
+	            ("C-c p /" . (lambda ()
+			                       (interactive)
+			                       (helm-ag (projectile-project-root))))
+              :map sej-mode-map
+              ("C-c C-f" . helm-projectile-find-file-dwim)
+              ("C-x C-g" . helm-projectile-grep)
+	            )
   :config
   (setq projectile-completion-system 'helm)
   ;; no fuzziness for projectile-helm
