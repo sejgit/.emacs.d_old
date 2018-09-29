@@ -162,20 +162,6 @@
     (magit-status-internal default-directory)
     nil))
 
-(use-package shell-pop
-  :ensure t
-  :bind (("C-t" . shell-pop))
-  :hook (shell-mode . ansi-color-for-comint-mode-on)
-  :defines shell-prompt-pattern
-  :config
-  ;;(setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
-  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-  (setq shell-pop-shell-type "terminal")
-  (setq shell-pop-term-shell "/usr/local/bin/bash")
-  ;; need to do this manually or not picked up by `shell-pop'
-  (setq shell-prompt-pattern "^[^#%$>]*[#$%>]>? *" )
-  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
-
 (use-package bash-completion
   :ensure t
   :hook (shell-mode . compilation-shell-minor-mode)

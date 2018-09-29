@@ -15,6 +15,7 @@
 ;; 2017 12 01 update for new use-package
 ;; 2018 03 17 update focused on helm
 ;; 2018 03 21 some shortcut adds from http://tuhdo.github.io/helm-intro.html
+;; 2018 09 27 helm ido tips from ohai
 
 ;;; Code:
 
@@ -125,17 +126,13 @@
 
 	      ))
 
-(use-package smex
-  :ensure t)
-
 (use-package helm-smex
   :after (helm smex)
   :ensure t
   :init
   (setq helm-smex-show-bindings t)
   :bind(([remap execute-extended-command] . helm-smex)
-	("M-X" . helm-smex-major-mode-commands))
-  )
+	      ("M-X" . helm-smex-major-mode-commands)))
 
 (use-package helm-descbinds
   :after (helm)
