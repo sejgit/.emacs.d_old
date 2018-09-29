@@ -10,15 +10,16 @@
 ;; 2017 08 30 cleanup
 ;; 2018 03 19 move helm-projectile to helm init file
 ;; 2018 08 28 updates for projectile
-
+;; 2018 09 28 add redundant bind for helm-projectile
 ;;; Code:
 
 (use-package projectile
   :ensure t
+  :defines sej-mode-map
   ;;  :diminish projectile-mode
   :bind (:map sej-mode-map
-	      ("s-p" . projectile-command-map)
-	      ("C-c p" . projectile-command-map))
+	            ("s-p" . projectile-command-map)
+	            ("C-c p" . projectile-command-map))
   :hook (after-init . projectile-mode)
   :config
   ;; global ignores
@@ -36,6 +37,8 @@
 (use-package helm-projectile
   :ensure t
   :after projectile
+  :bind (:map sej-mode-map
+              ("C-c C-f" . helm-projectile-fuzzy-match))
   :config
   (setq projectile-completion-system 'helm)
   ;; no fuzziness for projectile-helm
@@ -48,6 +51,13 @@
 (use-package grep
   :ensure t)
 
+(use-package emr
+  :ensure t
+  ;; Just hit M-RET to access your refactoring tools in any supported mode.
+  :bind (:map sej-mode-map
+              ("M-RET" . emr-show-refactor-menu))
+  :config
+  (add-hook 'prog-mode-hook 'emr-initialize))
 
 (provide 'init-projectile)
 ;;; init-projectile.el ends here
