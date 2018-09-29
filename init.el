@@ -139,11 +139,6 @@
   (use-package load-dir
     :ensure t)
 
-  ;; Use latest Org
-  (use-package org
-    ;;:pin org
-    :ensure org-plus-contrib)
-
   (use-package server
     :unless (memq window-system '(w32 pc nil))
     :functions server-running-p
