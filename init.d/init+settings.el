@@ -203,7 +203,7 @@
 
 ;; this makes forward-word & backward-word understand snake & camel case
 (setq c-subword-mode t)
-(global-subword-mode)
+(global-subword-mode t)
 
 ;; When popping the mark, continue popping until the cursor actually moves
 ;; Also, if the last command was a copy - skip past all the expand-region cruft.

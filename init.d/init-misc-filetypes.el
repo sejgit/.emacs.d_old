@@ -8,6 +8,7 @@
 ;; 2018 06 06 added JSON & web-mode etc from dotemacs/emacs.org at master · vidjuheffex/dotemacs
 ;; 2018 08 06 deleted init-js and added here js2-mode
 ;; 2018 08 07 fix rainbow-mode
+;; 2018 09 28 move rainbow-mode to init-appearance & add language server protocall
 
 ;;; Table of contents
 ;; arduino-mode
@@ -23,6 +24,7 @@
 ;; JSON-mode
 ;; js2-mode for javascript
 ;; web-mode with company-web emmet-mode rainbow-mode
+;; language server protocall
 
 
 ;;; Code:
@@ -66,9 +68,9 @@
 (use-package php-mode
   :ensure t
   :mode (("\\.module$" . php-mode)
-	 ("\\.inc$" . php-mode)
-	 ("\\.install$" . php-mode)
-	 ("\\.engine$" . php-mode)))
+	       ("\\.inc$" . php-mode)
+	       ("\\.install$" . php-mode)
+	       ("\\.engine$" . php-mode)))
 
 ;; textile markup editing major mode
 (use-package textile-mode
@@ -83,11 +85,9 @@
    ("\\.yaml$" . yaml-mode)))
 
 ;; JSON
-;; (use-package json-mode
-;;   :ensure t
-;;   :mode (("\\.json\\'" . json-mode)
-;;	 ("\\manifest.webapp\\'" . json-mode )
-;;       ("\\.tern-project\\'" . json-mode)))
+(use-package json-mode
+  :ensure t
+  :commands json-mode)
 
 ;; javascript
 (use-package js2-mode
@@ -142,16 +142,16 @@
   :ensure t
   :defines web-mode-enable-comment-keywords
   :mode (("\\.phtml\\'" . web-mode)
-	 ("\\.tpl\\.php\\'" . web-mode)
-	 ("\\.blade\\.php\\'" . web-mode)
-	 ("\\.jsp\\'" . web-mode)
-	 ("\\.as[cp]x\\'" . web-mode)
-	 ("\\.erb\\'" . web-mode)
-	 ("\\.html?\\'" . web-mode)
-	 ("\\.ejs\\'" . web-mode)
-	 ("\\.php\\'" . web-mode)
-	 ("\\.mustache\\'" . web-mode)
-	 ("/\\(views\\|html\\|theme\\|templates\\)/.*\\.php\\'" . web-mode))
+	       ("\\.tpl\\.php\\'" . web-mode)
+	       ("\\.blade\\.php\\'" . web-mode)
+	       ("\\.jsp\\'" . web-mode)
+	       ("\\.as[cp]x\\'" . web-mode)
+	       ("\\.erb\\'" . web-mode)
+	       ("\\.html?\\'" . web-mode)
+	       ("\\.ejs\\'" . web-mode)
+	       ("\\.php\\'" . web-mode)
+	       ("\\.mustache\\'" . web-mode)
+	       ("/\\(views\\|html\\|theme\\|templates\\)/.*\\.php\\'" . web-mode))
   :init
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-attr-indent-offset 2)
@@ -167,19 +167,34 @@
 (use-package company-web
   :ensure t
   :hook (web-mode . (lambda ()
-		      (add-to-list 'company-backends 'company-web-html)
-		      (add-to-list 'company-backends 'company-web-jade)
-		      (add-to-list 'company-backends 'company-web-slim))))
+		                  (add-to-list 'company-backends 'company-web-html)
+		                  (add-to-list 'company-backends 'company-web-jade)
+		                  (add-to-list 'company-backends 'company-web-slim))))
 
 (use-package emmet-mode
   :ensure t
   :hook (web-mode sgml-mode html-mode css-mode))
 
-(use-package rainbow-mode
+;; Basic lsp-mode config.
+;; Language modules will add their own lsp setup if this is loaded.
+(use-package lsp-mode
+  :ensure t)
+
+(with-eval-after-load "company"
+  (use-package company-lsp
+    :ensure t
+    :after lsp-mode
+    :config
+    (push 'company-lsp company-backends)))
+
+(use-package lsp-ui
   :ensure t
-  :defer 0.1
-  :pin gnu
-  :hook (after-init . rainbow-mode))
+  :after lsp-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :bind (:map lsp-ui-mode-map
+              ("M-." . lsp-ui-peek-find-definitions)
+              ("M-?" . lsp-ui-peek-find-references)))
+
 
 (provide 'init-misc-filetypes)
 ;;; init-misc-filetypes.el ends here

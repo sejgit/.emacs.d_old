@@ -38,6 +38,7 @@
 ;;            added simpleclip for better clipboard integration
 ;; 2018 09 24 changed RET behaviour to add newline-and-indent
 ;; 2018 09 26 change modifier keys for mac used in conjuction with karabiner & mac settings
+;; 2018 09 28 back to avy; add anzu for query replace
 
 ;;; Code:
 
@@ -234,6 +235,11 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "s-4") 'dired-other-frame)
 (define-key sej-mode-map (kbd "s-5") 'make-frame-command)
 (define-key sej-mode-map (kbd "s-6") 'delete-other-frames)
+(define-key sej-mode-map (kbd "s-7") (lambda () (interactive)
+                                       (save-excursion
+                                         (other-window 1)
+                                         (quit-window))))
+(define-key sej-mode-map (kbd "s-w") 'delete-frame)
 
 ;;added tips from pragmatic emacs
 (define-key sej-mode-map (kbd "C-x k") 'kill-this-buffer)
@@ -321,8 +327,17 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (global-set-key (kbd "M-W") 'cua-copy-to-global-mark)
 (global-set-key (kbd "C-S-w") 'cua-cut-to-global-mark)
 
-
-
+;; Display incremental search stats in the modeline.
+(use-package anzu
+  :ensure t
+  :config
+  (global-anzu-mode 1)
+  ;; Anzu provides a version of `query-replace' and friends which give visual
+  ;; feedback when composing regexps. Let's replace the regular versions.
+  :bind(("C-%" . anzu-query-replace-at-cursor)
+        ("M-%" . anzu-query-replace)
+        ("C-M-%" . anzu-query-replace-regexp))
+  :diminish anzu-mode)
 
 ;; framemove will move frames when at limits of current frame
 (use-package framemove
@@ -357,30 +372,33 @@ USAGE: (unbind-from-modi-map \"key f\")."
   )
 
 ;; efficient moving through search terms
-;; (use-package avy
-;;   :ensure t
-;;   :defines sej-mode-map
-;;   :bind (:map sej-mode-map
-;;        ("C-<return>" . avy-goto-word-1)))
+(use-package avy
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+              ("C-<return>" . avy-goto-word-1)
+              ("s-." . avy-goto-word-0)))
 
 ;; efficient moving around screen
-(use-package ace-jump-mode
-  :ensure t
-  :bind (:map sej-mode-map
-              ("C-c SPC" . ace-jump-word-mode)
-              ("C-u C-c SPC" . ace-jump-char-mode)
-              ("C-u C-u C-c SPC" . ace-jump-line-mode)
-              ("C-<return>" . ace-jump-char-mode)
-              ("C-S-<return>" . ace-jump-mode-pop-mark))
-  :config
-  (ace-jump-mode-enable-mark-sync))
+;; (use-package ace-jump-mode
+;;   :ensure t
+;;   :bind (:map sej-mode-map
+;;               ("C-c SPC" . ace-jump-word-mode)
+;;               ("C-u C-c SPC" . ace-jump-char-mode)
+;;               ("C-u C-u C-c SPC" . ace-jump-line-mode)
+;;               ("C-<return>" . ace-jump-char-mode)
+;;               ("C-S-<return>" . ace-jump-mode-pop-mark))
+;;   :config
+;;   (ace-jump-mode-enable-mark-sync))
 
 ;; for selecting a window to switch to
 (use-package ace-window
   :ensure t
   :bind (:map sej-mode-map
               ("M-o" . ace-window)
-              ("C-x M-o" . ace-swap-window)))
+              ("C-x M-o" . ace-swap-window))
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; crux - smart moving to beginning of line or to beginning of text on line
 (use-package crux

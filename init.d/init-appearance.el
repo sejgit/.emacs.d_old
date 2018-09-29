@@ -12,7 +12,7 @@
 ;; 2018 03 19 dimmer percent to fraction
 ;; 2018 07 22 try out eyeliner
 ;; 2018 09 24 some chai tips w/ ethan-wspace added
-
+;; 2018 09 28 moved rainbow-mode from init-misc-filetypes
 ;;; Code:
 
 (use-package ethan-wspace
@@ -109,6 +109,12 @@
    '(rainbow-delimiters-depth-8-face ((t (:foreground "gray" :height 1.0))))
    '(rainbow-delimiters-unmatched-face ((t (:background "cyan" :height 1.0))))
    ))
+
+(use-package rainbow-mode
+  :ensure t
+  :defer 0.1
+  :pin gnu
+  :hook (after-init . rainbow-mode))
 
 ;; show icons for modes
 (use-package mode-icons
