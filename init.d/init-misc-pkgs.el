@@ -45,6 +45,7 @@
 ;; 2018 07 02 add osx-dictionary to get definitions using built in osx dictionary
 ;; 2018 08 06 add paredit for use in js2 & json modes
 ;; 2018 08 07 add try to allow 'trying' a package
+;; 2018 09 27 update of which-key ohai tip
 
 ;;; Code:
 
@@ -64,10 +65,13 @@
 
 (use-package which-key
   :ensure t
+  :demand t
   :hook (after-init . which-key-mode)
+  :commands which-key-mode
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("C-h C-m" . which-key-show-major-mode))
+	            ("C-h C-m" . which-key-show-major-mode)
+              ("C-h C-k" . which-key-show-top-level))
   :config
   (which-key-setup-minibuffer))
 
@@ -82,7 +86,7 @@
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist
-	(quote (("" . "~/.local/emacs/undo_hist")))))
+	      (quote (("" . "~/.local/emacs/undo_hist")))))
 
 ;; expand selection region larger & smaller
 (use-package expand-region
