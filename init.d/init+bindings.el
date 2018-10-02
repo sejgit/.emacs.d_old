@@ -39,6 +39,7 @@
 ;; 2018 09 24 changed RET behaviour to add newline-and-indent
 ;; 2018 09 26 change modifier keys for mac used in conjuction with karabiner & mac settings
 ;; 2018 09 28 back to avy; add anzu for query replace
+;; 2018 10 02 PC keyboard modifer set-up
 
 ;;; Code:
 
@@ -50,12 +51,14 @@
 ;; make cmd key do Meta
 
 ;; make PC keyboard's
-;; tab do hyper (scroll lock to hyper using external autokey)
-;; Left control key do super (assigned to apps using external autokey)
-;; Left Windows key kept for windows due to win10 taking many keys
-;; Alt key is meta
-;; Rwin is alt (not used in current laptop)
-;; RAlt key ends up with M-s combo (assigned to apps through external autokey)
+;; CapsLock::LControl through AutoHotkeys
+;; scroll lock do hyper (tab to scroll lock using AutoHotkeys)
+;; Left control key do super (LControl::Appskey using AutoHotkeys)
+;; Left Windows left alone due to win10 taking many keys
+;; LAlt::Esc and therefore effectively Meta (LAlt::Esc using AutoHotkeys)
+;; RAlt is left as Alt modifier
+;; Rwin is Alt (not used in current laptop)
+;; NOTE: only negative of this set-up is LAlt as Esc -> Meta is awkward push & release
 
 ;; check OS type
 (cond
@@ -64,13 +67,16 @@
     (message "Microsoft Windows")
     (setq
      w32-pass-lwindow-to-system t
-     ;;w32-lwindow-modifier 'alt
+     w32-recognize-altgr nil
+     W32-enable-caps-lock nil
      w32-pass-rwindow-to-system nil
-     w32-rwindow-modifier 'alt
+     w32-rwindow-modifier 'meta
      w32-apps-modifier 'super
      w32-pass-alt-to-system nil
-     w32-alt-is-meta t
+     w32-alt-is-meta nil
      w32-scroll-lock-modifier 'hyper)
+    (w32-register-hot-key [A-])
+
     (setenv "PATH"
             (mapconcat
              #'identity exec-path path-separator))

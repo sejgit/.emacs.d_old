@@ -189,6 +189,7 @@
 
 (use-package lsp-ui
   :ensure t
+  :quelpa (lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui")
   :after lsp-mode
   :hook (lsp-mode . lsp-ui-mode)
   :bind (:map lsp-ui-mode-map

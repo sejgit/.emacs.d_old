@@ -35,12 +35,12 @@
    vc-git-mode-line-string)
   :bind
   (:map sej-mode-map
-	("<f12>" . magit-status)
-	("C-x g" . magit-status)
-	("C-x M-g" . magit-dispatch-popup)
-	:map magit-status-mode-map
-	("C-M-<up>" . magit-section-up)
-	("q" . magit-quit-session))
+	      ("<f12>" . magit-status)
+	      ("C-x g" . magit-status)
+	      ("C-x M-g" . magit-dispatch-popup)
+	      :map magit-status-mode-map
+	      ("C-M-<up>" . magit-section-up)
+	      ("q" . magit-quit-session))
   :config
 
   ;; force magit to open in one window in the current frame when called
@@ -72,18 +72,18 @@
   (defun sej/remove-nth-element (nth list)
     (if (zerop nth) (cdr list)
       (let ((last (nthcdr (1- nth) list)))
-	(setcdr last (cddr last))
-	list)))
+	      (setcdr last (cddr last))
+	      list)))
 
   (defun sej/dashboard-fix-registers nil
     "My fix to cleanse the register-alist of magit-fullscreen return info"
     (interactive)
     (let ((count (safe-length register-alist)))
       (while (>= count 0)
-	(if (equal :magit-fullscreen (-first-item (nth count register-alist)))
-	    (setq register-alist (sej/remove-nth-element count register-alist))
-	  )
-	(setq count (- count 1)))))
+	      (if (equal :magit-fullscreen (-first-item (nth count register-alist)))
+	          (setq register-alist (sej/remove-nth-element count register-alist))
+	        )
+	      (setq count (- count 1)))))
 
 
   (setq-default magit-diff-refine-hunk t)
@@ -97,7 +97,20 @@
     (let ((str (apply orig-fn args)))
       (concat [#xF1D3] ":" (substring-no-properties str 4))))
 
-  (advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)  )
+  (advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)
+
+  ;; WORKAROUND https://github.com/magit/magit/issues/2395
+  (define-derived-mode magit-staging-mode magit-status-mode "Magit staging"
+    "Mode for showing staged and unstaged changes."
+    :group 'magit-status)
+  (defun magit-staging-refresh-buffer ()
+    (magit-insert-section (status)
+      (magit-insert-untracked-files)
+      (magit-insert-unstaged-changes)
+      (magit-insert-staged-changes)))
+  (defun magit-staging ()
+    (interactive)
+    (magit-mode-setup #'magit-staging-mode)))
 
 ;; M-x git-blamed-mode to turn on view with commits
 (use-package git-blamed
