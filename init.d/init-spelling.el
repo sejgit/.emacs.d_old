@@ -11,7 +11,8 @@
 ;; 2017 08 24 change to when statements from writequite.org
 ;; 2017 09 01 map to sej-mode-map, clean up comments
 ;; 2017 09 03 add Synosaurus as another Thesaurus option
-
+;; 2018 10 04 remove thesaurus & synosaurus for powerthesaurus (no key required)
+;; 2018 10 04 add define-word
 
 ;;; Code:
 
@@ -60,28 +61,42 @@
   (setq flyspell-issue-welcome-flag nil)
   (setq-default ispell-list-command "list"))
 
-;; thesaurus set-up requires apikey
-;; note see below for synosaurus setup
-(use-package thesaurus
-  :load-path "lisp"
-  :defines sej-mode-map
-  :bind (:map sej-mode-map
-              ("C-x t" . thesaurus-choose-synonym-and-replace))
-  :config
-  (thesaurus-set-bhl-api-key-from-file "~/.ssh/BigHugeLabs.apikey.txt"))
+;; ;; thesaurus set-up requires apikey
+;; ;; note see below for synosaurus setup
+;; (use-package thesaurus
+;;   :load-path "lisp"
+;;   :defines sej-mode-map
+;;   :bind (:map sej-mode-map
+;;               ("C-x t" . thesaurus-choose-synonym-and-replace))
+;;   :config
+;;   (thesaurus-set-bhl-api-key-from-file "~/.ssh/BigHugeLabs.apikey.txt"))
 
-;; synaurus is bound to C-c s l for lookup or r for replace adding H-t
-;; note requires installation of wordnet
-(use-package synosaurus
+;; ;; synaurus is bound to C-c s l for lookup or r for replace adding H-t
+;; ;; note requires installation of wordnet
+;; (use-package synosaurus
+;;   :ensure t
+;;   :defines sej-mode-map
+;;   :hook (text-mode . synosaurus-mode)
+;;   :bind (:map sej-mode-map
+;;               ("H-t" . synosaurus-lookup)
+;;               ("C-c s l" . synosaurus-lookup)
+;;               ("C-c s r" . synosaurus-choose-and-replace))
+;;   :config
+;;   (setq-default synosaurus-backend 'synosaurus-backend-wordnet))
+
+;; PowerThesaurus
+(use-package powerthesaurus
   :ensure t
-  :defines sej-mode-map
-  :hook (text-mode . synosaurus-mode)
   :bind (:map sej-mode-map
-              ("H-t" . synosaurus-lookup)
-              ("C-c s l" . synosaurus-lookup)
-              ("C-c s r" . synosaurus-choose-and-replace))
-  :config
-  (setq-default synosaurus-backend 'synosaurus-backend-wordnet))
+              ("C-c s t" . powerthesaurus-lookup-word-dwim)
+              ("s-|" . powerthesaurus-lookup-word-dwim)))
+
+;; Word Definition search
+(use-package define-word
+  :ensure t
+  :bind (:map sej-mode-map
+              ("C-c s w" . define-word-at-point)
+              ("s-\\" . define-word-at-point)))
 
 
 (provide 'init-spelling)
