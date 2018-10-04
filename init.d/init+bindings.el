@@ -199,7 +199,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "H-h") 'ns-do-hide-emacs)
 (define-key sej-mode-map (kbd "H-H") 'ns-do-hide-others)
 (define-key sej-mode-map (kbd "H-e") 'eshell)
-(define-key sej-mode-map (kbd "H-f") 'helm-flycheck) ;;defined just here for ref
+(define-key sej-mode-map (kbd "H-f") 'helm-flycheck) ;;defined here for ref
 
 ;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
@@ -207,13 +207,15 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "<H-return>") 'eval-buffer)
 (define-key sej-mode-map (kbd "<A-return>") 'eval-buffer) ;; H-ret issues with mac
 (define-key sej-mode-map (kbd "s-r") 'jump-to-register)
-(define-key sej-mode-map (kbd "s-b") 'helm-mini) ;; defined just here for ref
+(define-key sej-mode-map (kbd "s-b") 'helm-mini) ;; defined here for ref
 (define-key sej-mode-map (kbd "s-i") 'emacs-init-time)
-(define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined just here for ref
-(define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined just here for ref
-(define-key sej-mode-map (kbd "s-[") 'flycheck-previous-error) ;; defined just here for ref
-(define-key sej-mode-map (kbd "s-]") 'flycheck-next-error) ;; defined just here for ref
-(define-key sej-mode-map (kbd "s-f") 'flycheck-list-errors) ;; defined just here for ref
+(define-key sej-mode-map (kbd "s-s") 'save-buffer) ;; defined here for ref
+(define-key sej-mode-map (kbd "s-q") 'save-buffers-kill-emacs) ;; defined here for ref
+(define-key sej-mode-map (kbd "s-[") 'flycheck-previous-error) ;; defined here for ref
+(define-key sej-mode-map (kbd "s-]") 'flycheck-next-error) ;; defined here for ref
+(define-key sej-mode-map (kbd "s-f") 'flycheck-list-errors) ;; defined here for ref
+(define-key sej-mode-map (kbd "s-//") 'define-word-at-point) ;; defined here for ref
+(define-key sej-mode-map (kbd "s-|") 'powerthesaurus-lookup-word-dwim) ;; defined here for ref
 
 ;; toggle two most recent buffers
 (fset 'quick-switch-buffer [?\C-x ?b return])

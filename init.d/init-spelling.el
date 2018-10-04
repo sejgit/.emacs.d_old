@@ -13,6 +13,7 @@
 ;; 2017 09 03 add Synosaurus as another Thesaurus option
 ;; 2018 10 04 remove thesaurus & synosaurus for powerthesaurus (no key required)
 ;; 2018 10 04 add define-word
+;; 2018 10 04 flyspell mouse-map adds
 
 ;;; Code:
 
@@ -27,6 +28,9 @@
         ("M-<f8>" . flyspell-check-next-highlighted-word))
   :hook (text-mode . flyspell-mode)
   :config
+  (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word) ;;for mac
+  (define-key flyspell-mouse-map [mouse-3] #'undefined)
+
   (setq ispell-personal-dictionary "~/sej.ispell")
 
   ;; Mostly taken from
@@ -41,6 +45,7 @@
   ;; hunspell
   (when (executable-find "hunspell")
     (setq ispell-program-name (executable-find "hunspell"))
+    (setq ispell-really-hunspell t)
     (setq ispell-extra-args '("-d en_CA"
                               "-p ~/.flydict")))
 
@@ -60,29 +65,6 @@
     (ispell-word))
   (setq flyspell-issue-welcome-flag nil)
   (setq-default ispell-list-command "list"))
-
-;; ;; thesaurus set-up requires apikey
-;; ;; note see below for synosaurus setup
-;; (use-package thesaurus
-;;   :load-path "lisp"
-;;   :defines sej-mode-map
-;;   :bind (:map sej-mode-map
-;;               ("C-x t" . thesaurus-choose-synonym-and-replace))
-;;   :config
-;;   (thesaurus-set-bhl-api-key-from-file "~/.ssh/BigHugeLabs.apikey.txt"))
-
-;; ;; synaurus is bound to C-c s l for lookup or r for replace adding H-t
-;; ;; note requires installation of wordnet
-;; (use-package synosaurus
-;;   :ensure t
-;;   :defines sej-mode-map
-;;   :hook (text-mode . synosaurus-mode)
-;;   :bind (:map sej-mode-map
-;;               ("H-t" . synosaurus-lookup)
-;;               ("C-c s l" . synosaurus-lookup)
-;;               ("C-c s r" . synosaurus-choose-and-replace))
-;;   :config
-;;   (setq-default synosaurus-backend 'synosaurus-backend-wordnet))
 
 ;; PowerThesaurus
 (use-package powerthesaurus
