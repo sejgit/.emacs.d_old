@@ -207,6 +207,14 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "H-H") 'ns-do-hide-others)
 (define-key sej-mode-map (kbd "H-e") 'eshell)
 (define-key sej-mode-map (kbd "H-f") 'helm-flycheck) ;;defined just here for ref
+(define-key sej-mode-map (kbd "C-c g") 'google-this) ;; defined just here for ref
+(define-key sej-mode-map (kbd "H-g") 'google-this) ;; defined just here for ref
+(define-key sej-mode-map (kbd "C-x G") 'gist-list) ;; defined just here for ref
+(define-key sej-mode-map (kbd "H-G") 'gist-list) ;; defined just here for ref
+(define-key sej-mode-map (kbd "C-x M") 'git-messenger:popup-message) ;; defined just here for ref
+(define-key sej-mode-map (kbd "H-m") 'git-messenger:popup-message) ;; defined just here for ref
+(define-key sej-mode-map (kbd "C-h SPC") 'helm-all-mark-rings) ;; defined just here for ref
+(define-key sej-mode-map (kbd "H-SPC") 'helm-all-mark-rings) ;; defined just here for ref
 
 ;; use super for action type stuff
 ;; some lisp stuff from Getting Started with Emacs Lisp
@@ -221,6 +229,47 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "s-[") 'flycheck-previous-error) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-]") 'flycheck-next-error) ;; defined just here for ref
 (define-key sej-mode-map (kbd "s-f") 'flycheck-list-errors) ;; defined just here for ref
+(define-key sej-mode-map (kbd "s-w") 'delete-frame)
+
+(define-key sej-mode-map (kbd "s-0") 'delete-window)
+(define-key sej-mode-map (kbd "s-1") 'delete-other-windows)
+(define-key sej-mode-map (kbd "s-2") 'split-window-vertically)
+(define-key sej-mode-map (kbd "s-3") 'split-window-right)
+(define-key sej-mode-map (kbd "s-4") 'dired-other-frame)
+(define-key sej-mode-map (kbd "s-5") 'make-frame-command)
+(define-key sej-mode-map (kbd "s-6") 'delete-other-frames)
+(define-key sej-mode-map (kbd "s-7") (lambda () (interactive)
+                                       (save-excursion
+                                         (other-window 1)
+                                         (quit-window))))
+
+;; wind move built in package (default bindins are S-<cursor>)
+;;  (windmove-default-keybindings)) ;; Shift + direction
+;; winner-mode is to undo & redo windows with C-c left and C-c right
+(when (fboundp 'winner-mode)
+  (winner-mode t))
+(define-key sej-mode-map (kbd "s-h") 'windmove-left)
+(define-key sej-mode-map (kbd "s-l") 'windmove-right)
+(define-key sej-mode-map (kbd "s-k") 'windmove-up)
+(define-key sej-mode-map (kbd "s-j") 'windmove-down)
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
+;; File & buffer finding
+(define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
+(define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
+(define-key sej-mode-map (kbd "C-c y") 'bury-buffer)
+(define-key sej-mode-map (kbd "s-y") 'bury-buffer)
+(define-key sej-mode-map (kbd "C-c r") 'revert-buffer)
+(define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
+(define-key sej-mode-map (kbd "s-n") 'bs-cycle-next)
+(define-key sej-mode-map (kbd "s-p") 'bs-cycle-previous)
+(define-key sej-mode-map (kbd "C-c b") 'sej/create-scratch-buffer) ; defined below
+(define-key sej-mode-map (kbd "C-c s s") 'sej/create-scratch-buffer) ; defined below
+(define-key sej-mode-map (kbd "C-c <tab>") 'sej/indent-buffer) ; defined below
 
 ;; toggle two most recent buffers
 (fset 'quick-switch-buffer [?\C-x ?b return])
@@ -240,19 +289,6 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
 (define-key sej-mode-map (kbd "C-x g") 'magit-status)
-
-(define-key sej-mode-map (kbd "s-0") 'delete-window)
-(define-key sej-mode-map (kbd "s-1") 'delete-other-windows)
-(define-key sej-mode-map (kbd "s-2") 'split-window-vertically)
-(define-key sej-mode-map (kbd "s-3") 'split-window-right)
-(define-key sej-mode-map (kbd "s-4") 'dired-other-frame)
-(define-key sej-mode-map (kbd "s-5") 'make-frame-command)
-(define-key sej-mode-map (kbd "s-6") 'delete-other-frames)
-(define-key sej-mode-map (kbd "s-7") (lambda () (interactive)
-                                       (save-excursion
-                                         (other-window 1)
-                                         (quit-window))))
-(define-key sej-mode-map (kbd "s-w") 'delete-frame)
 
 ;;added tips from pragmatic emacs
 (define-key sej-mode-map (kbd "C-x k") 'kill-this-buffer)
@@ -275,39 +311,12 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; Align your code in a pretty way.
 (define-key sej-mode-map (kbd "C-x \\") 'align-regexp)
 
-;; File & buffer finding
-(define-key sej-mode-map (kbd "C-x C-M-f") 'find-file-in-project)
-(define-key sej-mode-map (kbd "C-c y") 'bury-buffer)
-(define-key sej-mode-map (kbd "s-y") 'bury-buffer)
-(define-key sej-mode-map (kbd "C-c r") 'revert-buffer)
-(define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
-(define-key sej-mode-map (kbd "s-n") 'bs-cycle-next)
-(define-key sej-mode-map (kbd "s-p") 'bs-cycle-previous)
-(define-key sej-mode-map (kbd "C-c b") 'sej/create-scratch-buffer) ; defined below
-(define-key sej-mode-map (kbd "C-c s s") 'sej/create-scratch-buffer) ; defined below
-(define-key sej-mode-map (kbd "C-c <tab>") 'sej/indent-buffer) ; defined below
-
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
 (global-set-key (kbd "M-t l") 'transpose-lines)
 (global-set-key (kbd "M-t w") 'transpose-words)
 (global-set-key (kbd "M-t s") 'transpose-sexps)
 (global-set-key (kbd "M-t p") 'transpose-params)
-
-;; wind move built in package (default bindins are S-<cursor>)
-;;  (windmove-default-keybindings)) ;; Shift + direction
-;; winner-mode is to undo & redo windows with C-c left and C-c right
-(when (fboundp 'winner-mode)
-  (winner-mode t))
-(define-key sej-mode-map (kbd "s-h")         'windmove-left)
-(define-key sej-mode-map (kbd "s-l")         'windmove-right)
-(define-key sej-mode-map (kbd "s-k")         'windmove-up)
-(define-key sej-mode-map (kbd "s-j")         'windmove-down)
-;; Make windmove work in org-mode:
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;; push and jump to mark functions
 ;; (defined in init-misc-defuns.el)
@@ -321,7 +330,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 ;; number lines with rectangle defined in init-writing.el
 (define-key sej-mode-map (kbd "C-x r N") 'number-rectangle)
 
-;; line numbers when using goto-line s-l or M-g M-g or M-g g
+;; line numbers when using goto-line M-g M-g or M-g g
 ;; (defined in init-misc-defuns.el)
 (global-set-key [remap goto-line] 'sej/goto-line-with-feedback)
 
