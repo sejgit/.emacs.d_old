@@ -29,6 +29,7 @@
 ;; 2018 08 15 adds for windows set-up
 ;; 2018 09 04 udate for initial frame
 ;; 2018 09 27 remove server for pc based
+;; 2018 10 05 cleanup unused packages
 
 ;;; Code:
 
@@ -189,13 +190,6 @@
   ;; The EMACS environment variable being set to the binary path of emacs.
   (setenv "EMACS"
           (file-truename (expand-file-name invocation-name invocation-directory)))
-
-  ;; The packages in this section provide no functionality on their own,
-  ;; but provide support for writing custom elisp.
-  (use-package f)
-  (use-package s)
-  (use-package dash
-    :config (dash-enable-font-lock))
 
   ;; load files from init.d
   ;; check OS type
