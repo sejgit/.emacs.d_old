@@ -57,10 +57,10 @@
 ;; scroll lock do hyper (tab to scroll lock using AutoHotkeys)
 ;; Left control key do super (LControl::Appskey using AutoHotkeys)
 ;; Left Windows left alone due to win10 taking many keys
-;; LAlt::Esc and therefore effectively Meta (LAlt::Esc using AutoHotkeys)
-;; RAlt is left as Alt modifier
+;; LAlt::Meta
+;; RAlt::Alt modifier (RAlt::NumLock using Autohotkeys) **only works as tap & release
 ;; Rwin is Alt (not used in current laptop)
-;; NOTE: only negative of this set-up is LAlt as Esc -> Meta is awkward push & release
+;; NOTE: only negative of this set-up is RAlt as numlock -> Alt is awkward push & release
 
 ;; check OS type
 (cond
@@ -74,10 +74,12 @@
      w32-pass-rwindow-to-system nil
      w32-rwindow-modifier 'meta
      w32-apps-modifier 'super
-     w32-pass-alt-to-system nil
-     w32-alt-is-meta nil
-     w32-scroll-lock-modifier 'hyper)
+     w32-pass-alt-to-system t
+     w32-alt-is-meta t
+     w32-scroll-lock-modifier 'hyper
+     w32-enable-num-lock nil)
     (w32-register-hot-key [A-])
+    (define-key function-key-map (kbd "<kp-numlock>") 'event-apply-alt-modifier)
 
     (setenv "PATH"
             (mapconcat
