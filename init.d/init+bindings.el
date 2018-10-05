@@ -41,6 +41,7 @@
 ;; 2018 09 28 back to avy; add anzu for query replace
 ;; 2018 10 02 PC keyboard modifer set-up
 ;; 2018 10 04 comment out cua global mark mode as not often used
+;;            use Alt for some special characters
 
 ;;; Code:
 
@@ -175,15 +176,20 @@ USAGE: (unbind-from-modi-map \"key f\")."
      ,@body))
 
 (global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "H-l") (λ (insert "\u03bb")))
-(global-set-key (kbd "C-x 8 l") (λ (insert "\u03bb")))
-;; More neat bindings for C-x 8
-(global-set-key (kbd "C-x 8 t m") (λ (insert "™")))
-(global-set-key (kbd "C-x 8 C") (λ (insert "©")))
-(global-set-key (kbd "C-x 8 - >") (λ (insert "→")))
-(global-set-key (kbd "C-x 8 8") (λ (insert "∞")))
-(global-set-key (kbd "C-x 8 v") (λ (insert "✓")))
 
+;; Neat bindings for C-x 8 ; put some Alt bindins there for fun as well
+(global-set-key (kbd "C-x 8 l") (λ (insert "\u03bb")))
+(global-set-key (kbd "A-L") (λ (insert "\u03bb")))
+(global-set-key (kbd "C-x 8 t m") (λ (insert "™")))
+(global-set-key (kbd "A-T") (λ (insert "™")))
+(global-set-key (kbd "C-x 8 C") (λ (insert "©")))
+(global-set-key (kbd "A-C") (λ (insert "©")))
+(global-set-key (kbd "C-x 8 >") (λ (insert "→")))
+(global-set-key (kbd "A->") (λ (insert "→")))
+(global-set-key (kbd "C-x 8 8") (λ (insert "∞")))
+(global-set-key (kbd "A-8") (λ (insert "∞")))
+(global-set-key (kbd "C-x 8 v") (λ (insert "✓")))
+(global-set-key (kbd "A-V") (λ (insert "✓")))
 
 ;; unset C- and M- digit keys
 (dotimes (n 10)
