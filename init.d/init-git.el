@@ -22,8 +22,8 @@
   :defines sej-mode-map
   :bind
   (:map sej-mode-map
-	      ("C-M-g" . gist-list)
-	      ("H-g" . gist-list)))
+	      ("C-x G" . gist-list)
+	      ("H-G" . gist-list)))
 
 ;; git on Emacs https://github.com/magit/magit
 (use-package magit
@@ -152,8 +152,8 @@
   :bind
   ;; Though see also vc-annotate's "n" & "p" bindings
   (:map sej-mode-map
-	("C-c s p" . git-messenger:popup-message)
-	("s-m" . git-messenger:popup-message)))
+	      ("C-x M" . git-messenger:popup-message)
+	      ("H-m" . git-messenger:popup-message)))
 
 ;; easy way to clone a github M-x github-clone (respository directory)
 (use-package github-clone

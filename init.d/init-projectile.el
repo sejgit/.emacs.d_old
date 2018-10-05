@@ -11,6 +11,8 @@
 ;; 2018 03 19 move helm-projectile to helm init file
 ;; 2018 08 28 updates for projectile
 ;; 2018 09 28 add redundant bind for helm-projectile
+;; 2018 10 04 helm-projectile only in init-ido-ivy-helm
+
 ;;; Code:
 
 (use-package projectile
@@ -33,17 +35,6 @@
   (add-to-list 'projectile-globally-ignored-file-suffixes ".class")
   (setq projectile-project-search-path '("~/Projects/" "~/" "~/Documents/"))
   )
-
-(use-package helm-projectile
-  :ensure t
-  :after projectile
-  :bind (:map sej-mode-map
-              ("C-c C-f" . helm-projectile-fuzzy-match))
-  :config
-  (setq projectile-completion-system 'helm)
-  ;; no fuzziness for projectile-helm
-  (setq helm-projectile-fuzzy-match nil)
-  (helm-projectile-on))
 
 (use-package helm-ag
   :ensure t)
