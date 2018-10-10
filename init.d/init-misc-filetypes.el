@@ -194,9 +194,12 @@
   :after lsp-mode
   :hook (lsp-mode . lsp-ui-mode)
   :bind (:map lsp-ui-mode-map
-              ("M-." . lsp-ui-peek-find-definitions)
-              ("M-?" . lsp-ui-peek-find-references)))
+              ("C-." . lsp-ui-peek-find-definitions)
+              ("C-?" . lsp-ui-peek-find-references)
+              ("C-c C-j" . lsp-ui-imenu)
+              ("C-'" . lsp-ui-imenu)
+              ))
 
 
-(provide 'init-misc-filetypes)
+  (provide 'init-misc-filetypes))
 ;;; init-misc-filetypes.el ends here

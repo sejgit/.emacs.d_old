@@ -39,9 +39,8 @@
 (use-package lsp-python
   :ensure t
   :after lsp-mode
-  :hook (python-mode . #'lsp-python-enable)
   :init
-  (setq-default python-backend lsp)
+  (add-hook 'python-mode-hook  #'lsp-python-enable)
   (lsp-define-stdio-client lsp-python "python"
 			                     (lsp-make-traverser #'(lambda (dir)
 						                                       (not (directory-files
