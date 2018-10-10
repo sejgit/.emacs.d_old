@@ -178,14 +178,15 @@
 ;; Basic lsp-mode config.
 ;; Language modules will add their own lsp setup if this is loaded.
 (use-package lsp-mode
-  :ensure t)
+  :ensure t
+  )
 
-(with-eval-after-load "company"
-  (use-package company-lsp
-    :ensure t
-    :after lsp-mode
-    :config
-    (push 'company-lsp company-backends)))
+(use-package company-lsp
+  :ensure t
+  :after company
+  :after lsp-mode
+  :config
+  (push 'company-lsp company-backends))
 
 (use-package lsp-ui
   :ensure t
