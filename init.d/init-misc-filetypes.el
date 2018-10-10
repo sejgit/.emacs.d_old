@@ -197,9 +197,9 @@
               ("C-." . lsp-ui-peek-find-definitions)
               ("C-?" . lsp-ui-peek-find-references)
               ("C-c C-j" . lsp-ui-imenu)
-              ("C-'" . lsp-ui-imenu)
+              ("C-\'" . lsp-ui-imenu)
               ))
 
 
-  (provide 'init-misc-filetypes))
+  (provide 'init-misc-filetypes)
 ;;; init-misc-filetypes.el ends here
