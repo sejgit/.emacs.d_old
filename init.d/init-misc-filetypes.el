@@ -10,7 +10,9 @@
 ;; 2018 08 07 fix rainbow-mode
 ;; 2018 09 28 move rainbow-mode to init-appearance & add language server protocall
 
+
 ;;; Table of contents
+;; language server protocall
 ;; arduino-mode
 ;; batch-mode
 ;; conf-mode
@@ -24,10 +26,35 @@
 ;; JSON-mode
 ;; js2-mode for javascript
 ;; web-mode with company-web emmet-mode rainbow-mode
-;; language server protocall
 
 
 ;;; Code:
+
+
+;; Basic lsp-mode config.
+;; Language modules will add their own lsp setup if this is loaded.
+(use-package lsp-mode
+  :ensure t
+  )
+
+(use-package company-lsp
+  :ensure t
+  :after company
+  :after lsp-mode
+  :config
+  (push 'company-lsp company-backends))
+
+(use-package lsp-ui
+  :ensure t
+  :quelpa (lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui")
+  :after lsp-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :bind (:map lsp-ui-mode-map
+              ("C-." . lsp-ui-peek-find-definitions)
+              ("C-?" . lsp-ui-peek-find-references)
+              ("C-c C-j" . lsp-ui-imenu)
+              ("C-\'" . lsp-ui-imenu)
+              ))
 
 ;; arduino-mode
 (use-package arduino-mode
@@ -175,31 +202,6 @@
   :ensure t
   :hook (web-mode sgml-mode html-mode css-mode))
 
-;; Basic lsp-mode config.
-;; Language modules will add their own lsp setup if this is loaded.
-(use-package lsp-mode
-  :ensure t
-  )
 
-(use-package company-lsp
-  :ensure t
-  :after company
-  :after lsp-mode
-  :config
-  (push 'company-lsp company-backends))
-
-(use-package lsp-ui
-  :ensure t
-  :quelpa (lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui")
-  :after lsp-mode
-  :hook (lsp-mode . lsp-ui-mode)
-  :bind (:map lsp-ui-mode-map
-              ("C-." . lsp-ui-peek-find-definitions)
-              ("C-?" . lsp-ui-peek-find-references)
-              ("C-c C-j" . lsp-ui-imenu)
-              ("C-\'" . lsp-ui-imenu)
-              ))
-
-
-  (provide 'init-misc-filetypes)
+(provide 'init-misc-filetypes)
 ;;; init-misc-filetypes.el ends here
