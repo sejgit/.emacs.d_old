@@ -88,11 +88,6 @@
   :ensure t
   :hook (after-init . company-statistics-mode))
 
-(use-package company-jedi
-  :ensure t
-  :after company
-  :config (add-to-list 'company-backends 'company-jedi))
-
 (use-package company-try-hard
   :commands company-try-hard
   :bind ("C-\\" . company-try-hard)

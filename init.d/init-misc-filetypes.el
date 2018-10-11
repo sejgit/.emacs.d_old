@@ -9,12 +9,10 @@
 ;; 2018 08 06 deleted init-js and added here js2-mode
 ;; 2018 08 07 fix rainbow-mode
 ;; 2018 09 28 move rainbow-mode to init-appearance & add language server protocall
+;; 2018 10 10 move out LSP to init-languages.el will move more out later
 
 
 ;;; Table of contents
-;; language server protocall
-;; arduino-mode
-;; batch-mode
 ;; conf-mode
 ;; crontab-mode
 ;; csv-mode
@@ -25,48 +23,9 @@
 ;; yaml-mode
 ;; JSON-mode
 ;; js2-mode for javascript
-;; web-mode with company-web emmet-mode rainbow-mode
 
 
 ;;; Code:
-
-
-;; Basic lsp-mode config.
-;; Language modules will add their own lsp setup if this is loaded.
-(use-package lsp-mode
-  :ensure t
-  )
-
-(use-package company-lsp
-  :ensure t
-  :after company
-  :after lsp-mode
-  :config
-  (push 'company-lsp company-backends))
-
-(use-package lsp-ui
-  :ensure t
-  :quelpa (lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui")
-  :after lsp-mode
-  :hook (lsp-mode . lsp-ui-mode)
-  :bind (:map lsp-ui-mode-map
-              ("C-." . lsp-ui-peek-find-definitions)
-              ("C-?" . lsp-ui-peek-find-references)
-              ("C-c C-j" . lsp-ui-imenu)
-              ("C-\'" . lsp-ui-imenu)
-              ))
-
-;; arduino-mode
-(use-package arduino-mode
-  :ensure t
-  :mode "\\.ino$"
-  :config
-  (setq arduino-mode-home "/Users/stephenjenkins/Projects/sej/Arduino")
-  (setq arduino-executable "/Applications/Arduino.app/Contents/MacOS/Arduino"))
-
-(use-package batch-mode
-  :load-path "lisp/batch-mode"
-  :mode "\\.bat\\'")
 
 ;; major mode for editing conf/ini/properties files
 (use-package conf-mode
@@ -164,43 +123,6 @@
     (use-package company-tern
       :config
       (add-to-list 'company-backends 'company-tern))))
-
-(use-package web-mode
-  :ensure t
-  :defines web-mode-enable-comment-keywords
-  :mode (("\\.phtml\\'" . web-mode)
-	       ("\\.tpl\\.php\\'" . web-mode)
-	       ("\\.blade\\.php\\'" . web-mode)
-	       ("\\.jsp\\'" . web-mode)
-	       ("\\.as[cp]x\\'" . web-mode)
-	       ("\\.erb\\'" . web-mode)
-	       ("\\.html?\\'" . web-mode)
-	       ("\\.ejs\\'" . web-mode)
-	       ("\\.php\\'" . web-mode)
-	       ("\\.mustache\\'" . web-mode)
-	       ("/\\(views\\|html\\|theme\\|templates\\)/.*\\.php\\'" . web-mode))
-  :init
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-attr-indent-offset 2)
-  (setq web-mode-attr-value-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-enable-auto-closing t)
-  (setq web-mode-enable-auto-pairing t)
-  (setq web-mode-enable-comment-keywords t)
-  (setq web-mode-enable-current-element-highlight t))
-
-(use-package company-web
-  :ensure t
-  :hook (web-mode . (lambda ()
-		                  (add-to-list 'company-backends 'company-web-html)
-		                  (add-to-list 'company-backends 'company-web-jade)
-		                  (add-to-list 'company-backends 'company-web-slim))))
-
-(use-package emmet-mode
-  :ensure t
-  :hook (web-mode sgml-mode html-mode css-mode))
 
 
 (provide 'init-misc-filetypes)
