@@ -10,7 +10,7 @@
 ;; 2018 08 07 fix rainbow-mode
 ;; 2018 09 28 move rainbow-mode to init-appearance & add language server protocall
 ;; 2018 10 10 move out LSP to init-languages.el will move more out later
-
+;; 2018 10 10 move out arduino, html to init-languages
 
 ;;; Table of contents
 ;; conf-mode
@@ -22,7 +22,7 @@
 ;; textile-mode
 ;; yaml-mode
 ;; JSON-mode
-;; js2-mode for javascript
+
 
 
 ;;; Code:
