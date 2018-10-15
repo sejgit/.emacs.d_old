@@ -15,6 +15,9 @@
 ;; 2018 06 06 add company-jedi (not sure of interactions)
 ;; 2018 10 09 some changes to work with language-server-protocall
 ;; 2018 10 10 changed to init-languages.el to hold all lsp type stuff
+;; 2018 10 15 lsp added for c modes, html modes, css, python, bash/sh
+;;            TODO: add for java, js
+
 
 ;;; Code:
 
@@ -37,7 +40,8 @@
   :ensure t
   :quelpa (lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui")
   :after lsp-mode
-  :hook (lsp-mode . lsp-ui-mode)
+  :hook ((lsp-mode . lsp-ui-mode)
+         (lsp-after-open . lsp-enable-imenu))
   :bind (:map lsp-ui-mode-map
               ("C-." . lsp-ui-peek-find-definitions)
               ("C-?" . lsp-ui-peek-find-references)
@@ -60,6 +64,16 @@
 
 ;; hungry delete is useful in C ; remove up to the next non-whitespace
 (setq-default c-hungry-delete-key t)
+
+(use-package lsp-clangd
+  :ensure t
+  :init
+  (when (equal system-type 'darwin)
+    (setq lsp-clangd-executable "/usr/local/opt/llvm/bin/clangd"))
+
+  (add-hook 'c-mode-hook #'lsp-clangd-c-enable)
+  (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
+  (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable))
 
 
 ;;
@@ -116,11 +130,34 @@
   :ensure t
   :hook (web-mode sgml-mode html-mode css-mode))
 
+;; you also need vscode-html-languageserver-bin installed and on your PATH
+;; npm -i -g vscode-html-languageserver-bin
+(use-package lsp-html
+  :ensure t
+  :init
+  (add-hook 'html-mode-hook #'lsp-html-enable))
+
+
+;; you also need vscode-css-languageserver-bin installed and on your PATH
+;; npm -i -g vscode-css-languageserver-bin
+(use-package lsp-css
+  :ensure t
+  :init
+  (defun my-css-mode-setup ()
+    (when (eq major-mode 'css-mode)
+      ;; Only enable in strictly css-mode, not scss-mode (css-mode-hook
+      ;; fires for scss-mode because scss-mode is derived from css-mode)
+      (lsp-css-enable)))
+
+  (add-hook 'css-mode-hook #'my-css-mode-setup))
+
 
 ;;
 ;; BASH (SH-MODE)
 ;;
 
+;; you also need bash-language-server installed and on your PATH
+;; npm -i -g bash-language-server
 (use-package lsp-sh
   :ensure t
   :init
@@ -136,6 +173,10 @@
 ;; PYTHON
 ;;
 
+;; you also need python-language-server installed and on your PATH
+;; pip install -U setuptools
+;; pip install python-language-server[all] -isolated
+;; [all] should give you: jedi, rope, pyflakes, pycodestyle, pydocstyle, autopep8, YAPF
 (use-package lsp-python
   :ensure t
   :after lsp-mode
@@ -208,6 +249,7 @@
   :config (add-to-list 'company-backends 'company-jedi))
 
 
+;; should get all of below functionality with language-server setup
 ;; (use-package jedi
 ;;   :ensure t
 ;;   :defer t
