@@ -12,14 +12,14 @@
 ;; 2017 08 30 add s-r to sej-mode-map
 ;; 2018 03 21 added comments refering to register save and helm
 ;; 2018 08 02 removed commas from list
-
+;; 2018 10 16 mod registers
 
 ;;; Code:
 
 ;; this is defined in init+bindings.el (kbd "s-r") 'jump-to-register
 ;; use C-x r s (or x)  to save to register
 ;; use helm register C-c h C-x r i   or C-c h x (shortcut added in my init-ido-ivy-helm.el)
-(set-register ?b '(file . "~/.emacs.d/init.d/init-bindings-settings.el"))
+(set-register ?b '(file . "~/.emacs.d/init.d/init+bindings-settings.el"))
 (set-register ?d '(file . "~/.emacs.d/init.d/"))
 (set-register ?i '(file . "~/.emacs.d/init.el"))
 (set-register ?m '(file . "~/.emacs.d/init.d/init-misc-pkgs.el"))
