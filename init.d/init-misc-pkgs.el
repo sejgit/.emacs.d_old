@@ -46,8 +46,14 @@
 ;; 2018 08 06 add paredit for use in js2 & json modes
 ;; 2018 08 07 add try to allow 'trying' a package
 ;; 2018 09 27 update of which-key ohai tip
+;; 2018 10 15 add comment-dwim2
 
 ;;; Code:
+
+;; replacement for the Emacs built-in command comment-dwim which includes more features
+(use-package comment-dwim-2
+  :ensure t
+  :bind ("C-;" . comment-dwim-2))       ; moved from std M-;
 
 (use-package try
   :ensure t)

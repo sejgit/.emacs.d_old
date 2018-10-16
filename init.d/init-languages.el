@@ -1,7 +1,7 @@
 ;;; init-python.el ---  Stephen's emacs init-languages.el
 
 ;;; Commentary:
-;; Python settings for Emacs
+;; Language settings for Emacs
 ;; from lots of different sources
 
 ;; ChangeLog:

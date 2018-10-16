@@ -297,7 +297,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 
 (define-key sej-mode-map (kbd "M-'") 'next-multiframe-window)
 (define-key sej-mode-map (kbd "C-j") 'newline-and-indent)
-(define-key sej-mode-map (kbd "C-;") 'comment-dwim)
+(define-key sej-mode-map (kbd "C-;") 'comment-dwim-2) ; defined in init-misc-packages
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
 (define-key sej-mode-map (kbd "C-s") 'swiper)
