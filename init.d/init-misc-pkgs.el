@@ -13,9 +13,9 @@
 ;;            remove zenburn-theme ::used from pragmatic Emacs
 ;;            change from req-package to use-package
 ;; 2017 01 10 add swiper to M-s from pragmatic Emacs
-;;	      add crux to move to biginning of line intelligently
-;;	      add avy for efficient movement through search
-;;	      move swiper to own file & add ivy-dired-recent-dirs()
+;;	          add crux to move to biginning of line intelligently
+;;	          add avy for efficient movement through search
+;;	          move swiper to own file & add ivy-dired-recent-dirs()
 ;; 2017 01 16 add drag-stuff to move highlighted region around
 ;;            add beacon mode to highlight cursor when moved
 ;; 2017 03 30 move magit & pyenv-mode-auto to init-python.el
@@ -35,7 +35,8 @@
 ;; 2017 08 28 add smartscan & dtrt-indent & highlight-numbers
 ;; 2017 08 30 clean-up, defer, map to sej-mode-map
 ;; 2017 09 01 turn off for now as not using features
-;; 2017 09 04 move indent-guide, page-break-lines, whitespace-cleanup-mode to init-writing.el
+;; 2017 09 04 move indent-guide, page-break-lines,
+;;            whitespace-cleanup-mode to init-writing.el
 ;; 2017 09 06 removed no-littering as was messing with backups
 ;; 2017 09 07 move modes for editing filetypes to init-misc-filetypes.el
 ;; 2017 09 20 move some packages to init-appearance.el or init-movement.el
@@ -47,6 +48,9 @@
 ;; 2018 08 07 add try to allow 'trying' a package
 ;; 2018 09 27 update of which-key ohai tip
 ;; 2018 10 15 add comment-dwim2
+;; 2018 10 17 move osx definition to init-spelling
+;;            document packages a bit better
+
 
 ;;; Code:
 
@@ -55,19 +59,22 @@
   :ensure t
   :bind ("C-;" . comment-dwim-2))       ; moved from std M-;
 
+;; for TRYing out a package in current Emacs instance
 (use-package try
   :ensure t)
 
+;; moving around paredit style
 (use-package paredit
   :ensure t)
 
+;; highlighting and moving around todos and similar keywords
 (use-package hl-todo
   :ensure t
   :hook (after-init . global-hl-todo-mode)
   :bind (:map hl-todo-mode-map
-	      ("H-p" . hl-todo-previous)
-	      ("H-n" . hl-todo-next)
-	      ("H-o" . hl-todo-occur)))
+	            ("H-p" . hl-todo-previous)
+	            ("H-n" . hl-todo-next)
+	            ("H-o" . hl-todo-occur)))
 
 (use-package which-key
   :ensure t
@@ -99,8 +106,8 @@
   :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("s-=" . er/expand-region)
-	      ("s--" . er/contract-region)))
+	            ("s-=" . er/expand-region)
+	            ("s--" . er/contract-region)))
 
 ;; vlf lets you handle very large files for viewing
 (use-package vlf-setup
@@ -120,8 +127,8 @@
   :diminish google-this-mode
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ("C-c g" . google-this)
-	      ("s-g" . google-this))
+	            ("C-c g" . google-this)
+	            ("s-g" . google-this))
   :config
   (google-this-mode 1))
 
@@ -131,7 +138,7 @@
   :defer 5
   :init
   (setq-default grep-highlight-matches t
-		grep-scroll-output t)
+		            grep-scroll-output t)
   :config
   (when (eq system-type 'darwin)
     (setq-default locate-command "which")
@@ -145,31 +152,23 @@
     (setq-default ag-highlight-search t)
     (define-key sej-mode-map (kbd "M-?") 'ag-project)))
 
-;; helful is an improved help-fns & help-fns+
+;; helpful is an improved help-fns & help-fns+
 (use-package helpful
   :ensure t
   :defines sej-mode-map
   :bind (:map sej-mode-map
-	      ;;("C-h f" . helpful-function)
-	      ("C-h c" . helpful-command)
-	      ("C-h M" . helpful-macro)
-	      ("C-h v" . helpful-variable)))
+	            ;;("C-h f" . helpful-function)
+	            ("C-h c" . helpful-command)
+	            ("C-h M" . helpful-macro)
+	            ("C-h v" . helpful-variable)))
 
 ;; operate on current line if region undefined
+;; mostly for region-cut & yank
 (use-package whole-line-or-region
   :ensure t
   :defer 5
   :config
   (whole-line-or-region-global-mode t))
-
-;;use osx dictionary when possible
-(use-package osx-dictionary
-  :if (memq window-system '(mac ns))
-  :ensure t
-  :defines sej-mode-map
-  :bind (:map sej-mode-map
-	      ("C-c d" . osx-dictionary-word-at-point)
-	      ("C-c i" . osx-dictionary-search-input)))
 
 (provide 'init-misc-pkgs)
 ;;; init-misc-pkgs.el ends here

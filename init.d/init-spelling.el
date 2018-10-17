@@ -14,6 +14,7 @@
 ;; 2018 10 04 remove thesaurus & synosaurus for powerthesaurus (no key required)
 ;; 2018 10 04 add define-word
 ;; 2018 10 04 flyspell mouse-map adds
+;; 2018 10 17 move osx word definition here & use on osx
 
 ;;; Code:
 
@@ -73,13 +74,29 @@
               ("C-c s t" . powerthesaurus-lookup-word-dwim)
               ("s-|" . powerthesaurus-lookup-word-dwim)))
 
-;; Word Definition search
+
+
+;; Word Definition search for non-osx
 (use-package define-word
   :ensure t
   :bind (:map sej-mode-map
               ("C-c s w" . define-word-at-point)
               ("s-\\" . define-word-at-point)))
 
+;; OR
+
+;; pilot osx-dictionary only for osx
+;;use osx dictionary when possible
+(use-package osx-dictionary
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :defines sej-mode-map
+  :bind (:map sej-mode-map
+              ("C-c s w" . osx-dictionary-word-at-point)
+              ("s-\\" . osx-dictionary-word-at-point)
+              ("C-c s i" . osx-dictionary-search-input)
+              ("s-i" . osx-dictionary-search-input)
+              ))
 
 (provide 'init-spelling)
 ;;; init-spelling.el ends here

@@ -16,9 +16,20 @@
 ;; 2018 10 09 some changes to work with language-server-protocall
 ;; 2018 10 10 changed to init-languages.el to hold all lsp type stuff
 ;; 2018 10 15 lsp added for c modes, html modes, css, python, bash/sh, java, js
-
+;; 2018 10 17 add all-format
 
 ;;; Code:
+
+;;
+;; Formatting
+;;
+
+(use-package format-all
+  :ensure t
+  :bind (:map sej-mode-map
+              ("C-c s f" . format-all-buffer)
+              ("A-f" . format-all-buffer)))
+
 
 ;;
 ;; LSP SETUP

@@ -67,7 +67,6 @@
 
 ;; Elasticsearch uses asciidoc everywhere for documentation
 (use-package adoc-mode
-  :defer t
   :ensure t
   )
 
