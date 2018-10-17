@@ -19,11 +19,13 @@
 ;; this is defined in init+bindings.el (kbd "s-r") 'jump-to-register
 ;; use C-x r s (or x)  to save to register
 ;; use helm register C-c h C-x r i   or C-c h x (shortcut added in my init-ido-ivy-helm.el)
-(set-register ?b '(file . "~/.emacs.d/init.d/init+bindings-settings.el"))
+(set-register ?b '(file . "~/.emacs.d/init.d/init+bindings.el"))
+(set-register ?s '(file . "~/.emacs.d/init.d/init+settings.el"))
 (set-register ?d '(file . "~/.emacs.d/init.d/"))
 (set-register ?i '(file . "~/.emacs.d/init.el"))
 (set-register ?m '(file . "~/.emacs.d/init.d/init-misc-pkgs.el"))
 (set-register ?r '(file . "~/.emacs.d/init.d/init-registers.el"))
+(set-register ?a '(file . "~/.emacs.d/init.d/init-appearance.el"))
 
 (provide 'init-registers)
 

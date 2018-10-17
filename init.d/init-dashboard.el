@@ -11,6 +11,7 @@
 ;; 2018 08 02 fixed crashing (I hope)
 ;;            added initial-buffer-choice for use in emacsclient
 ;;            added bind & hook
+;; 2018 10 17 edit registers settings
 
 ;;; Code:
 
@@ -19,7 +20,7 @@
   :defines sej-mode-map
   :hook (after-init . dashboard-refresh-buffer)
   :bind (:map sej-mode-map
-	      ("C-c s d" . dashboard-refresh-buffer))
+	            ("C-c s d" . dashboard-refresh-buffer))
   :config
   ;; Set the banner
   (setq dashboard-startup-banner nil)
@@ -30,10 +31,10 @@
   ;; "path/to/your/image.png which displays whatever image you would prefer
 
   (setq dashboard-items '((recents . 15)
-			  (bookmarks . 15)
-			  (projects . 15)
-			  (registers . 5)
-			  ))
+			                    (bookmarks . 15)
+			                    (projects . 15)
+			                    (registers . 10)
+			                    ))
 
   ;; To display today’s agenda items on the dashboard, add agenda to dashboard-items:
 
