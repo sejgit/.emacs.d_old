@@ -26,7 +26,8 @@
   (:map sej-mode-map
         ("<f8>" . ispell-word)
         ("C-<f8>" . flyspell-mode)
-        ("M-<f8>" . flyspell-check-next-highlighted-word))
+        ("M-<f8>" . flyspell-check-next-highlighted-word)
+        ("S-<f8>" . ispell-region))
   :hook (text-mode . flyspell-mode)
   :config
   (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word) ;;for mac
