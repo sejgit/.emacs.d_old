@@ -283,6 +283,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "M-`") 'file-cache-minibuffer-complete)
 (define-key sej-mode-map (kbd "s-n") 'bs-cycle-next)
 (define-key sej-mode-map (kbd "s-p") 'bs-cycle-previous)
+(setq-default bs-default-configuration "all-intern-last")
 (define-key sej-mode-map (kbd "C-c b") 'sej/create-scratch-buffer) ; defined below
 (define-key sej-mode-map (kbd "C-c s s") 'sej/create-scratch-buffer) ; defined below
 (define-key sej-mode-map (kbd "C-c <tab>") 'sej/indent-buffer) ; defined below

@@ -125,6 +125,11 @@
   (setq mode-icons-desaturate-inactive nil)
   (mode-icons-mode))
 
+;; macos only to make appearance of titlebar match theme
+(use-package ns-auto-titlebar
+  :if (memq window-system '(mac ns))
+  :ensure t)
+
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here
