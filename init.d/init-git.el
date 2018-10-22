@@ -173,18 +173,33 @@
   ;; (setq magit-todos-require-colon t)  -- default - change to nil to catch all
   (magit-todos-mode))
 
+;; Mark & move between uncommitted changes
 (use-package diff-hl
   :ensure t
   :hook (dired-mode . diff-hl-dired-mode)
   :config
   (global-diff-hl-mode))
 
-;; Mark uncommitted changes
-(use-package git-gutter
+;; Mark & move between uncommitted changes
+(use-package git-gutter+
   :ensure t
+  :init (global-git-gutter+-mode)
+  :bind (:map sej-mode-map
+              ("C-x n" . git-gutter+-next-hunk)
+              ("C-x p" . git-gutter+-previous-hunk)
+              ("C-x v =" . git-gutter+-show-hunk)
+              ("C-x v r" . git-gutter+-revert-hunks)
+              ("C-x v s" . git-gutter+-stage-hunks)
+              ("C-x c" . git-gutter+-commit)
+              ("C-x C" . git-gutter+-stage-and-commit)
+              ("C-x v SPC" . git-gutter:mark-hunk)
+              ("C-x C-y" . git-gutter+-stage-and-commit-whole-buffer)
+              ("C-x U" . git-gutter+-unstage-whole-buffer))
   :config
   (global-git-gutter-mode t)
-  :diminish git-gutter-mode)
+  (setq git-gutter:ask-p nil)
+  :diminish git-gutter-mode . "gg")
+
 
 (provide 'init-git)
 ;;; init-git.el ends here
