@@ -20,7 +20,7 @@
   :defines sej-mode-map
   ;;  :diminish projectile-mode
   :bind (:map sej-mode-map
-	            ("s-p" . projectile-command-map)
+	            ("s-P" . projectile-command-map)
 	            ("C-c p" . projectile-command-map))
   :hook (after-init . projectile-mode)
   :config

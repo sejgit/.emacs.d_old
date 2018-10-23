@@ -198,7 +198,7 @@
   :config
   (global-git-gutter-mode t)
   (setq git-gutter:ask-p nil)
-  :diminish git-gutter-mode . "gg")
+  :diminish (git-gutter-mode . "gg"))
 
 
 (provide 'init-git)
