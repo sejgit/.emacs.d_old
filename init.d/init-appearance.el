@@ -31,7 +31,23 @@
   (require 'eyeliner)
   (eyeliner/install))
 
-(use-package spaceline
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-default-theme))
+
+;; show icons for modes
+(use-package mode-icons
+  :ensure t
+  :defines
+  mode-icons-desaturate-inactive
+  :config
+  (setq mode-icons-desaturate-inactive nil)
+  (mode-icons-mode))
+
+;; macos only to make appearance of titlebar match theme
+(use-package ns-auto-titlebar
+  :if (memq window-system '(mac ns))
   :ensure t)
 
 (use-package dimmer
@@ -115,20 +131,6 @@
   :defer 0.1
   :pin gnu
   :hook (after-init . rainbow-mode))
-
-;; show icons for modes
-(use-package mode-icons
-  :ensure t
-  :defines
-  mode-icons-desaturate-inactive
-  :config
-  (setq mode-icons-desaturate-inactive nil)
-  (mode-icons-mode))
-
-;; macos only to make appearance of titlebar match theme
-(use-package ns-auto-titlebar
-  :if (memq window-system '(mac ns))
-  :ensure t)
 
 
 (provide 'init-appearance)
