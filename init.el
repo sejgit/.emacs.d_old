@@ -254,6 +254,8 @@
         (setq load-dir-debug nil)
         (setq load-dir-recursive nil)
         (load-dir-one init-dir))
+      ;; set font to Adobe Source Code Pro
+      ;;(set-face-attribute 'default nil :foundry "apple" :family "Source Code Pro")
       ))
    ((string-equal system-type "gnu/linux") ; linux
     (progn
