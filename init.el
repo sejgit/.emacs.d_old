@@ -139,6 +139,12 @@
     :ensure t)
   (use-package load-dir
     :ensure t)
+  (use-package no-littering
+    :ensure t
+    :config
+    (require 'recentf)
+    (add-to-list 'recentf-exclude no-littering-var-directory)
+    (add-to-list 'recentf-exclude no-littering-etc-directory))
 
   (use-package server
     :unless (memq window-system '(w32 pc nil))
