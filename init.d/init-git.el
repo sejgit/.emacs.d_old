@@ -196,9 +196,10 @@
               ("C-x C-y" . git-gutter+-stage-and-commit-whole-buffer)
               ("C-x U" . git-gutter+-unstage-whole-buffer))
   :config
-  (global-git-gutter-mode t)
-  (setq git-gutter:ask-p nil)
-  :diminish (git-gutter-mode . "gg"))
+;;  (global-git-gutter-mode t)
+;;  (setq git-gutter:ask-p nil)
+  :diminish (git-gutter-mode . "gg")
+  )
 
 
 (provide 'init-git)

@@ -1,4 +1,4 @@
-;;; init-python.el ---  Stephen's emacs init-languages.el
+;;; init-languages.el ---  Stephen's emacs init-languages.el
 
 ;;; Commentary:
 ;; Language settings for Emacs
@@ -17,6 +17,7 @@
 ;; 2018 10 10 changed to init-languages.el to hold all lsp type stuff
 ;; 2018 10 15 lsp added for c modes, html modes, css, python, bash/sh, java, js
 ;; 2018 10 17 add all-format
+;; 2018 12 28 fix lsp servers
 
 ;;; Code:
 
@@ -38,7 +39,10 @@
 ;; Basic lsp-mode config.
 ;; Language modules will add their own lsp setup if this is loaded.
 (use-package lsp-mode
-  :ensure t)
+  :ensure t
+  :config
+  (require 'lsp-clients)
+  (add-hook 'python-mode-hook 'lsp))
 
 (use-package company-lsp
   :ensure t
@@ -75,20 +79,6 @@
 ;; hungry delete is useful in C ; remove up to the next non-whitespace
 (setq-default c-hungry-delete-key t)
 
-(use-package lsp-clangd
-  :ensure t
-  :init
-  (when (equal system-type 'darwin)
-    (setq lsp-clangd-executable "/usr/local/opt/llvm/bin/clangd"))
-
-  (add-hook 'c-mode-hook #'lsp-clangd-c-enable)
-  (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
-  (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable))
-
-
-;;
-;; C#
-;;
 
 ;; arduino-mode
 (use-package arduino-mode
@@ -141,37 +131,18 @@
   :hook (web-mode sgml-mode html-mode css-mode))
 
 ;; you also need vscode-html-languageserver-bin installed and on your PATH
-;; npm -i -g vscode-html-languageserver-bin
-(use-package lsp-html
-  :ensure t
-  :init
-  (add-hook 'html-mode-hook #'lsp-html-enable))
-
+;; npm install -g vscode-html-languageserver-bin
 
 ;; you also need vscode-css-languageserver-bin installed and on your PATH
-;; npm -i -g vscode-css-languageserver-bin
-(use-package lsp-css
-  :ensure t
-  :init
-  (defun my-css-mode-setup ()
-    (when (eq major-mode 'css-mode)
-      ;; Only enable in strictly css-mode, not scss-mode (css-mode-hook
-      ;; fires for scss-mode because scss-mode is derived from css-mode)
-      (lsp-css-enable)))
-
-  (add-hook 'css-mode-hook #'my-css-mode-setup))
-
+;; npm install -g vscode-css-languageserver-bin
 
 ;;
 ;; BASH (SH-MODE)
 ;;
 
 ;; you also need bash-language-server installed and on your PATH
-;; npm -i -g bash-language-server
-(use-package lsp-sh
-  :ensure t
-  :init
-  (add-hook 'sh-mode-hook #'lsp-sh-enable))
+;; npm install -g bash-language-server
+
 
 (use-package company-shell
   :ensure t
@@ -184,21 +155,9 @@
 ;;
 
 ;; you also need python-language-server installed and on your PATH
-;; pip install -U setuptools
-;; pip install python-language-server[all] -isolated
+;; pip3 install -U setuptools
+;; pip3 install python-language-server[all] --isolated
 ;; [all] should give you: jedi, rope, pyflakes, pycodestyle, pydocstyle, autopep8, YAPF
-(use-package lsp-python
-  :ensure t
-  :after lsp-mode
-  :init
-  (add-hook 'python-mode-hook #'lsp-python-enable)
-  (lsp-define-stdio-client lsp-python "python"
-			                     (lsp-make-traverser #'(lambda (dir)
-						                                       (not (directory-files
-						                                             dir
-						                                             nil
-						                                             "__init__.py"))))
-			                     '("pyls")))
 
 (use-package python
   :ensure t
@@ -343,24 +302,6 @@
 
 ;; ;; you also need lsp-javascript-typescript installed and on your PATH
 ;; npm -i -g javascript-typescript-langserver
-(use-package lsp-javascript-typescript
-  :ensure t
-  :init
-  (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
-  (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable) ;; for typescript support
-  (add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
-  (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
-
-  (defun my-company-transformer (candidates)
-    (let ((completion-ignore-case t))
-      (all-completions (company-grab-symbol) candidates)))
-
-  (defun my-js-hook nil
-    (make-local-variable 'company-transformers)
-    (push 'my-company-transformer company-transformers))
-
-  (add-hook 'js-mode-hook 'my-js-hook))
-
 
 (provide 'init-languages)
 ;;; init-languages.el ends here
