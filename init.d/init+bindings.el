@@ -301,7 +301,7 @@ USAGE: (unbind-from-modi-map \"key f\")."
 (define-key sej-mode-map (kbd "C-;") 'comment-dwim-2) ; defined in init-misc-packages
 (define-key sej-mode-map (kbd "M-/") 'hippie-expand)
 (define-key sej-mode-map (kbd "M-j") (lambda () (interactive) (join-line -1)))
-(define-key sej-mode-map (kbd "C-s") 'swiper)
+(define-key sej-mode-map (kbd "C-s") 'swiper-isearch)
 
 (define-key sej-mode-map (kbd "C-+") 'text-scale-increase)
 (define-key sej-mode-map (kbd "C--") 'text-scale-decrease)
