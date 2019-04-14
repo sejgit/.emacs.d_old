@@ -154,6 +154,11 @@
 
 (define-key sej-mode-map (kbd "C-c s n") 'number-rectangle)
 
+(use-package define-word
+  :ensure t
+  :bind (("H-d" . define-word-at-point)
+         ("H-D" . define-word)))
+
 
 (provide 'init-writing)
 ;;; init-writing.el ends here
