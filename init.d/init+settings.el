@@ -27,6 +27,7 @@
 ;; 2017 09 19 add transpose keybindings & others from magnar
 ;; 2017 09 20 make more pure settings & move others stuff out
 ;; 2017 09 24 some ohai tips
+;; 2019 04 12 regex-builder settings
 
 ;;; Code:
 
