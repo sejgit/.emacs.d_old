@@ -30,6 +30,9 @@
 
 ;;; Code:
 
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
 ;; indentation & CodeStyle
 (setq-default tab-width 2
               indent-tabs-mode nil
