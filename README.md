@@ -1,4 +1,3 @@
 # .emacs.d
-my emacs settings
-
-
+my old emacs settings
+saved for archive
